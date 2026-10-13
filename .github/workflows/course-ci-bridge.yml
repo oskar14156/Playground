@@ -114,8 +114,7 @@ jobs:
           persist-credentials: false
           path: private-fixture
 
-      - name: Setup Node 22
-        if: ${{ inputs.fixture_language == 'node' }}
+      - name: Setup Node 22 for the public bridge runtime
         uses: actions/setup-node@v4
         with:
           node-version: '22'
