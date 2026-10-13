@@ -9,7 +9,8 @@ Dies ist ein **Integrationstest der hier öffentlich entwickelten CI-Bridge**: A
 - `course-exercise/ci-bridge/contract.mjs`: Validierung von 20 Tests.
 - `course-exercise/ci-bridge/run-fixture.mjs`: startet die Tests ohne Übergabe des Repo-Lesetokens; unterdrückt Rohlogs.
 - `course-exercise/ci-bridge/contract.test.mjs`: öffentliche Unit-/Sicherheitsprüfungen.
-- `.github/workflows/course-ci-bridge.yml`: öffentlicher Workflow mit Unit- und 20-Dateien-Public-Fixture-Test; optional einmaliger Integrationslauf mit privatem Fixture.
+- `course-exercise/ci-bridge/generic-fixture.test.mjs`: **20 allgemeine Integritätschecks** eines Git-Checkouts, die ohne projektinterne Testdateien laufen. Sie prüfen die technische Integration, **nicht** die App-Funktionalität.
+- `.github/workflows/course-ci-bridge.yml`: öffentlicher Workflow mit Unit-, 20-Dateien- und Generic-Public-Fixture-Tests; optional einmaliger Integrationslauf mit privatem Fixture.
 
 GitHub Actions ist für das **Softwareprojekt des jeweiligen Repositories** gedacht. GitHubs zusätzliche Terms untersagen auf GitHub-Hosted-Runnern Arbeiten ohne Bezug zum dortigen Softwareprojekt. Das bloße Verlegen beliebiger privater CI-Workloads in ein öffentliches Repo, nur um die private Abrechnung zu umgehen, ist **kein zulässiger allgemeiner Dienst**. Eine Studienübung, die die Kompatibilität des *öffentlich entwickelten* CI-Bridge-Projekts mit einem ausgewählten privaten Test-Fixture nachweist, muss tatsächlich diesem Projekt dienen; GitHub entscheidet über die Auslegung/zulässige Nutzung. **Bitte nicht als dauerhaft kostenlosen CI-Proxy einsetzen.**
 
@@ -35,7 +36,7 @@ Die folgenden Werte sind bereits im privaten Repository vorhanden:
 
 **Run workflow** anklicken. Erwartet wird im **öffentlichen** Workflow:
 
-- `Test public CI Bridge implementation` → PASS, inklusive 20 synthetischer öffentlicher Probe-Dateien.
+- `Test public CI Bridge implementation` → PASS, inklusive 20 synthetischer öffentlicher Probe-Dateien **und 20 allgemeiner öffentlicher Git-Checkout-Prüfungen**.
 - `One-time private fixture integration` → Checkout des privaten Repositories und erfolgreiche Ausführung von 20 realen Testdateien. Im bereits bestätigten privaten Vergleichslauf waren es 161 Einzeltests.
 - Es wird **nur eine allgemeine PASS-Zusammenfassung** geloggt; private Testnamen, Stacktraces und Dateiinhalte werden nicht absichtlich veröffentlicht. Die Workflows anderer Projekte im vorhandenen Playground sind unabhängig und können einen eigenen Status haben.
 
@@ -45,8 +46,8 @@ Ein solcher Lauf wird in **Playground → Actions** dem öffentlichen Repository
 
 1. Nur mit Zustimmung des Professors und Berechtigung zur Nutzung: ein Repo in deinem Account als **privates Repository** bereitstellen. Achtung: GitHub erzwingt **öffentliche Forks öffentlicher Upstreams**. Wenn sein Ausgangsrepo öffentlich ist, benötigt ihr stattdessen einen **Import in ein neues privates Repository** oder einen autorisierten lokalen Clone+Push; das ist dann technisch kein Fork. Ein erlaubter privater Fork eines privaten Upstreams bleibt privat.
 2. Der Token muss Lesezugriff auf **genau dieses neue private Repo** erhalten (PAT-Repoliste entsprechend anpassen bzw. neues eng begrenztes Token erzeugen und das Secret ersetzen).
-3. Der Testadapter unterstützt derzeit **Node.js Node-Test-Runner (JavaScript/TypeScript auf Node 22)** und **Python pytest (Python 3.12)**. Das private Repo benötigt 20 kompatible Testdateien. Nicht jedes beliebige Repo hat 20 solcher Dateien oder läuft ohne eigene Abhängigkeiten; eine universelle 100%-Zusage wäre falsch.
-4. Am zuverlässigsten legt der Professor im privaten Repo einen Pfad wie `ci/bridge-test-manifest.txt` mit **genau 20 relativen Testdateipfaden** an (eine Datei pro Zeile). Diesen Pfad in **fixture_manifest** angeben. Alternativ das Feld leer lassen: Der öffentliche Adapter findet automatisch die ersten 20 alphabetisch sortierten passenden Dateien im privaten Checkout.
+3. Der Adapter unterstützt **Node.js Node-Test-Runner (JavaScript/TypeScript auf Node 22)**, **Python pytest (Python 3.12)** und **`generic`**. Bei `generic` werden **20 echte technische Checkout-/Git-Integritätschecks** über das private Repo ausgeführt, selbst wenn dieses keine Tests hat. Das ist der universelle Fallback für eine unbekannte Programmiersprache, **kein Beweis für korrekte Anwendungslogik**. Für echte projektinterne Tests benötigt Node/Python 20 kompatible Testdateien.
+4. Für **Node/Python** am zuverlässigsten im privaten Repo `ci/bridge-test-manifest.txt` mit **genau 20 relativen Testdateipfaden** anlegen (eine Datei pro Zeile) und als **fixture_manifest** angeben. Alternativ Feld leer lassen: Der Adapter findet die ersten 20 alphabetisch sortierten passenden Dateien. Für **generic** `fixture_manifest` leer lassen, `dependency_setup=none` auswählen; das läuft auch ohne projektinterne Tests auf nichtleeren Git-Repositories.
 5. Für Node-Projekte mit nötigen npm-Abhängigkeiten **dependency_setup = npm-ci** (benötigt ein funktionierendes `package-lock.json`; Install-Skripte werden aus Sicherheitsgründen nicht ausgeführt). Für pytest-Projekte mit `requirements.txt` **dependency_setup = python-requirements**; ansonsten **none**.
 6. **fixture_repository** auf `oskar14156/PROFESSOR-FIXTURE` und **fixture_ref** auf den gewünschten privaten Branch/SHA setzen. Nur Repositories unter `oskar14156` werden akzeptiert.
 7. Als Abgabenachweis den **öffentlichen** GitHub-Actions-Lauf öffnen, die zwei grünen Jobs und die kurze Test-Zusammenfassung dokumentieren. Die private Quelle ist nicht im öffentlichen Repo committed.
@@ -59,6 +60,7 @@ Nach Abgabe das PAT auf GitHub **widerrufen**, das Secret **`CI_BRIDGE_READ_TOKE
 - Aus dem öffentlichen Workflow werden keine privaten Testberichte, Caches oder Artifacts hochgeladen. Test-Ausgaben werden im Prozess gesammelt und nicht ins öffentliche Log geleitet; bei Fehlern erfolgt bewusst **keine** Rohdiagnose. Für Debugging den Test privat/lokal wiederholen.
 - `actions/checkout` ist mit `persist-credentials: false` konfiguriert. Das fine-grained PAT erhält ausschließlich Repo-Leserechte und wird nicht in den Testprozess übernommen.
 - Der Job ist auf zwölf Minuten begrenzt. Ohne Secret gibt es **keinen** erfolgreichen privaten Checkout. Der Bridge-Test selbst braucht **keine** Tokens.
+- Der `generic`-Modus prüft nur Infrastruktur/Checkout (20 Prüfungen), nicht den Build oder die fachliche Qualität des privaten Projekts. Für einen Nachweis von **20 echten Anwendungstests** immer `node` oder `python` mit einem passenden Testmanifest verwenden.
 - Erfolgreiche GitHub-Actions-Tests sind kein Beweis, dass die gesamte mobile App gebaut, veröffentlicht oder im Store geprüft werden kann.
 
 ### Quellen
