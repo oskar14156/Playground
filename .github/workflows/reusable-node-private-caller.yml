@@ -44,7 +44,7 @@ jobs:
           if len(lines)!=20 or len(set(lines))!=20:
               raise SystemExit(f"Expected exactly 20 unique tests, received {len(lines)}")
           for name in lines:
-              if not re.fullmatch(r"[A-Za-z0-9_/-]+\\.test\\.ts", name) or name.startswith("/"):
+              if not re.fullmatch(r"[A-Za-z0-9_/-]+\.test\.ts", name) or name.startswith("/"):
                   raise SystemExit("Unsafe test filename")
               if not pathlib.Path(name).is_file():
                   raise SystemExit(f"Test file absent from caller checkout: {name}")
