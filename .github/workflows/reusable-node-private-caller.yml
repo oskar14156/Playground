@@ -1,0 +1,58 @@
+name: Reusable Node tests (caller repository)
+
+# Shared PUBLIC workflow definition. A PRIVATE caller uses its own private
+# checkout and its own runner allocation / billing. This is NOT free public CI.
+on:
+  workflow_call:
+    inputs:
+      manifest:
+        description: Relative path in the CALLER repo listing exactly 20 *.test.ts files.
+        required: false
+        default: ci/private-20-test-files.txt
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout CALLER repository (not public Playground)
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Setup Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Validate exact test manifest and run caller tests
+        env:
+          TEST_MANIFEST: ${{ inputs.manifest }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import os, pathlib, re
+          p=pathlib.Path(os.environ["TEST_MANIFEST"])
+          if p.is_absolute() or ".." in p.parts or not p.is_file():
+              raise SystemExit("Invalid test manifest path")
+          lines=[line.strip() for line in p.read_text().splitlines() if line.strip()]
+          if len(lines)!=20 or len(set(lines))!=20:
+              raise SystemExit(f"Expected exactly 20 unique tests, received {len(lines)}")
+          for name in lines:
+              if not re.fullmatch(r"[A-Za-z0-9_/-]+\\.test\\.ts", name) or name.startswith("/"):
+                  raise SystemExit("Unsafe test filename")
+              if not pathlib.Path(name).is_file():
+                  raise SystemExit(f"Test file absent from caller checkout: {name}")
+          print("Manifest validated: 20 distinct private-repository test files.")
+          PY
+          mapfile -t cases < "$TEST_MANIFEST"
+          node --experimental-strip-types --test "${cases[@]}"
+          echo "### Private caller: 20 existing test files completed" >> "$GITHUB_STEP_SUMMARY"
+
+# Important: The files, code, logs and runtime belong to the private CALLER.
+# The GitHub-hosted runner is charged to the caller, not this public repository.
