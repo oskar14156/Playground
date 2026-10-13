@@ -1,0 +1,51 @@
+name: Course exercise - ten public pricing tests
+
+# This workflow tests only the PUBLIC teaching module in this repository.
+# It never fetches or runs code from a private repository.
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - course/ten-test-pricing-lab
+    paths:
+      - 'course-exercise/**'
+      - '.github/workflows/course-ten-tests.yml'
+  pull_request:
+    paths:
+      - 'course-exercise/**'
+      - '.github/workflows/course-ten-tests.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  ten-public-tests:
+    name: Ten public price-planning tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out public Playground source
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Install Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check JavaScript syntax
+        run: |
+          node --check course-exercise/src/pricing-plan.mjs
+          node --check course-exercise/tests/pricing-plan.test.mjs
+      - name: Run and count exactly ten public tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --test --test-reporter=tap course-exercise/tests/pricing-plan.test.mjs | tee "$RUNNER_TEMP/course-tests.tap"
+          grep -Fqx '# tests 10' "$RUNNER_TEMP/course-tests.tap"
+          grep -Fqx '# pass 10' "$RUNNER_TEMP/course-tests.tap"
+      - name: Record classroom result
+        run: |
+          echo '### Classroom exercise' >> "$GITHUB_STEP_SUMMARY"
+          echo '10/10 public, offline, dependency-free pricing tests passed.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'No private repositories, secrets, store APIs, or production prices accessed.' >> "$GITHUB_STEP_SUMMARY"
