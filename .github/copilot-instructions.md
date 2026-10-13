@@ -1,0 +1,1 @@
+Read the root AGENTS.md before edits or CI activity. This public repository is for its own public software and fixtures. Never checkout or build private repositories in its hosted Actions simply to avoid private CI billing. Keep secrets out of code/logs/artifacts and never describe the 10 public exercise tests as actual private-app test results.
