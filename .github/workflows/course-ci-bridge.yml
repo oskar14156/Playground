@@ -1,0 +1,155 @@
+name: Course CI Bridge - public runner integration
+
+# Educational integration test for the PUBLIC CI Bridge software.
+# Not a general-purpose free private CI proxy.
+on:
+  push:
+    branches:
+      - main
+      - course/private-fixture-integration-v1
+    paths:
+      - 'course-exercise/ci-bridge/**'
+      - '.github/workflows/course-ci-bridge.yml'
+  workflow_dispatch:
+    inputs:
+      fixture_repository:
+        description: 'Private integration fixture: OWNER/REPO (must be owned by this account)'
+        required: false
+        type: string
+      fixture_ref:
+        description: 'Private branch, tag, or commit SHA (default: main)'
+        required: false
+        default: main
+        type: string
+      fixture_language:
+        description: 'Fixture test adapter'
+        required: true
+        type: choice
+        default: node
+        options:
+          - node
+          - python
+      fixture_manifest:
+        description: 'Optional path to 20 test files manifest within private fixture'
+        required: false
+        type: string
+      dependency_setup:
+        description: 'Fixture dependencies'
+        required: true
+        type: choice
+        default: none
+        options:
+          - none
+          - npm-ci
+          - python-requirements
+
+permissions:
+  contents: read
+
+jobs:
+  public-bridge-tests:
+    name: Test public CI Bridge implementation
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax and security contracts
+        run: |
+          node --check course-exercise/ci-bridge/contract.mjs
+          node --check course-exercise/ci-bridge/run-fixture.mjs
+          node --check course-exercise/ci-bridge/contract.test.mjs
+          node --test course-exercise/ci-bridge/contract.test.mjs
+
+  private-fixture-integration:
+    name: One-time private fixture integration (public CI software)
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.fixture_repository != '' }}
+    needs: public-bridge-tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Check account ownership and secret presence
+        shell: bash
+        env:
+          FIXTURE: ${{ inputs.fixture_repository }}
+          OWNER: ${{ github.repository_owner }}
+          FIXTURE_TOKEN: ${{ secrets.CI_BRIDGE_READ_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [[ ! "$FIXTURE" =~ ^[a-zA-Z0-9_-]+/[a-zA-Z0-9_.-]+$ ]] || [[ "${FIXTURE%%/*}" != "$OWNER" ]]; then
+            echo 'Only a fixture repository under this GitHub owner is accepted.'
+            exit 1
+          fi
+          if [[ -z "$FIXTURE_TOKEN" ]]; then
+            echo 'Missing CI_BRIDGE_READ_TOKEN secret. Use fine-grained read-only token scoped to the private fixture.'
+            exit 1
+          fi
+
+      - name: Checkout PUBLIC bridge source
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          path: playground
+
+      - name: Checkout ephemeral PRIVATE integration fixture
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ inputs.fixture_repository }}
+          ref: ${{ inputs.fixture_ref }}
+          token: ${{ secrets.CI_BRIDGE_READ_TOKEN }}
+          persist-credentials: false
+          path: private-fixture
+
+      - name: Setup Node 22
+        if: ${{ inputs.fixture_language == 'node' }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Setup Python 3.12
+        if: ${{ inputs.fixture_language == 'python' }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install declared dependencies without scripts or diagnostic logs
+        shell: bash
+        env:
+          SETUP: ${{ inputs.dependency_setup }}
+          LANG: ${{ inputs.fixture_language }}
+        run: |
+          set -euo pipefail
+          if [[ "$SETUP" == "npm-ci" && "$LANG" == "node" ]]; then
+            (cd private-fixture && npm ci --ignore-scripts --no-audit --no-fund --silent) >/dev/null 2>&1 || {
+              echo 'Private fixture npm dependency setup failed (logs withheld).'
+              exit 1
+            }
+          elif [[ "$LANG" == "python" ]]; then
+            python -m pip install -q pytest >/dev/null 2>&1 || exit 1
+            if [[ "$SETUP" == "python-requirements" ]]; then
+              (cd private-fixture && python -m pip install -q -r requirements.txt) >/dev/null 2>&1 || {
+                echo 'Private fixture Python dependencies unavailable (logs withheld).'
+                exit 1
+              }
+            elif [[ "$SETUP" != "none" ]]; then
+              echo 'Invalid dependency setup for Python'; exit 1
+            fi
+          elif [[ "$SETUP" != "none" ]]; then
+            echo 'Invalid dependency setup for Node'; exit 1
+          fi
+
+      - name: Execute exactly 20 selected private fixture test files
+        env:
+          BRIDGE_FIXTURE_PATH: private-fixture
+          BRIDGE_LANGUAGE: ${{ inputs.fixture_language }}
+          BRIDGE_MANIFEST: ${{ inputs.fixture_manifest }}
+        run: node playground/course-exercise/ci-bridge/run-fixture.mjs
+
+      - name: Remove checked-out fixture
+        if: always()
+        shell: bash
+        run: rm -rf -- private-fixture
