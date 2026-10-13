@@ -64,6 +64,16 @@ jobs:
           node --check course-exercise/ci-bridge/run-fixture.mjs
           node --check course-exercise/ci-bridge/contract.test.mjs
           node --test course-exercise/ci-bridge/contract.test.mjs
+      - name: End-to-end run against twenty PUBLIC fixture test files
+        shell: bash
+        run: |
+          set -euo pipefail
+          fixture="$(mktemp -d "$RUNNER_TEMP/public-bridge-fixture.XXXX")"
+          mkdir -p "$fixture/tests"
+          for n in $(seq -w 1 20); do
+            printf 'import test from "node:test"; import assert from "node:assert/strict"; test("public integration probe", () => assert.ok(true));\n' > "$fixture/tests/probe${n}.test.mjs"
+          done
+          BRIDGE_FIXTURE_PATH="$fixture" BRIDGE_LANGUAGE=node node course-exercise/ci-bridge/run-fixture.mjs
 
   private-fixture-integration:
     name: One-time private fixture integration (public CI software)
