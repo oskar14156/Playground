@@ -1,0 +1,43 @@
+name: Run Tests
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Branch or SHA to test'
+        required: false
+        default: ''
+        type: string
+      test_command:
+        description: 'Test command (default: auto-detect)'
+        required: false
+        default: 'auto'
+        type: string
+      install_command:
+        description: 'Install command (default: auto-detect)'
+        required: false
+        default: 'auto'
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    steps:
+      - name: Delegate to CI pipeline
+        env:
+          GH_TOKEN: ${{ secrets.CI_DISPATCH_TOKEN }}
+        run: |
+          REF="${{ inputs.ref }}"
+          if [ -z "$REF" ]; then
+            REF="${GITHUB_REF_NAME}"
+          fi
+          gh workflow run universal-ci-runner.yml \
+            --repo oskar14156/Playground \
+            -f repository="${GITHUB_REPOSITORY}" \
+            -f ref="${REF}" \
+            -f test_command="${{ inputs.test_command }}" \
+            -f install_command="${{ inputs.install_command }}"
+          echo "Tests delegated. Check results: https://github.com/oskar14156/Playground/actions/workflows/universal-ci-runner.yml"
