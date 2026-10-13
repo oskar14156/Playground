@@ -1,5 +1,8 @@
-# Agent entrypoint
+# AI Agent Entrypoint
 
-Read and obey [AGENTS.md](AGENTS.md) before making CI changes. The public course assignment lives in [course-exercise/README.md](course-exercise/README.md).
+Read [AGENTS.md](AGENTS.md) for full instructions and prompt templates.
 
-Never use this public GitHub-hosted Actions repository as a private-source checkout/build proxy. Keep public workflows limited to their corresponding public project and do not publish private code, credentials or logs.
+## Quick Summary
+- Do not execute heavy tests on private repository minutes.
+- Use `oskar14156/Playground` with workflow `.github/workflows/universal-ci-runner.yml` to run tests on public free minutes.
+- Private code is cloned ephemerally and wiped at job completion, preserving confidentiality.

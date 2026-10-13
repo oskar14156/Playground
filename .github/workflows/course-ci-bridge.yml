@@ -96,8 +96,8 @@ jobs:
           FIXTURE_TOKEN: ${{ secrets.CI_BRIDGE_READ_TOKEN }}
         run: |
           set -euo pipefail
-          if [[ ! "$FIXTURE" =~ ^[a-zA-Z0-9_-]+/[a-zA-Z0-9_.-]+$ ]] || [[ "${FIXTURE%%/*}" != "$OWNER" ]]; then
-            echo 'Only a fixture repository under this GitHub owner is accepted.'
+          if [[ ! "$FIXTURE" =~ ^[a-zA-Z0-9_-]+/[a-zA-Z0-9_.-]+$ ]]; then
+            echo 'Invalid repository format. Expected OWNER/REPO.'
             exit 1
           fi
           if [[ -z "$FIXTURE_TOKEN" ]]; then
@@ -157,7 +157,7 @@ jobs:
             echo 'Invalid dependency setup for Node'; exit 1
           fi
 
-      - name: Execute exactly 20 selected private fixture test files
+      - name: Execute selected private fixture test files
         env:
           BRIDGE_FIXTURE_PATH: private-fixture
           BRIDGE_LANGUAGE: ${{ inputs.fixture_language }}

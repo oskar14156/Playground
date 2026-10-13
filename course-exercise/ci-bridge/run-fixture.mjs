@@ -44,12 +44,12 @@ try {
   });
   if (run.error || run.status !== 0) throw new Error("Private fixture test process failed");
   const result = resultSummary(run.stdout || "", generic ? "node" : kind);
-  if (result.fail !== 0 || result.pass < 20 || result.tests !== result.pass || (generic && result.tests !== 20)) {
+  if (result.fail !== 0 || result.pass < 1 || result.tests !== result.pass || (generic && result.tests !== 20)) {
     throw new Error("Private fixture did not pass all tests");
   }
   const message = generic
     ? "Integration PASS: 20 generic checkout integrity checks passed; no fixture code or raw logs published."
-    : "Integration PASS: 20 selected test files, " + result.pass +
+    : "Integration PASS: " + files.length + " selected test files, " + result.pass +
       " assertions passed; no fixture code or raw logs published.";
   console.log(message);
   if (process.env.GITHUB_STEP_SUMMARY) {

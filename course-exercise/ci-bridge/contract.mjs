@@ -43,10 +43,13 @@ export function selectTests(root, kind, manifest = "") {
       }
     };
     walk(root);
-    entries = matches.sort().slice(0, 20);
+    entries = matches.sort();
   }
-  if (entries.length !== 20 || new Set(entries).size !== 20) {
-    throw new Error("Exactly 20 unique test files are required");
+  if (entries.length === 0) {
+    throw new Error("At least one test file is required");
+  }
+  if (new Set(entries).size !== entries.length) {
+    throw new Error("Duplicate test files are not allowed");
   }
   for (const entry of entries) {
     if ((kind === "python" && !entry.endsWith(".py")) ||

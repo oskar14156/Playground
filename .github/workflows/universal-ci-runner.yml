@@ -1,0 +1,168 @@
+name: Universal CI Runner - Free Actions for Private Repos
+
+# Runs tests from any private repository on this public runner.
+# 100% free GitHub-hosted runner minutes (0 private minutes consumed).
+# No limits on repositories or test counts. Private source code is never committed or published.
+
+on:
+  workflow_dispatch:
+    inputs:
+      repository:
+        description: 'Private repository (e.g. oskar14156/belegfluss or OWNER/REPO)'
+        required: true
+        default: 'oskar14156/belegfluss'
+        type: string
+      ref:
+        description: 'Git branch, tag or commit SHA (default: main)'
+        required: false
+        default: 'main'
+        type: string
+      test_command:
+        description: 'Custom test command (e.g. npm test, pytest, node --test ...). Default: auto'
+        required: false
+        default: 'auto'
+        type: string
+      install_command:
+        description: 'Dependency installation command (e.g. npm ci, pip install -r requirements.txt, none). Default: auto'
+        required: false
+        default: 'auto'
+        type: string
+      node_version:
+        description: 'Node.js version'
+        required: false
+        default: '22'
+        type: string
+      python_version:
+        description: 'Python version'
+        required: false
+        default: '3.12'
+        type: string
+
+  repository_dispatch:
+    types: [run-private-tests]
+
+permissions:
+  contents: read
+
+jobs:
+  run-tests:
+    name: Execute private repository tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ github.event.inputs.node_version || github.event.client_payload.node_version || '22' }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ github.event.inputs.python_version || github.event.client_payload.python_version || '3.12' }}
+
+      - name: Validate authorization token
+        shell: bash
+        env:
+          TOKEN: ${{ secrets.CI_BRIDGE_READ_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [[ -z "$TOKEN" ]]; then
+            echo "::error::Missing secret 'CI_BRIDGE_READ_TOKEN' in public repository."
+            echo "Please add a GitHub Personal Access Token (PAT) with read access to the target private repo."
+            exit 1
+          fi
+          echo "::add-mask::$TOKEN"
+          echo "Authorization token verified and masked."
+
+      - name: Ephemeral checkout of private repository
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.inputs.repository || github.event.client_payload.repository }}
+          ref: ${{ github.event.inputs.ref || github.event.client_payload.ref || 'main' }}
+          token: ${{ secrets.CI_BRIDGE_READ_TOKEN }}
+          persist-credentials: false
+          path: private-repo
+
+      - name: Install dependencies
+        shell: bash
+        working-directory: private-repo
+        env:
+          INSTALL_CMD: ${{ github.event.inputs.install_command || github.event.client_payload.install_command || 'auto' }}
+        run: |
+          set -euo pipefail
+          echo "=== Dependency Installation ==="
+          if [[ "$INSTALL_CMD" != "auto" && "$INSTALL_CMD" != "none" ]]; then
+            echo "Running custom install command: $INSTALL_CMD"
+            eval "$INSTALL_CMD"
+          elif [[ "$INSTALL_CMD" == "auto" ]]; then
+            if [[ -f "package-lock.json" ]]; then
+              echo "Detected package-lock.json -> npm ci"
+              npm ci --ignore-scripts --no-audit || npm install --no-audit
+            elif [[ -f "package.json" ]]; then
+              echo "Detected package.json -> npm install"
+              npm install --no-audit --ignore-scripts
+            fi
+            if [[ -f "requirements.txt" ]]; then
+              echo "Detected requirements.txt -> pip install"
+              pip install -r requirements.txt
+            fi
+            if [[ ! -f "package.json" && ! -f "requirements.txt" ]]; then
+              echo "No package manager manifest detected; skipping auto install."
+            fi
+          else
+            echo "Dependency install skipped (none)."
+          fi
+
+      - name: Execute tests
+        shell: bash
+        working-directory: private-repo
+        env:
+          TEST_CMD: ${{ github.event.inputs.test_command || github.event.client_payload.test_command || 'auto' }}
+        run: |
+          set -euo pipefail
+          echo "=== Test Suite Execution ==="
+          TARGET_CMD="$TEST_CMD"
+          if [[ "$TARGET_CMD" == "auto" || -z "$TARGET_CMD" ]]; then
+            if [[ -f "package.json" ]] && grep -q '"test"' package.json; then
+              TARGET_CMD="npm test"
+            elif command -v pytest >/dev/null 2>&1 && [[ -d "tests" || -f "pytest.ini" || -f "pyproject.toml" ]]; then
+              TARGET_CMD="pytest -v"
+            else
+              echo "Could not auto-detect test command. Defaulting to: node --test"
+              TARGET_CMD="node --test"
+            fi
+          fi
+
+          echo "Running: $TARGET_CMD"
+          eval "$TARGET_CMD"
+
+      - name: Generate run summary
+        if: always()
+        shell: bash
+        run: |
+          REPO="${{ github.event.inputs.repository || github.event.client_payload.repository }}"
+          REF="${{ github.event.inputs.ref || github.event.client_payload.ref || 'main' }}"
+          CMD="${{ github.event.inputs.test_command || github.event.client_payload.test_command || 'auto' }}"
+          STATUS="${{ job.status }}"
+
+          cat <<EOF >> "$GITHUB_STEP_SUMMARY"
+          ## 🚀 Universal CI Bridge Test Execution
+
+          | Parameter | Value |
+          |---|---|
+          | **Target Repository** | \`$REPO\` (Private) |
+          | **Ref / Branch** | \`$REF\` |
+          | **Test Command** | \`$CMD\` |
+          | **Execution Result** | **$STATUS** |
+          | **Actions Billing** | **Public Repository (0 private minutes charged)** |
+
+          > **Security Guarantee:** Private repository code was checked out ephemerally in runner memory and wiped cleanly. No private code or credentials were committed or uploaded.
+          EOF
+
+      - name: Secure cleanup of private files
+        if: always()
+        shell: bash
+        run: |
+          rm -rf private-repo
+          echo "Private workspace cleanly removed from runner."

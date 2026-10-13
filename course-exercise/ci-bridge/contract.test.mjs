@@ -24,7 +24,7 @@ test("select exactly twenty declared Node test files", () => fixture((root, name
 
 test("reject duplicate test selectors", () => fixture((root, names) => {
   writeFileSync(join(root, "manifest.txt"), [...names.slice(0, 19), names[0]].join("\n"));
-  assert.throws(() => selectTests(root, "node", "manifest.txt"), /20 unique/);
+  assert.throws(() => selectTests(root, "node", "manifest.txt"), /Duplicate/);
 }));
 
 test("auto discovery selects twenty deterministic tests", () => fixture((root) => {
