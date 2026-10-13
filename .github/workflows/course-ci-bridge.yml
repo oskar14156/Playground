@@ -29,6 +29,7 @@ on:
         options:
           - node
           - python
+          - generic
       fixture_manifest:
         description: 'Optional path to 20 test files manifest within private fixture'
         required: false
@@ -74,6 +75,11 @@ jobs:
             printf 'import test from "node:test"; import assert from "node:assert/strict"; test("public integration probe", () => assert.ok(true));\n' > "$fixture/tests/probe${n}.test.mjs"
           done
           BRIDGE_FIXTURE_PATH="$fixture" BRIDGE_LANGUAGE=node node course-exercise/ci-bridge/run-fixture.mjs
+      - name: Test twenty generic checks against PUBLIC repository checkout
+        env:
+          BRIDGE_FIXTURE_PATH: ${{ github.workspace }}
+          BRIDGE_LANGUAGE: generic
+        run: node course-exercise/ci-bridge/run-fixture.mjs
 
   private-fixture-integration:
     name: One-time private fixture integration (public CI software)
