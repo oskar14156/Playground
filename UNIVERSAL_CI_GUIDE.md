@@ -96,11 +96,19 @@ Einstellen: [Playground → Settings → Secrets → Actions](https://github.com
 > private Repository haben. Bei „Only select repositories" das neue Repo zur Liste hinzufügen — oder das
 > Token mit „All repositories" anlegen. Sonst schlägt der Checkout mit `404` fehl.
 
-### 3.2 Secret im privaten Repository (optional, nur für den Proxy-Workflow)
+### 3.2 Secret im privaten Repository (optional — nur für den „Run Tests"-Button im Repo)
+
+**Wichtig:** Nur das private Repo, das den Proxy-Workflow (Methode C, `test.yml`) nutzt, braucht dies.
+Der normale Agenten-Betrieb (Methode B/D über `gh`/API vom Terminal) braucht **keinerlei Secret im
+privaten Repository** — dort wird direkt der öffentliche Playground gesteuert.
 
 | Secret | Repo | Inhalt |
 |---|---|---|
-| `CI_DISPATCH_TOKEN` | jeweiliges privates Repo | PAT mit `repo` + `workflow` (oder Fine-grained: Actions Read/Write auf `Playground`) |
+| `CI_DISPATCH_TOKEN` | jeweiliges privates Repo (optional) | PAT mit `repo` + `workflow` (oder Fine-grained: Actions Read/Write auf `Playground`) |
+
+> GitHub bietet für persönliche Accounts kein „einmal für alle Repos"-Secret (Org-Secrets gehen nur
+> für Organisationen und sind im Free-Plan für Private-Repos gesperrt). Deshalb: Proxy-Secret pro Repo
+> setzen — oder (empfohlen) gar kein Secret und den Runner direkt per `gh` starten.
 
 ---
 
