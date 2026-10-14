@@ -112,6 +112,9 @@ als Report-Run zurück (Schritte 3–5 wie oben).
    Lint-Fehler stehen drin), fixen, pushen, ab Schritt 2 wiederholen.
 5. Erst bei grünem Report zum passenden Commit nach main mergen.
 Lege NIEMALS eigene Workflows an. Verbrauche KEINE privaten Runner-Minuten.
+6. iOS/Xcode-Builds: Lege zusätzlich `.ci/runner-os.txt` mit Inhalt `macos-26`
+   in den Branch — der Lauf erfolgt dann auf macOS mit Xcode (Simulator-Builds
+   unsigniert via `CODE_SIGNING_ALLOWED=NO`). Ohne die Datei läuft Linux.
 ```
 ```
 
