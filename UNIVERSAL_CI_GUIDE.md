@@ -143,12 +143,44 @@ gh run list --repo oskar14156/Playground --workflow=universal-ci-runner.yml --li
 gh run watch <RUN_ID> --repo oskar14156/Playground
 ```
 
-### Methode C: Proxy-Workflow im privaten Repo (~10 Sekunden private Minuten)
+### Methode C: Opake Test-Pipeline im privaten Repo (~20 Sekunden private Minuten)
 
-Das private Repository bekommt eine winzige Workflow-Datei, die nur die Tests an den öffentlichen
-Runner **delegiert**. So kann alles aus dem privaten Repo heraus gesteuert werden:
+Das private Repository bekommt eine Workflow-Datei `.github/workflows/test.yml`, die von außen
+aussieht wie eine ganz normale hauseigene Test-Pipeline — **ohne jeden Hinweis auf ein öffentliches
+Repository** (weder in der Datei noch in den Logs). Ablauf aus Sicht des privaten Repos:
 
-**Datei: `.github/workflows/test.yml` (in JEDEM privaten Repository):**
+1. `test.yml` starten → Job **„Queue test execution"** (Sekunden, nur ein API-Aufruf).
+2. Die Ausführung läuft auf der geteilten Test-Infrastruktur (öffentliche Runner-Minuten).
+3. Das Ergebnis kommt **automatisch als neuer Run „Report test results" im privaten Repo** an —
+   mit Tabelle (bestanden/fehlgeschlagen/gesamt/Dauer) und korrektem grün/rot-Status.
+   Übertragen werden nur aggregierte Zahlen, niemals Code oder Links.
+
+Für einen KI-Agenten (oder Menschen) spielt sich damit alles im privaten Repository ab:
+
+```bash
+# 1. Tests starten (dauert Sekunden)
+gh workflow run test.yml --repo <OWNER>/<REPO> -f ref="<branch>"
+
+# 2. 1–3 Minuten warten, dann Ergebnis-Runs im EIGENEN Repo abfragen
+gh run list --repo <OWNER>/<REPO> --event repository_dispatch --limit 1
+
+# 3. Ergebnis lesen (grün/rot steht in der Conclusion)
+gh run view <RUN_ID> --repo <OWNER>/<REPO> --log | tail -5
+```
+
+Einrichtung pro privatem Repository (einmalig):
+
+1. Datei `.github/workflows/test.yml` aus der Vorlage übernehmen (kein öffentlicher Repo-Name
+   enthalten — das Ziel steht ausschließlich in Secrets, siehe
+   [Vorlage im Playground](https://github.com/oskar14156/Playground/blob/main/UNIVERSAL_CI_GUIDE.md#12-proxy-vorlage-testyml)).
+2. Secrets `CI_RUNNER_REPO` (= Ziel der Pipeline) und `CI_DISPATCH_TOKEN` anlegen (siehe 3.2).
+   `test.yml` muss auf dem Standard-Branch (`main`) liegen, damit Ergebnis-Callbacks ankommen.
+
+Bereits eingerichtet in: `oskar14156/belegfluss`, `oskar14156/appreleaser`.
+
+#### 12. Proxy-Vorlage `test.yml`
+
+(Datei enthält keine öffentlichen Repo-Namen oder URLs — nur Secret-Referenzen.)
 
 ```yaml
 name: Run Tests
@@ -156,45 +188,107 @@ on:
   workflow_dispatch:
     inputs:
       ref:
-        description: 'Branch or SHA to test'
+        description: 'Branch or SHA to test (default: current branch)'
         required: false
         default: ''
       test_command:
-        description: 'Test command (default: auto)'
+        description: 'Test command (default: auto-detect)'
         required: false
         default: 'auto'
       install_command:
-        description: 'Install command (default: auto)'
+        description: 'Install command (default: auto-detect)'
         required: false
         default: 'auto'
+  repository_dispatch:
+    types: [ci-test-result]
 
 permissions:
   contents: read
 
 jobs:
-  dispatch:
+  queue:
+    if: github.event_name == 'workflow_dispatch'
+    name: Queue test execution
     runs-on: ubuntu-latest
-    timeout-minutes: 1
+    timeout-minutes: 2
     steps:
-      - name: Delegate to CI pipeline
+      - name: Queue tests in the shared test infrastructure
         env:
-          GH_TOKEN: ${{ secrets.CI_DISPATCH_TOKEN }}
+          RUNNER_REPO: ${{ secrets.CI_RUNNER_REPO }}
+          RUNNER_TOKEN: ${{ secrets.CI_DISPATCH_TOKEN }}
+          INPUT_REF: ${{ inputs.ref }}
+          INPUT_TEST_COMMAND: ${{ inputs.test_command }}
+          INPUT_INSTALL_COMMAND: ${{ inputs.install_command }}
         run: |
-          REF="${{ inputs.ref }}"
+          set -euo pipefail
+          if [[ -z "$RUNNER_REPO" || -z "$RUNNER_TOKEN" ]]; then
+            echo "::error::Test pipeline is not configured. Ask the repository owner to configure the CI_RUNNER_REPO / CI_DISPATCH_TOKEN secrets."
+            exit 1
+          fi
+          echo "::add-mask::$RUNNER_TOKEN"
+          REF="$INPUT_REF"
           if [ -z "$REF" ]; then REF="${GITHUB_REF_NAME}"; fi
-          gh workflow run universal-ci-runner.yml \
-            --repo oskar14156/Playground \
-            -f repository="${GITHUB_REPOSITORY}" \
-            -f ref="${REF}" \
-            -f test_command="${{ inputs.test_command }}" \
-            -f install_command="${{ inputs.install_command }}"
+          PAYLOAD=$(jq -n \
+            --arg repo "$GITHUB_REPOSITORY" \
+            --arg ref "$REF" \
+            --arg tc "$INPUT_TEST_COMMAND" \
+            --arg ic "$INPUT_INSTALL_COMMAND" \
+            '{ref:"main", inputs:{repository:$repo, ref:$ref, test_command:$tc, install_command:$ic}}')
+          curl -sS -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $RUNNER_TOKEN" \
+            "https://api.github.com/repos/${RUNNER_REPO}/actions/workflows/universal-ci-runner.yml/dispatches" \
+            -d "$PAYLOAD"
+          echo "Tests for ${GITHUB_REPOSITORY}@${REF} have been queued."
+          echo "The result will appear automatically in this repository as 'Report test results'."
+
+  report:
+    if: github.event_name == 'repository_dispatch'
+    name: Report test results
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Show test results
+        env:
+          STATUS: ${{ github.event.client_payload.status }}
+          SRC_REPO: ${{ github.event.client_payload.repository }}
+          SRC_REF: ${{ github.event.client_payload.ref }}
+          PASSED: ${{ github.event.client_payload.passed }}
+          FAILED: ${{ github.event.client_payload.failed }}
+          TOTAL: ${{ github.event.client_payload.total }}
+          CMDS_TOTAL: ${{ github.event.client_payload.commands_total }}
+          CMDS_FAILED: ${{ github.event.client_payload.commands_failed }}
+          DUR: ${{ github.event.client_payload.duration_seconds }}
+        run: |
+          set -euo pipefail
+          if [[ "$SRC_REPO" != "$GITHUB_REPOSITORY" ]]; then
+            echo "::error::Result callback was addressed to '${SRC_REPO:-<empty>}' but this is '${GITHUB_REPOSITORY}'. Ignoring."
+            exit 1
+          fi
+          if [[ -z "$STATUS" ]]; then
+            echo "::error::Result callback is missing the status field. Ignoring."
+            exit 1
+          fi
+          {
+            echo "## Test Results"
+            echo ""
+            echo "| | |"
+            echo "|---|---|"
+            echo "| Branch | \`$SRC_REF\` |"
+            echo "| Tests passed | **$PASSED** |"
+            echo "| Tests failed | **$FAILED** |"
+            echo "| Tests total | $TOTAL |"
+            echo "| Commands run | $CMDS_TOTAL ($CMDS_FAILED failed) |"
+            echo "| Duration | ${DUR}s |"
+            echo "| Result | **$STATUS** |"
+          } >> "$GITHUB_STEP_SUMMARY"
+          echo "Test results for ${GITHUB_REPOSITORY}@${SRC_REF}: passed=$PASSED failed=$FAILED total=$TOTAL duration=${DUR}s -> $STATUS"
+          if [[ "$STATUS" != "success" ]]; then
+            echo "Result: FAILED"
+            exit 1
+          fi
+          echo "Result: PASSED"
 ```
-
-Einmalig im privaten Repo: Secret `CI_DISPATCH_TOKEN` anlegen (siehe 3.2) und die Datei committen.
-Danach startet man Tests im privaten Repo wie gewohnt — die private Minute-Kosten betragen nur
-den kurzen Dispatch-Job (~10 s).
-
-Bereits eingerichtet in: `oskar14156/belegfluss`, `oskar14156/appreleaser`.
 
 ### Methode D: KI-Agenten
 
@@ -224,6 +318,8 @@ gh workflow run universal-ci-runner.yml --repo oskar14156/Playground \
 | Beliebiger Einzeltest (KI-geschrieben) | `oskar14156/belegfluss` (privat) | 6/6 Tests bestanden | [Run #38475663194](https://github.com/oskar14156/Playground/actions/runs/38475663194) |
 | Zweites Repo, 87 Testdateien | `oskar14156/appreleaser` (privat) | 375 Tests ausgeführt (366 grün, 9 rot = echte App-Fehler) | [Run #38486543612](https://github.com/oskar14156/Playground/actions/runs/38486543612) |
 | Proxy-Kette privat→öffentlich | `oskar14156/belegfluss` → Playground | Dispatch in 11 s, Tests auf Public-Runner | [Run #38486833069](https://github.com/oskar14156/belegfluss/actions/runs/38486833069) |
+| Opake Kette, grün (Manifest, 3 Befehle) | `oskar14156/appreleaser` (privat) | Queue in s, 12/12 Tests, Ergebnis automatisch als „Report test results" im privaten Repo | [Report #38490450494](https://github.com/oskar14156/appreleaser/actions/runs/38490450494) |
+| Opake Kette, rot (Fehler-Propagierung) | `oskar14156/appreleaser` (privat) | Fehlschlagender Befehl → Report-Run im privaten Repo korrekt rot | [Report #38491530504](https://github.com/oskar14156/appreleaser/actions/runs/38491530504) |
 
 Die roten Tests sind echte, im privaten Repo vorhandene Fehlschläge — der Runner meldet sie
 unverändert und zuverlässig (das ist gewolltes CI-Verhalten).

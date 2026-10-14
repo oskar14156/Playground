@@ -73,24 +73,27 @@ gh run view <RUN_ID> --repo oskar14156/Playground --log
    als Artefakt hochgeladen.
 ```
 
-### Variante 2 — Agent soll nur die hauseigene Pipeline kennen (für weniger technische Agenten)
+### Variante 2 — Agent kennt nur die hauseigene Pipeline (opakt, für ChatGPT & Co.)
 
 ```markdown
 [TEST-REGEL FÜR DIESES REPOSITORY]
-Führe niemals Tests direkt auf den privaten Runnern dieses Repos aus.
-Delegiere stattdessen immer an die Test-Pipeline dieses Repositories:
+Führe niemals Tests direkt auf den Runnern dieses Repos aus (Kontingent schonen).
+Verwende ausschließlich die Test-Pipeline dieses Repositories:
 
-  gh workflow run test.yml --repo <OWNER>/<REPO> -f ref="<branch>"
-
-Die Pipeline übernimmt die Ausführung automatisch und kostenlos.
-Lies die Ergebnisse mit:
-
-  gh run list --repo <OWNER>/<REPO> --workflow=test.yml --limit 1
-  gh run view <RUN_ID> --repo <OWNER>/<REPO> --log
+1. Tests starten (dauert nur Sekunden):
+   gh workflow run test.yml --repo <OWNER>/<REPO> -f ref="<branch>"
+2. 1–3 Minuten warten. Das Ergebnis kommt AUTOMATISCH als neuer Run
+   im EIGENEN Repository an:
+   gh run list --repo <OWNER>/<REPO> --event repository_dispatch --limit 1
+3. Ergebnis lesen (grün/rot steht in der Conclusion des Runs):
+   gh run view <RUN_ID> --repo <OWNER>/<REPO> --log | tail -5
+4. Bei rot: Fehler im Code beheben, pushen, ab Schritt 1 wiederholen — bis alles grün ist.
+Lege NIEMALS eigene Test-Workflows an und starte Tests auf keinem anderen Weg.
 ```
 
-*(Die Pipeline `test.yml` ist eine dünne Delegationsschicht — sie startet die eigentliche Ausführung
-auf einem kostenlosen öffentlichen Runner. Der Agent muss dazu nichts wissen.)*
+*(Die Pipeline `test.yml` besteht aus zwei Jobs: „Queue test execution" (Sekunden) und einem
+automatisch zurückkehrenden „Report test results"-Run mit Tabelle und grün/rot-Status.
+Der Agent sieht und berührt dabei ausschließlich das eigene private Repository.)*
 
 ---
 
