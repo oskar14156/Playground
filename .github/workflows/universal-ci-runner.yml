@@ -257,7 +257,7 @@ jobs:
           # excerpts and the log tail - no tokens, no URLs.
           DETAILS_BRANCH="ci/last-result"
           DETAILS_FILE="latest.md"
-          DETAILS_PUSHED=false
+          DETAILS_REF=""
           push_details() {
             local workdir details
             workdir=$(mktemp -d) || return 1
@@ -324,7 +324,7 @@ jobs:
           }
           if [[ -n "$RESULT_TOKEN" ]]; then
             if push_details; then
-              DETAILS_PUSHED=true
+              DETAILS_REF="${DETAILS_BRANCH}:${DETAILS_FILE}"
               echo "Failure details pushed to $TARGET_REPO ($DETAILS_BRANCH/$DETAILS_FILE, private)."
             else
               echo "::warning::Could not push failure details to $TARGET_REPO. Counts-only callback will still be sent."
@@ -333,6 +333,7 @@ jobs:
             echo "::warning::Skipping details push (no result token)."
           fi
 
+          # NOTE: repository_dispatch allows max 10 client_payload properties.
           PAYLOAD=$(jq -n \
             --arg repo "$TARGET_REPO" \
             --arg ref "$TARGET_REF" \
@@ -343,16 +344,12 @@ jobs:
             --argjson commands_total "$TOTAL_CMDS" \
             --argjson commands_failed "$FAILED_CMDS" \
             --argjson duration_seconds "$DURATION" \
-            --arg details_branch "$DETAILS_BRANCH" \
-            --arg details_file "$DETAILS_FILE" \
-            --argjson details_pushed "$DETAILS_PUSHED" \
+            --arg details "$DETAILS_REF" \
             '{event_type:"ci-test-result", client_payload:{
               repository:$repo, ref:$ref, status:$status,
               passed:$passed, failed:$failed, total:$total,
               commands_total:$commands_total, commands_failed:$commands_failed,
-              duration_seconds:$duration_seconds,
-              details_branch:$details_branch, details_file:$details_file,
-              details_pushed:$details_pushed}}')
+              duration_seconds:$duration_seconds, details:$details}}')
 
           HTTP_CODE=$(curl -sS -o /dev/null -w "%{http_code}" -X POST \
             -H "Accept: application/vnd.github+json" \
