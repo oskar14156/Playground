@@ -258,6 +258,10 @@ jobs:
           DETAILS_BRANCH="ci/last-result"
           DETAILS_FILE="latest.md"
           DETAILS_REF=""
+          TESTED_SHA="unknown"
+          if [[ -d "$GITHUB_WORKSPACE/private-repo/.git" ]]; then
+            TESTED_SHA=$(git -C "$GITHUB_WORKSPACE/private-repo" rev-parse HEAD 2>/dev/null || echo unknown)
+          fi
           push_details() {
             local workdir details
             workdir=$(mktemp -d) || return 1
@@ -267,6 +271,7 @@ jobs:
               echo ""
               echo "- Repository: \`$TARGET_REPO\`"
               echo "- Ref: \`$TARGET_REF\`"
+              echo "- Tested commit: \`$TESTED_SHA\`"
               echo "- Status: **$STATUS**"
               echo "- Tests: $PASSED passed, $FAILED failed, $TOTAL total"
               echo "- Commands: $TOTAL_CMDS run, $FAILED_CMDS failed"
@@ -274,9 +279,19 @@ jobs:
               echo "- Generated: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
               echo ""
               if [[ -f "$RUN_LOG" ]]; then
+                echo "## Commands (per-command status)"
+                echo '```'
+                grep -E '^(>>>|<<<) ' "$RUN_LOG" | head -100 || echo "(none)"
+                echo '```'
+                echo ""
                 echo "## Failed tests (names only)"
                 echo '```'
-                grep -E '^not ok [0-9]+ - ' "$RUN_LOG" | head -200 || echo "(none)"
+                grep -E '^[[:space:]]*not ok [0-9]+ - ' "$RUN_LOG" | head -200 || echo "(none)"
+                echo '```'
+                echo ""
+                echo "## Failure stacks (test errors with file/line info)"
+                echo '```'
+                grep -A25 -E '^[[:space:]]*not ok [0-9]+ - ' "$RUN_LOG" | grep -vE '^--$' | head -300 || echo "(none)"
                 echo '```'
                 echo ""
                 echo "## Compiler / linter errors"
