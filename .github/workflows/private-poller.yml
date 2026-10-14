@@ -111,12 +111,17 @@ jobs:
 
               RUNNER_OS="$INPUT_OS"
               if [[ -z "$RUNNER_OS" ]]; then
-                RUNNER_OS=$(curl -sS -H "Accept: application/vnd.github.raw" \
+                # -f: HTTP errors (e.g. 404 file absent) yield empty output, never an error body.
+                RUNNER_OS=$(curl -fsS -H "Accept: application/vnd.github.raw" \
                   -H "Authorization: Bearer $READ_TOKEN" \
                   "https://api.github.com/repos/${REPO}/contents/.ci/runner-os.txt?ref=${BRANCH}" \
                   2>/dev/null | head -1 | tr -d '[:space:]' || true)
               fi
-              if [[ -z "$RUNNER_OS" ]]; then RUNNER_OS="ubuntu-latest"; fi
+              # Allowlist: anything else (error bodies, typos) falls back safely.
+              if ! [[ "$RUNNER_OS" =~ ^(ubuntu-latest|macos-[0-9]+)$ ]]; then
+                [[ -n "$RUNNER_OS" ]] && echo "::warning::Ignoring invalid runner_os '$RUNNER_OS', using ubuntu-latest."
+                RUNNER_OS="ubuntu-latest"
+              fi
               echo "Runner image: $RUNNER_OS"
               echo "::add-mask::$RUNNER_OS"
 
