@@ -96,6 +96,9 @@ auf einem kostenlosen öffentlichen Runner. Der Agent muss dazu nichts wissen.)*
 
 ## Sicherheitsgarantien
 
+- **Kein Secret im privaten Repo nötig:** Der direkte Weg per `gh`/API (Schritt 3, Variante „oder falls
+  test.yml fehlt") steuert den öffentlichen Runner ohne jegliche Zugangsdaten im privaten Repository.
+  Das Proxy-Secret `CI_DISPATCH_TOKEN` ist nur für den manuellen „Run Tests"-Button im Repo optional.
 - **Ephemerer Checkout:** Privater Code wird nur im Working-Directory des Runners verarbeitet und
   am Ende jedes Laufs (auch bei Fehlern) via `rm -rf private-repo` gelöscht.
 - **Keine Persistenz:** `persist-credentials: false`; keine Commits, Pushes, Branches oder PRs mit
