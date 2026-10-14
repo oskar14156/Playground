@@ -211,33 +211,33 @@ jobs:
           RUN_LOG="$BRIDGE_DIR/run.log"
           FAILED_CMDS=0
           TOTAL_CMDS=1
-          [[ -f "$BRIDGE_DIR/failed_commands" ]] && FAILED_CMDS=$(cat "$BRIDGE_DIR/failed_commands")
-          [[ -f "$BRIDGE_DIR/total_commands" ]] && TOTAL_CMDS=$(cat "$BRIDGE_DIR/total_commands")
+          if [[ -f "$BRIDGE_DIR/failed_commands" ]]; then FAILED_CMDS=$(cat "$BRIDGE_DIR/failed_commands"); fi
+          if [[ -f "$BRIDGE_DIR/total_commands" ]]; then TOTAL_CMDS=$(cat "$BRIDGE_DIR/total_commands"); fi
 
           PASSED=0
           FAILED=0
           if [[ -f "$RUN_LOG" ]]; then
             # Sum across ALL test commands (each prints its own TAP/pytest summary).
-            TAP_PASS=$(grep -E '^# pass [0-9]+' "$RUN_LOG" | grep -oE '[0-9]+' | awk '{s+=$1} END {print s+0}')
-            TAP_FAIL=$(grep -E '^# fail [0-9]+' "$RUN_LOG" | grep -oE '[0-9]+' | awk '{s+=$1} END {print s+0}')
+            TAP_PASS=$(grep -E '^# pass [0-9]+' "$RUN_LOG" | grep -oE '[0-9]+' | awk '{s+=$1} END {print s+0}' || true)
+            TAP_FAIL=$(grep -E '^# fail [0-9]+' "$RUN_LOG" | grep -oE '[0-9]+' | awk '{s+=$1} END {print s+0}' || true)
             if [[ "$TAP_PASS" != "0" || "$TAP_FAIL" != "0" ]]; then
               PASSED=$TAP_PASS
               FAILED=$TAP_FAIL
             else
-              PY_PASS=$(grep -oE '[0-9]+ passed' "$RUN_LOG" | grep -oE '[0-9]+' | awk '{s+=$1} END {print s+0}')
-              PY_FAIL=$(grep -oE '[0-9]+ failed' "$RUN_LOG" | grep -oE '[0-9]+' | awk '{s+=$1} END {print s+0}')
+              PY_PASS=$(grep -oE '[0-9]+ passed' "$RUN_LOG" | grep -oE '[0-9]+' | awk '{s+=$1} END {print s+0}' || true)
+              PY_FAIL=$(grep -oE '[0-9]+ failed' "$RUN_LOG" | grep -oE '[0-9]+' | awk '{s+=$1} END {print s+0}' || true)
               PASSED=$PY_PASS
               FAILED=$PY_FAIL
             fi
           fi
-          TOTAL=$((PASSED + FAILED))
+          TOTAL=$((PASSED + FAILED)) || TOTAL=0
 
           if [[ "$FAILED_CMDS" -gt 0 ]]; then STATUS="failure"; else STATUS="success"; fi
 
           STARTED=0
-          [[ -f "$BRIDGE_DIR/started_at" ]] && STARTED=$(cat "$BRIDGE_DIR/started_at")
+          if [[ -f "$BRIDGE_DIR/started_at" ]]; then STARTED=$(cat "$BRIDGE_DIR/started_at"); fi
           NOW=$(date +%s)
-          DURATION=$((NOW - STARTED))
+          DURATION=$((NOW - STARTED)) || DURATION=0
 
           echo "Result: status=$STATUS passed=$PASSED failed=$FAILED commands=$TOTAL_CMDS/$FAILED_CMDS duration=${DURATION}s"
 
@@ -288,7 +288,7 @@ jobs:
           INPUT_CMD: ${{ github.event.inputs.test_command || github.event.client_payload.test_command || 'auto' }}
         run: |
           FAILED_CMDS=0
-          [[ -f "$GITHUB_WORKSPACE/.bridge/failed_commands" ]] && FAILED_CMDS=$(cat "$GITHUB_WORKSPACE/.bridge/failed_commands")
+          if [[ -f "$GITHUB_WORKSPACE/.bridge/failed_commands" ]]; then FAILED_CMDS=$(cat "$GITHUB_WORKSPACE/.bridge/failed_commands"); fi
           if [[ "$FAILED_CMDS" -gt 0 ]]; then RESULT="failure"; else RESULT="success"; fi
           {
             echo "## Universal CI Runner - Test Execution"
