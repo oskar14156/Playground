@@ -218,6 +218,23 @@ Trade-off: Latenz (Cron-Intervall + Testzeit) statt Sekunden-Start. Sichtbar öf
 dabei nur Branch-Namen und Testzähler (maskiert in Logs); Code bleibt privat. Manueller
 Sofort-Start (ohne Cron zu warten): `private-poller.yml` per `workflow_dispatch` mit
 `repository`-Eingabe auslösen (API-Aufruf, 0 private Minuten).
+
+### Methode F: iOS-/Xcode-Builds auf öffentlichen macOS-Runnern
+
+Der Universal-Runner nimmt per `runner_os`-Eingabe auch macOS-Images (`macos-14`, `macos-26`).
+Auf macOS wählt er automatisch das neueste Xcode, zeigt SDK/Simulator-Runtimes und führt
+danach dieselbe Kette (Checkout → Install → Manifest/Befehl → Report) aus. Uns signierte
+Simulator-Builds laufen mit `CODE_SIGNING_ALLOWED=NO` — exakt wie die betroffenen
+Projekte es in ihrer eigenen CI tun. Signierte Release/IPA/TestFlight-Builds gehen nicht
+(dafür dürften niemals Zertifikate auf öffentliche Runner).
+
+Nachweis: RiseProof (Expo, privat) — 74/74 JS-Tests plus echter Xcode-26.6-Debug-Build
+für den iOS-Simulator auf `macos-26`, 0 private Minuten.
+[Erfolgreicher Run](https://github.com/oskar14156/Playground/actions/runs/38631765639)
+
+Pro Branch wählbar: Datei `.ci/runner-os.txt` mit einer Zeile (`macos-26`) in den privaten
+Branch legen — der Poller übernimmt sie automatisch. Simulator-Unit-Tests (`xcodebuild test`)
+sind damit technisch möglich, aber noch nicht nachgewiesen; Debug/Release-Kompilierung schon.
 Wichtig: `test.yml` im privaten Repo darf auf `push` KEINE github-hosted Jobs starten
 (queue nur per `workflow_dispatch`, Server-Jobs nur mit provisioniertem Runner) — sonst
 kostet jeder Push trotz Poller ~2 private Minuten. Push-Runs mit ausschließlich
