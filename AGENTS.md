@@ -96,6 +96,23 @@ Lege NIEMALS eigene Test-Workflows an und starte Tests auf keinem anderen Weg.
 Alternative ohne Startbefehl (nur pushen + lesen): Änderungen auf einen Branch
 `ci/run/<name>` pushen — die Pipeline startet automatisch, das Ergebnis kommt
 als Report-Run zurück (Schritte 3–5 wie oben).
+
+### Variante 3 — Zero-Minute-Modus (keine einzige private Minute)
+
+```markdown
+[TEST-REGEL ZERO-MODUS FÜR DIESES REPOSITORY]
+1. Arbeite ausschließlich auf Branches ci/run/<name>. Jeder Push wird
+   AUTOMATISCH getestet — kein Startbefehl nötig, keine privaten Minuten.
+2. Warte 5–10 Minuten und prüfe deine Ergebnisdatei:
+   gh api "repos/<OWNER>/<REPO>/contents/results/ci-run-<name>.md?ref=ci/last-result" --jq .content | base64 -d | head -20
+   (Slashes im Branchnamen werden zu Bindestrichen.)
+3. "Tested commit" MUSS deinem HEAD entsprechen — sonst weiter warten
+   (max. 15 Min, dann Stillstand melden).
+4. Bei rot: dieselbe Datei vollständig lesen (Testnamen, Stacks, Compiler-/
+   Lint-Fehler stehen drin), fixen, pushen, ab Schritt 2 wiederholen.
+5. Erst bei grünem Report zum passenden Commit nach main mergen.
+Lege NIEMALS eigene Workflows an. Verbrauche KEINE privaten Runner-Minuten.
+```
 ```
 
 *(Die Pipeline `test.yml` besteht aus zwei Jobs: „Queue test execution" (Sekunden) und einem
