@@ -196,6 +196,29 @@ gh api "repos/<OWNER>/<REPO>/contents/latest.md?ref=ci/last-result" --jq .conten
 Voraussetzung: Das `CI_RESULT_TOKEN`-PAT braucht zusätzlich Contents-Schreibrechte
 (classic-`repo`-Scope enthält sie).
 
+### Methode E: Zero-Minute-Poller (0 private Minuten, vollautomatisch)
+
+Der öffentliche Cron-Workflow `private-poller.yml` prüft alle 5 Minuten alle Branches
+`ci/run/*` der konfigurierten privaten Repos (Secret `CI_POLL_REPOS`, Leerzeichen-getrennt,
+unsichtbar). Neue Commits werden automatisch getestet, Ergebnisse landen pro Branch in
+`results/<branch-mit-Bindestrichen>.md` auf `ci/last-result`. **Im privaten Repo läuft dabei
+gar kein Job — 0 private Minuten, verifiziert.**
+
+Agenten-Schleife (nur pushen + lesen, kein Startbefehl nötig):
+
+```bash
+git push origin ci/run/<name>
+# 5-10 Min warten, dann:
+gh api "repos/<OWNER>/<REPO>/contents/results/ci-run-<name>.md?ref=ci/last-result" --jq .content | base64 -d | head -15
+# "Tested commit" muss dem eigenen HEAD entsprechen. Sonst weiter warten.
+# Details bei rot: latest.md bzw. dieselbe Datei vollständig lesen.
+```
+
+Trade-off: Latenz (Cron-Intervall + Testzeit) statt Sekunden-Start. Sichtbar öffentlich sind
+dabei nur Branch-Namen und Testzähler (maskiert in Logs); Code bleibt privat. Manueller
+Sofort-Start (ohne Cron zu warten): `private-poller.yml` per `workflow_dispatch` mit
+`repository`-Eingabe auslösen (API-Aufruf, 0 private Minuten).
+
 Bereits eingerichtet in: `oskar14156/belegfluss`, `oskar14156/appreleaser`.
 
 #### 12. Proxy-Vorlage `test.yml`
