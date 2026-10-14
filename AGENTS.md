@@ -87,8 +87,15 @@ Verwende ausschließlich die Test-Pipeline dieses Repositories:
    gh run list --repo <OWNER>/<REPO> --event repository_dispatch --limit 1
 3. Ergebnis lesen (grün/rot steht in der Conclusion des Runs):
    gh run view <RUN_ID> --repo <OWNER>/<REPO> --log | tail -5
-4. Bei rot: Fehler im Code beheben, pushen, ab Schritt 1 wiederholen — bis alles grün ist.
+4. Bei rot: Fehlerdetails aus dem privaten Branch lesen (steht im Report-Log,
+   inkl. Lesebefehl):
+   gh api "repos/<OWNER>/<REPO>/contents/latest.md?ref=ci/last-result" --jq .content | base64 -d | tail -150
+5. Fehler im Code beheben, pushen, ab Schritt 1 wiederholen — bis alles grün ist.
 Lege NIEMALS eigene Test-Workflows an und starte Tests auf keinem anderen Weg.
+
+Alternative ohne Startbefehl (nur pushen + lesen): Änderungen auf einen Branch
+`ci/run/<name>` pushen — die Pipeline startet automatisch, das Ergebnis kommt
+als Report-Run zurück (Schritte 3–5 wie oben).
 ```
 
 *(Die Pipeline `test.yml` besteht aus zwei Jobs: „Queue test execution" (Sekunden) und einem

@@ -176,6 +176,26 @@ Einrichtung pro privatem Repository (einmalig):
 2. Secrets `CI_RUNNER_REPO` (= Ziel der Pipeline) und `CI_DISPATCH_TOKEN` anlegen (siehe 3.2).
    `test.yml` muss auf dem Standard-Branch (`main`) liegen, damit Ergebnis-Callbacks ankommen.
 
+#### Push-Trigger (autonome Agenten-Schleife ohne Startbefehl)
+
+Ein Push auf Branches `ci/run/**` startet die Queue automatisch — ein Agent, der nur pushen
+und lesen kann (kein `gh workflow run`), arbeitet damit vollständig autonom:
+pushen → Report abwarten → Ergebnis + Details lesen → fixen → erneut pushen.
+
+#### Fehlerdetails im privaten Repository
+
+Nach jedem Lauf legt der Runner einen bereinigten Fehlerauszug (Testnamen, Compiler-/
+Linter-Fehler, Log-Ausschnitt, max. ~60 KB — keine Tokens, keine URLs) im **privaten**
+Branch `ci/last-result`, Datei `latest.md`, des getesteten Repositories ab. Der Report-Run
+nennt Branch, Datei und den exakten Lesebefehl:
+
+```bash
+gh api "repos/<OWNER>/<REPO>/contents/latest.md?ref=ci/last-result" --jq .content | base64 -d | tail -150
+```
+
+Voraussetzung: Das `CI_RESULT_TOKEN`-PAT braucht zusätzlich Contents-Schreibrechte
+(classic-`repo`-Scope enthält sie).
+
 Bereits eingerichtet in: `oskar14156/belegfluss`, `oskar14156/appreleaser`.
 
 #### 12. Proxy-Vorlage `test.yml`
