@@ -218,6 +218,10 @@ Trade-off: Latenz (Cron-Intervall + Testzeit) statt Sekunden-Start. Sichtbar öf
 dabei nur Branch-Namen und Testzähler (maskiert in Logs); Code bleibt privat. Manueller
 Sofort-Start (ohne Cron zu warten): `private-poller.yml` per `workflow_dispatch` mit
 `repository`-Eingabe auslösen (API-Aufruf, 0 private Minuten).
+Wichtig: `test.yml` im privaten Repo darf auf `push` KEINE github-hosted Jobs starten
+(queue nur per `workflow_dispatch`, Server-Jobs nur mit provisioniertem Runner) — sonst
+kostet jeder Push trotz Poller ~2 private Minuten. Push-Runs mit ausschließlich
+geskippten Jobs sind kostenlos (verifiziert).
 
 Bereits eingerichtet in: `oskar14156/belegfluss`, `oskar14156/appreleaser`.
 
