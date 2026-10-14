@@ -335,18 +335,9 @@ jobs:
               fi
             } > "$details"
             if [[ -n "${RESULT_TOKEN:-}" ]]; then
-              # Portable literal redaction (BSD sed on macOS cannot do sed -i without suffix).
-              RESULT_TOKEN="$RESULT_TOKEN" python3 - "$details" <<'PYEOF' || true
-import os, sys
-path = sys.argv[1]
-token = os.environ.get("RESULT_TOKEN", "")
-with open(path, "r", encoding="utf-8", errors="replace") as f:
-    content = f.read()
-if token:
-    content = content.replace(token, "***")
-with open(path, "w", encoding="utf-8") as f:
-    f.write(content)
-PYEOF
+              # Portable literal redaction: perl -i works identically on GNU and
+              # BSD sed systems (macOS); \Q..\E quotes every token character.
+              RESULT_TOKEN="$RESULT_TOKEN" perl -i -pe 's/\Q$ENV{RESULT_TOKEN}\E/***/g if length $ENV{RESULT_TOKEN}' "$details" || true
             fi
             # Cap size (~60 KB) so pushes stay small.
             tail -c 60000 "$details" > "$details.tmp" && mv "$details.tmp" "$details"
