@@ -4,6 +4,8 @@ name: Universal CI Runner - Free Actions for Private Repos
 # Public GitHub-hosted runners are free for public repositories -> 0 private minutes consumed.
 # No limits on repositories, test files, or test counts.
 # The private source code is checked out ephemerally and never committed or published.
+# After execution, an aggregated result (status + counts only, no code, no URLs) is
+# posted back to the calling private repository via repository_dispatch.
 
 on:
   workflow_dispatch:
@@ -123,6 +125,10 @@ jobs:
         run: |
           set -uo pipefail
           echo "=== Test Suite Execution ==="
+          mkdir -p "$GITHUB_WORKSPACE/.bridge"
+          RUN_LOG="$GITHUB_WORKSPACE/.bridge/run.log"
+          : > "$RUN_LOG"
+          date +%s > "$GITHUB_WORKSPACE/.bridge/started_at"
 
           find_manifest() {
             local candidate
@@ -138,17 +144,20 @@ jobs:
           run_one() {
             local cmd="$1"
             echo ""
-            echo ">>> $cmd"
-            if eval "$cmd"; then
-              echo "<<< OK: $cmd"
+            echo ">>> $cmd" | tee -a "$RUN_LOG"
+            eval "$cmd" 2>&1 | tee -a "$RUN_LOG"
+            local code=${PIPESTATUS[0]}
+            if [[ $code -eq 0 ]]; then
+              echo "<<< OK: $cmd" | tee -a "$RUN_LOG"
               return 0
             else
-              echo "<<< FAILED: $cmd"
+              echo "<<< FAILED (exit $code): $cmd" | tee -a "$RUN_LOG"
               return 1
             fi
           }
 
           FAILED_COMMANDS=()
+          TOTAL_COMMANDS=0
 
           if [[ "$TEST_CMD" == "auto" || -z "$TEST_CMD" ]]; then
             if MANIFEST="$(find_manifest)"; then
@@ -157,28 +166,116 @@ jobs:
                 cmd="${line%%#*}"
                 cmd="$(echo "$cmd" | xargs || true)"
                 [[ -z "$cmd" ]] && continue
+                TOTAL_COMMANDS=$((TOTAL_COMMANDS + 1))
                 run_one "$cmd" || FAILED_COMMANDS+=("$cmd")
               done < "$MANIFEST"
             elif [[ -f "package.json" ]] && grep -q '"test"' package.json; then
+              TOTAL_COMMANDS=1
               run_one "npm test" || FAILED_COMMANDS+=("npm test")
             elif command -v pytest >/dev/null 2>&1 && [[ -d "tests" || -f "pytest.ini" || -f "pyproject.toml" ]]; then
+              TOTAL_COMMANDS=1
               run_one "pytest -v" || FAILED_COMMANDS+=("pytest -v")
             else
               echo "No manifest, package.json test script, or pytest project detected."
+              TOTAL_COMMANDS=1
               run_one "node --test" || FAILED_COMMANDS+=("node --test")
             fi
           else
+            TOTAL_COMMANDS=1
             run_one "$TEST_CMD" || FAILED_COMMANDS+=("$TEST_CMD")
           fi
 
           echo ""
           echo "=== Execution complete ==="
+          echo "${#FAILED_COMMANDS[@]}" > "$GITHUB_WORKSPACE/.bridge/failed_commands"
+          echo "$TOTAL_COMMANDS" > "$GITHUB_WORKSPACE/.bridge/total_commands"
           if [[ ${#FAILED_COMMANDS[@]} -gt 0 ]]; then
             echo "${#FAILED_COMMANDS[@]} command(s) failed:"
             printf '  - %s\n' "${FAILED_COMMANDS[@]}"
             exit 1
           fi
           echo "All test commands passed."
+
+      - name: Notify private repository
+        if: always()
+        shell: bash
+        env:
+          TARGET_REPO: ${{ github.event.inputs.repository || github.event.client_payload.repository || '' }}
+          TARGET_REF: ${{ github.event.inputs.ref || github.event.client_payload.ref || 'main' }}
+          RESULT_TOKEN: ${{ secrets.CI_RESULT_TOKEN }}
+        run: |
+          set -uo pipefail
+          # Aggregated result only: status + counts. No code, no test names, no URLs.
+          BRIDGE_DIR="$GITHUB_WORKSPACE/.bridge"
+          RUN_LOG="$BRIDGE_DIR/run.log"
+          FAILED_CMDS=0
+          TOTAL_CMDS=1
+          [[ -f "$BRIDGE_DIR/failed_commands" ]] && FAILED_CMDS=$(cat "$BRIDGE_DIR/failed_commands")
+          [[ -f "$BRIDGE_DIR/total_commands" ]] && TOTAL_CMDS=$(cat "$BRIDGE_DIR/total_commands")
+
+          PASSED=0
+          FAILED=0
+          if [[ -f "$RUN_LOG" ]]; then
+            TAP_PASS=$(grep -E '^# pass [0-9]+' "$RUN_LOG" | tail -1 | grep -oE '[0-9]+' || true)
+            TAP_FAIL=$(grep -E '^# fail [0-9]+' "$RUN_LOG" | tail -1 | grep -oE '[0-9]+' || true)
+            if [[ -n "$TAP_PASS" || -n "$TAP_FAIL" ]]; then
+              PASSED=${TAP_PASS:-0}
+              FAILED=${TAP_FAIL:-0}
+            else
+              PY_PASS=$(grep -oE '[0-9]+ passed' "$RUN_LOG" | tail -1 | grep -oE '[0-9]+' || true)
+              PY_FAIL=$(grep -oE '[0-9]+ failed' "$RUN_LOG" | tail -1 | grep -oE '[0-9]+' || true)
+              [[ -n "$PY_PASS" ]] && PASSED=$PY_PASS
+              [[ -n "$PY_FAIL" ]] && FAILED=$PY_FAIL
+            fi
+          fi
+          TOTAL=$((PASSED + FAILED))
+
+          if [[ "$FAILED_CMDS" -gt 0 ]]; then STATUS="failure"; else STATUS="success"; fi
+
+          STARTED=0
+          [[ -f "$BRIDGE_DIR/started_at" ]] && STARTED=$(cat "$BRIDGE_DIR/started_at")
+          NOW=$(date +%s)
+          DURATION=$((NOW - STARTED))
+
+          echo "Result: status=$STATUS passed=$PASSED failed=$FAILED commands=$TOTAL_CMDS/$FAILED_CMDS duration=${DURATION}s"
+
+          if [[ -z "$TARGET_REPO" ]]; then
+            echo "::warning::No target repository known; skipping result callback."
+            exit 0
+          fi
+          if [[ -z "$RESULT_TOKEN" ]]; then
+            echo "::warning::Missing secret 'CI_RESULT_TOKEN'; skipping result callback to $TARGET_REPO."
+            echo "Add a PAT with Actions write access to the private repositories."
+            exit 0
+          fi
+          echo "::add-mask::$RESULT_TOKEN"
+
+          PAYLOAD=$(jq -n \
+            --arg repo "$TARGET_REPO" \
+            --arg ref "$TARGET_REF" \
+            --arg status "$STATUS" \
+            --argjson passed "$PASSED" \
+            --argjson failed "$FAILED" \
+            --argjson total "$TOTAL" \
+            --argjson commands_total "$TOTAL_CMDS" \
+            --argjson commands_failed "$FAILED_CMDS" \
+            --argjson duration_seconds "$DURATION" \
+            '{event_type:"ci-test-result", client_payload:{
+              repository:$repo, ref:$ref, status:$status,
+              passed:$passed, failed:$failed, total:$total,
+              commands_total:$commands_total, commands_failed:$commands_failed,
+              duration_seconds:$duration_seconds}}')
+
+          HTTP_CODE=$(curl -sS -o /dev/null -w "%{http_code}" -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $RESULT_TOKEN" \
+            "https://api.github.com/repos/${TARGET_REPO}/dispatches" \
+            -d "$PAYLOAD" || echo "000")
+          if [[ "$HTTP_CODE" == "204" ]]; then
+            echo "Result callback delivered to $TARGET_REPO."
+          else
+            echo "::warning::Result callback to $TARGET_REPO returned HTTP $HTTP_CODE. The test result above is unaffected."
+          fi
 
       - name: Generate run summary
         if: always()
@@ -187,8 +284,10 @@ jobs:
           INPUT_REPO: ${{ github.event.inputs.repository || github.event.client_payload.repository || '' }}
           INPUT_REF: ${{ github.event.inputs.ref || github.event.client_payload.ref || 'main' }}
           INPUT_CMD: ${{ github.event.inputs.test_command || github.event.client_payload.test_command || 'auto' }}
-          JOB_STATUS: ${{ job.status }}
         run: |
+          FAILED_CMDS=0
+          [[ -f "$GITHUB_WORKSPACE/.bridge/failed_commands" ]] && FAILED_CMDS=$(cat "$GITHUB_WORKSPACE/.bridge/failed_commands")
+          if [[ "$FAILED_CMDS" -gt 0 ]]; then RESULT="failure"; else RESULT="success"; fi
           {
             echo "## Universal CI Runner - Test Execution"
             echo ""
@@ -197,11 +296,12 @@ jobs:
             echo "| Target repository | \`$INPUT_REPO\` |"
             echo "| Ref / branch | \`$INPUT_REF\` |"
             echo "| Test command | \`$INPUT_CMD\` |"
-            echo "| Result | **$JOB_STATUS** |"
+            echo "| Result | **$RESULT** |"
             echo "| Billing | Public repository runner - **0 private minutes** |"
             echo ""
             echo "Private code was checked out ephemerally and wiped (\`rm -rf private-repo\`)."
             echo "Nothing from the private repository was committed, pushed, or uploaded as an artifact."
+            echo "An aggregated result was posted back to the private repository (status + counts only)."
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Secure cleanup of private files
