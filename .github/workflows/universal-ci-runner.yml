@@ -77,6 +77,8 @@ jobs:
           fi
           echo "::add-mask::$TOKEN"
           echo "Authorization token verified and masked."
+          mkdir -p "$GITHUB_WORKSPACE/.bridge"
+          date +%s > "$GITHUB_WORKSPACE/.bridge/started_at"
 
       - name: Ephemeral checkout of private repository
         uses: actions/checkout@v5
@@ -128,7 +130,6 @@ jobs:
           mkdir -p "$GITHUB_WORKSPACE/.bridge"
           RUN_LOG="$GITHUB_WORKSPACE/.bridge/run.log"
           : > "$RUN_LOG"
-          date +%s > "$GITHUB_WORKSPACE/.bridge/started_at"
 
           find_manifest() {
             local candidate
@@ -216,16 +217,17 @@ jobs:
           PASSED=0
           FAILED=0
           if [[ -f "$RUN_LOG" ]]; then
-            TAP_PASS=$(grep -E '^# pass [0-9]+' "$RUN_LOG" | tail -1 | grep -oE '[0-9]+' || true)
-            TAP_FAIL=$(grep -E '^# fail [0-9]+' "$RUN_LOG" | tail -1 | grep -oE '[0-9]+' || true)
-            if [[ -n "$TAP_PASS" || -n "$TAP_FAIL" ]]; then
-              PASSED=${TAP_PASS:-0}
-              FAILED=${TAP_FAIL:-0}
+            # Sum across ALL test commands (each prints its own TAP/pytest summary).
+            TAP_PASS=$(grep -E '^# pass [0-9]+' "$RUN_LOG" | grep -oE '[0-9]+' | awk '{s+=$1} END {print s+0}')
+            TAP_FAIL=$(grep -E '^# fail [0-9]+' "$RUN_LOG" | grep -oE '[0-9]+' | awk '{s+=$1} END {print s+0}')
+            if [[ "$TAP_PASS" != "0" || "$TAP_FAIL" != "0" ]]; then
+              PASSED=$TAP_PASS
+              FAILED=$TAP_FAIL
             else
-              PY_PASS=$(grep -oE '[0-9]+ passed' "$RUN_LOG" | tail -1 | grep -oE '[0-9]+' || true)
-              PY_FAIL=$(grep -oE '[0-9]+ failed' "$RUN_LOG" | tail -1 | grep -oE '[0-9]+' || true)
-              [[ -n "$PY_PASS" ]] && PASSED=$PY_PASS
-              [[ -n "$PY_FAIL" ]] && FAILED=$PY_FAIL
+              PY_PASS=$(grep -oE '[0-9]+ passed' "$RUN_LOG" | grep -oE '[0-9]+' | awk '{s+=$1} END {print s+0}')
+              PY_FAIL=$(grep -oE '[0-9]+ failed' "$RUN_LOG" | grep -oE '[0-9]+' | awk '{s+=$1} END {print s+0}')
+              PASSED=$PY_PASS
+              FAILED=$PY_FAIL
             fi
           fi
           TOTAL=$((PASSED + FAILED))
