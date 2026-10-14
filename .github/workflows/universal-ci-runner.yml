@@ -247,10 +247,91 @@ jobs:
           fi
           if [[ -z "$RESULT_TOKEN" ]]; then
             echo "::warning::Missing secret 'CI_RESULT_TOKEN'; skipping result callback to $TARGET_REPO."
-            echo "Add a PAT with Actions write access to the private repositories."
+            echo "Add a PAT with Actions write AND Contents write access to the private repositories."
             exit 0
           fi
           echo "::add-mask::$RESULT_TOKEN"
+
+          # Build a sanitized failure-details file and push it to a PRIVATE branch
+          # of the target repo (never public). Contains only test names, error
+          # excerpts and the log tail - no tokens, no URLs.
+          DETAILS_BRANCH="ci/last-result"
+          DETAILS_FILE="latest.md"
+          DETAILS_PUSHED=false
+          push_details() {
+            local workdir details
+            workdir=$(mktemp -d) || return 1
+            details="$workdir/$DETAILS_FILE"
+            {
+              echo "# Test result details"
+              echo ""
+              echo "- Repository: \`$TARGET_REPO\`"
+              echo "- Ref: \`$TARGET_REF\`"
+              echo "- Status: **$STATUS**"
+              echo "- Tests: $PASSED passed, $FAILED failed, $TOTAL total"
+              echo "- Commands: $TOTAL_CMDS run, $FAILED_CMDS failed"
+              echo "- Duration: ${DURATION}s"
+              echo "- Generated: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+              echo ""
+              if [[ -f "$RUN_LOG" ]]; then
+                echo "## Failed tests (names only)"
+                echo '```'
+                grep -E '^not ok [0-9]+ - ' "$RUN_LOG" | head -200 || echo "(none)"
+                echo '```'
+                echo ""
+                echo "## Compiler / linter errors"
+                echo '```'
+                grep -E 'error TS[0-9]+|ERROR in |ESLint|error Command failed|Command failed with exit code' "$RUN_LOG" | head -100 || echo "(none)"
+                echo '```'
+                echo ""
+                echo "## Log tail (last 120 lines)"
+                echo '```'
+                tail -120 "$RUN_LOG"
+                echo '```'
+              else
+                echo "(no test log available)"
+              fi
+            } > "$details"
+            if [[ -n "$RESULT_TOKEN" ]]; then
+              sed -i "s/${RESULT_TOKEN}/***/g" "$details" || true
+            fi
+            # Cap size (~60 KB) so pushes stay small.
+            tail -c 60000 "$details" > "$details.tmp" && mv "$details.tmp" "$details"
+            cd "$workdir" || return 1
+            local auth
+            auth=$(echo -n "x-access-token:$RESULT_TOKEN" | base64 -w0)
+            git init -q . || return 1
+            git -c user.name="ci-bridge" -c user.email="ci-bridge@users.noreply.github.com" \
+              -c http.extraheader="AUTHORIZATION: basic $auth" \
+              -c commit.gpgsign=false \
+              remote add origin "https://github.com/${TARGET_REPO}.git" || return 1
+            git -c http.extraheader="AUTHORIZATION: basic $auth" \
+              fetch --depth 1 origin "$DETAILS_BRANCH" 2>/dev/null || true
+            if git rev-parse --verify FETCH_HEAD >/dev/null 2>&1; then
+              git checkout -q -B "$DETAILS_BRANCH" FETCH_HEAD || return 1
+            else
+              git checkout -q --orphan "$DETAILS_BRANCH" || return 1
+            fi
+            cp "$details" "./$DETAILS_FILE"
+            git add "$DETAILS_FILE" || return 1
+            git -c user.name="ci-bridge" -c user.email="ci-bridge@users.noreply.github.com" \
+              commit -qm "ci: test result for ${TARGET_REF} (${STATUS})" || return 1
+            git -c http.extraheader="AUTHORIZATION: basic $auth" \
+              push -q origin "$DETAILS_BRANCH" || return 1
+            cd - >/dev/null || true
+            rm -rf "$workdir"
+            return 0
+          }
+          if [[ -n "$RESULT_TOKEN" ]]; then
+            if push_details; then
+              DETAILS_PUSHED=true
+              echo "Failure details pushed to $TARGET_REPO ($DETAILS_BRANCH/$DETAILS_FILE, private)."
+            else
+              echo "::warning::Could not push failure details to $TARGET_REPO. Counts-only callback will still be sent."
+            fi
+          else
+            echo "::warning::Skipping details push (no result token)."
+          fi
 
           PAYLOAD=$(jq -n \
             --arg repo "$TARGET_REPO" \
@@ -262,11 +343,16 @@ jobs:
             --argjson commands_total "$TOTAL_CMDS" \
             --argjson commands_failed "$FAILED_CMDS" \
             --argjson duration_seconds "$DURATION" \
+            --arg details_branch "$DETAILS_BRANCH" \
+            --arg details_file "$DETAILS_FILE" \
+            --argjson details_pushed "$DETAILS_PUSHED" \
             '{event_type:"ci-test-result", client_payload:{
               repository:$repo, ref:$ref, status:$status,
               passed:$passed, failed:$failed, total:$total,
               commands_total:$commands_total, commands_failed:$commands_failed,
-              duration_seconds:$duration_seconds}}')
+              duration_seconds:$duration_seconds,
+              details_branch:$details_branch, details_file:$details_file,
+              details_pushed:$details_pushed}}')
 
           HTTP_CODE=$(curl -sS -o /dev/null -w "%{http_code}" -X POST \
             -H "Accept: application/vnd.github+json" \
