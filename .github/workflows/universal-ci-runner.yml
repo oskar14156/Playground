@@ -40,6 +40,11 @@ on:
         required: false
         default: '3.12'
         type: string
+      quiet:
+        description: 'true: skip the repository_dispatch report event (zero private minutes; results only via details file). Default: false'
+        required: false
+        default: 'false'
+        type: string
 
   repository_dispatch:
     types: [run-private-tests]
@@ -335,7 +340,10 @@ jobs:
               git -C repo rm -q -rf . 2>/dev/null || true
             }
             cp "$details" "repo/$DETAILS_FILE" || return 1
-            git -C repo add "$DETAILS_FILE" || return 1
+            SLUG=$(echo "$TARGET_REF" | tr '/' '-')
+            mkdir -p "repo/results"
+            cp "$details" "repo/results/${SLUG}.md" || return 1
+            git -C repo add "$DETAILS_FILE" "results/${SLUG}.md" || return 1
             if git -C repo diff --cached --quiet; then
               echo "Details unchanged; skipping push."
             else
@@ -392,15 +400,20 @@ jobs:
               commands_total:$commands_total, commands_failed:$commands_failed,
               duration_seconds:$duration_seconds, details:$details}}')
 
-          HTTP_CODE=$(curl -sS -o /dev/null -w "%{http_code}" -X POST \
-            -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer $RESULT_TOKEN" \
-            "https://api.github.com/repos/${TARGET_REPO}/dispatches" \
-            -d "$PAYLOAD" || echo "000")
-          if [[ "$HTTP_CODE" == "204" ]]; then
-            echo "Result callback delivered to $TARGET_REPO."
+          QUIET="${{ github.event.inputs.quiet || github.event.client_payload.quiet || 'false' }}"
+          if [[ "$QUIET" == "true" ]]; then
+            echo "Quiet mode: skipping repository_dispatch report event (zero private minutes; results only via details file)."
           else
-            echo "::warning::Result callback to $TARGET_REPO returned HTTP $HTTP_CODE. The test result above is unaffected."
+            HTTP_CODE=$(curl -sS -o /dev/null -w "%{http_code}" -X POST \
+              -H "Accept: application/vnd.github+json" \
+              -H "Authorization: Bearer $RESULT_TOKEN" \
+              "https://api.github.com/repos/${TARGET_REPO}/dispatches" \
+              -d "$PAYLOAD" || echo "000")
+            if [[ "$HTTP_CODE" == "204" ]]; then
+              echo "Result callback delivered to $TARGET_REPO."
+            else
+              echo "::warning::Result callback to $TARGET_REPO returned HTTP $HTTP_CODE. The test result above is unaffected."
+            fi
           fi
 
       - name: Generate run summary

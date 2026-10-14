@@ -1,0 +1,165 @@
+name: Private Repo Poller - Zero-Minute CI
+
+# Polls configured private repositories for new commits on ci/run/* branches
+# and tests them on this public runner. No job ever runs inside the private
+# repositories, so ZERO private Actions minutes are consumed.
+# Agents only push branches and read result files - they never see this repo.
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+    inputs:
+      repository:
+        description: 'Single private repo to poll (empty = all configured repos)'
+        required: false
+        default: ''
+
+permissions:
+  actions: write
+  contents: read
+
+concurrency:
+  group: private-poller
+  cancel-in-progress: false
+
+jobs:
+  poll:
+    name: Poll private repos and test new commits
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+
+    steps:
+      - name: Skip if a previous poller run is still active
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          ACTIVE=$(gh api "repos/${GITHUB_REPOSITORY}/actions/workflows/private-poller.yml/runs?per_page=20" \
+            --jq "[.workflow_runs[] | select(.status == \"in_progress\" or .status == \"queued\") | select(.id != ${{ github.run_id }})] | length")
+          if [[ "$ACTIVE" != "0" ]]; then
+            echo "Another poller run is still active ($ACTIVE). Exiting to avoid overlap."
+            exit 0
+          fi
+          echo "No overlapping poller run. Continuing."
+
+      - name: Poll branches and test untested commits
+        shell: bash
+        env:
+          READ_TOKEN: ${{ secrets.CI_BRIDGE_READ_TOKEN }}
+          POLL_REPOS: ${{ secrets.CI_POLL_REPOS }}
+          INPUT_REPO: ${{ inputs.repository }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -uo pipefail
+          if [[ -z "${READ_TOKEN:-}" ]]; then
+            echo "::error::Missing secret 'CI_BRIDGE_READ_TOKEN'."
+            exit 1
+          fi
+          echo "::add-mask::$READ_TOKEN"
+
+          REPOS="$INPUT_REPO"
+          if [[ -z "$REPOS" ]]; then REPOS="$POLL_REPOS"; fi
+          if [[ -z "${REPOS:-}" ]]; then
+            echo "::error::No repositories configured. Set secret 'CI_POLL_REPOS' (space-separated OWNER/REPO list) or pass the 'repository' input."
+            exit 1
+          fi
+
+          api_private() {
+            curl -sS -H "Accept: application/vnd.github+json" \
+              -H "Authorization: Bearer $READ_TOKEN" "$@"
+          }
+
+          for REPO in $REPOS; do
+            echo ""
+            echo "=== Repository: $REPO ==="
+            echo "::add-mask::$REPO"
+            BRANCHES=$(api_private "https://api.github.com/repos/${REPO}/branches?per_page=100" \
+              | jq -r '.[].name' | grep -E '^ci/run/' || true)
+            if [[ -z "$BRANCHES" ]]; then
+              echo "No ci/run/* branches. Skipping."
+              continue
+            fi
+            while IFS= read -r BRANCH; do
+              [[ -z "$BRANCH" ]] && continue
+              echo ""
+              echo "--- Branch: $BRANCH ---"
+              echo "::add-mask::$BRANCH"
+              HEAD_SHA=$(api_private "https://api.github.com/repos/${REPO}/branches/${BRANCH}" \
+                | jq -r '.commit.sha // empty')
+              if [[ -z "$HEAD_SHA" ]]; then
+                echo "::warning::Could not resolve HEAD of $BRANCH. Skipping."
+                continue
+              fi
+              echo "::add-mask::$HEAD_SHA"
+              SLUG=$(echo "$BRANCH" | tr '/' '-')
+              RECORDED=$(curl -sS -H "Accept: application/vnd.github.raw" \
+                -H "Authorization: Bearer $READ_TOKEN" \
+                "https://api.github.com/repos/${REPO}/contents/results/${SLUG}.md?ref=ci/last-result" \
+                2>/dev/null | grep -E '^- Tested commit: `' | head -1 | grep -oE '[0-9a-f]{40}' || true)
+              if [[ "$RECORDED" == "$HEAD_SHA" ]]; then
+                echo "Already tested ($HEAD_SHA). Skipping."
+                continue
+              fi
+              echo "New commit $HEAD_SHA (recorded: ${RECORDED:-none}). Dispatching quiet test run."
+
+              BEFORE_ID=$(gh api "repos/${GITHUB_REPOSITORY}/actions/workflows/universal-ci-runner.yml/runs?per_page=1" \
+                --jq '.workflow_runs[0].id // 0')
+              gh workflow run universal-ci-runner.yml --repo "$GITHUB_REPOSITORY" \
+                -f repository="$REPO" -f ref="$BRANCH" \
+                -f test_command="auto" -f install_command="auto" \
+                -f quiet="true" >/dev/null
+              echo "Dispatched. Waiting for the run to appear..."
+
+              RUN_ID=0
+              for _ in $(seq 1 30); do
+                sleep 10
+                RUN_ID=$(gh api "repos/${GITHUB_REPOSITORY}/actions/workflows/universal-ci-runner.yml/runs?per_page=5" \
+                  --jq "[.workflow_runs[] | select(.id > $BEFORE_ID)] | max_by(.id) | .id // 0")
+                if [[ "$RUN_ID" != "0" ]]; then break; fi
+              done
+              if [[ "$RUN_ID" == "0" ]]; then
+                echo "::warning::Dispatched run did not appear. Skipping $BRANCH for now."
+                continue
+              fi
+              echo "Run $RUN_ID started. Waiting for completion (up to ~40 min)..."
+
+              CONCLUSION=""
+              for _ in $(seq 1 120); do
+                sleep 20
+                STATUS=$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${RUN_ID}" \
+                  --jq '{status: .status, conclusion: .conclusion}')
+                if [[ "$(echo "$STATUS" | jq -r .status)" == "completed" ]]; then
+                  CONCLUSION=$(echo "$STATUS" | jq -r .conclusion)
+                  break
+                fi
+              done
+              if [[ -z "$CONCLUSION" ]]; then
+                echo "::warning::Run $RUN_ID did not complete in time. Moving on."
+                continue
+              fi
+              echo "Run $RUN_ID completed: $CONCLUSION."
+
+              sleep 10
+              FILE_SHA=$(curl -sS -H "Accept: application/vnd.github.raw" \
+                -H "Authorization: Bearer $READ_TOKEN" \
+                "https://api.github.com/repos/${REPO}/contents/results/${SLUG}.md?ref=ci/last-result" \
+                2>/dev/null | grep -E '^- Tested commit: `' | head -1 | grep -oE '[0-9a-f]{40}' || true)
+              {
+                echo "## Poller result: \`$REPO@$BRANCH\`"
+                echo ""
+                echo "- Tested commit: \`$HEAD_SHA\`"
+                echo "- Run conclusion: **$CONCLUSION**"
+                echo "- Result file tested commit: \`${FILE_SHA:-unknown}\`"
+                echo "- Result file: \`results/${SLUG}.md\` on branch \`ci/last-result\` (private repo)"
+              } >> "$GITHUB_STEP_SUMMARY"
+              if [[ "$FILE_SHA" == "$HEAD_SHA" ]]; then
+                echo "Verified: result file matches tested commit."
+              else
+                echo "::warning::Result file does not match tested commit yet (recorded: ${FILE_SHA:-none})."
+              fi
+            done <<< "$BRANCHES"
+          done
+          echo ""
+          echo "Poll cycle complete."
