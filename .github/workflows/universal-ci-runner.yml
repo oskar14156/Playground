@@ -45,6 +45,11 @@ on:
         required: false
         default: 'false'
         type: string
+      runner_os:
+        description: 'Runner image (e.g. ubuntu-latest, macos-14, macos-26 for Xcode/iOS builds). Default: ubuntu-latest'
+        required: false
+        default: 'ubuntu-latest'
+        type: string
 
   repository_dispatch:
     types: [run-private-tests]
@@ -55,10 +60,26 @@ permissions:
 jobs:
   run-tests:
     name: Execute private repository tests
-    runs-on: ubuntu-latest
+    runs-on: ${{ github.event.inputs.runner_os || github.event.client_payload.runner_os || 'ubuntu-latest' }}
     timeout-minutes: 360
 
     steps:
+      - name: Setup Xcode (macOS runners only)
+        if: startsWith(github.event.inputs.runner_os || github.event.client_payload.runner_os || 'ubuntu-latest', 'macos')
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "=== Xcode setup ==="
+          ls -d /Applications/Xcode*.app 2>/dev/null || echo "(no Xcode*.app found)"
+          XCODE_APP=$(ls -d /Applications/Xcode*.app 2>/dev/null | sort -V | tail -1 || true)
+          if [[ -n "$XCODE_APP" ]]; then
+            echo "Selecting $XCODE_APP"
+            sudo xcode-select -s "$XCODE_APP"
+          fi
+          xcodebuild -version
+          echo "--- Simulator runtimes ---"
+          xcrun simctl list runtimes 2>/dev/null | head -20 || true
+
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
@@ -135,6 +156,7 @@ jobs:
           mkdir -p "$GITHUB_WORKSPACE/.bridge"
           RUN_LOG="$GITHUB_WORKSPACE/.bridge/run.log"
           : > "$RUN_LOG"
+          echo "Runner image: ${{ github.event.inputs.runner_os || github.event.client_payload.runner_os || 'ubuntu-latest' }} ($(uname -srm))" | tee -a "$RUN_LOG"
 
           find_manifest() {
             local candidate
