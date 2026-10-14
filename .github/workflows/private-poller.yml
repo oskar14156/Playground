@@ -14,6 +14,10 @@ on:
         description: 'Single private repo to poll (empty = all configured repos)'
         required: false
         default: ''
+      runner_os:
+        description: 'Runner override (empty = auto: .ci/runner-os.txt in the branch, else ubuntu-latest)'
+        required: false
+        default: ''
 
 permissions:
   actions: write
@@ -50,6 +54,7 @@ jobs:
           READ_TOKEN: ${{ secrets.CI_BRIDGE_READ_TOKEN }}
           POLL_REPOS: ${{ secrets.CI_POLL_REPOS }}
           INPUT_REPO: ${{ inputs.repository }}
+          INPUT_OS: ${{ inputs.runner_os }}
           GH_TOKEN: ${{ github.token }}
         run: |
           set -uo pipefail
@@ -104,12 +109,23 @@ jobs:
               fi
               echo "New commit $HEAD_SHA (recorded: ${RECORDED:-none}). Dispatching quiet test run."
 
+              RUNNER_OS="$INPUT_OS"
+              if [[ -z "$RUNNER_OS" ]]; then
+                RUNNER_OS=$(curl -sS -H "Accept: application/vnd.github.raw" \
+                  -H "Authorization: Bearer $READ_TOKEN" \
+                  "https://api.github.com/repos/${REPO}/contents/.ci/runner-os.txt?ref=${BRANCH}" \
+                  2>/dev/null | head -1 | tr -d '[:space:]' || true)
+              fi
+              if [[ -z "$RUNNER_OS" ]]; then RUNNER_OS="ubuntu-latest"; fi
+              echo "Runner image: $RUNNER_OS"
+              echo "::add-mask::$RUNNER_OS"
+
               BEFORE_ID=$(gh api "repos/${GITHUB_REPOSITORY}/actions/workflows/universal-ci-runner.yml/runs?per_page=1" \
                 --jq '.workflow_runs[0].id // 0')
               gh workflow run universal-ci-runner.yml --repo "$GITHUB_REPOSITORY" \
                 -f repository="$REPO" -f ref="$BRANCH" \
                 -f test_command="auto" -f install_command="auto" \
-                -f quiet="true" >/dev/null
+                -f quiet="true" -f runner_os="$RUNNER_OS" >/dev/null
               echo "Dispatched. Waiting for the run to appear..."
 
               RUN_ID=0
