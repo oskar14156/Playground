@@ -313,28 +313,54 @@ jobs:
             # Cap size (~60 KB) so pushes stay small.
             tail -c 60000 "$details" > "$details.tmp" && mv "$details.tmp" "$details"
             cd "$workdir" || return 1
-            local auth
+            local auth gitout
             auth=$(echo -n "x-access-token:$RESULT_TOKEN" | base64 -w0)
-            git init -q . || return 1
-            git -c user.name="ci-bridge" -c user.email="ci-bridge@users.noreply.github.com" \
-              -c http.extraheader="AUTHORIZATION: basic $auth" \
-              -c commit.gpgsign=false \
-              remote add origin "https://github.com/${TARGET_REPO}.git" || return 1
-            git -c http.extraheader="AUTHORIZATION: basic $auth" \
-              fetch --depth 1 origin "$DETAILS_BRANCH" 2>/dev/null || true
-            if git rev-parse --verify FETCH_HEAD >/dev/null 2>&1; then
-              git checkout -q -B "$DETAILS_BRANCH" FETCH_HEAD || return 1
+            gitout=$(
+              GIT_CONFIG_NOSYSTEM=1 \
+              git -c user.name="ci-bridge" -c user.email="ci-bridge@users.noreply.github.com" \
+                -c commit.gpgsign=false \
+                -c http.extraheader="AUTHORIZATION: basic $auth" \
+                clone --depth 1 --branch "$DETAILS_BRANCH" \
+                "https://github.com/${TARGET_REPO}.git" repo 2>&1
+            ) || {
+              # Branch does not exist yet: clone default branch, start orphan history.
+              gitout=$(
+                GIT_CONFIG_NOSYSTEM=1 \
+                git -c user.name="ci-bridge" -c user.email="ci-bridge@users.noreply.github.com" \
+                  -c commit.gpgsign=false \
+                  -c http.extraheader="AUTHORIZATION: basic $auth" \
+                  clone --depth 1 "https://github.com/${TARGET_REPO}.git" repo 2>&1
+              ) || { echo "::warning::Details git clone failed: $gitout"; return 1; }
+              git -C repo checkout -q --orphan "$DETAILS_BRANCH" || return 1
+              git -C repo rm -q -rf . 2>/dev/null || true
+            }
+            cp "$details" "repo/$DETAILS_FILE" || return 1
+            git -C repo add "$DETAILS_FILE" || return 1
+            if git -C repo diff --cached --quiet; then
+              echo "Details unchanged; skipping push."
             else
-              git checkout -q --orphan "$DETAILS_BRANCH" || return 1
+              git -C repo -c user.name="ci-bridge" -c user.email="ci-bridge@users.noreply.github.com" \
+                commit -qm "ci: test result for ${TARGET_REF} (${STATUS})" || return 1
+              gitout=$(
+                git -C repo -c http.extraheader="AUTHORIZATION: basic $auth" \
+                  push origin "$DETAILS_BRANCH" 2>&1
+              ) || {
+                # Lost a race with a concurrent run: rebase onto latest and retry once.
+                git -C repo -c http.extraheader="AUTHORIZATION: basic $auth" \
+                  fetch --depth 1 origin "$DETAILS_BRANCH" 2>/dev/null || true
+                git -C repo rebase "origin/$DETAILS_BRANCH" 2>/dev/null || {
+                  echo "::warning::Details push failed (rebase): $gitout"
+                  return 1
+                }
+                git -C repo -c http.extraheader="AUTHORIZATION: basic $auth" \
+                  push origin "$DETAILS_BRANCH" 2>&1 || {
+                  echo "::warning::Details push failed (retry)."
+                  return 1
+                }
+              }
             fi
-            cp "$details" "./$DETAILS_FILE"
-            git add "$DETAILS_FILE" || return 1
-            git -c user.name="ci-bridge" -c user.email="ci-bridge@users.noreply.github.com" \
-              commit -qm "ci: test result for ${TARGET_REF} (${STATUS})" || return 1
-            git -c http.extraheader="AUTHORIZATION: basic $auth" \
-              push -q origin "$DETAILS_BRANCH" || return 1
             cd - >/dev/null || true
-            rm -rf "$workdir"
+            rm -rf "$workdir" || true
             return 0
           }
           if [[ -n "$RESULT_TOKEN" ]]; then
