@@ -1,0 +1,161 @@
+name: Playground Direct OS Matrix (Linux / macOS / Windows)
+
+# Public, self-contained teaching CI; no private repository checkout or secrets.
+on:
+  push:
+    branches:
+      - ci/run/playground-direct-matrix-20261015
+    paths:
+      - .github/workflows/playground-direct-matrix-20261015.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  linux:
+    name: Linux - real public Node/Python tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Operating system and tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          uname -a
+          node --version
+          python3 --version
+          git --version
+      - name: Run existing PUBLIC pricing and CI-bridge regression suites
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check course-exercise/src/pricing-plan.mjs
+          node --check course-exercise/tests/pricing-plan.test.mjs
+          node --test course-exercise/tests/pricing-plan.test.mjs
+          node --test course-exercise/ci-bridge/contract.test.mjs
+          echo '### Linux: public Node CI tests passed' >> "$GITHUB_STEP_SUMMARY"
+      - name: Python unittest proof
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import unittest
+          class PublicPythonSmoke(unittest.TestCase):
+              def test_arithmetic(self): self.assertEqual(sum([2, 3, 5]), 10)
+              def test_utf8(self): self.assertEqual("Grüße".encode("utf8").decode("utf8"), "Grüße")
+              def test_sorting(self): self.assertEqual(sorted([9, 1, 4]), [1, 4, 9])
+          unittest.main(verbosity=2)
+          PY
+
+  macos:
+    name: macOS 26 - Xcode, Swift XCTest, iOS compile, simulator boot
+    runs-on: macos-26
+    timeout-minutes: 30
+    steps:
+      - name: Verify real macOS/Xcode environment
+        shell: bash
+        run: |
+          set -euo pipefail
+          uname -a
+          sw_vers
+          xcodebuild -version
+          swift --version
+          xcrun simctl list runtimes
+          xcrun simctl list devices available
+      - name: Run native Swift XCTest suite
+        shell: bash
+        run: |
+          set -euo pipefail
+          WORK="$RUNNER_TEMP/PlaygroundNativeSmoke"
+          mkdir -p "$WORK/Sources/MathKit" "$WORK/Tests/MathKitTests"
+          cat > "$WORK/Package.swift" <<'SWIFT'
+          // swift-tools-version: 5.9
+          import PackageDescription
+          let package = Package(
+              name: "PlaygroundNativeSmoke",
+              products: [.library(name: "MathKit", targets: ["MathKit"])],
+              targets: [
+                  .target(name: "MathKit"),
+                  .testTarget(name: "MathKitTests", dependencies: ["MathKit"])
+              ]
+          )
+          SWIFT
+          cat > "$WORK/Sources/MathKit/MathKit.swift" <<'SWIFT'
+          public enum MathKit {
+              public static func double(_ x: Int) -> Int { x * 2 }
+              public static func isPositive(_ x: Int) -> Bool { x > 0 }
+          }
+          SWIFT
+          cat > "$WORK/Tests/MathKitTests/MathKitTests.swift" <<'SWIFT'
+          import XCTest
+          @testable import MathKit
+          final class MathKitTests: XCTestCase {
+              func testPositive() { XCTAssertEqual(MathKit.double(21), 42) }
+              func testZero() { XCTAssertEqual(MathKit.double(0), 0) }
+              func testNegative() { XCTAssertEqual(MathKit.double(-3), -6) }
+              func testPredicate() { XCTAssertTrue(MathKit.isPositive(7)); XCTAssertFalse(MathKit.isPositive(0)) }
+          }
+          SWIFT
+          swift test --package-path "$WORK" --parallel
+          echo '### macOS: native Swift XCTest suite passed' >> "$GITHUB_STEP_SUMMARY"
+      - name: Compile native UIKit code against iOS Simulator SDK
+        shell: bash
+        run: |
+          set -euo pipefail
+          SDK="$(xcrun --sdk iphonesimulator --show-sdk-path)"
+          test -d "$SDK"
+          cat > "$RUNNER_TEMP/PlaygroundUIKit.swift" <<'SWIFT'
+          import UIKit
+          public enum PlaygroundUIKit {
+              public static func makeLabel() -> UILabel {
+                  let label = UILabel()
+                  label.text = "Native iOS Simulator compilation works"
+                  return label
+              }
+          }
+          SWIFT
+          xcrun swiftc -parse-as-library -emit-module -module-name PlaygroundUIKit \
+            -sdk "$SDK" -target arm64-apple-ios18.0-simulator \
+            "$RUNNER_TEMP/PlaygroundUIKit.swift" \
+            -emit-module-path "$RUNNER_TEMP/PlaygroundUIKit.swiftmodule"
+          test -s "$RUNNER_TEMP/PlaygroundUIKit.swiftmodule"
+          echo '### iOS: UIKit module compiled for arm64 simulator' >> "$GITHUB_STEP_SUMMARY"
+      - name: Boot and inspect an actual iOS Simulator
+        shell: bash
+        run: |
+          set -euo pipefail
+          xcrun simctl list devices available -j > "$RUNNER_TEMP/devices.json"
+          DEVICE="$(python3 -c 'import json,sys; d=json.load(open(sys.argv[1]))["devices"]; a=[x for devices in d.values() for x in devices if "iPhone" in x.get("name","") and x.get("state") in ("Shutdown","Booted")]; print(a[0]["udid"] if a else "")' "$RUNNER_TEMP/devices.json")"
+          if [[ -z "$DEVICE" ]]; then
+            echo "::error::No available iPhone Simulator device on macos-26"
+            exit 1
+          fi
+          echo "Selected simulator: $DEVICE"
+          if ! xcrun simctl list devices booted | grep -Fq "$DEVICE"; then
+            xcrun simctl boot "$DEVICE"
+          fi
+          xcrun simctl bootstatus "$DEVICE" -b
+          xcrun simctl list devices booted
+          xcrun simctl shutdown "$DEVICE"
+          echo '### iOS: iPhone Simulator boot and shutdown passed' >> "$GITHUB_STEP_SUMMARY"
+
+  windows:
+    name: Windows - real PowerShell/Node checks
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - name: Verify Windows runner, Node, and Python
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          [System.Environment]::OSVersion.VersionString
+          $PSVersionTable.PSVersion.ToString()
+          node --version
+          python --version
+          node -e "const a=require('node:assert/strict'); a.equal(2+2,4); a.deepEqual([3,1].sort(),[1,3]); console.log('Node assertions passed on Windows')"
+          python -c "assert sum([10, 20, 30]) == 60; print('Python assertions passed on Windows')"
+          "### Windows: Node, Python, PowerShell checks passed" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Encoding utf8 -Append
