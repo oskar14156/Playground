@@ -58,7 +58,8 @@ jobs:
           for(const field of ['dependencies','devDependencies']){
             const root=lock.packages[''][field]||{};
             const declared=pkg[field]||{};
-            if(Object.keys(root).length!==Object.keys(declared).length ||\n               Object.entries(declared).some(([k,v])=>root[k]!==v)) process.exit(2);
+            if(Object.keys(root).length!==Object.keys(declared).length ||
+               Object.entries(declared).some(([k,v])=>root[k]!==v)) process.exit(2);
           }
           console.log('Private dependency graph resolved: lock format '+lock.lockfileVersion);
           JS
