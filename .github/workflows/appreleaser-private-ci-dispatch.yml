@@ -1,4 +1,4 @@
-name: AppReleaser - Dispatch Existing Public Linux CI
+name: AppReleaser - Dispatch Existing Public macOS CI
 
 on:
   push:
@@ -26,5 +26,5 @@ jobs:
             -f test_command=auto \
             -f install_command=auto \
             -f quiet=true \
-            -f runner_os=ubuntu-latest
+            -f runner_os=macos-26
           echo "Dispatched native PUBLIC runner; private code stays in ephemeral workspace."
