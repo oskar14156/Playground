@@ -1,0 +1,80 @@
+name: VidLoud Android 29 and 36 emulator cold-start (private source)
+on:
+  push:
+    branches: [ci/vidloud-android-launch-20261015]
+    paths: [.github/workflows/vidloud-android-emulator-20261015.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  signed-ephemeral-release-emulator:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        api: [29, 36]
+    steps:
+      - name: Configure JDK 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Configure Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Android SDK tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          SDK="${ANDROID_HOME:-/usr/local/lib/android/sdk}"
+          SM=$(find "$SDK/cmdline-tools" -type f -path '*/bin/sdkmanager' | sort -r | head -1)
+          if [[ -z "$SM" ]]; then echo "::error::SDK manager not installed"; exit 1; fi
+          yes | "$SM" --licenses >/dev/null 2>&1 || true
+          if "$SM" --sdk_root="$SDK" "platforms;android-36" "build-tools;36.0.0" >/dev/null 2>&1; then
+            echo "PASS: Android SDK"
+          else
+            echo "::error::Android SDK initialization failed"
+            exit 1
+          fi
+      - name: Checkout pinned private source ephemerally
+        uses: actions/checkout@v4
+        with:
+          repository: oskar14156/VidLoud
+          ref: 49ea2bd19116029c02caa21f56c53706946a1072
+          token: ${{ secrets.CI_BRIDGE_READ_TOKEN }}
+          persist-credentials: false
+          path: private-source
+      - name: Install private app dependencies quietly
+        shell: bash
+        working-directory: private-source
+        run: |
+          set -euo pipefail
+          if npm ci --ignore-scripts --no-audit >/tmp/install.log 2>&1; then
+            echo "PASS: Node dependencies"
+          else
+            echo "::error::Node dependencies failed"
+            exit 1
+          fi
+          rm -f /tmp/install.log
+          if node scripts/patch-react-native-dependencies.mjs >/tmp/patch.log 2>&1; then
+            echo "PASS: Native dependency patches"
+          else
+            echo "::error::Dependency patches failed"
+            exit 1
+          fi
+          rm -f /tmp/patch.log
+      - name: Enable host KVM acceleration
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ ! -e /dev/kvm ]]; then echo "::error::No KVM emulator support on host"; exit 1; fi
+          sudo chmod a+rw /dev/kvm
+      - name: Cold-launch ephemeral production-mode Android APK
+        shell: bash
+        working-directory: private-source
+        env:
+          ANDROID_SMOKE_API: ${{ matrix.api }}
+        run: bash scripts/ci-android-emulator-smoke.sh
+      # Deliberately no artifact uploads or logcat dumps; APK is CI-key-signed only.
