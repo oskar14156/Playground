@@ -1,0 +1,94 @@
+name: AppReleaser - Private Lockfile Bootstrap (No Public Artifacts)
+
+on:
+  push:
+    branches: [ci/run/appreleaser-lock-bootstrap-20261015]
+    paths:
+      - .github/workflows/appreleaser-private-lock-bootstrap.yml
+
+permissions:
+  contents: read
+
+jobs:
+  private-lock-bootstrap:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout private AppReleaser into ephemeral job workspace
+        uses: actions/checkout@v4
+        with:
+          repository: oskar14156/appreleaser
+          ref: ci/run/google-catalog-identity-20261015
+          token: ${{ secrets.CI_BRIDGE_READ_TOKEN }}
+          persist-credentials: false
+          path: private-app
+      - name: Resolve and push reproducible npm lockfile to PRIVATE branch only
+        working-directory: private-app
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.CI_RESULT_TOKEN }}
+          TARGET_REF: ci/run/google-catalog-identity-20261015
+        run: |
+          set -euo pipefail
+          set +x
+          umask 077
+          if [[ -z "${GH_TOKEN:-}" ]]; then
+            echo "::error::Result write token unavailable"
+            exit 1
+          fi
+          if [[ -f package-lock.json ]]; then
+            echo "Private package-lock.json already present - refusing to overwrite"
+            exit 1
+          fi
+          export NPM_CONFIG_AUDIT=false NPM_CONFIG_FUND=false
+          export NPM_CONFIG_UPDATE_NOTIFIER=false
+          if ! npm install --package-lock-only --ignore-scripts --no-audit --no-fund > "$RUNNER_TEMP/lock-bootstrap-install.log" 2>&1; then
+            echo "::error::Dependency lock generation failed (raw private logs withheld)"
+            exit 1
+          fi
+          if ! npm ci --ignore-scripts --no-audit --no-fund > "$RUNNER_TEMP/lock-bootstrap-ci.log" 2>&1; then
+            echo "::error::npm ci reproducibility verification failed (raw private logs withheld)"
+            exit 1
+          fi
+          node - <<'JS'
+          const fs=require('node:fs');
+          const lock=JSON.parse(fs.readFileSync('package-lock.json','utf8'));
+          const pkg=JSON.parse(fs.readFileSync('package.json','utf8'));
+          if(lock.name!==pkg.name || !lock.packages?.[''] || lock.lockfileVersion<2) process.exit(1);
+          for(const field of ['dependencies','devDependencies']){
+            const root=lock.packages[''][field]||{};
+            const declared=pkg[field]||{};
+            if(JSON.stringify(root)!==JSON.stringify(declared)) process.exit(2);
+          }
+          console.log('Private dependency graph resolved: lock format '+lock.lockfileVersion);
+          JS
+          python3 - <<'PY'
+          import json,base64,pathlib,os
+          body={
+            'message':'build(deps): add verified npm lockfile resolved on isolated public CI',
+            'branch':os.environ['TARGET_REF'],
+            'content':base64.b64encode(pathlib.Path('package-lock.json').read_bytes()).decode('ascii')
+          }
+          pathlib.Path(os.environ['RUNNER_TEMP'],'private-payload.json').write_text(
+            json.dumps(body,separators=(',',':')),encoding='utf-8')
+          PY
+          if ! gh api --method PUT repos/oskar14156/appreleaser/contents/package-lock.json \
+            --input "$RUNNER_TEMP/private-payload.json" \
+            > "$RUNNER_TEMP/private-api-response.json" 2> "$RUNNER_TEMP/private-api-error.log"; then
+            echo "::error::Private branch write rejected. No lockfile was published."
+            exit 1
+          fi
+          python3 - <<'PY'
+          import json,os,pathlib
+          result=json.loads(pathlib.Path(os.environ['RUNNER_TEMP'],'private-api-response.json').read_text())
+          assert result.get('content',{}).get('path')=='package-lock.json'
+          assert result.get('commit',{}).get('sha')
+          print('Verified npm lockfile COMMITTED to PRIVATE AppReleaser branch.')
+          PY
+      - name: Remove ephemeral private clone and temporary payload
+        if: always()
+        shell: bash
+        run: |
+          rm -rf "$GITHUB_WORKSPACE/private-app" "$RUNNER_TEMP/private-payload.json" \
+            "$RUNNER_TEMP/private-api-response.json" "$RUNNER_TEMP/private-api-error.log" \
+            "$RUNNER_TEMP/lock-bootstrap-install.log" "$RUNNER_TEMP/lock-bootstrap-ci.log"
