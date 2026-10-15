@@ -1,0 +1,59 @@
+name: VidLoud fast Android source regression tests (no public logs)
+on:
+  push:
+    branches: [ci/vidloud-android-launch-20261015]
+    paths: [.github/workflows/vidloud-android-fast-tests-20261015.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  typescript-and-play:
+    name: Private code quality, all tests and 15 Play locales
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/checkout@v4
+        with:
+          repository: oskar14156/VidLoud
+          ref: 5e191ff417c93c6771b27e8d279ac1f8c8ad3756
+          token: ${{ secrets.CI_BRIDGE_READ_TOKEN }}
+          path: private-source
+          persist-credentials: false
+      - name: Install dependencies quietly
+        working-directory: private-source
+        shell: bash
+        run: |
+          set -euo pipefail
+          if npm ci --ignore-scripts --no-audit >/tmp/install.log 2>&1; then
+            echo 'PASS: dependency install'
+          else
+            echo 'FAIL: dependency install (no private log published)'
+            exit 1
+          fi
+          rm -f /tmp/install.log
+      - name: All private source and Play release checks
+        working-directory: private-source
+        shell: bash
+        run: |
+          set -euo pipefail
+          check() {
+            local label="$1"; shift
+            if "$@" >/tmp/check.log 2>&1; then
+              echo "PASS: $label"
+            else
+              echo "::error::FAIL: $label (private diagnostics suppressed)"
+              exit 1
+            fi
+            rm -f /tmp/check.log
+          }
+          check dependency-patches node scripts/patch-react-native-dependencies.mjs
+          check typecheck npm run typecheck
+          check validators npm run validate
+          check unit-and-regression-tests npm test
+          check google-play-metadata npm run play:listings
+          check release-source-gates node scripts/validate-android-release.mjs --config-only
+          echo 'OK: all source, TypeScript, test and Play metadata checks passed'
+      # Deliberately NO upload-artifact, no raw test logs and no source excerpts.
