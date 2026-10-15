@@ -25,8 +25,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
+      # ubuntu-latest already provides sdkmanager; setup-android@v3 tries to
+      # install removed legacy package "tools" and fails on 2026 images.
       - name: Install Android SDK 36
         shell: bash
         run: |
