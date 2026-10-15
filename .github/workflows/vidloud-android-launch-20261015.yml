@@ -47,7 +47,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: oskar14156/VidLoud
-          ref: ci/run/android-launch-20261015
+          # Test the exact private source revision, not a moving branch head.
+          ref: 728e38ed2dfa32fbf90ea892ccceee8310ef9b42
           token: ${{ secrets.CI_BRIDGE_READ_TOKEN }}
           persist-credentials: false
           path: private-source
