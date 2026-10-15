@@ -42,7 +42,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: oskar14156/VidLoud
-          ref: 970164439e11e3408d28f77d59b1893057dbaa61
+          ref: 007721728e7eb7f55825afa2091244e1e70f1cd7
           token: ${{ secrets.CI_BRIDGE_READ_TOKEN }}
           persist-credentials: false
           path: private-source
