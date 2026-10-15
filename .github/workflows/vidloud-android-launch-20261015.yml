@@ -48,7 +48,7 @@ jobs:
         with:
           repository: oskar14156/VidLoud
           # Test the exact private source revision, not a moving branch head.
-          ref: c28b1e65bb6b7bcacf63aae0f4832db6b1bf556e
+          ref: bc53b383c4d39dbe113c9e9d2bf7725eab2cf013
           token: ${{ secrets.CI_BRIDGE_READ_TOKEN }}
           persist-credentials: false
           path: private-source
