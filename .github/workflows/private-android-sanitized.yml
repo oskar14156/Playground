@@ -1,0 +1,133 @@
+name: Isolated Android native QA (redacted)
+
+# This branch intentionally contains no private repository names or source.
+# Resolve the private project by the exact tested commit SHA using the existing
+# private-read bridge token, mask its identity, and never print raw test output.
+on:
+  push:
+    branches:
+      - ci/android-sanitized-20261017
+
+permissions:
+  contents: read
+
+concurrency:
+  group: isolated-android-sanitized
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - name: Locate authorized source without public identifier
+        shell: bash
+        env:
+          BRIDGE_TOKEN: ${{ secrets.CI_BRIDGE_READ_TOKEN }}
+          TESTED_SHA: 20a621933a3997e5a02cbde71d787f7c89dac146
+        run: |
+          set -euo pipefail
+          if [[ -z "${BRIDGE_TOKEN:-}" ]]; then
+            echo "::error::Private checkout bridge is not configured."
+            exit 1
+          fi
+          python3 - <<'PY'
+          import os, sys, json, urllib.request, urllib.error
+          from urllib.parse import quote
+
+          token = os.environ['BRIDGE_TOKEN']
+          sha = os.environ['TESTED_SHA']
+          def request(url):
+              req = urllib.request.Request(
+                  'https://api.github.com' + url,
+                  headers={
+                      'Authorization': 'Bearer ' + token,
+                      'Accept': 'application/vnd.github+json',
+                      'X-GitHub-Api-Version': '2022-11-28',
+                      'User-Agent': 'isolated-android-audit',
+                  }
+              )
+              try:
+                  with urllib.request.urlopen(req, timeout=25) as resp:
+                      return json.load(resp)
+              except (urllib.error.HTTPError, urllib.error.URLError, ValueError):
+                  return None
+
+          found = None
+          for page in range(1, 11):
+              repos = request('/user/repos?per_page=100&page=' + str(page))
+              if not isinstance(repos, list) or not repos:
+                  break
+              for repo in repos:
+                  full_name = repo.get('full_name')
+                  if not full_name or not repo.get('private'):
+                      continue
+                  value = request('/repos/' + quote(full_name, safe='/') + '/commits/' + sha)
+                  if isinstance(value, dict) and value.get('sha') == sha:
+                      found = full_name
+                      break
+              if found:
+                  break
+          if not found:
+              print('::error::Private commit not accessible with configured read-only bridge token.')
+              sys.exit(1)
+          # Mask before exposing the value to subsequent official Actions steps.
+          print('::add-mask::' + found, flush=True)
+          with open(os.environ['GITHUB_ENV'], 'a', encoding='utf-8') as out:
+              out.write('AUDIT_SOURCE_REPO=' + found + '\n')
+          print('Authorized private source located and masked.')
+          PY
+
+      - name: Ephemeral private checkout
+        uses: actions/checkout@v5
+        with:
+          repository: ${{ env.AUDIT_SOURCE_REPO }}
+          ref: 20a621933a3997e5a02cbde71d787f7c89dac146
+          token: ${{ secrets.CI_BRIDGE_READ_TOKEN }}
+          persist-credentials: false
+          path: audit-source
+
+      - name: Node.js 22
+        uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+
+      - name: Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Android SDK (public dependencies only)
+        uses: android-actions/setup-android@v3
+
+      - name: Ensure Android API 36
+        shell: bash
+        run: |
+          if sdkmanager "platforms;android-36" "build-tools;36.0.0" >/dev/null 2>&1; then
+            echo "Android API 36 available."
+          else
+            echo "::warning::Could not install API 36; native builds may fail."
+          fi
+
+      - name: Install without raw logs or lifecycle scripts
+        working-directory: audit-source
+        shell: bash
+        run: |
+          set -euo pipefail
+          if npm ci --ignore-scripts --silent --no-audit --no-fund >/dev/null 2>&1; then
+            echo "Dependency installation: PASS"
+          else
+            echo "::error::Dependency installation: FAIL (details intentionally withheld)"
+            exit 1
+          fi
+
+      - name: Private code tests and unsigned Android builds (redacted output)
+        working-directory: audit-source
+        shell: bash
+        run: node scripts/ci-android-quiet.mjs
+
+      - name: Delete transient private workspace
+        if: always()
+        shell: bash
+        run: rm -rf audit-source
