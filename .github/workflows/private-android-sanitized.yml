@@ -15,7 +15,9 @@ permissions:
   contents: read
 
 concurrency:
-  group: isolated-android-sanitized
+  # Every tested private commit gets a distinct public run. With one shared
+  # pending group GitHub silently cancels older queued PR CI checks.
+  group: isolated-android-sanitized-${{ github.sha }}
   cancel-in-progress: false
 
 jobs:
