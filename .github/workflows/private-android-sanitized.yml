@@ -127,6 +127,31 @@ jobs:
         shell: bash
         run: node scripts/ci-android-quiet.mjs
 
+      - name: Android 10 release-runtime smoke (no logs or artifacts)
+        if: success()
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          arch: x86_64
+          profile: pixel_6
+          script: |
+            set -euo pipefail
+            APK=audit-source/android/app/build/outputs/apk/release/app-release.apk
+            if [[ ! -f "$APK" ]] || ! adb install -r "$APK" >/dev/null 2>&1; then
+              echo "::error::Android 10 installation: FAIL"
+              exit 1
+            fi
+            if ! adb shell am start -n com.oskarpolster.vidloud/.MainActivity >/dev/null 2>&1; then
+              echo "::error::Android 10 launch: FAIL"
+              exit 1
+            fi
+            sleep 15
+            if ! adb shell pidof com.oskarpolster.vidloud >/dev/null 2>&1; then
+              echo "::error::Android 10 process survival: FAIL"
+              exit 1
+            fi
+            echo "Android 10 release-runtime first launch: PASS"
+
       - name: Android 15 release-runtime smoke (no logs or artifacts)
         if: success()
         uses: reactivecircus/android-emulator-runner@v2
@@ -151,6 +176,31 @@ jobs:
               exit 1
             fi
             echo "Android 15 release-runtime first launch: PASS"
+
+      - name: Android 16 release-runtime smoke (no logs or artifacts)
+        if: success()
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 36
+          arch: x86_64
+          profile: pixel_6
+          script: |
+            set -euo pipefail
+            APK=audit-source/android/app/build/outputs/apk/release/app-release.apk
+            if [[ ! -f "$APK" ]] || ! adb install -r "$APK" >/dev/null 2>&1; then
+              echo "::error::Android 16 installation: FAIL"
+              exit 1
+            fi
+            if ! adb shell am start -n com.oskarpolster.vidloud/.MainActivity >/dev/null 2>&1; then
+              echo "::error::Android 16 launch: FAIL"
+              exit 1
+            fi
+            sleep 15
+            if ! adb shell pidof com.oskarpolster.vidloud >/dev/null 2>&1; then
+              echo "::error::Android 16 process survival: FAIL"
+              exit 1
+            fi
+            echo "Android 16 release-runtime first launch: PASS"
 
       - name: Delete transient private workspace
         if: always()
