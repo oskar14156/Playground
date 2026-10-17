@@ -7,6 +7,9 @@ on:
   push:
     branches:
       - ci/android-sanitized-20261017
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: read
