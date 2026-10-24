@@ -9,6 +9,7 @@ import { VolcanoReel, DURATION as VO_DURATION } from "./videos/volcano/Volcano";
 import { CoasterReel, DURATION as CO_DURATION } from "./videos/coaster-loop/CoasterReel";
 import { Meteors, DURATION as ME_DURATION } from "./videos/meteors/Meteors";
 import { Php2Shell, DURATION as PH_DURATION } from "./videos/php2shell/Php2Shell";
+import { FireTestB, FIRE_B_DURATION } from "./videos/_lab/FireTestB";
 import { CoasterLab, COASTER_LAB_DURATION } from "./videos/_lab/CoasterLab";
 import { VolcanoLab, VOLCANO_LAB_DURATION } from "./videos/_lab/VolcanoLab";
 import { LinerLab, LINER_LAB_DURATION } from "./videos/_lab/LinerLab";
@@ -25,6 +26,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="coaster-loop" component={CoasterReel} durationInFrames={CO_DURATION} {...VIDEO} />
     <Composition id="meteors" component={Meteors} durationInFrames={ME_DURATION} {...VIDEO} />
     <Composition id="php2shell" component={Php2Shell} durationInFrames={PH_DURATION} {...VIDEO} />
+    <Composition id="compare-b" component={FireTestB} durationInFrames={FIRE_B_DURATION} {...VIDEO} />
     <Composition id="coaster-lab" component={CoasterLab} durationInFrames={COASTER_LAB_DURATION} {...VIDEO} />
     <Composition id="volcano-lab" component={VolcanoLab} durationInFrames={VOLCANO_LAB_DURATION} {...VIDEO} />
     <Composition id="liner-lab" component={LinerLab} durationInFrames={LINER_LAB_DURATION} {...VIDEO} />
