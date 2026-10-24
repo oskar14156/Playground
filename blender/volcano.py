@@ -156,10 +156,17 @@ def volume_cloud(name, color, density, scale_noise, seed, emission=None, emis_st
     nt.links.new(tc.outputs["Object"], ln.inputs[0])
     fall = node(nt, "ShaderNodeMapRange", **{"From Min": 0.55, "From Max": 1.0, "To Min": 1.0, "To Max": 0.0})
     nt.links.new(ln.outputs["Value"], fall.inputs["Value"])
-    mul = node(nt, "ShaderNodeMath", op="MULTIPLY")
+    # billows: noise minus a bias that grows toward the edge, then a hard-ish threshold
+    inv = node(nt, "ShaderNodeMath", op="SUBTRACT")
+    inv.inputs[0].default_value = 1.0
+    nt.links.new(fall.outputs["Result"], inv.inputs[1])
+    bias = node(nt, "ShaderNodeMath", op="MULTIPLY")
+    bias.inputs[1].default_value = 0.45
+    nt.links.new(inv.outputs[0], bias.inputs[0])
+    mul = node(nt, "ShaderNodeMath", op="SUBTRACT")
     nt.links.new(nz.outputs["Fac"], mul.inputs[0])
-    nt.links.new(fall.outputs["Result"], mul.inputs[1])
-    thr = node(nt, "ShaderNodeMapRange", **{"From Min": 0.32, "From Max": 0.62, "To Min": 0.0, "To Max": density})
+    nt.links.new(bias.outputs[0], mul.inputs[1])
+    thr = node(nt, "ShaderNodeMapRange", **{"From Min": 0.42, "From Max": 0.5, "To Min": 0.0, "To Max": density})
     nt.links.new(mul.outputs[0], thr.inputs["Value"])
     nt.links.new(thr.outputs["Result"], pv.inputs["Density"])
     if emission:
@@ -353,13 +360,13 @@ def hawaii(sc):
     def ground(X, Y):
         d = np.abs(Y - 6 * np.sin(X / 23))
         chan = np.clip(1 - d / 6.8, 0, 1) ** 0.5  # channel floor below the lava surface
-        levee = 1.3 * np.exp(-((d - 7.6) / 2.2) ** 2)
+        levee = 0.8 * np.exp(-((d - 7.6) / 2.2) ** 2)
         rough = 0.7 * fbm(X, Y, seed=7, scale=1 / 14) + 0.3 * fbm(X, Y, seed=8, scale=1 / 3) + 0.08 * fbm(X, Y, seed=6, scale=1.7)
         return (1 - chan) * (rough + levee) - 2.2 * chan
 
     ter = heightfield("basalt", 260, 420, ground)
     ter.data.materials.append(C.pbr("basalt", "burned_ground_01", scale=0.5, tint=(0.07, 0.065, 0.065)))
-    riv = heightfield("lava", 260, 300, lambda X, Y: np.where(np.abs(Y - 6 * np.sin(X / 23)) < 6.4, -0.55 + 0.15 * fbm(X, Y, seed=9, scale=0.4), -5))
+    riv = heightfield("lava", 260, 300, lambda X, Y: np.where(np.abs(Y - 6 * np.sin(X / 23)) < 6.6, 0.15 + 0.15 * fbm(X, Y, seed=9, scale=0.4), -5))
     riv.data.materials.append(lava_material(f0, f1))
     # glow the river throws on the levees and the hiker (EEVEE emission doesn't light the scene)
     for x in range(-60, 130, 18):
@@ -367,18 +374,18 @@ def hawaii(sc):
         L = bpy.context.object
         L.data.shape = "RECTANGLE"
         L.data.size, L.data.size_y = 18, 10
-        L.data.energy = 4.0e4
+        L.data.energy = 1.2e4
         L.data.color = (1.0, 0.38, 0.1)
         L.rotation_euler = (math.pi, 0, 0)  # facing up: lights the steam and the hiker from below/side
         L.data.specular_factor = 0.3
     for x in range(-60, 130, 18):
         bpy.ops.object.light_add(type="POINT", location=(x, 6 * math.sin(x / 23), 1.5))
         L = bpy.context.object
-        L.data.energy = 6.0e4
+        L.data.energy = 1.2e4
         L.data.color = (1.0, 0.35, 0.08)
         L.data.shadow_soft_size = 4
-    st, _ = volume_cloud("fumes", (0.9, 0.8, 0.75), 0.012, 0.08, seed=5.0, w_speed=0.15, f0=f0, f1=f1)
-    st.location, st.scale = (40, 0, 8), (90, 14, 9)
+    st, _ = volume_cloud("fumes", (0.9, 0.8, 0.75), 0.003, 0.08, seed=5.0, w_speed=0.15, f0=f0, f1=f1)
+    st.location, st.scale = (40, 0, 4), (90, 12, 6)
     dark = C.mat("hiker", (0.015, 0.015, 0.017), rough=0.7)
     hk, legs = person("hiker", (12, -11.5, 0.4), dark)
     hk.rotation_euler = (0, 0, math.radians(-100))
@@ -390,9 +397,9 @@ def hawaii(sc):
             hip.keyframe_insert("rotation_euler", frame=f, index=0)
     cam = C.camera(sc, lens=30, fstop=None)
     cam.data.clip_end = 2000
-    C.aim(cam, (1, -18.5, 1.7), (40, 0, 0.0), frame=f0)
-    C.aim(cam, (4, -18, 1.8), (44, -2, 0.2), frame=c["walk"])
-    C.aim(cam, (7, -17.8, 1.9), (44, -6, 0.6), frame=f1)
+    C.aim(cam, (-5, -21, 5.0), (24, -3, -0.5), frame=f0)
+    C.aim(cam, (-2, -20.5, 5.1), (28, -4, -0.3), frame=c["walk"])
+    C.aim(cam, (1, -20, 5.2), (32, -6, 0.0), frame=f1)
     C.glare(sc, threshold=1.0, size=7, strength=0.9)
 
 
@@ -403,12 +410,14 @@ HC = 1700.0  # cone height above its base (summit 2,950 m; base ~1,250 m)
 def cone(X, Y):
     r = np.hypot(X, Y)
     ang = np.arctan2(Y, X)
-    gullies = (25 + 0.04 * np.clip(4000 - r, 0, None)) * np.sin(ang * 23 + 0.6 * fbm(X, Y, seed=2, scale=1 / 900)) * np.clip(r / 900, 0, 1)
-    body = HC * np.clip(1 - r / 7200, 0, None) ** 1.75
+    gw = 0.6 * fbm(X, Y, seed=2, scale=1 / 900)
+    gullies = (6 + 0.012 * np.clip(4000 - r, 0, None)) * (0.6 * np.sin(ang * 19 + gw) + 0.4 * np.sin(ang * 41 + 2 * gw)) * np.clip(r / 700, 0, 1)
+    body = HC * np.clip(1 - r / 5600, 0, None) ** 1.45 + 120 * np.clip(1 - r / 9000, 0, None)
     top = -260 * np.exp(-(r / 520) ** 2) * 0  # rounded summit (pre-1980 it had no crater)
-    hills = 120 * fbm(X, Y, seed=11, scale=1 / 2600) * np.clip((r - 5000) / 3000, 0, 1)
+    hills = (260 * fbm(X, Y, seed=11, scale=1 / 2600) + 90 * fbm(X, Y, seed=14, scale=1 / 700)) * np.clip((r - 5000) / 3000, 0, 1)
+    valley = -260 * np.exp(-((Y + 900 - 0.12 * X) / 2200) ** 2) * np.clip((-X - 6500) / 2500, 0, 1)  # low ground in front of the camera
     lake = -160 * np.exp(-(np.hypot(X - 600, Y - 8200) / 1600) ** 4)  # Spirit Lake basin, north
-    return body + top + gullies * np.clip(1 - r / 7200, 0, 1) + hills + lake + 14 * fbm(X, Y, seed=12, scale=1 / 140)
+    return body + top + gullies * np.clip(1 - r / 5600, 0, 1) + hills + valley + lake + 14 * fbm(X, Y, seed=12, scale=1 / 140)
 
 
 def bulged(X, Y):
@@ -462,11 +471,11 @@ def mountain_material():
     rock = node(nt, "ShaderNodeMix", blend="MULTIPLY", Factor=1.0)
     rock.inputs[7].default_value = (0.42, 0.38, 0.35, 1)
     nt.links.new(rock_tex.outputs["Color"], rock.inputs[6])
-    fz = node(nt, "ShaderNodeTexNoise", Scale=0.02, Detail=8)
+    fz = node(nt, "ShaderNodeTexNoise", Scale=0.0035, Detail=12, Roughness=0.7)
     nt.links.new(tc.outputs["Object"], fz.inputs["Vector"])
     fcol = nt.nodes.new("ShaderNodeValToRGB")
     fe = fcol.color_ramp.elements
-    fe[0].color, fe[1].color = (0.012, 0.03, 0.012, 1), (0.04, 0.07, 0.03, 1)
+    fe[0].color, fe[1].color = (0.006, 0.014, 0.008, 1), (0.03, 0.05, 0.025, 1)
     nt.links.new(fz.outputs["Fac"], fcol.inputs["Fac"])
     c1 = node(nt, "ShaderNodeMix", blend="MIX")
     nt.links.new(forest.outputs["Result"], c1.inputs["Factor"])
@@ -511,15 +520,47 @@ def mountain_material():
     return m, ash
 
 
-H_CAM = ((-21500, -2600, 2300), (0, 600, 900))  # from the west: north flank on the left
+def haze_glare(sc, color=(0.62, 0.72, 0.86), amount=0.55):
+    """Compositor: blend toward a sky-blue haze by the mist pass, then a soft glare."""
+    ng = bpy.data.node_groups.new(f"{sc.name}_comp", "CompositorNodeTree")
+    sc.compositing_node_group = ng
+    ng.interface.new_socket("Image", in_out="OUTPUT", socket_type="NodeSocketColor")
+    rl = ng.nodes.new("CompositorNodeRLayers")
+    mul = ng.nodes.new("ShaderNodeMath")
+    mul.operation = "MULTIPLY"
+    mul.inputs[1].default_value = amount
+    ng.links.new(rl.outputs["Mist"], mul.inputs[0])
+    mix = ng.nodes.new("ShaderNodeMix")
+    mix.data_type = "RGBA"
+    mix.inputs[7].default_value = (*color, 1)
+    ng.links.new(mul.outputs[0], mix.inputs["Factor"])
+    ng.links.new(rl.outputs["Image"], mix.inputs[6])
+    g = ng.nodes.new("CompositorNodeGlare")
+    g.inputs["Type"].default_value = "Fog Glow"
+    g.inputs["Threshold"].default_value = 1.2
+    g.inputs["Strength"].default_value = 0.5
+    out = ng.nodes.new("NodeGroupOutput")
+    ng.links.new(mix.outputs[2], g.inputs["Image"])
+    ng.links.new(g.outputs["Image"], out.inputs["Image"])
+
+
+H_CAM = ((-12000, -1700, 900), (0, 500, 1250))  # from the west: north flank on the left
 
 
 def helens(sc, part):
     f0, f1 = (c["so"], c["every"] - 1) if part == "a" else (c["pressure"], c["blast"] - 1)
     C.world_hdri(sc, "kloppenheim_06_puresky_2k.hdr", strength=1.1, rotation=math.radians(200))
-    C.world_fog(sc, density=0.000022, color=(0.65, 0.75, 0.9), anisotropy=0.2)
-    sc.eevee.volumetric_start = 800
-    sc.eevee.volumetric_end = 70000
+    # aerial haze via the mist pass (a world volume over 70 km rendered black in EEVEE)
+    sc.world.mist_settings.start = 4000
+    sc.world.mist_settings.depth = 60000
+    sc.world.mist_settings.falloff = "QUADRATIC"
+    bpy.context.view_layer.use_pass_mist = True
+    # froxels only where the plumes are (10–20 km from the camera) → enough depth slices for billows
+    sc.eevee.volumetric_start = 9000
+    sc.eevee.volumetric_end = 21000
+    sc.eevee.volumetric_tile_size = "2"
+    sc.eevee.volumetric_samples = 128
+    sc.eevee.volumetric_sample_distribution = 0.2
     ter = heightfield("helens", 34000, 520, cone, keys=(("bulge", bulged), ("collapse", collapsed)))
     mm, ash = mountain_material()
     ter.data.materials.append(mm)
@@ -532,13 +573,14 @@ def helens(sc, part):
     sun.data.energy = 4.2
     sun.data.angle = math.radians(1.0)
     sun.rotation_euler = (math.radians(52), 0, math.radians(35))  # morning sun from the south-east
-    cam = C.camera(sc, lens=34, fstop=None)
+    cam = C.camera(sc, lens=48, fstop=None)
     cam.data.clip_start = 20  # 20 m … 120 km: a 0.1 m near plane breaks the depth buffer (black frames)
     cam.data.clip_end = 120000
     if part == "a":
-        C.aim(cam, (-23500, -3000, 2200), (0, 600, 1000), frame=f0)
-        C.aim(cam, (-21500, -2600, 2300), (0, 600, 900), frame=f1)
+        C.aim(cam, (-13200, -1900, 880), (0, 300, 1300), frame=f0)
+        C.aim(cam, (-12000, -1700, 900), (0, 300, 1250), frame=f1)
         sc["flank"] = False
+        haze_glare(sc)
         return
     kb = ter.data.shape_keys.key_blocks
     keyframes(kb["bulge"], "value", [(f0, 0.0), (c["y1980"] + 6, 1.0), (c["slid"] - 4, 1.0), (c["slid"] + 10, 0.0)])
@@ -548,27 +590,25 @@ def helens(sc, part):
         av.default_value = v
         av.keyframe_insert("default_value", frame=f)
     # landslide dust (brown) racing north down the flank
-    dust, _ = volume_cloud("dust", (0.45, 0.36, 0.28), 0.0035, 1.4, seed=7.0, w_speed=0.25, f0=c["slid"], f1=f1)
+    dust, _ = volume_cloud("dust", (0.45, 0.36, 0.28), 0.02, 4.5, seed=7.0, w_speed=0.25, f0=c["slid"], f1=f1)
     keyframes(dust, "location", [(c["slid"], (0, 1600, 900)), (c["slid"] + 30, (200, 4800, 450)), (f1, (300, 7500, 400))])
     keyframes(dust, "scale", [(c["slid"] - 1, (1, 1, 1)), (c["slid"], (900, 900, 500)), (f1, (3200, 3600, 900))])
     # lateral blast: a dark, ground-hugging surge north; then the vertical ash column
-    surge, sp = volume_cloud("surge", (0.22, 0.2, 0.19), 0.006, 1.6, seed=3.0, w_speed=0.35, f0=c["burst"], f1=f1, emission=(1.0, 0.35, 0.1), emis_strength=0.0)
+    surge, sp = volume_cloud("surge", (0.26, 0.24, 0.22), 0.03, 4.5, seed=3.0, w_speed=0.35, f0=c["burst"], f1=f1)
     keyframes(surge, "location", [(c["burst"], (0, 1200, 1200)), (f1, (400, 7200, 1100))])
     keyframes(surge, "scale", [(c["burst"] - 1, (1, 1, 1)), (c["burst"], (700, 700, 600)), (c["burst"] + 18, (3000, 3600, 1300)), (f1, (6000, 7000, 1700))])
-    for f, e in ((c["burst"], 0.0), (c["burst"] + 3, 0.004), (c["burst"] + 16, 0.0)):  # hot core flash
-        sp.inputs["Emission Strength"].default_value = e
-        sp.inputs["Emission Strength"].keyframe_insert("default_value", frame=f)
-    col, _ = volume_cloud("column", (0.42, 0.4, 0.38), 0.005, 1.3, seed=9.0, w_speed=0.2, f0=c["burst"], f1=f1)
+    col, _ = volume_cloud("column", (0.38, 0.36, 0.34), 0.03, 4.0, seed=9.0, w_speed=0.2, f0=c["burst"], f1=f1)
     keyframes(col, "location", [(c["burst"] + 6, (0, 700, 2000)), (f1, (0, 1100, 5200))])
     keyframes(col, "scale", [(c["burst"] + 5, (1, 1, 1)), (c["burst"] + 6, (800, 800, 900)), (f1, (2600, 2600, 4200))])
     # camera: same view as part a, eases north at "slid away", shakes and pulls back on the blast
     C.aim(cam, H_CAM[0], H_CAM[1], frame=f0)
-    C.aim(cam, (-21800, -2300, 2300), (0, 1200, 900), frame=c["slid"])
-    C.aim(cam, (-22200, -1500, 2350), (0, 2600, 1100), frame=c["burst"])
+    C.aim(cam, (-12200, -1400, 900), (0, 1200, 1250), frame=c["slid"])
+    C.aim(cam, (-12500, -800, 950), (0, 2200, 1500), frame=c["burst"])
     for i, f in enumerate(range(c["burst"] + 2, c["burst"] + 14, 4)):  # ≤ 3 swings
-        C.aim(cam, (-22400 - 200 * i, -1400, 2400 + (60 if i % 2 else -60) * (1 - i / 3)), (0, 2700, 1200 + (40 if i % 2 else -40)), frame=f)
-    C.aim(cam, (-27000, -1000, 2900), (0, 2800, 2200), frame=f1)
+        C.aim(cam, (-12700 - 150 * i, -700, 970 + (40 if i % 2 else -40) * (1 - i / 3)), (0, 2300, 1600 + (30 if i % 2 else -30)), frame=f)
+    C.aim(cam, (-16500, -300, 1200), (0, 2600, 3000), frame=f1)
     sc["flank"] = True
+    haze_glare(sc)
 
 
 shot("helens_a", c["so"], c["every"] - 1)(lambda sc: helens(sc, "a"))
