@@ -222,11 +222,12 @@ def dome_material():
     tc = nt.nodes.new("ShaderNodeTexCoord")
     vor = nt.nodes.new("ShaderNodeTexVoronoi")
     vor.feature = "DISTANCE_TO_EDGE"
-    vor.inputs["Scale"].default_value = 0.06
+    vor.inputs["Scale"].default_value = 0.11
+    vor.inputs["Randomness"].default_value = 1.0
     nt.links.new(tc.outputs["Object"], vor.inputs["Vector"])
-    nz = node(nt, "ShaderNodeTexNoise", Scale=0.02, Detail=6)
+    nz = node(nt, "ShaderNodeTexNoise", Scale=0.03, Detail=8)
     nt.links.new(tc.outputs["Object"], nz.inputs["Vector"])
-    edge = node(nt, "ShaderNodeMapRange", **{"From Min": 0.0, "From Max": 0.06, "To Min": 1.0, "To Max": 0.0})
+    edge = node(nt, "ShaderNodeMapRange", **{"From Min": 0.0, "From Max": 0.035, "To Min": 1.0, "To Max": 0.0})
     nt.links.new(vor.outputs["Distance"], edge.inputs["Value"])
     sep = nt.nodes.new("ShaderNodeSeparateXYZ")
     nt.links.new(tc.outputs["Object"], sep.inputs["Vector"])
@@ -256,7 +257,8 @@ def crater_z(X, Y):
     floor = -40 + 0.00002 * r**2
     outside = 320 - 0.12 * np.clip(r - 1200, 0, None)
     z = np.where(r < 1050, np.maximum(floor, rim), np.maximum(outside, rim))
-    dome = 190 * np.clip(1 - (r / 380) ** 2, 0, None) ** 0.6
+    lumps = 40 * fbm(X, Y, seed=21, scale=1 / 70) + 15 * fbm(X, Y, seed=22, scale=1 / 25)
+    dome = (170 + lumps) * np.clip(1 - (r / (380 + 40 * fbm(X, Y, seed=23, scale=1 / 200))) ** 2, 0, None) ** 0.7
     z = np.maximum(z, dome - 30)
     return z + 18 * fbm(X, Y, seed=3, scale=1 / 120) + 4 * fbm(X, Y, seed=4, scale=1 / 18)
 
@@ -271,12 +273,12 @@ def dome(sc, outro=False):
     dm = heightfield("dome", 900, 260, lambda X, Y: np.where(np.hypot(X, Y) < 440, crater_z(X, Y) + 1.5, -200))
     dm.data.materials.append(dome_material())
     # steam rising off the dome, lit from below
-    st, pv = volume_cloud("steam", (0.85, 0.82, 0.8), 0.006, 1.2, seed=2.0, w_speed=0.08, f0=f0, f1=f1)
+    st, pv = volume_cloud("steam", (0.85, 0.82, 0.8), 0.0015, 1.2, seed=2.0, w_speed=0.08, f0=f0, f1=f1)
     st.location, st.scale = (40, 30, 560), (380, 380, 420)
     keyframes(st, "location", [(f0, (40, 30, 540)), (f1, (60, 40, 600))])
     bpy.ops.object.light_add(type="POINT", location=(0, 0, 260))
     glow = bpy.context.object
-    glow.data.energy = 4.0e7
+    glow.data.energy = 8.0e6
     glow.data.color = (1.0, 0.42, 0.12)
     glow.data.shadow_soft_size = 120
     cam = C.camera(sc, lens=38, fstop=None)
@@ -347,14 +349,16 @@ def lava_material(f0, f1):
 def hawaii(sc):
     f0, f1 = c["hawaii"], c["so"] - 1
     C.night_sky(sc, strength=0.8)
-    C.world_fog(sc, density=0.0025, color=(1.0, 0.6, 0.4), anisotropy=0.5)
 
     def ground(X, Y):
-        chan = np.exp(-((Y - 6 * np.sin(X / 23)) / 7.5) ** 2)
-        return 1.4 * fbm(X, Y, seed=7, scale=1 / 9) + 0.25 * fbm(X, Y, seed=8, scale=1.3) + 1.6 * np.exp(-((np.abs(Y - 6 * np.sin(X / 23)) - 7.5) / 2.5) ** 2) - 1.2 * chan
+        d = np.abs(Y - 6 * np.sin(X / 23))
+        chan = np.clip(1 - d / 6.8, 0, 1) ** 0.5  # channel floor below the lava surface
+        levee = 1.3 * np.exp(-((d - 7.6) / 2.2) ** 2)
+        rough = 0.7 * fbm(X, Y, seed=7, scale=1 / 14) + 0.3 * fbm(X, Y, seed=8, scale=1 / 3) + 0.08 * fbm(X, Y, seed=6, scale=1.7)
+        return (1 - chan) * (rough + levee) - 2.2 * chan
 
     ter = heightfield("basalt", 260, 420, ground)
-    ter.data.materials.append(C.pbr("basalt", "burned_ground_01", scale=0.35, tint=(0.14, 0.13, 0.13)))
+    ter.data.materials.append(C.pbr("basalt", "burned_ground_01", scale=0.5, tint=(0.07, 0.065, 0.065)))
     riv = heightfield("lava", 260, 300, lambda X, Y: np.where(np.abs(Y - 6 * np.sin(X / 23)) < 6.4, -0.55 + 0.15 * fbm(X, Y, seed=9, scale=0.4), -5))
     riv.data.materials.append(lava_material(f0, f1))
     # glow the river throws on the levees and the hiker (EEVEE emission doesn't light the scene)
@@ -363,7 +367,7 @@ def hawaii(sc):
         L = bpy.context.object
         L.data.shape = "RECTANGLE"
         L.data.size, L.data.size_y = 18, 10
-        L.data.energy = 1.8e5
+        L.data.energy = 4.0e4
         L.data.color = (1.0, 0.38, 0.1)
         L.rotation_euler = (math.pi, 0, 0)  # facing up: lights the steam and the hiker from below/side
         L.data.specular_factor = 0.3
@@ -373,23 +377,22 @@ def hawaii(sc):
         L.data.energy = 6.0e4
         L.data.color = (1.0, 0.35, 0.08)
         L.data.shadow_soft_size = 4
-    st, _ = volume_cloud("fumes", (0.9, 0.8, 0.75), 0.05, 0.08, seed=5.0, w_speed=0.15, f0=f0, f1=f1)
+    st, _ = volume_cloud("fumes", (0.9, 0.8, 0.75), 0.012, 0.08, seed=5.0, w_speed=0.15, f0=f0, f1=f1)
     st.location, st.scale = (40, 0, 8), (90, 14, 9)
     dark = C.mat("hiker", (0.015, 0.015, 0.017), rough=0.7)
-    hk, legs = person("hiker", (14, -13.5, 0.4), dark)
+    hk, legs = person("hiker", (12, -11.5, 0.4), dark)
     hk.rotation_euler = (0, 0, math.radians(-100))
     # stands watching the river, then walks away (away from camera, along the bank)
-    keyframes(hk, "location", [(f0, (14, -13.5, 0.4)), (c["walk"] - 4, (14, -13.5, 0.4)), (f1, (14 + 1.4 * (f1 - c["walk"] + 4) / 30, -15.5, 0.6))])
+    keyframes(hk, "location", [(f0, (12, -11.5, 0.4)), (c["walk"] - 4, (12, -11.5, 0.4)), (f1, (12 + 1.4 * (f1 - c["walk"] + 4) / 30, -13.0, 0.5))])
     for f in range(c["walk"] - 4, f1 + 1, 8):
         for i, hip in enumerate(legs):
             hip.rotation_euler = (math.radians(24) * math.sin((f - c["walk"]) * 0.39 + i * math.pi), 0, 0)
             hip.keyframe_insert("rotation_euler", frame=f, index=0)
-    cam = C.camera(sc, lens=30, fstop=4.0)
+    cam = C.camera(sc, lens=30, fstop=None)
     cam.data.clip_end = 2000
-    C.aim(cam, (-6, -24, 2.2), (40, 2, 0.5), frame=f0)
-    C.aim(cam, (0, -23, 2.4), (44, 0, 0.5), frame=c["walk"])
-    C.aim(cam, (4, -22.5, 2.6), (40, -4, 0.8), frame=f1)
-    cam.data.dof.focus_distance = 22
+    C.aim(cam, (1, -18.5, 1.7), (40, 0, 0.0), frame=f0)
+    C.aim(cam, (4, -18, 1.8), (44, -2, 0.2), frame=c["walk"])
+    C.aim(cam, (7, -17.8, 1.9), (44, -6, 0.6), frame=f1)
     C.glare(sc, threshold=1.0, size=7, strength=0.9)
 
 
@@ -530,6 +533,7 @@ def helens(sc, part):
     sun.data.angle = math.radians(1.0)
     sun.rotation_euler = (math.radians(52), 0, math.radians(35))  # morning sun from the south-east
     cam = C.camera(sc, lens=34, fstop=None)
+    cam.data.clip_start = 20  # 20 m … 120 km: a 0.1 m near plane breaks the depth buffer (black frames)
     cam.data.clip_end = 120000
     if part == "a":
         C.aim(cam, (-23500, -3000, 2200), (0, 600, 1000), frame=f0)
