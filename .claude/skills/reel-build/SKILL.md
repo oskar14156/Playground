@@ -118,3 +118,28 @@ props for color/size, then use it. Add it to the table above.
 6. Report what is done and what still looks weak — honestly.
 
 Preview for the user: `npm run dev` (Remotion Studio) — use the built-in browser.
+
+## Blender pipeline (photoreal variant)
+
+Use when the user wants real lighting, fire/smoke, water, realistic models. Costs ~10× the render
+time of the Remotion version, so the preview step is mandatory. Reference: `blender/titanic.py`
+(+ `src/videos/titanic/TitanicBlender.tsx`) — copy its shape.
+
+- One Python script per reel, `blender/<reel>.py`: `C.Cues("<slug>")` turns the same cue phrases as
+  `cues.ts` into frames; each storyboard set is a `@shot(name, start, end)` function that builds a
+  fresh scene (`C.new_scene` resets Blender — one shot at a time). Helpers in `blender/common.py`
+  (world HDRI/fog, glare, `mat/pbr/paint/image_mat`, `cube/cyl/text`, `camera/aim`, `fcurves`).
+  Models in `blender/models/` (`recorder.py`, `airliner.py`, `liner.py`) — real-world scale in metres.
+- Blender renders only the 3D plates to `public/<short>/frames/f_####.jpg`; Remotion keeps captions,
+  HUD, diagrams (vector sets can stay Remotion), sound and LoopBridge: a `<Slug>Blender.tsx`
+  composition with `<Img src={staticFile(dir/f_####.jpg)}/>` as the World. Screen positions of 3D
+  points for labels: `export_track()` in titanic.py writes JSON that the overlay imports.
+- Textures/HDRIs: Poly Haven (CC0) into `public/textures/<slug>_{diff,nor_gl,rough}.jpg`.
+- Steps: look-dev stills per shot (`--stills a,b,c --res 30 --samples 8`, tile them, look hard) →
+  ★ `--render --draft` (res 30, 6 samples, ~3 min) + Remotion `--props='{"plate":"<dir>/draft"}' --scale=0.5`
+  → user feedback → `--render` (final, ~25–50 min, background) → Remotion render → QA.
+  Re-render single shots with `--only <shot>`.
+- Blender 5 gotchas: compositor = `scene.compositing_node_group`; actions have no `.fcurves`
+  (use `C.fcurves(id)`); data blocks die on a scene reset (don't cache them across shots);
+  area-light reflections on glossy water → `light.specular_factor = 0`; volumetric fog lit by a
+  spot light becomes a wall — keep deep-sea shots fog-free and let light fall-off do the work.

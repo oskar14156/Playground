@@ -7,9 +7,12 @@ beat breaks) and writes:
   public/<slug>/vo.mp3      the voiceover, -14 LUFS
   public/<slug>/words.json  [{ "word": str, "start": sec, "end": sec }, ...]
 
-Engines:
+Engines (scripts/doctor.sh tells which ones this machine can use):
   chatterbox  local, natural (default). --ref voice.wav clones a voice from ~10 s of audio
-              (only use voices you have the rights to, e.g. your own).
+              (only use voices you have the rights to, e.g. your own). Needs setup.sh --local-voice.
+  openai      OpenAI TTS (gpt-4o-mini-tts), natural, needs OPENAI_API_KEY (paid API, a few
+              cents per video). --voice onyx|ash|echo|… ; word timing via the OpenAI
+              transcription API when local Whisper isn't installed.
   edge        Microsoft edge-tts, free, fast, more robotic.
   file        you recorded it yourself: --audio take.m4a, this only aligns the words.
 
@@ -46,8 +49,15 @@ MIN_MEM_LEVEL = 18  # kern.memorystatus_level, % of RAM still available system-w
 
 
 def mem_level() -> int:
-    r = subprocess.run(["sysctl", "-n", "kern.memorystatus_level"], capture_output=True, text=True)
-    return int(r.stdout.strip() or 100)
+    """% of RAM still available (macOS memorystatus; Linux MemAvailable; 100 if unknown)."""
+    try:
+        r = subprocess.run(["sysctl", "-n", "kern.memorystatus_level"], capture_output=True, text=True)
+        if r.returncode == 0 and r.stdout.strip():
+            return int(r.stdout.strip())
+        info = dict(l.split(":", 1) for l in open("/proc/meminfo"))
+        return int(100 * int(info["MemAvailable"].split()[0]) / int(info["MemTotal"].split()[0]))
+    except Exception:
+        return 100
 
 
 def guard_memory(label: str):
@@ -258,10 +268,54 @@ def tts_edge(beats, raw_out, voice):
             time.sleep(1.5 * (attempt + 1))
 
 
+# ---------- OpenAI (TTS + word timing over plain HTTPS, no SDK needed) ----------
+OPENAI_TONE = ("Calm, deep documentary narrator. Measured pace, clear consonants, "
+               "slight tension on surprising facts, never shouting.")
+
+
+def _openai_key():
+    key = os.environ.get("OPENAI_API_KEY")
+    if not key:
+        raise SystemExit("OPENAI_API_KEY is not set — export it, or use --engine edge / chatterbox")
+    return key
+
+
+def tts_openai(beats, raw_out, voice):
+    import urllib.request
+
+    text = "\n\n".join(" ".join(b) for b in beats)  # one request = one consistent voice
+    body = json.dumps({"model": "gpt-4o-mini-tts", "voice": voice, "input": text, "instructions": OPENAI_TONE, "response_format": "wav"}).encode()
+    req = urllib.request.Request("https://api.openai.com/v1/audio/speech", data=body, headers={"Authorization": f"Bearer {_openai_key()}", "Content-Type": "application/json"})
+    with urllib.request.urlopen(req, timeout=300) as r:
+        raw_out.write_bytes(r.read())
+
+
+def openai_words(audio_path, script_text):
+    """Word timestamps from the OpenAI transcription API (whisper-1, verbose_json)."""
+    import urllib.request
+    import uuid
+
+    b = uuid.uuid4().hex
+    parts = []
+    for k, v in (("model", "whisper-1"), ("response_format", "verbose_json"), ("timestamp_granularities[]", "word"), ("prompt", script_text[:800])):
+        parts.append(f'--{b}\r\nContent-Disposition: form-data; name="{k}"\r\n\r\n{v}\r\n'.encode())
+    parts.append(f'--{b}\r\nContent-Disposition: form-data; name="file"; filename="vo.mp3"\r\nContent-Type: audio/mpeg\r\n\r\n'.encode() + pathlib.Path(audio_path).read_bytes() + b"\r\n")
+    parts.append(f"--{b}--\r\n".encode())
+    req = urllib.request.Request("https://api.openai.com/v1/audio/transcriptions", data=b"".join(parts), headers={"Authorization": f"Bearer {_openai_key()}", "Content-Type": f"multipart/form-data; boundary={b}"})
+    with urllib.request.urlopen(req, timeout=300) as r:
+        res = json.loads(r.read())
+    return [{"word": w["word"].strip(), "start": w["start"], "end": w["end"]} for w in res["words"]]
+
+
 # ---------- alignment ----------
 def whisper_words(audio_path, script_text):
+    try:
+        import whisper
+    except ImportError:  # light install: no local Whisper → use the API if a key is there
+        if os.environ.get("OPENAI_API_KEY"):
+            return openai_words(audio_path, script_text)
+        raise SystemExit("word timing needs local Whisper (setup.sh --local-voice) or OPENAI_API_KEY")
     guard_memory("whisper")
-    import whisper
 
     model = whisper.load_model("small", device="cpu")
     res = model.transcribe(str(audio_path), word_timestamps=True, initial_prompt=script_text, fp16=False)
@@ -384,16 +438,16 @@ def duration(p):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("slug")
-    ap.add_argument("--engine", choices=["chatterbox", "edge", "file"], default="chatterbox")
+    ap.add_argument("--engine", choices=["chatterbox", "openai", "edge", "file"], default="chatterbox")
     ap.add_argument("--ref", help="chatterbox: reference voice clip (~10 s, wav/mp3)")
     ap.add_argument("--audio", help="file engine: your own recording")
     ap.add_argument("--exaggeration", type=float, default=0.6, help="chatterbox emotion 0.25–1.0 (0.5 neutral)")
     ap.add_argument("--cfg", type=float, default=0.4, help="chatterbox pacing/adherence; lower = faster, livelier")
     ap.add_argument("--seed", type=int, default=3)
     ap.add_argument("--device", choices=["cpu", "mps"], default="cpu", help="chatterbox: cpu is slower but needs ~half the memory")
-    ap.add_argument("--voice", default="en-US-AndrewNeural", help="edge voice")
+    ap.add_argument("--voice", help="edge voice (default en-US-AndrewNeural) or openai voice (default onyx)")
     ap.add_argument("--speed", type=float, default=1.0, help="tempo after TTS (pitch kept); 1.0 = natural")
-    ap.add_argument("--pitch", type=float, default=-1.0, help="semitones after TTS (tempo kept); -1 = the user's pick (2026-10-24)")
+    ap.add_argument("--pitch", type=float, help="semitones after TTS (tempo kept); default -1 for chatterbox (the picked voice, 2026-10-24), 0 otherwise")
     ap.add_argument("--gap", type=float, default=0.24, help="chatterbox: pause between sentences (s)")
     ap.add_argument("--beat-gap", type=float, default=0.45, help="chatterbox: pause between blocks of beats (s)")
     ap.add_argument("--resnap", action="store_true", help="only re-run the pause correction on existing words.json")
@@ -401,14 +455,16 @@ def main():
     ap.add_argument("--tag", default="x", help="name for --preview output")
     a = ap.parse_args()
     global PITCH
-    PITCH = a.pitch
+    PITCH = a.pitch if a.pitch is not None else (-1.0 if a.engine == "chatterbox" else 0.0)
     if a.resnap:
         wj = ROOT / "public" / a.slug / "words.json"
         wj.write_text(json.dumps(snap_to_silences(json.loads(wj.read_text()), ROOT / "public" / a.slug / "vo.mp3"), indent=1))
         print(f"re-snapped {wj}")
         return
-    if a.engine != "edge":
+    if a.engine in ("chatterbox", "file"):
         preflight()
+    if not a.voice:
+        a.voice = "onyx" if a.engine == "openai" else "en-US-AndrewNeural"
 
     out = ROOT / "public" / a.slug
     out.mkdir(parents=True, exist_ok=True)
@@ -436,6 +492,9 @@ def main():
             if a.engine == "chatterbox":
                 raw = pathlib.Path(td) / "raw.wav"
                 tts_chatterbox(beats, raw, a.ref, a.exaggeration, a.cfg, a.seed, a.device, (a.gap, a.beat_gap))
+            elif a.engine == "openai":
+                raw = pathlib.Path(td) / "raw.wav"
+                tts_openai(beats, raw, a.voice)
             else:
                 raw = pathlib.Path(a.audio)
             finish(raw, mp3, a.speed)

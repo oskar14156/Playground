@@ -36,10 +36,11 @@ Read before working:
    ~2.6–3 words per second → 30 s ≈ 80 words. The last line is the loop outro (story.md).
    Include 1–3 rehook lines and one stakes line (tension.md).
    ★ Show the script, wait for sign-off. Changing words later re-times everything.
-5. **Voice** — `.venv-tts/bin/python scripts/voice.py <slug>` (built-in "default" voice = the user's pick; other voices: `--ref voices/refs/<name>.wav`)
-   (Chatterbox on CPU, ~1 min per 5 s of speech; run it in the background and never in
-   parallel with a render — 16 GB Mac). The user's chosen voice is in brief.md. Fallback
-   `--engine edge`. This writes `public/<slug>/vo.mp3` + `words.json` (word timings). Read
+5. **Voice** — engine from `scripts/doctor.sh` (`VOICE:` line; `ask` → ask the user, see AGENTS.md).
+   `.venv-tts/bin/python scripts/voice.py <slug> [--engine chatterbox|openai|edge]`
+   (chatterbox: built-in voice = the owner's pick, other voices `--ref voices/refs/<name>.wav`,
+   CPU, ~1 min per 5 s of speech; openai: `--voice onyx`, seconds). Run it in the background and
+   never in parallel with a render on a 16 GB machine. The chosen voice goes into brief.md. This writes `public/<slug>/vo.mp3` + `words.json` (word timings). Read
    words.json back: the real timings are now the clock for the storyboard. Sanity-check it:
    no word may start inside a pause (voice.py snaps them; `--resnap` re-runs only that step),
    big numbers and the first word of each beat are the usual suspects.
