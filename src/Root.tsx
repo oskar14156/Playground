@@ -6,6 +6,7 @@ import { BlackBox, DURATION as BB_DURATION } from "./videos/black-box/BlackBox";
 import { Titanic, DURATION as TI_DURATION } from "./videos/titanic/Titanic";
 import { BoatLab, BOAT_LAB_DURATION } from "./videos/_lab/BoatLab";
 import { VolcanoReel, DURATION as VO_DURATION } from "./videos/volcano/Volcano";
+import { Meteors, DURATION as ME_DURATION } from "./videos/meteors/Meteors";
 import { Php2Shell, DURATION as PH_DURATION } from "./videos/php2shell/Php2Shell";
 import { VolcanoLab, VOLCANO_LAB_DURATION } from "./videos/_lab/VolcanoLab";
 import { LinerLab, LINER_LAB_DURATION } from "./videos/_lab/LinerLab";
@@ -19,6 +20,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="titanic" component={Titanic} durationInFrames={TI_DURATION} {...VIDEO} />
     <Composition id="boat-lab" component={BoatLab} durationInFrames={BOAT_LAB_DURATION} {...VIDEO} />
     <Composition id="volcano" component={VolcanoReel} durationInFrames={VO_DURATION} {...VIDEO} />
+    <Composition id="meteors" component={Meteors} durationInFrames={ME_DURATION} {...VIDEO} />
     <Composition id="php2shell" component={Php2Shell} durationInFrames={PH_DURATION} {...VIDEO} />
     <Composition id="volcano-lab" component={VolcanoLab} durationInFrames={VOLCANO_LAB_DURATION} {...VIDEO} />
     <Composition id="liner-lab" component={LinerLab} durationInFrames={LINER_LAB_DURATION} {...VIDEO} />
