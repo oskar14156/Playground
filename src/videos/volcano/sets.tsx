@@ -188,7 +188,7 @@ export const SetHelens: React.FC<SetProps> = ({ f }) => {
   );
 };
 
-const Tag: React.FC<{ x: number; y: number; text: string; o: number }> = ({ x, y, text, o }) => (
+export const Tag: React.FC<{ x: number; y: number; text: string; o: number }> = ({ x, y, text, o }) => (
   <div style={{ position: "absolute", left: x, top: y, opacity: o }}>
     <div style={{ position: "absolute", left: -10, top: -10, width: 20, height: 20, border: "3px solid #ffd166" }} />
     <div style={{ position: "absolute", left: -1.5, top: -140, width: 3, height: 130, background: "#ffd166" }} />
@@ -212,7 +212,7 @@ const Tag: React.FC<{ x: number; y: number; text: string; o: number }> = ({ x, y
   </div>
 );
 
-const DateTag: React.FC<{ o: number }> = ({ o }) => (
+export const DateTag: React.FC<{ o: number }> = ({ o }) => (
   <div
     style={{
       position: "absolute",

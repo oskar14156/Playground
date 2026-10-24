@@ -31,7 +31,7 @@ export const World: React.FC = () => {
   return <active.C f={f} />;
 };
 
-const Hud: React.FC = () => (
+export const Hud: React.FC = () => (
   <>
     <Readout at={c.deg} until={c.so} from={20} value={1100} countFrames={16} unit="°C" label="LAVA · KĪLAUEA" palette={P} top={230} />
     <StatPill at={c.m50} until={c.so} from={0} value={50} countFrames={14} unit="M / HOUR" palette={P} top={420} />
@@ -40,7 +40,7 @@ const Hud: React.FC = () => (
   </>
 );
 
-const Sound: React.FC = () => (
+export const Sound: React.FC = () => (
   <>
     <Audio src={staticFile("volcano/vo.mp3")} />
     <MusicBed name="tension" words={words} volume={0.3} cuts={[[c.slid, c.burst]]} />

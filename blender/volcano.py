@@ -456,9 +456,9 @@ def mountain_material():
     nzs.inputs[1].default_value = 420
     nt.links.new(nz.outputs["Fac"], nzs.inputs[0])
     nt.links.new(nzs.outputs[0], zn.inputs[1])
-    snow = node(nt, "ShaderNodeMapRange", **{"From Min": 1180.0, "From Max": 1260.0})
+    snow = node(nt, "ShaderNodeMapRange", **{"From Min": 720.0, "From Max": 830.0})
     nt.links.new(zn.outputs[0], snow.inputs["Value"])
-    forest = node(nt, "ShaderNodeMapRange", **{"From Min": 900.0, "From Max": 760.0})
+    forest = node(nt, "ShaderNodeMapRange", **{"From Min": 620.0, "From Max": 480.0})
     nt.links.new(zn.outputs[0], forest.inputs["Value"])
     steep = node(nt, "ShaderNodeMapRange", **{"From Min": 0.86, "From Max": 0.74})
     nt.links.new(nsep.outputs["Z"], steep.inputs["Value"])
@@ -545,7 +545,7 @@ def haze_glare(sc, color=(0.62, 0.72, 0.86), amount=0.55):
     ng.links.new(g.outputs["Image"], out.inputs["Image"])
 
 
-H_CAM = ((-12000, -1700, 900), (0, 500, 1250))  # from the west: north flank on the left
+H_CAM = ((-7500, -1200, 700), (0, 300, 1500))  # from the west: north flank on the left
 
 
 def helens(sc, part):
@@ -574,12 +574,12 @@ def helens(sc, part):
     sun.data.energy = 4.2
     sun.data.angle = math.radians(1.0)
     sun.rotation_euler = (math.radians(52), 0, math.radians(35))  # morning sun from the south-east
-    cam = C.camera(sc, lens=48, fstop=None)
+    cam = C.camera(sc, lens=35, fstop=None)
     cam.data.clip_start = 20  # 20 m … 120 km: a 0.1 m near plane breaks the depth buffer (black frames)
     cam.data.clip_end = 120000
     if part == "a":
-        C.aim(cam, (-13200, -1900, 880), (0, 300, 1300), frame=f0)
-        C.aim(cam, (-12000, -1700, 900), (0, 300, 1250), frame=f1)
+        C.aim(cam, (-8300, -1300, 680), (0, 300, 1550), frame=f0)
+        C.aim(cam, (-7500, -1200, 700), (0, 300, 1500), frame=f1)
         sc["flank"] = False
         haze_glare(sc)
         return
@@ -594,20 +594,31 @@ def helens(sc, part):
     dust, _ = volume_cloud("dust", (0.45, 0.36, 0.28), 0.02, 4.5, seed=7.0, w_speed=0.25, f0=c["slid"], f1=f1)
     keyframes(dust, "location", [(c["slid"], (0, 1600, 900)), (c["slid"] + 30, (200, 4800, 450)), (f1, (300, 7500, 400))])
     keyframes(dust, "scale", [(c["slid"] - 1, (1, 1, 1)), (c["slid"], (900, 900, 500)), (f1, (3200, 3600, 900))])
-    # lateral blast: a dark, ground-hugging surge north; then the vertical ash column
-    surge, sp = volume_cloud("surge", (0.26, 0.24, 0.22), 0.03, 4.5, seed=3.0, w_speed=0.35, f0=c["burst"], f1=f1)
-    keyframes(surge, "location", [(c["burst"], (0, 1200, 1200)), (f1, (400, 7200, 1100))])
-    keyframes(surge, "scale", [(c["burst"] - 1, (1, 1, 1)), (c["burst"], (700, 700, 600)), (c["burst"] + 18, (3000, 3600, 1300)), (f1, (6000, 7000, 1700))])
-    col, _ = volume_cloud("column", (0.38, 0.36, 0.34), 0.03, 4.0, seed=9.0, w_speed=0.2, f0=c["burst"], f1=f1)
-    keyframes(col, "location", [(c["burst"] + 6, (0, 700, 2000)), (f1, (0, 1100, 5200))])
-    keyframes(col, "scale", [(c["burst"] + 5, (1, 1, 1)), (c["burst"] + 6, (800, 800, 900)), (f1, (2600, 2600, 4200))])
+    # lateral blast: puffs racing north along the ground; then a cauliflower column out of the crater.
+    # Many overlapping puffs (each a noise volume) read as billows; one big volume reads as a blob.
+    rnd = random.Random(5)
+    b0 = c["burst"]
+    for i in range(9):
+        p, _ = volume_cloud(f"surge{i}", (0.24, 0.22, 0.2), 0.035, 3.2, seed=3.0 + i, w_speed=0.4, f0=b0, f1=f1)
+        t0 = b0 + i * 2
+        x = rnd.uniform(-1600, 1600)
+        keyframes(p, "location", [(t0, (x * 0.3, 1300, 1150)), (f1, (x, 2600 + i * 650, 700 + rnd.uniform(0, 300)))])
+        s0 = rnd.uniform(450, 650)
+        keyframes(p, "scale", [(t0 - 1, (1, 1, 1)), (t0, (s0, s0, s0 * 0.8)), (f1, (s0 * 3.2, s0 * 3.6, s0 * 1.5))])
+    for i in range(8):
+        p, _ = volume_cloud(f"column{i}", (0.4, 0.38, 0.36), 0.035, 3.0, seed=9.0 + i, w_speed=0.25, f0=b0, f1=f1)
+        t0 = b0 + 6 + i * 3
+        top = 1900 + (i + 1) * 650
+        keyframes(p, "location", [(t0, (rnd.uniform(-150, 150), 450, 1450)), (f1, (rnd.uniform(-400, 400), 700 + i * 120, top))])
+        s0 = 380 + i * 40
+        keyframes(p, "scale", [(t0 - 1, (1, 1, 1)), (t0, (s0, s0, s0)), (f1, (s0 * 2.6, s0 * 2.6, s0 * 2.0))])
     # camera: same view as part a, eases north at "slid away", shakes and pulls back on the blast
     C.aim(cam, H_CAM[0], H_CAM[1], frame=f0)
-    C.aim(cam, (-12200, -1400, 900), (0, 1200, 1250), frame=c["slid"])
-    C.aim(cam, (-12500, -800, 950), (0, 2200, 1500), frame=c["burst"])
+    C.aim(cam, (-7700, -900, 700), (0, 1000, 1500), frame=c["slid"])
+    C.aim(cam, (-8000, -600, 750), (0, 1800, 1900), frame=c["burst"])
     for i, f in enumerate(range(c["burst"] + 2, c["burst"] + 14, 4)):  # ≤ 3 swings
-        C.aim(cam, (-12700 - 150 * i, -700, 970 + (40 if i % 2 else -40) * (1 - i / 3)), (0, 2300, 1600 + (30 if i % 2 else -30)), frame=f)
-    C.aim(cam, (-16500, -300, 1200), (0, 2600, 3000), frame=f1)
+        C.aim(cam, (-8200 - 150 * i, -500, 770 + (40 if i % 2 else -40) * (1 - i / 3)), (0, 1900, 2100 + (30 if i % 2 else -30)), frame=f)
+    C.aim(cam, (-11500, -200, 900), (0, 2400, 3200), frame=f1)
     sc["flank"] = True
     haze_glare(sc)
 
