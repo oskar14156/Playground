@@ -7,7 +7,7 @@ All in `videos/<slug>/`.
 ```md
 # <working title>
 - Question: <the one question the video answers>
-- Length: 30–40 s · Language: en · Voice: chatterbox default (built-in, the user's pick) @1.05 · Music: tension
+- Length: 30–40 s · Language: en · Voice: <engine + voice, e.g. chatterbox default @1.0 | openai onyx | edge AndrewNeural> · Music: tension
 - Palette: night | deep · Captions: karaoke | punch
 - Audience: <who, what they already know>
 - Protagonist: <the one thing/person the viewer follows through the sets>
