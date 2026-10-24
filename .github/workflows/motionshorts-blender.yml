@@ -1,0 +1,80 @@
+name: motionshorts Blender render
+# Cloud renders for github.com/oskar14156/motionshorts (code lives on this repo's `motionshorts` branch).
+#   gh workflow run motionshorts-blender.yml -R oskar14156/playground \
+#     -f script=volcano -f plate=vob -f args="--render --draft" -f chunks=8 -f composite=volcano-blender
+# Artifacts: frames-<i> (public/<plate>/…), stills-<i> (out/stills/…), video (out/<composite>.mp4)
+on:
+  workflow_dispatch:
+    inputs:
+      script: { description: "blender/<script>.py", required: true }
+      plate: { description: "public/<plate>/ folder the script writes (e.g. tib)", required: true }
+      args: { description: "script args, e.g. --render --draft | --stills 0,150 --res 30 --samples 8", required: true }
+      chunks: { description: "parallel jobs (1–20)", default: "1" }
+      composite: { description: "Remotion composition to render from the frames (empty = none)", default: "" }
+      subdir: { description: "frames | draft (which plate folder the composite reads)", default: "draft" }
+      ref: { description: "branch with the motionshorts code", default: "motionshorts" }
+permissions:
+  contents: read
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    outputs:
+      idx: ${{ steps.m.outputs.idx }}
+    steps:
+      - id: m
+        run: echo "idx=$(python3 -c "import json;print(json.dumps(list(range(1,int('${{ inputs.chunks }}')+1))))")" >> "$GITHUB_OUTPUT"
+  render:
+    needs: plan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      matrix:
+        i: ${{ fromJson(needs.plan.outputs.idx) }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: "${{ inputs.ref }}" }
+      - name: Headless OpenGL (Mesa llvmpipe) for EEVEE
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq libegl1 libegl-mesa0 libgl1-mesa-dri libgles2 libxi6 libxkbcommon0 libxrender1 libxxf86vm1 libsm6 libxfixes3 libxkbcommon-x11-0 >/dev/null
+      - uses: actions/cache@v4
+        with: { path: ~/blender, key: blender-5.2.3-linux }
+      - name: Blender 5.2.3
+        run: |
+          if [ ! -x ~/blender/blender ]; then
+            mkdir -p ~/blender
+            curl -sL https://download.blender.org/release/Blender5.2/blender-5.2.3-linux-x64.tar.xz | tar -xJ -C ~/blender --strip-components=1
+          fi
+          ~/blender/blender --version | head -1
+      - name: Render chunk ${{ matrix.i }}/${{ inputs.chunks }}
+        run: |
+          nproc; free -g
+          START=$(date +%s)
+          ~/blender/blender -b -P blender/${{ inputs.script }}.py -- ${{ inputs.args }} --chunk ${{ matrix.i }}/${{ inputs.chunks }} 2>&1 | grep -vE "^Fra:|Compositing|Rendering|Sample" | tail -60
+          echo "seconds: $(( $(date +%s) - START ))"
+          ls public/${{ inputs.plate }}/*/ 2>/dev/null | wc -l
+      - uses: actions/upload-artifact@v4
+        with: { name: "frames-${{ matrix.i }}", path: "public/${{ inputs.plate }}/", if-no-files-found: ignore, retention-days: 5 }
+      - uses: actions/upload-artifact@v4
+        with: { name: "stills-${{ matrix.i }}", path: "out/stills/", if-no-files-found: ignore, retention-days: 5 }
+  composite:
+    needs: render
+    if: ${{ inputs.composite != '' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: "${{ inputs.ref }}" }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci --no-audit --no-fund
+      - uses: actions/download-artifact@v4
+        with: { pattern: "frames-*", path: "public/${{ inputs.plate }}/", merge-multiple: true }
+      - name: Remotion render
+        run: |
+          ls public/${{ inputs.plate }}/${{ inputs.subdir }} | wc -l
+          SCALE=$([ "${{ inputs.subdir }}" = draft ] && echo 0.5 || echo 1)
+          npx remotion render ${{ inputs.composite }} out/${{ inputs.composite }}.mp4 --props='{"plate":"${{ inputs.plate }}/${{ inputs.subdir }}"}' --scale=$SCALE --concurrency=4 --log=error
+      - uses: actions/upload-artifact@v4
+        with: { name: video, path: "out/${{ inputs.composite }}.mp4", retention-days: 7 }
