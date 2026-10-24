@@ -126,7 +126,7 @@ jobs:
             FULL=true
           elif [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ inputs.full_build }}" == "true" ]]; then
             FULL=true
-''          fi
+          fi
           echo "enabled=$FULL" >> "$GITHUB_OUTPUT"
 
       - name: Verify required encryption key
