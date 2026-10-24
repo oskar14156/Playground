@@ -1,10 +1,6 @@
 name: Validate SkipSilencePlayer
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/validate-skip-silence-player.yml'
   workflow_dispatch:
 
 permissions:

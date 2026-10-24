@@ -1,10 +1,6 @@
 name: ImagePdfScaler PR11 review
 # Validation pass 3: interpolation lint adjusted
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/imagepdfscaler-pr11-review.yml'
   workflow_dispatch:
 permissions:
   contents: read

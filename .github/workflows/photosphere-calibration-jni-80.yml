@@ -1,9 +1,5 @@
 name: Photo Sphere calibration JNI export index
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-calibration-jni-80.yml"
   workflow_dispatch:
 permissions:
   contents: read

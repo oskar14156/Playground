@@ -1,9 +1,6 @@
 name: Format image_enhancer output regression
 
 on:
-  push:
-    paths:
-      - '.github/workflows/image_enhancer_format_existing_output_test.yml'
   workflow_dispatch:
 
 permissions:

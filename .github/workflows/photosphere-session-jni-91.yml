@@ -1,10 +1,6 @@
 name: Photo Sphere JNI session restore and calibration 91
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-session-jni-91.yml"
 permissions:
   contents: read
 jobs:

@@ -1,9 +1,5 @@
 name: Photo Sphere per-level mask numeric ARM64
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-unit-mask-raw.yml"
   workflow_dispatch:
 permissions:
   contents: read

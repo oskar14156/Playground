@@ -1,9 +1,6 @@
 name: ImagePdfScaler zoom and padding review
 # Rerun after correcting physical auto-size wrapping
 on:
-  push:
-    branches: [main]
-    paths: ['.github/workflows/imagepdfscaler-zoom-padding-review.yml']
   workflow_dispatch:
 permissions:
   contents: read

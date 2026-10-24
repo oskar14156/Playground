@@ -1,9 +1,5 @@
 name: Photo Sphere checkpoint 106 exact gamma sample pixels
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-checkpoint-106.yml"
   workflow_dispatch:
 permissions:
   contents: read

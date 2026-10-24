@@ -1,9 +1,5 @@
 name: Photo Sphere session restore successful ARM64
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-session-restore-raw-91.yml"
   workflow_dispatch:
 permissions:
   contents: read

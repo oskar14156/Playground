@@ -1,10 +1,6 @@
 name: Root Detector Material results R8 release
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/root-detector-material-results-r8.yml
   workflow_dispatch:
 
 permissions:

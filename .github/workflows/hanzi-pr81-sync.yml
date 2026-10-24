@@ -1,10 +1,7 @@
 name: Sync HanziHero PR81 with main
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/hanzi-pr81-sync.yml'
+  workflow_dispatch:
 
 permissions:
   contents: read

@@ -1,8 +1,5 @@
 name: Photo Sphere checkpoint 156 original JNI FinishCapture to stitcher dispatch
 on:
-  push:
-    branches: [main]
-    paths: [".github/workflows/photosphere-checkpoint-156.yml"]
   workflow_dispatch:
 permissions:
   contents: read

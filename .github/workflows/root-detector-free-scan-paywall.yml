@@ -1,10 +1,6 @@
 name: Root Detector fifth-scan paywall final checks
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/root-detector-free-scan-paywall.yml
   workflow_dispatch:
 
 permissions:

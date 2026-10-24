@@ -1,9 +1,5 @@
 name: Photo Sphere checkpoint 141 actual mask/helper and capture lens decompilation
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-checkpoint-141-ghidra.yml"
   workflow_dispatch:
 permissions:
   contents: read

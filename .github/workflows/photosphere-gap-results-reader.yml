@@ -6,9 +6,6 @@ on:
         description: "Optional native gap sweep run ID"
         required: false
         type: string
-  push:
-    branches: [investigate/photosphere-oct08-gaps]
-    paths: [".github/workflows/photosphere-gap-results-reader.yml"]
 permissions:
   actions: read
   contents: read

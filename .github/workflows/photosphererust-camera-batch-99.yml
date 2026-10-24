@@ -1,9 +1,5 @@
 name: Photo Sphere batched camera mapping 99
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphererust-camera-batch-99.yml"
   workflow_dispatch:
 permissions:
   contents: read

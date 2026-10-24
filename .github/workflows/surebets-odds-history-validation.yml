@@ -1,11 +1,7 @@
 name: Surebets history odds precision
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/surebets-odds-history-validation.yml'
-      - 'surebets-odds-history-validation/**'
+  workflow_dispatch:
 
 permissions:
   contents: read

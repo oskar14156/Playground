@@ -1,10 +1,6 @@
 name: Photo Sphere native lens metadata and session
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-lens-metadata-79.yml"
 permissions:
   contents: read
 jobs:

@@ -2,10 +2,6 @@ name: Decompile LightCycle session parameters
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/decompile-lightcycle-session-params.yml"
 
 permissions:
   contents: read

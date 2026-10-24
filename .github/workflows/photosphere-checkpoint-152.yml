@@ -1,10 +1,5 @@
 name: Photo Sphere checkpoint 152 storage pointer, lens and metadata reset
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-checkpoint-152.yml"
-      - "scripts/photosphere_checkpoint_152.py"
   workflow_dispatch:
 permissions:
   contents: read

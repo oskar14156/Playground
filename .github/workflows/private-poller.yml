@@ -6,8 +6,6 @@ name: Private Repo Poller - Zero-Minute CI
 # Agents only push branches and read result files - they never see this repo.
 
 on:
-  schedule:
-    - cron: '*/5 * * * *'
   workflow_dispatch:
     inputs:
       repository:

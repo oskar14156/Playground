@@ -1,9 +1,5 @@
 name: Photo Sphere concrete camera model vtables
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-camera-vtables-raw.yml"
   workflow_dispatch:
 permissions:
   contents: read

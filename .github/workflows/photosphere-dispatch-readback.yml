@@ -1,8 +1,5 @@
 name: Photo Sphere downstream dispatch readback
 on:
-  workflow_run:
-    workflows: ["Photo Sphere downstream dispatch sweep"]
-    types: [completed]
   workflow_dispatch:
     inputs:
       source_run_id:

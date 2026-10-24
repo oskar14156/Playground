@@ -1,10 +1,6 @@
 name: Photo Sphere calibrated source intrinsics 95
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphererust-source-intrinsics-95.yml"
 permissions:
   contents: read
 jobs:

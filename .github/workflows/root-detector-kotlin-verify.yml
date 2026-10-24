@@ -4,10 +4,6 @@ name: Root Detector Kotlin verification (public runner)
 # Emulator: permit KVM access and use a lower API to avoid software-emulation timeout.
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/root-detector-kotlin-verify.yml
   workflow_dispatch:
 
 permissions:

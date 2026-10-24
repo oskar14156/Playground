@@ -2,10 +2,6 @@ name: Extract Pixel Camera LightCycle binary
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/extract-lightcycle-binary.yml"
 
 permissions:
   contents: read

@@ -1,9 +1,7 @@
 name: Verify segmentation Colab startup visibility
 
 on:
-  push:
-    paths:
-      - '.github/workflows/verify_segmentation_colab_startup.yml'
+  workflow_dispatch:
 
 jobs:
   verify:

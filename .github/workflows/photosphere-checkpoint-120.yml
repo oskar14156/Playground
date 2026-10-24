@@ -1,9 +1,5 @@
 name: Photo Sphere checkpoint 120 configured capture thumbnail width provenance
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-checkpoint-120.yml"
   workflow_dispatch:
 permissions:
   contents: read

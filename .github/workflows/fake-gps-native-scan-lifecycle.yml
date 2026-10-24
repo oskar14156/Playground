@@ -1,9 +1,5 @@
 name: Fake GPS native scan lifecycle verification
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/fake-gps-native-scan-lifecycle.yml'
   workflow_dispatch:
 permissions:
   contents: read

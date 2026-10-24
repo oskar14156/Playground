@@ -1,9 +1,6 @@
 name: Check image_enhancer iOS main baseline
 
 on:
-  push:
-    paths:
-      - '.github/workflows/image_enhancer_ios_main_baseline.yml'
   workflow_dispatch:
 
 permissions:

@@ -1,10 +1,5 @@
 name: Photo Sphere checkpoint 147 metadata and lens pointer audit
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-checkpoint-147.yml"
-      - "scripts/photosphere_checkpoint_147.py"
   workflow_dispatch:
 permissions:
   contents: read

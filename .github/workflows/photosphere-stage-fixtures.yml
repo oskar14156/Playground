@@ -1,11 +1,6 @@
 name: Photo Sphere clean-room stage fixtures
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - "scripts/photosphere_stage_fixtures.py"
-      - ".github/workflows/photosphere-stage-fixtures.yml"
 permissions:
   contents: read
 jobs:

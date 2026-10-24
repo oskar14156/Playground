@@ -2,9 +2,7 @@
 name: Google sign-in dependency validation
 
 on:
-  push:
-    paths:
-      - .github/workflows/google-signin-deps-validation.yml
+  workflow_dispatch:
 
 permissions:
   contents: read

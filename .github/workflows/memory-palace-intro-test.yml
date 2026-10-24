@@ -8,10 +8,6 @@ on:
         required: false
         default: restore-old-intro-content
         type: string
-  push:
-    branches: [main]
-    paths:
-      - 'debug_triggers/memory-palace-intro.txt'
 
 permissions:
   contents: read

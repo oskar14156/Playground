@@ -1,10 +1,6 @@
 name: Photo Sphere source camera calibration audit 95
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-source-camera-95.yml"
 permissions:
   contents: read
 jobs:

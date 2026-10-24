@@ -1,9 +1,5 @@
 name: Photo Sphere checkpoint 138 final mask and lens factory Ghidra
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-checkpoint-138-ghidra.yml"
   workflow_dispatch:
 permissions:
   contents: read

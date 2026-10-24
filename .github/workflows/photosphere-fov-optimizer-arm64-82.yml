@@ -1,9 +1,5 @@
 name: Photo Sphere FOV inner optimizer ARM64
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-fov-optimizer-arm64-82.yml"
   workflow_dispatch:
 permissions:
   contents: read

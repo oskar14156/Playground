@@ -1,9 +1,5 @@
 name: Photo Sphere camera project unproject ARM64
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-camera-project-raw.yml"
   workflow_dispatch:
 permissions:
   contents: read

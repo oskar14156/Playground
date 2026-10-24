@@ -1,10 +1,6 @@
 name: Photo Sphere unit mask into stitcher
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-unitmask-stitcher-77.yml"
 permissions:
   contents: read
 jobs:

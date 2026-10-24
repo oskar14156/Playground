@@ -1,10 +1,6 @@
 name: ImagePdfScaler precision audit
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/imagepdfscaler-precision-audit.yml'
   workflow_dispatch:
 
 permissions:

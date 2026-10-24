@@ -1,10 +1,7 @@
 name: Noise Remover PR189 lockfile apply
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/noise-remover-pr189-lock-push.yml'
+  workflow_dispatch:
 
 permissions:
   contents: read

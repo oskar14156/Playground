@@ -1,9 +1,5 @@
 name: Photo Sphere storage ctor and count native xrefs
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-storage-ctor-xrefs-90.yml"
   workflow_dispatch:
 permissions:
   contents: read

@@ -1,10 +1,6 @@
 name: Native Resistor Scanner iOS PR1
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/resistor-scanner-ios-native-pr1.yml'
   workflow_dispatch:
 
 permissions:

@@ -1,8 +1,5 @@
 name: Photo Sphere checkpoint 143 lens pointer provenance and unit mask ownership
 on:
-  push:
-    branches: [main]
-    paths: [".github/workflows/photosphere-checkpoint-143.yml"]
   workflow_dispatch:
 permissions:
   contents: read

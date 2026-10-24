@@ -1,10 +1,6 @@
 name: Resistor Scanner iOS PR29
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/resistor-ios-pr29.yml'
   workflow_dispatch:
 
 permissions:

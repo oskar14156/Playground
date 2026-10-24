@@ -4,8 +4,6 @@ name: ToiletCompass monthly databases
 # Source priority: Geofabrik -> published ISO PBF -> ISO-scoped Overpass fallback.
 # Automatic full publication runs once per month, on day 1 (UTC).
 on:
-  schedule:
-    - cron: '17 3 1 * *'
   workflow_dispatch:
     inputs:
       app_ref:

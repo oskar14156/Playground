@@ -1,9 +1,5 @@
 name: Photo Sphere linear camera projection table
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-linear-projection-vtable.yml"
   workflow_dispatch:
 permissions:
   contents: read

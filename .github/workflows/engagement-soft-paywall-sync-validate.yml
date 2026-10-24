@@ -1,9 +1,6 @@
 name: Sync and validate engagement soft paywalls
 
 on:
-  push:
-    paths:
-      - '.github/workflows/engagement-soft-paywall-sync-validate.yml'
   workflow_dispatch:
 
 permissions:

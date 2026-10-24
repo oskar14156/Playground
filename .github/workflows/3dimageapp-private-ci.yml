@@ -8,10 +8,6 @@ on:
         required: true
         default: main
         type: string
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/3dimageapp-private-ci.yml'
 
 permissions:
   contents: read

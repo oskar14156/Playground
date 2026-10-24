@@ -1,9 +1,6 @@
 name: Patch optional Telegram delivery
 
 on:
-  push:
-    paths:
-      - '.github/workflows/patch_optional_telegram.yml'
   workflow_dispatch:
 
 permissions:

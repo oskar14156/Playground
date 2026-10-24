@@ -1,9 +1,5 @@
 name: Photo Sphere mapper and camera raw trace
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-arm64-mapper-trace.yml"
   workflow_dispatch:
 permissions:
   contents: read

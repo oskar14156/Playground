@@ -1,9 +1,5 @@
 name: Photo Sphere native metadata writer callsites
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-metadata-callsites-88.yml"
   workflow_dispatch:
 permissions:
   contents: read

@@ -1,9 +1,5 @@
 name: Photo Sphere checkpoint 101 three-track ARM64 gap audit
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-checkpoint-101-three-paths.yml"
   workflow_dispatch:
 permissions:
   contents: read

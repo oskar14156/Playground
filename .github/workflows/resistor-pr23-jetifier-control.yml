@@ -1,10 +1,7 @@
 name: Resistor PR23 Jetifier control
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/resistor-pr23-jetifier-control.yml'
+  workflow_dispatch:
 
 permissions:
   contents: read

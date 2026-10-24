@@ -1,10 +1,6 @@
 name: Photo Sphere five-track core gaps
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-five-core-gaps.yml"
 permissions:
   contents: read
 jobs:

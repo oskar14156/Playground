@@ -1,10 +1,6 @@
 name: Photo Sphere Gamma sampling and flow Jacobian 99
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-gamma-flow-99.yml"
 permissions:
   contents: read
 jobs:

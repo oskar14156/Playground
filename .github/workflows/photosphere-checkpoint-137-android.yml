@@ -1,8 +1,5 @@
 name: Photo Sphere checkpoint 137 Android cross-target native build
 on:
-  push:
-    branches: [main]
-    paths: [".github/workflows/photosphere-checkpoint-137-android.yml"]
   workflow_dispatch:
 permissions:
   contents: read

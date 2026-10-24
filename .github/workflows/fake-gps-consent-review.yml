@@ -1,9 +1,5 @@
 name: Fake GPS consent follow-up validation
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/fake-gps-consent-review.yml'
   workflow_dispatch:
 permissions:
   contents: read

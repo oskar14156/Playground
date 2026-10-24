@@ -1,11 +1,7 @@
 name: Record screendetector dispatch result
 
 on:
-  workflow_run:
-    workflows:
-      - Dispatch screendetector release
-    types:
-      - completed
+  workflow_dispatch:
 
 permissions:
   actions: read

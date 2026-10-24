@@ -2,8 +2,6 @@ name: Record screendetector release result
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '23 */6 * * *'
 
 permissions:
   contents: write

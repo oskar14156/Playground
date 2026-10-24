@@ -1,8 +1,6 @@
 name: Inspect permissive plate TFLite model
 on:
-  push:
-    branches: [main]
-    paths: ['.github/workflows/privacy-plate-model-inspect.yml']
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:

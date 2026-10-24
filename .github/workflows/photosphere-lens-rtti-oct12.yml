@@ -1,8 +1,5 @@
 name: Photo Sphere original lens correction RTTI scan October 12
 on:
-  push:
-    branches: [main]
-    paths: [".github/workflows/photosphere-lens-rtti-oct12.yml"]
   workflow_dispatch:
 permissions:
   contents: read

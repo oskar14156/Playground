@@ -2,10 +2,6 @@
 name: AnkiFlutter validation
 
 on:
-  push:
-    paths:
-      - ankiflutter-validation-target.txt
-      - .github/workflows/ankiflutter-validation.yml
   workflow_dispatch:
 
 permissions:

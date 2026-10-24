@@ -1,11 +1,6 @@
 name: HanziHero private logic tests
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'hanzi-hero-tests/run.txt'
-      - '.github/workflows/hanzi-hero-logic-tests-v2.yml'
   workflow_dispatch:
     inputs:
       ref:

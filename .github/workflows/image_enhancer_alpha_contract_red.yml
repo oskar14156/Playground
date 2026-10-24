@@ -1,9 +1,6 @@
 name: Verify image_enhancer alpha contract RED
 
 on:
-  push:
-    paths:
-      - '.github/workflows/image_enhancer_alpha_contract_red.yml'
   workflow_dispatch:
 
 permissions:

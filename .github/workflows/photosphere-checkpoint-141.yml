@@ -1,10 +1,5 @@
 name: Photo Sphere checkpoint 141 parallel native mapping
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-checkpoint-141.yml"
-      - "scripts/photosphere_checkpoint_141.py"
   workflow_dispatch:
 permissions:
   contents: read

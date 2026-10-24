@@ -2,10 +2,6 @@ name: Resistor Scanner Android CI
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/resistor-scanner-android-ci.yml'
 
 permissions:
   contents: read

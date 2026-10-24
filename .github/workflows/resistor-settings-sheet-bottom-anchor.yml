@@ -1,10 +1,6 @@
 name: Resistor Scanner settings sheet bottom anchor
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/resistor-settings-sheet-bottom-anchor.yml
   workflow_dispatch:
 
 permissions:

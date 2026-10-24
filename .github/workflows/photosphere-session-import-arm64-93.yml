@@ -1,9 +1,5 @@
 name: Photo Sphere native filename formatter and JPEG probe ARM64 93
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-session-import-arm64-93.yml"
   workflow_dispatch:
 permissions:
   contents: read

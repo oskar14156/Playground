@@ -1,10 +1,6 @@
 name: Noise Remover macOS signing probe
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/noise-remover-macos-signing-probe.yml'
   workflow_dispatch:
     inputs:
       ref:

@@ -1,10 +1,6 @@
 name: AnkiFlutter parallel workstreams
 
 on:
-  push:
-    paths:
-      - ankiflutter-parallel-targets.json
-      - .github/workflows/ankiflutter-parallel-workstreams.yml
   workflow_dispatch:
 
 permissions:

@@ -1,9 +1,6 @@
 name: Noise Remover Android long-file emulator
 # Persistent Android permission grant watcher survives native Rust/Gradle build.
 on:
-  push:
-    branches: [main]
-    paths: ['.github/workflows/noise-remover-android-long-emulator.yml']
   workflow_dispatch:
 permissions:
   contents: read

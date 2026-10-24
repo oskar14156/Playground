@@ -1,9 +1,6 @@
 name: Verify image_enhancer PR 44
 
 on:
-  push:
-    paths:
-      - '.github/workflows/image_enhancer_pr44_review.yml'
   workflow_dispatch:
 
 permissions:

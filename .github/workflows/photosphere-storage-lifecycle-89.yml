@@ -1,10 +1,6 @@
 name: Photo Sphere storage provider and metadata lifecycle 89
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-storage-lifecycle-89.yml"
 permissions:
   contents: read
 jobs:

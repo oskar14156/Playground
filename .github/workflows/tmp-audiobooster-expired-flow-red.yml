@@ -1,10 +1,7 @@
 name: Temporary AudioBooster bootstrap cleanup GREEN
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/tmp-audiobooster-expired-flow-red.yml
+  workflow_dispatch:
 
 permissions:
   contents: read

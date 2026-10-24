@@ -1,8 +1,5 @@
 name: Verify final camera and crop lifecycle fixes
 on:
-  push:
-    paths:
-      - '.github/workflows/glitchtip-export-20261005.yml'
   workflow_dispatch:
 permissions:
   contents: read

@@ -1,10 +1,6 @@
 name: Resistor Scanner persistent zoom validation
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/resistor-scanner-persistent-zoom.yml
   workflow_dispatch:
 
 permissions:

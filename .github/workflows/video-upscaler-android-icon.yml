@@ -1,8 +1,5 @@
 name: Import Video Upscaler launcher artwork
 on:
-  push:
-    paths:
-      - .github/workflows/video-upscaler-android-icon.yml
   workflow_dispatch:
 permissions:
   contents: read

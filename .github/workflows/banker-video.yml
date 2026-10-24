@@ -1,9 +1,5 @@
 name: Banker's Algorithm Manim Neural Voice
 on:
-  push:
-    paths:
-      - 'banker-video/**'
-      - '.github/workflows/banker-video.yml'
   workflow_dispatch:
 permissions:
   contents: write

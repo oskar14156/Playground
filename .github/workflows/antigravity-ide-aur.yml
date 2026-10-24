@@ -1,13 +1,7 @@
 name: Antigravity IDE AUR sync
 
 on:
-  schedule:
-    - cron: '27 4 * * *' # daily UTC, on public Playground Actions minutes
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/antigravity-ide-aur.yml'
 
 permissions:
   contents: read

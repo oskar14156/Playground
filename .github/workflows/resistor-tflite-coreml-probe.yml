@@ -1,10 +1,6 @@
 name: Resistor TFLite to Core ML Probe
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/resistor-tflite-coreml-probe.yml'
   workflow_dispatch:
 
 permissions:

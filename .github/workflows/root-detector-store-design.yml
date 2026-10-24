@@ -1,10 +1,6 @@
 name: Root Detector Store design and purchase-disclosure verification
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/root-detector-store-design.yml
   workflow_dispatch:
 
 permissions:

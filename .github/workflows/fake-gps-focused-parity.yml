@@ -1,9 +1,5 @@
 name: Fake GPS focused parity verification
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/fake-gps-focused-parity.yml'
   workflow_dispatch:
 permissions:
   contents: read

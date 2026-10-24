@@ -1,8 +1,5 @@
 name: Photo Sphere checkpoint 133 transfer LUT source derivation
 on:
-  push:
-    branches: [main]
-    paths: [".github/workflows/photosphere-checkpoint-133.yml"]
   workflow_dispatch:
 permissions:
   contents: read

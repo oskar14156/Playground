@@ -1,10 +1,6 @@
 name: Photo Sphere fisheye forward projection exact
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-fisheye-projection-76.yml"
 permissions:
   contents: read
 jobs:

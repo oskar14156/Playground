@@ -1,8 +1,5 @@
 name: Publish LGPL FFmpeg iOS Assets
 on:
-  push:
-    branches: [main]
-    paths: ['.github/workflows/publish-extract-audio-ffmpeg-ios.yml']
   workflow_dispatch:
 permissions:
   contents: write

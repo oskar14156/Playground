@@ -1,9 +1,6 @@
 name: Validate image_enhancer storage pipeline v2
 
 on:
-  push:
-    paths:
-      - '.github/workflows/image_enhancer_storage_validation_v2.yml'
   workflow_dispatch:
 
 permissions:

@@ -1,9 +1,5 @@
 name: Photo Sphere orientation matrix filename 92
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-orientation-leaf-92.yml"
   workflow_dispatch:
 permissions:
   contents: read

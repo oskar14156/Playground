@@ -1,10 +1,6 @@
 name: AudioBooster Flutter checks
 # TDD red/green gate for the AudioBooster simplified Play audio flow.
 on:
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/audiobooster-flutter.yml
   workflow_dispatch:
     inputs:
       audio_ref:

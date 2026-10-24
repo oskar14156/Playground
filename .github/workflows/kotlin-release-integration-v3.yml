@@ -1,10 +1,6 @@
 name: Kotlin release integration validation v3
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/kotlin-release-integration-v3.yml
   workflow_dispatch:
 
 permissions:

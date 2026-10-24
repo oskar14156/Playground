@@ -1,10 +1,6 @@
 name: Noise Remover analyzer autofix
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/noise-remover-analyzer-fix.yml'
   workflow_dispatch:
 
 permissions:

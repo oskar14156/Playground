@@ -1,10 +1,6 @@
 name: Photo Sphere render defaults metadata and lens
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-three-independent-87.yml"
 permissions:
   contents: read
 jobs:

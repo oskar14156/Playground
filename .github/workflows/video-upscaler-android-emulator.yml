@@ -3,9 +3,6 @@ name: Video Upscaler Android device pipeline smoke
 # Android-native rotation fixture, dual AAC tracks, and actual GPU media processing
 # Verify cancellation, pause handling, 7-layer Balanced CNN, audio and rotation on Android emulator
 on:
-  push:
-    paths:
-      - .github/workflows/video-upscaler-android-emulator.yml
   workflow_dispatch:
 permissions:
   contents: read

@@ -1,9 +1,6 @@
 name: PhotosphereRust benchmark
 
 on:
-  push:
-    paths:
-      - ".github/workflows/photosphererust-benchmark.yml"
   workflow_dispatch:
 
 permissions:

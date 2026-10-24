@@ -1,9 +1,5 @@
 name: Photo Sphere native blender object initialization
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-blender-defaults-78.yml"
   workflow_dispatch:
 permissions:
   contents: read

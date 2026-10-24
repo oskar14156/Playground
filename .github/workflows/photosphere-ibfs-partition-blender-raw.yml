@@ -1,9 +1,5 @@
 name: Photo Sphere IBFS partition and blender ARM64
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-ibfs-partition-blender-raw.yml"
   workflow_dispatch:
 permissions:
   contents: read

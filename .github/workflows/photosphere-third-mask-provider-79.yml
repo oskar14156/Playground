@@ -1,10 +1,6 @@
 name: Photo Sphere third graph-cut mask provider
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-third-mask-provider-79.yml"
 permissions:
   contents: read
 jobs:

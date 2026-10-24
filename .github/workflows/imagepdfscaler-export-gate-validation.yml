@@ -8,10 +8,6 @@ on:
         required: true
         default: main
         type: string
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/imagepdfscaler-export-gate-validation.yml
 
 permissions:
   contents: read

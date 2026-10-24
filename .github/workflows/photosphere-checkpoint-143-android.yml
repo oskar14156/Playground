@@ -1,8 +1,5 @@
 name: Photo Sphere checkpoint 143 calibrated Gamma Android targets
 on:
-  push:
-    branches: [main]
-    paths: [".github/workflows/photosphere-checkpoint-143-android.yml"]
   workflow_dispatch:
 permissions:
   contents: read

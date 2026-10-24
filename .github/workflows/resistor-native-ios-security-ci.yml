@@ -1,10 +1,6 @@
 name: Resistor native iOS security CI
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/resistor-native-ios-security-ci.yml'
   workflow_dispatch:
 
 permissions:

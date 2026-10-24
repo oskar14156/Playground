@@ -1,9 +1,5 @@
 name: Photo Sphere mask decode and blender threshold scan
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-rle-threshold-scan-77.yml"
   workflow_dispatch:
 permissions:
   contents: read

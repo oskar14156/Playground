@@ -1,10 +1,5 @@
 name: Photo Sphere checkpoint 146 source-model, thumbnail, and metadata provenance
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-checkpoint-146.yml"
-      - "scripts/PhotoSphereSweep.java"
   workflow_dispatch:
 permissions:
   contents: read

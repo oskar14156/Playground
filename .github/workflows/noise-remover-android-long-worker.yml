@@ -2,9 +2,6 @@ name: Noise Remover Android long-file worker
 # Validate combined routing, permission-gated emulator fixture and all foreground tests.
 # Verify final model cancellation, resilient events, and background result auto-save.
 on:
-  push:
-    branches: [main]
-    paths: ['.github/workflows/noise-remover-android-long-worker.yml']
   workflow_dispatch:
 permissions:
   contents: read

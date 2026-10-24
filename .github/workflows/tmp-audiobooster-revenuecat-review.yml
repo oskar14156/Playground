@@ -1,9 +1,6 @@
 name: Temporary AudioBooster RevenueCat review GREEN
 on:
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/tmp-audiobooster-revenuecat-review.yml
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:

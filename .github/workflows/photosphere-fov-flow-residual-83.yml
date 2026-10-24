@@ -1,10 +1,6 @@
 name: Photo Sphere FOV flow and residual tracing
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-fov-flow-residual-83.yml"
 permissions:
   contents: read
 jobs:

@@ -1,9 +1,5 @@
 name: Photo Sphere pyramid numeric ARM64
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-pyramid-numeric-raw.yml"
   workflow_dispatch:
 permissions:
   contents: read

@@ -1,9 +1,5 @@
 name: Photo Sphere equirectangular numerical constants
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-equirect-constants.yml"
   workflow_dispatch:
 permissions:
   contents: read

@@ -1,8 +1,5 @@
 name: Photo Sphere checkpoint 142 seam RLE and lens pointer trace
 on:
-  push:
-    branches: [main]
-    paths: [".github/workflows/photosphere-checkpoint-142.yml"]
   workflow_dispatch:
 permissions:
   contents: read

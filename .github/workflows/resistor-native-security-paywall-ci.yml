@@ -1,10 +1,6 @@
 name: Resistor native security + paywall CI
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/resistor-native-security-paywall-ci.yml'
   workflow_dispatch:
 
 permissions:

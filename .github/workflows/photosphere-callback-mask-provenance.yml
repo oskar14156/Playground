@@ -1,10 +1,6 @@
 name: Photo Sphere camera callback and binary mask
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-callback-mask-provenance.yml"
 permissions:
   contents: read
 jobs:

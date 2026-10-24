@@ -1,9 +1,5 @@
 name: Photo Sphere rosette geometry and seam byte tracing
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-rosette-geometry-raw.yml"
   workflow_dispatch:
 permissions:
   contents: read

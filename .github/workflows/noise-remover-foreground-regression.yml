@@ -1,9 +1,5 @@
 name: Noise Remover foreground regression
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/noise-remover-foreground-regression.yml'
   workflow_dispatch:
     inputs:
       ref:

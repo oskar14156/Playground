@@ -2,10 +2,6 @@ name: LightCycle focused native and Android analysis
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/ghidra-lightcycle-focused-algorithms.yml"
 
 permissions:
   contents: read

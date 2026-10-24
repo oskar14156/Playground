@@ -1,10 +1,5 @@
 name: Photo Sphere checkpoint 144 three-lane constructor references
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-checkpoint-144.yml"
-      - "scripts/photosphere_checkpoint_144.py"
   workflow_dispatch:
 permissions:
   contents: read

@@ -1,9 +1,6 @@
 name: Fix image_enhancer existing output safety
 
 on:
-  push:
-    paths:
-      - '.github/workflows/image_enhancer_existing_output_fix.yml'
   workflow_dispatch:
 
 permissions:

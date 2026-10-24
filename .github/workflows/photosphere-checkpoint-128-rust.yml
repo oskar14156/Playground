@@ -1,9 +1,5 @@
 name: Photo Sphere 320px Gamma full Rust regression 128
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-checkpoint-128-rust.yml"
   workflow_dispatch:
 permissions:
   contents: read

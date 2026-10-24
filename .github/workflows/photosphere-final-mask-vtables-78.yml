@@ -1,9 +1,5 @@
 name: Photo Sphere final stitcher mask vtables
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-final-mask-vtables-78.yml"
   workflow_dispatch:
 permissions:
   contents: read

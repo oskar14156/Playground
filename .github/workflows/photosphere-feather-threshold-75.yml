@@ -1,9 +1,5 @@
 name: Photo Sphere feather-start origin ARM64
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-feather-threshold-75.yml"
   workflow_dispatch:
 permissions:
   contents: read

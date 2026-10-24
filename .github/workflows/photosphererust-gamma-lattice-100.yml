@@ -1,9 +1,5 @@
 name: Photo Sphere GammaAdjuster spherical lattice 100
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphererust-gamma-lattice-100.yml"
   workflow_dispatch:
 permissions:
   contents: read

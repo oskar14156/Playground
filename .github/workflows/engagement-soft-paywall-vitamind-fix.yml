@@ -1,9 +1,6 @@
 name: Finish Vitamin D engagement soft paywall
 
 on:
-  push:
-    paths:
-      - '.github/workflows/engagement-soft-paywall-vitamind-fix.yml'
   workflow_dispatch:
 
 permissions:

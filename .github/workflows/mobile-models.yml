@@ -1,15 +1,6 @@
 name: Build mobile SR models
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'mobile-super-resolution/**'
-      - '.github/workflows/mobile-models.yml'
-  pull_request:
-    paths:
-      - 'mobile-super-resolution/**'
-      - '.github/workflows/mobile-models.yml'
   workflow_dispatch:
 
 permissions:

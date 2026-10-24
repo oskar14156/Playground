@@ -1,11 +1,5 @@
 name: Photo Sphere raw instruction readback
 on:
-  push:
-    branches: [main]
-    paths: [".github/workflows/photosphere-asm-readback.yml"]
-  workflow_run:
-    workflows: ["Photo Sphere downstream dispatch sweep"]
-    types: [completed]
   workflow_dispatch:
     inputs:
       source_run_id:

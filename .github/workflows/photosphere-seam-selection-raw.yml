@@ -1,9 +1,5 @@
 name: Photo Sphere seam selection full ARM64
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-seam-selection-raw.yml"
   workflow_dispatch:
 permissions:
   contents: read

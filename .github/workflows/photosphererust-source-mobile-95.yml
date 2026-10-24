@@ -1,10 +1,6 @@
 name: Photo Sphere source camera mobile targets 95
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphererust-source-mobile-95.yml"
 permissions:
   contents: read
 jobs:

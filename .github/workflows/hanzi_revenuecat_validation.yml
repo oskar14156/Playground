@@ -1,10 +1,6 @@
 name: HanziHero merged-main verification
 
 on:
-  push:
-    paths:
-      - '.github/workflows/hanzi_revenuecat_validation.yml'
-      - '.github/hanzi_revenuecat_ref.txt'
   workflow_dispatch:
 
 permissions:

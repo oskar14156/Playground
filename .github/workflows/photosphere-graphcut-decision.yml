@@ -1,10 +1,6 @@
 name: Photo Sphere graphcut decision tracing
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-graphcut-decision.yml"
 permissions:
   contents: read
 jobs:

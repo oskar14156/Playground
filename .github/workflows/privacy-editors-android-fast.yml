@@ -1,9 +1,6 @@
 name: Privacy editors Android — Kotlin target compatibility warning
 
 on:
-  push:
-    branches: [main]
-    paths: ['.github/workflows/privacy-editors-android-fast.yml']
   workflow_dispatch:
 
 permissions:

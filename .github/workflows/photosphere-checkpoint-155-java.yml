@@ -1,10 +1,6 @@
 name: Photo Sphere checkpoint 155 exact Java LocalSessionStorage metadata field references
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-checkpoint-155-java.yml"
 permissions:
   contents: read
 jobs:

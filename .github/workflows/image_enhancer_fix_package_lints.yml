@@ -1,9 +1,6 @@
 name: Fix image_enhancer package lints
 
 on:
-  push:
-    paths:
-      - '.github/workflows/image_enhancer_fix_package_lints.yml'
   workflow_dispatch:
 
 permissions:

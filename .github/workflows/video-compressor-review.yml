@@ -1,11 +1,6 @@
 name: Video Compressor native review
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/video-compressor-review.yml
-      - video-compressor-review-target.txt
   workflow_dispatch:
 
 permissions:

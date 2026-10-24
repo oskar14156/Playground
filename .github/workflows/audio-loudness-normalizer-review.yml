@@ -1,11 +1,6 @@
 name: Audio Loudness Normalizer PR review
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/audio-loudness-normalizer-review.yml
-      - audio-loudness-normalizer-review-target.txt
   workflow_dispatch:
 
 permissions:

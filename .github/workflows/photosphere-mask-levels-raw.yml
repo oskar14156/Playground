@@ -1,9 +1,5 @@
 name: Photo Sphere binary mask source ARM64
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-mask-levels-raw.yml"
   workflow_dispatch:
 permissions:
   contents: read

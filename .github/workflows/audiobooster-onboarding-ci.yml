@@ -1,10 +1,6 @@
 name: AudioBooster onboarding feature checks
 # Final verification after Phone Volume Booster test branding cleanup.
 on:
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/audiobooster-onboarding-ci.yml
   workflow_dispatch:
 permissions:
   contents: read

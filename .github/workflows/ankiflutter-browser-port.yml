@@ -1,10 +1,6 @@
 name: AnkiFlutter browser port tests
 
 on:
-  push:
-    paths:
-      - ankiflutter-browser-target.txt
-      - .github/workflows/ankiflutter-browser-port.yml
   workflow_dispatch:
 
 permissions:

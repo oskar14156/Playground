@@ -1,9 +1,5 @@
 name: Photo Sphere JNI field-of-view calibration ARM64
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-jni-fov-80.yml"
   workflow_dispatch:
 permissions:
   contents: read

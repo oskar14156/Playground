@@ -1,11 +1,7 @@
 name: HanziHero merged-main verification
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/hanzi-pr79-tdd.yml'
-      - 'hanzi-pr79-tdd/run.txt'
+  workflow_dispatch:
 
 permissions:
   contents: read

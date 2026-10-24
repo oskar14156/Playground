@@ -1,8 +1,5 @@
 name: Fake GPS Activity recreation smoke
 on:
-  push:
-    branches: [main]
-    paths: ['.github/workflows/fake-gps-rotation-smoke.yml']
   workflow_dispatch:
 permissions:
   contents: read

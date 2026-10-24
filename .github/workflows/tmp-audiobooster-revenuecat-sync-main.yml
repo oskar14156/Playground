@@ -1,9 +1,6 @@
 name: Temporary AudioBooster sync RevenueCat branch with main
 on:
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/tmp-audiobooster-revenuecat-sync-main.yml
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:

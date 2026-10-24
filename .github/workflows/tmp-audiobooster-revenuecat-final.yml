@@ -1,10 +1,7 @@
 name: Temporary AudioBooster RevenueCat final gate
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/tmp-audiobooster-revenuecat-final.yml
+  workflow_dispatch:
 
 permissions:
   contents: read

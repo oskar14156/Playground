@@ -1,10 +1,6 @@
 name: Root Detector Material You results verification
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/root-detector-material-results.yml
   workflow_dispatch:
 
 permissions:

@@ -1,9 +1,7 @@
 name: Dispatch hanzi_hero tester release
 
 on:
-  push:
-    paths:
-      - '.github/workflows/dispatch_hanzi_hero_release.yml'
+  workflow_dispatch:
 
 permissions:
   actions: write

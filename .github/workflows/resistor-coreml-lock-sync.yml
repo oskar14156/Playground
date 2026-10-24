@@ -1,10 +1,6 @@
 name: Resistor Core ML Lock Sync
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/resistor-coreml-lock-sync.yml'
   workflow_dispatch:
 
 permissions:

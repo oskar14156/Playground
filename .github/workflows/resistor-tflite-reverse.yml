@@ -1,10 +1,6 @@
 name: Resistor TFLite Reverse Probe
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/resistor-tflite-reverse.yml'
   workflow_dispatch:
 
 permissions:

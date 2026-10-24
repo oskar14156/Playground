@@ -1,10 +1,6 @@
 name: Photo Sphere FOV registration inner solver
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-fov-optimizer-82.yml"
 permissions:
   contents: read
 jobs:

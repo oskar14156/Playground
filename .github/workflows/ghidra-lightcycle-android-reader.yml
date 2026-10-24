@@ -1,10 +1,7 @@
 name: Read Android preview and metadata artifact
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/ghidra-lightcycle-android-reader.yml"
+  workflow_dispatch:
 
 permissions:
   actions: read

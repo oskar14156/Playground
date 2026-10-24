@@ -2,10 +2,6 @@ name: LightCycle capture-state reverse engineering
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/ghidra-lightcycle-state.yml"
 
 permissions:
   contents: read

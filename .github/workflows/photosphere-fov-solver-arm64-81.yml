@@ -1,9 +1,5 @@
 name: Photo Sphere FOV solver native callgraph ARM64
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-fov-solver-arm64-81.yml"
   workflow_dispatch:
 permissions:
   contents: read

@@ -1,10 +1,6 @@
 name: Photo Sphere source camera mapper 95
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphererust-source-mapper-95.yml"
 permissions:
   contents: read
 jobs:

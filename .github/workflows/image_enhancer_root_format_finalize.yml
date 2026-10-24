@@ -1,9 +1,6 @@
 name: Normalize image_enhancer root formatting
 
 on:
-  push:
-    paths:
-      - '.github/workflows/image_enhancer_root_format_finalize.yml'
   workflow_dispatch:
 
 permissions:

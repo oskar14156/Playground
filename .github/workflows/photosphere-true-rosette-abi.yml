@@ -1,9 +1,5 @@
 name: Photo Sphere true rosette projection ABI
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-true-rosette-abi.yml"
   workflow_dispatch:
 permissions:
   contents: read

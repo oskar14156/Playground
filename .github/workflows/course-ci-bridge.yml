@@ -3,13 +3,6 @@ name: Course CI Bridge - public runner integration
 # Educational integration test for the PUBLIC CI Bridge software.
 # Not a general-purpose free private CI proxy.
 on:
-  push:
-    branches:
-      - main
-      - course/private-fixture-integration-v1
-    paths:
-      - 'course-exercise/ci-bridge/**'
-      - '.github/workflows/course-ci-bridge.yml'
   workflow_dispatch:
     inputs:
       fixture_repository:

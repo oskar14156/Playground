@@ -1,9 +1,7 @@
 name: Final Google login dependency verification
 
 on:
-  push:
-    paths:
-      - .github/workflows/google-signin-deps-final.yml
+  workflow_dispatch:
 
 permissions:
   contents: read

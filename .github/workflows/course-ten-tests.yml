@@ -4,17 +4,6 @@ name: Course exercise - ten public pricing tests
 # It never fetches or runs code from a private repository.
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-      - course/ten-test-pricing-lab
-    paths:
-      - 'course-exercise/**'
-      - '.github/workflows/course-ten-tests.yml'
-  pull_request:
-    paths:
-      - 'course-exercise/**'
-      - '.github/workflows/course-ten-tests.yml'
 
 permissions:
   contents: read

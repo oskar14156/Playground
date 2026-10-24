@@ -1,10 +1,6 @@
 name: Traffic counting NCNN runtime options TDD
 
 on:
-  push:
-    paths:
-      - ".github/workflows/traffic-counting-runtime-options-tdd.yml"
-      - "debug_triggers/traffic-counting-runtime-options-tdd.txt"
   workflow_dispatch:
 
 permissions:

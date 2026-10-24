@@ -1,9 +1,5 @@
 name: Photo Sphere boundary feather ARM64
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-mask-boundary-feather-raw.yml"
   workflow_dispatch:
 permissions:
   contents: read

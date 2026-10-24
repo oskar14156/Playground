@@ -1,11 +1,7 @@
 name: HanziHero merged-main verification
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/hanzi-pr81-validation.yml'
-      - 'hanzi-pr81-validation/run.txt'
+  workflow_dispatch:
 
 permissions:
   contents: read

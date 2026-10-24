@@ -1,10 +1,6 @@
 name: Photo Sphere seam RLE dispatch
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-seam-rle-dispatch.yml"
 permissions:
   contents: read
 jobs:

@@ -1,8 +1,5 @@
 name: Photo Sphere checkpoint 127 verified JNI symbols and packed thumbnails
 on:
-  push:
-    branches: [main]
-    paths: [".github/workflows/photosphere-checkpoint-127.yml"]
   workflow_dispatch:
 permissions:
   contents: read

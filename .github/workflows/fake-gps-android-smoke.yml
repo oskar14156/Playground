@@ -1,8 +1,5 @@
 name: Fake GPS Kotlin emulator smoke
 on:
-  push:
-    branches: [main]
-    paths: ['.github/workflows/fake-gps-android-smoke.yml']
   workflow_dispatch:
 permissions:
   contents: read

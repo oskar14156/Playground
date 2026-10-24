@@ -1,9 +1,5 @@
 name: Photo Sphere GammaAdjuster sample lattice ARM64 99
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-gamma-lattice-capstone-99.yml"
   workflow_dispatch:
 permissions:
   contents: read

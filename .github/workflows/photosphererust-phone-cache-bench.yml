@@ -1,9 +1,6 @@
 name: PhotosphereRust phone cache benchmark
 
 on:
-  push:
-    paths:
-      - ".github/workflows/photosphererust-phone-cache-bench.yml"
   workflow_dispatch:
 
 permissions:

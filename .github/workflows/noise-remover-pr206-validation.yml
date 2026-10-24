@@ -1,10 +1,6 @@
 name: Noise Remover PR 206 validation (public runner)
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/noise-remover-pr206-validation.yml'
   workflow_dispatch:
     inputs:
       ref:

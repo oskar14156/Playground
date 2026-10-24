@@ -2,10 +2,7 @@
 name: AnkiFlutter focused tests
 
 on:
-  push:
-    paths:
-      - ankiflutter-focused-target.txt
-      - .github/workflows/ankiflutter-focused-tests.yml
+  workflow_dispatch:
 
 permissions:
   contents: read

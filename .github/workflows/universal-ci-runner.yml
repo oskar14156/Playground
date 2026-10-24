@@ -51,8 +51,6 @@ on:
         default: 'ubuntu-latest'
         type: string
 
-  repository_dispatch:
-    types: [run-private-tests]
 
 permissions:
   contents: read

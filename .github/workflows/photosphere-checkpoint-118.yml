@@ -1,9 +1,5 @@
 name: Photo Sphere checkpoint 118 thumbnail width and interpolation
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-checkpoint-118.yml"
   workflow_dispatch:
 permissions:
   contents: read

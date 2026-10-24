@@ -1,9 +1,6 @@
 name: Dedupe Vitamin D engagement trigger
 
 on:
-  push:
-    paths:
-      - '.github/workflows/engagement-soft-paywall-vitamind-dedupe.yml'
   workflow_dispatch:
 
 permissions:

@@ -1,9 +1,5 @@
 name: Photo Sphere checkpoint 102 targeted native three-way
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-checkpoint-102.yml"
   workflow_dispatch:
 permissions:
   contents: read

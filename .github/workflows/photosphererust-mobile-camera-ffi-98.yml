@@ -1,10 +1,6 @@
 name: Photo Sphere mobile camera bridge targets 98
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphererust-mobile-camera-ffi-98.yml"
 permissions:
   contents: read
 jobs:

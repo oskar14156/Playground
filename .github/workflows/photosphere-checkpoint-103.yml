@@ -1,10 +1,6 @@
 name: Photo Sphere checkpoint 103 virtual flow proof
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-checkpoint-103.yml"
 permissions:
   contents: read
 jobs:

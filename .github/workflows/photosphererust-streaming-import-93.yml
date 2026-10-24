@@ -1,10 +1,6 @@
 name: PhotosphereRust streaming import validation 93
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphererust-streaming-import-93.yml"
 permissions:
   contents: read
 jobs:

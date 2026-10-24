@@ -2,10 +2,7 @@
 name: Temporary AudioBooster package/root final gate
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/tmp-audiobooster-package-root-final.yml
+  workflow_dispatch:
 
 permissions:
   contents: read

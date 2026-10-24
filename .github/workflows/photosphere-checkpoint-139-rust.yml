@@ -1,9 +1,5 @@
 name: Photo Sphere checkpoint 139 streaming JPEG Gamma regression
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-checkpoint-139-rust.yml"
   workflow_dispatch:
 permissions:
   contents: read

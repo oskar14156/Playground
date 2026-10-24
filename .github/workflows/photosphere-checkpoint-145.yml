@@ -1,10 +1,5 @@
 name: Photo Sphere checkpoint 145 upstream app/native mapping
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-checkpoint-145.yml"
-      - "scripts/photosphere_checkpoint_145.py"
   workflow_dispatch:
 permissions:
   contents: read

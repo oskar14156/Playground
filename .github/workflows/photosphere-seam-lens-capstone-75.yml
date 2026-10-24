@@ -1,9 +1,5 @@
 name: Photo Sphere mask and lens ABI cross-check
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-seam-lens-capstone-75.yml"
   workflow_dispatch:
 permissions:
   contents: read

@@ -1,9 +1,5 @@
 name: Photo Sphere checkpoint 130 native fixed-point thumbnail scaler decompilation
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-checkpoint-130-ghidra.yml"
   workflow_dispatch:
 permissions:
   contents: read

@@ -1,9 +1,6 @@
 name: Publish Google Camera decompile
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths: [.github/workflows/publish-google-camera-decompile.yml]
 permissions:
   actions: read
   contents: read

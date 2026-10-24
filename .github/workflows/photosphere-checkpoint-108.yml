@@ -1,9 +1,5 @@
 name: Photo Sphere checkpoint 108 Gamma RTTI and pair math
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-checkpoint-108.yml"
   workflow_dispatch:
 permissions:
   contents: read

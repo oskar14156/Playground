@@ -1,8 +1,5 @@
 name: Photo Sphere seam native control flow readback
 on:
-  push:
-    branches: [main]
-    paths: [".github/workflows/photosphere-seam-native-readback.yml"]
   workflow_dispatch:
 permissions:
   contents: read

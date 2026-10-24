@@ -1,9 +1,5 @@
 name: Kotlin app translation compile verification
 on:
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/kotlin-app-translation-validation.yml
   workflow_dispatch:
 permissions:
   contents: read

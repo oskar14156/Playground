@@ -1,10 +1,6 @@
 name: Traffic counting analysis PR CI
 
 on:
-  push:
-    paths:
-      - ".github/workflows/traffic-counting-analysis-pr-ci.yml"
-      - "debug_triggers/traffic-counting-analysis-pr-ci.txt"
   workflow_dispatch:
 
 permissions:

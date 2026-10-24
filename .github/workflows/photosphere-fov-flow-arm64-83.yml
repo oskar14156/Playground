@@ -1,9 +1,5 @@
 name: Photo Sphere FOV flow pose and input ARM64
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-fov-flow-arm64-83.yml"
   workflow_dispatch:
 permissions:
   contents: read

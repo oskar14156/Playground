@@ -1,9 +1,5 @@
 name: Photo Sphere checkpoint 121 capture thumbnail width input
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-checkpoint-121.yml"
   workflow_dispatch:
 permissions:
   contents: read

@@ -1,10 +1,6 @@
 name: Kotlin release builder latest regression
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/kotlin-builder-latest-regression.yml
   workflow_dispatch:
 
 permissions:

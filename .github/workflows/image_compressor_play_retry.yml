@@ -1,9 +1,7 @@
 name: Image compressor Play retry
 
 on:
-  push:
-    paths:
-      - 'release_triggers/image_compressor_play_retry.txt'
+  workflow_dispatch:
 
 permissions:
   actions: write

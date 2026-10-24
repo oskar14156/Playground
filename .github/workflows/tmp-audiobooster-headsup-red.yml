@@ -1,10 +1,7 @@
 name: Temporary AudioBooster heads-up notification final
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/tmp-audiobooster-headsup-red.yml
+  workflow_dispatch:
 
 permissions:
   contents: read

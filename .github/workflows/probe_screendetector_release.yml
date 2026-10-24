@@ -1,9 +1,6 @@
 name: Probe screendetector release
 
 on:
-  push:
-    paths:
-      - '.github/workflows/probe_screendetector_release.yml'
   workflow_dispatch:
 
 permissions:

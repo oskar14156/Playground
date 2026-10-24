@@ -1,9 +1,5 @@
 name: Fake GPS billing and consent regression
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/fake-gps-billing-consent-review.yml'
   workflow_dispatch:
 permissions:
   contents: read

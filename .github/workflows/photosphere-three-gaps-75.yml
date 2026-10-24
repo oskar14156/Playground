@@ -1,10 +1,6 @@
 name: Photo Sphere final lens, RLE and provenance
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-three-gaps-75.yml"
 permissions:
   contents: read
 jobs:

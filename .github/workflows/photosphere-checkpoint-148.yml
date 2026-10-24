@@ -1,10 +1,5 @@
 name: Photo Sphere checkpoint 148 camera correction and metadata dispatch
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-checkpoint-148.yml"
-      - "scripts/PhotoSphereSweep.java"
   workflow_dispatch:
 permissions:
   contents: read

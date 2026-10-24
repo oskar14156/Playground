@@ -1,8 +1,5 @@
 name: Photo Sphere checkpoint 129 exact RGB8 thumbnail sampling kernel
 on:
-  push:
-    branches: [main]
-    paths: [".github/workflows/photosphere-checkpoint-129.yml"]
   workflow_dispatch:
 permissions:
   contents: read

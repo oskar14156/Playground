@@ -1,10 +1,6 @@
 name: 3dimageapp Android target startup validation
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/3dimageapp-target-startup.yml'
   workflow_dispatch:
 
 permissions:

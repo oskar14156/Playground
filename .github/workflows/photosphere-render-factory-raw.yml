@@ -1,9 +1,5 @@
 name: Photo Sphere render factory ARM64
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-render-factory-raw.yml"
   workflow_dispatch:
 permissions:
   contents: read

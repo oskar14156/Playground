@@ -1,9 +1,5 @@
 name: Photo Sphere checkpoint 144 native seam unit mask regression
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-checkpoint-144-rust.yml"
   workflow_dispatch:
 permissions:
   contents: read

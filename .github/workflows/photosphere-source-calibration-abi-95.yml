@@ -1,9 +1,5 @@
 name: Photo Sphere source calibration ABI 95
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-source-calibration-abi-95.yml"
   workflow_dispatch:
 permissions:
   contents: read

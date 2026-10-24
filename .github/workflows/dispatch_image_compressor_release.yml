@@ -1,9 +1,7 @@
 name: Dispatch image_compressor release
 
 on:
-  push:
-    paths:
-      - '.github/workflows/dispatch_image_compressor_release.yml'
+  workflow_dispatch:
 
 permissions:
   actions: write

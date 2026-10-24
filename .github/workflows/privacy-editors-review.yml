@@ -1,10 +1,6 @@
 name: Privacy editor merge gate - native MP4 stream verification
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/privacy-editors-review.yml'
   workflow_dispatch:
 
 permissions:

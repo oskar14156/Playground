@@ -1,9 +1,5 @@
 name: Photo Sphere native gamma pixel and pair threshold Rust 108
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphererust-gamma-sampling-107.yml"
   workflow_dispatch:
 permissions:
   contents: read

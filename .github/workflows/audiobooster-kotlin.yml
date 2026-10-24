@@ -2,10 +2,6 @@ name: AudioBooster native Kotlin checks
 # Public validation for the merged native Kotlin app and Kotlin Play release builder.
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/audiobooster-kotlin.yml
   workflow_dispatch:
     inputs:
       audio_ref:

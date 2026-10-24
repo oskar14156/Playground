@@ -2,9 +2,6 @@
 name: PhotosphereRust validation
 
 on:
-  push:
-    paths:
-      - ".github/workflows/photosphererust-validation.yml"
   workflow_dispatch:
 
 permissions:

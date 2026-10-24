@@ -2,9 +2,6 @@ name: Decompile LingQ APKs
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - ".github/workflows/decompile-lingq.yml"
 
 permissions:
   contents: read

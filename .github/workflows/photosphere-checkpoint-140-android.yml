@@ -1,8 +1,5 @@
 name: Photo Sphere checkpoint 140 streaming JPEG Android build
 on:
-  push:
-    branches: [main]
-    paths: [".github/workflows/photosphere-checkpoint-140-android.yml"]
   workflow_dispatch:
 permissions:
   contents: read

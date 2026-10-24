@@ -1,10 +1,6 @@
 name: Photo Sphere concrete camera projection math
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-concrete-camera-projection.yml"
 permissions:
   contents: read
 jobs:

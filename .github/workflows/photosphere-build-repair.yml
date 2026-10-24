@@ -1,9 +1,6 @@
 name: Photosphere build repair
 
 on:
-  push:
-    paths:
-      - 'photosphere_fix_trigger.txt'
   workflow_dispatch:
 
 permissions:

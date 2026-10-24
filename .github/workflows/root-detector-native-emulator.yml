@@ -1,10 +1,6 @@
 name: Root Detector native emulator smoke
 # Recheck Sentry manual-only initialization after fixing startup crash.
 on:
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/root-detector-native-emulator.yml
   workflow_dispatch:
 permissions:
   contents: read

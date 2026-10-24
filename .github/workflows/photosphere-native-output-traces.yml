@@ -1,10 +1,6 @@
 name: Photo Sphere remaining native output traces
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-native-output-traces.yml"
 permissions:
   contents: read
 jobs:

@@ -1,9 +1,7 @@
 name: Reproduce image_enhancer existing-output regression
 
 on:
-  push:
-    paths:
-      - '.github/workflows/image_enhancer_existing_output_red.yml'
+  workflow_dispatch:
 
 permissions:
   contents: read

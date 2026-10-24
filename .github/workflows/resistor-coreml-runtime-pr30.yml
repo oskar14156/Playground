@@ -1,10 +1,6 @@
 name: Resistor Core ML Runtime PR30
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/resistor-coreml-runtime-pr30.yml'
   workflow_dispatch:
 
 permissions:

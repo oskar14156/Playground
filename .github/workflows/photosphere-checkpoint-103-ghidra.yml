@@ -1,10 +1,5 @@
 name: Photo Sphere checkpoint 103 Ghidra flow vtable verification
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-checkpoint-103-ghidra.yml"
-      - "scripts/PhotoSphereFlow103.java"
   workflow_dispatch:
 permissions:
   contents: read

@@ -1,10 +1,7 @@
 name: Temporary AudioBooster full green gate
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/tmp-audiobooster-full-green.yml
+  workflow_dispatch:
 
 permissions:
   contents: read

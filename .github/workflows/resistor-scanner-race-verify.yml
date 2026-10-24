@@ -1,9 +1,7 @@
 name: Resistor scanner race verification
 
 on:
-  push:
-    paths:
-      - '.github/workflows/resistor-scanner-race-verify.yml'
+  workflow_dispatch:
 
 permissions:
   contents: write

@@ -1,9 +1,6 @@
 name: Verify image_enhancer iOS Sentry linker fix
 
 on:
-  push:
-    paths:
-      - '.github/workflows/image_enhancer_ios_sentry_fix.yml'
   workflow_dispatch:
 
 permissions:

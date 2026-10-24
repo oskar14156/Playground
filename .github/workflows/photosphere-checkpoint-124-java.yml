@@ -1,9 +1,5 @@
 name: Photo Sphere checkpoint 124 Java capture reset and dimensions provenance
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-checkpoint-124-java.yml"
   workflow_dispatch:
 permissions:
   contents: read

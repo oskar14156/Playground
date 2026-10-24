@@ -1,8 +1,5 @@
 name: Photo Sphere checkpoint 149 LinearCamera pointer setter raw instructions
 on:
-  push:
-    branches: [main]
-    paths: [".github/workflows/photosphere-checkpoint-149.yml"]
   workflow_dispatch:
 permissions:
   contents: read

@@ -1,9 +1,6 @@
 name: Dispatch screendetector release
 
 on:
-  push:
-    paths:
-      - '.github/workflows/dispatch_screendetector_release.yml'
   workflow_dispatch:
 
 permissions:

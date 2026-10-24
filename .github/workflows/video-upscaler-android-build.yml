@@ -3,9 +3,6 @@ name: Video Upscaler Android build (private repo)
 # Final reviewed Android MOV/LGPL license UI and package integration
 # Final reviewed Android MOV/LGPL license UI and package integration
 on:
-  push:
-    paths:
-      - .github/workflows/video-upscaler-android-build.yml
   workflow_dispatch:
 
 permissions:

@@ -1,9 +1,6 @@
 name: Image Enhancer interstitial and rewarded fallback review
 
 on:
-  push:
-    paths:
-      - .github/workflows/image_enhancer_rewarded_fallback_review.yml
   workflow_dispatch:
 
 permissions:

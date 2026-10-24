@@ -1,10 +1,6 @@
 name: Photo Sphere reported FOV getter and config origins 98
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-java-camera-getter-98.yml"
 permissions:
   contents: read
 jobs:

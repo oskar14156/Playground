@@ -1,10 +1,7 @@
 name: AnkiFlutter rustfmt export
 
 on:
-  push:
-    paths:
-      - ankiflutter-rustfmt-target.txt
-      - .github/workflows/ankiflutter-rustfmt-export.yml
+  workflow_dispatch:
 
 permissions:
   contents: read

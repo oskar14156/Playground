@@ -1,9 +1,5 @@
 name: Photo Sphere native session constructor callers
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-session-constructor-callers-90.yml"
   workflow_dispatch:
 permissions:
   contents: read

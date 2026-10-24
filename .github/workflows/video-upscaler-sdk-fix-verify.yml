@@ -1,8 +1,5 @@
 name: Video Upscaler Android SDK verification
 on:
-  pull_request:
-    paths:
-      - .github/workflows/video-upscaler-sdk-fix-verify.yml
   workflow_dispatch:
 permissions:
   contents: read

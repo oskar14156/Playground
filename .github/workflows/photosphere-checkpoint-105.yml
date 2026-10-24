@@ -1,9 +1,5 @@
 name: Photo Sphere checkpoint 105 ARM64 gamma pixel path
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-checkpoint-105.yml"
   workflow_dispatch:
 permissions:
   contents: read

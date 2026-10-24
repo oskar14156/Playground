@@ -1,9 +1,5 @@
 name: Photo Sphere equirectangular projection ARM64
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-equirectangular-raw.yml"
   workflow_dispatch:
 permissions:
   contents: read

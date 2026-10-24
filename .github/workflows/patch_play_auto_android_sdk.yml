@@ -1,9 +1,7 @@
 name: Patch Play builder Android SDK setup
 
 on:
-  push:
-    paths:
-      - '.github/workflows/patch_play_auto_android_sdk.yml'
+  workflow_dispatch:
 
 permissions:
   contents: write

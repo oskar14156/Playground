@@ -1,9 +1,5 @@
 name: Photo Sphere threaded warp AArch64
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-thread-raw.yml"
   workflow_dispatch:
 permissions:
   contents: read

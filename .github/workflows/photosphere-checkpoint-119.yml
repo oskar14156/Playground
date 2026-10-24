@@ -1,9 +1,5 @@
 name: Photo Sphere checkpoint 119 target thumbnail width default
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-checkpoint-119.yml"
   workflow_dispatch:
 permissions:
   contents: read

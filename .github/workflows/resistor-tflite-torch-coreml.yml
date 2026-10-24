@@ -1,10 +1,6 @@
 name: Resistor Production TFLite to Core ML
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/resistor-tflite-torch-coreml.yml'
   workflow_dispatch:
 
 permissions:

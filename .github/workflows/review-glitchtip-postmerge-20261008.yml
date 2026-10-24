@@ -1,8 +1,5 @@
 name: Verify three app PR merges (2026-10-08)
 on:
-  push:
-    paths:
-      - '.github/workflows/review-glitchtip-postmerge-20261008.yml'
   workflow_dispatch:
 
 permissions:

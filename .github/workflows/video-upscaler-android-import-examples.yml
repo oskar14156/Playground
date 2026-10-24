@@ -1,8 +1,5 @@
 name: Import Video Upscaler comparison examples
 on:
-  push:
-    paths:
-      - .github/workflows/video-upscaler-android-import-examples.yml
   workflow_dispatch:
 permissions:
   contents: read

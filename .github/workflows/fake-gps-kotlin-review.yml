@@ -1,9 +1,5 @@
 name: Fake GPS native Kotlin PR validation
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/fake-gps-kotlin-review.yml'
   workflow_dispatch:
 permissions:
   contents: read

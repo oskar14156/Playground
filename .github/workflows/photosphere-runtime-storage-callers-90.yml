@@ -1,10 +1,6 @@
 name: Photo Sphere runtime storage constructor callers
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-runtime-storage-callers-90.yml"
 permissions:
   contents: read
 jobs:

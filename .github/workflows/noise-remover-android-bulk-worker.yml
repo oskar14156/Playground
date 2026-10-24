@@ -1,9 +1,6 @@
 name: Noise Remover Android bulk worker
 # Validate safe UI dismissal only after service attachment and deferred auto-save.
 on:
-  push:
-    branches: [main]
-    paths: ['.github/workflows/noise-remover-android-bulk-worker.yml']
   workflow_dispatch:
 permissions:
   contents: read

@@ -1,10 +1,7 @@
 name: Fix HanziHero PR81 daily limit gate
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/hanzi-pr81-fix.yml'
+  workflow_dispatch:
 
 permissions:
   contents: read

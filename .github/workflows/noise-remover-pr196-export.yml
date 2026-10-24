@@ -1,10 +1,6 @@
 name: Export Noise Remover PR 196 candidate
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/noise-remover-pr196-export.yml'
   workflow_dispatch:
 
 permissions:

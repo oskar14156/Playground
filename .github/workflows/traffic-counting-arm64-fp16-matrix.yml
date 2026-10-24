@@ -1,10 +1,6 @@
 name: Traffic counting ARM64 FP16 option matrix
 
 on:
-  push:
-    paths:
-      - ".github/workflows/traffic-counting-arm64-fp16-matrix.yml"
-      - "debug_triggers/traffic-counting-arm64-fp16-matrix.txt"
   workflow_dispatch:
 
 permissions:

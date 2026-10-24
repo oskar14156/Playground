@@ -1,10 +1,7 @@
 name: Fake GPS remove unused IAP
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'debug_triggers/fake-gps-remove-iap.txt'
+  workflow_dispatch:
 
 permissions:
   contents: read

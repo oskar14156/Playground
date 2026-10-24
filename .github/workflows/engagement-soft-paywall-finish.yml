@@ -1,9 +1,6 @@
 name: Finish engagement soft paywalls
 
 on:
-  push:
-    paths:
-      - '.github/workflows/engagement-soft-paywall-finish.yml'
   workflow_dispatch:
 
 permissions:

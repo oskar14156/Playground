@@ -9,11 +9,6 @@ on:
         required: false
         default: macos-release
         type: string
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/noise-remover-macos-ci.yml'
-      - '.github/noise-remover-macos-ci-trigger'
 
 permissions:
   contents: read

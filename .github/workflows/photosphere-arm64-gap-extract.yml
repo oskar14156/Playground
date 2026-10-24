@@ -1,9 +1,5 @@
 name: Photo Sphere raw ARM64 gap extraction
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-arm64-gap-extract.yml"
   workflow_dispatch:
 permissions:
   contents: read

@@ -1,10 +1,7 @@
 name: Temporary AudioBooster session localization validation
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/tmp-audiobooster-session-l10n-red.yml
+  workflow_dispatch:
 
 permissions:
   contents: read

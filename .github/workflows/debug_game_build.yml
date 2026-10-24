@@ -1,10 +1,6 @@
 name: Build Game Debug APK
 
 on:
-  push:
-    paths:
-      - '.github/workflows/debug_game_build.yml'
-      - 'debug_triggers/game.txt'
   workflow_dispatch:
 
 permissions:

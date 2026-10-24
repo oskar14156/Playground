@@ -1,9 +1,5 @@
 name: Photo Sphere fisheye camera projection vtable
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-fisheye-vtable-76.yml"
   workflow_dispatch:
 permissions:
   contents: read

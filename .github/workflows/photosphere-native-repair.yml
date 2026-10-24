@@ -1,11 +1,6 @@
 name: Photo Sphere allocator and virtual table repair
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-native-repair.yml"
-      - "scripts/PhotoSphereNativeRepair.java"
 permissions:
   contents: read
 jobs:

@@ -1,9 +1,6 @@
 name: netwworkDoc build + tests
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths: ['.github/workflows/netwworkdoc-build-test.yml']
 permissions:
   contents: read
 jobs:

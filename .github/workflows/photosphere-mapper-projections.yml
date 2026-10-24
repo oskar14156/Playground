@@ -1,10 +1,6 @@
 name: Photo Sphere row mapper and camera constructors
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-mapper-projections.yml"
 permissions:
   contents: read
 jobs:

@@ -1,10 +1,6 @@
 name: AudioBooster Kotlin release validation v2
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/audiobooster-kotlin-release-validation-v2.yml
   workflow_dispatch:
 
 permissions:

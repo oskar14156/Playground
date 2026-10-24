@@ -1,9 +1,6 @@
 name: Validate Surebets PR review
 
 on:
-  push:
-    paths:
-      - '.github/workflows/surebets-review-validate.yml'
   workflow_dispatch:
 
 permissions:

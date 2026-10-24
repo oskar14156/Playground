@@ -1,10 +1,6 @@
 name: Surebets distinct odds history regression
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/surebets-history-distinct-odds-tests.yml'
   workflow_dispatch:
 
 permissions:

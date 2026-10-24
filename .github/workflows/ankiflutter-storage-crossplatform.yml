@@ -1,10 +1,6 @@
 name: AnkiFlutter storage cross-platform tests
 
 on:
-  push:
-    paths:
-      - ankiflutter-storage-target.txt
-      - .github/workflows/ankiflutter-storage-crossplatform.yml
   workflow_dispatch:
 
 permissions:

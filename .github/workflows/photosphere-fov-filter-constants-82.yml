@@ -1,9 +1,5 @@
 name: Photo Sphere exact FOV image gradient kernels
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-fov-filter-constants-82.yml"
   workflow_dispatch:
 permissions:
   contents: read

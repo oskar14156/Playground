@@ -1,10 +1,6 @@
 name: AnkiFlutter Rust bridge check
 
 on:
-  push:
-    paths:
-      - ankiflutter-rust-bridge-target.txt
-      - .github/workflows/ankiflutter-rust-bridge-check.yml
   workflow_dispatch:
 
 permissions:

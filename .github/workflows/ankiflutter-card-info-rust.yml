@@ -1,10 +1,7 @@
 name: AnkiFlutter Card Info Rust
 
 on:
-  push:
-    paths:
-      - ankiflutter-card-info-rust-target.txt
-      - .github/workflows/ankiflutter-card-info-rust.yml
+  workflow_dispatch:
 
 permissions:
   contents: read

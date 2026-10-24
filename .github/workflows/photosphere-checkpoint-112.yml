@@ -1,9 +1,5 @@
 name: Photo Sphere checkpoint 112 source and thumbnail constructor
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-checkpoint-112.yml"
   workflow_dispatch:
 permissions:
   contents: read

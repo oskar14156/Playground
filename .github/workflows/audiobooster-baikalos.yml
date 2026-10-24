@@ -1,9 +1,6 @@
 name: AudioBooster BaikalOS Android 14 gate
 on:
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/audiobooster-baikalos.yml
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:

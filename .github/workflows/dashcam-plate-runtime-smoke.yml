@@ -1,9 +1,6 @@
 name: Dashcam native MP4 stream validation and software fallback
 
 on:
-  push:
-    branches: [main]
-    paths: ['.github/workflows/dashcam-plate-runtime-smoke.yml']
   workflow_dispatch:
 
 permissions:

@@ -1,9 +1,6 @@
 name: Sync image_enhancer feature with main CI rules
 
 on:
-  push:
-    paths:
-      - '.github/workflows/image_enhancer_sync_main_ci.yml'
   workflow_dispatch:
 
 permissions:

@@ -1,13 +1,6 @@
 name: Kotlin Android SDK regression matrix
 on:
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/kotlin-sdk-refresh-matrix.yml
   workflow_dispatch:
-  pull_request:
-    paths:
-      - .github/workflows/kotlin-sdk-refresh-matrix.yml
 
 permissions:
   contents: read

@@ -1,9 +1,5 @@
 name: Photo Sphere source mapper register origin
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-source-caller-registers.yml"
   workflow_dispatch:
 permissions:
   contents: read

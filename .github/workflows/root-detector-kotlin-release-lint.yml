@@ -1,10 +1,6 @@
 name: Root Detector native Kotlin release lint
 # Final PR head verification: unit tests and release lint after Sentry startup fix.
 on:
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/root-detector-kotlin-release-lint.yml
   workflow_dispatch:
 permissions:
   contents: read

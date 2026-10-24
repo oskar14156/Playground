@@ -1,10 +1,6 @@
 name: Noise Remover PR 206 Apple SPM validation
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/noise-remover-pr206-apple.yml'
   workflow_dispatch:
     inputs:
       ref:

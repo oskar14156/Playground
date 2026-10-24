@@ -1,10 +1,6 @@
 name: Photo Sphere rosette, seam RLE and feather config
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-rosette-rle-threshold.yml"
 permissions:
   contents: read
 jobs:

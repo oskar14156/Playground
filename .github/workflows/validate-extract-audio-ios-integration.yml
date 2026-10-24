@@ -1,10 +1,6 @@
 name: Validate ExtractAudio iOS Integration
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/validate-extract-audio-ios-integration.yml'
   workflow_dispatch:
 
 permissions:

@@ -1,10 +1,7 @@
 name: Resistor PR23 review
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/resistor-pr23-review.yml'
+  workflow_dispatch:
 
 permissions:
   contents: read

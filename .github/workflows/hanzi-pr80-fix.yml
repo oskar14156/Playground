@@ -1,10 +1,7 @@
 name: Fix HanziHero PR80
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/hanzi-pr80-fix.yml'
+  workflow_dispatch:
 
 permissions:
   contents: read

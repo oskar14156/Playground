@@ -2,10 +2,7 @@
 name: AnkiFlutter full Flutter test diagnostic
 
 on:
-  push:
-    paths:
-      - ankiflutter-focused-target.txt
-      - .github/workflows/ankiflutter-full-test-diagnostic.yml
+  workflow_dispatch:
 
 permissions:
   contents: read

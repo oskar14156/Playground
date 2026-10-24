@@ -1,8 +1,5 @@
 name: Photo Sphere checkpoint 126 original thumbnail dimensions from reset
 on:
-  push:
-    branches: [main]
-    paths: [".github/workflows/photosphere-checkpoint-126.yml"]
   workflow_dispatch:
 permissions:
   contents: read

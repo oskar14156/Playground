@@ -1,10 +1,6 @@
 name: Photo Sphere rosette raw control flow
 on:
   workflow_dispatch:
-  push:
-    branches: [investigate/photosphere-oct08-gaps]
-    paths:
-      - ".github/workflows/photosphere-rosette-raw.yml"
 permissions:
   contents: read
 jobs:

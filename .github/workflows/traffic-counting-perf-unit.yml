@@ -1,9 +1,6 @@
 name: Traffic counting recent PR validation
 
 on:
-  push:
-    paths:
-      - ".github/workflows/traffic-counting-perf-unit.yml"
   workflow_dispatch:
 
 permissions:

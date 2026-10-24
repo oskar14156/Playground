@@ -1,10 +1,5 @@
 name: Photo Sphere checkpoint 150 camera, metadata and session lifecycles
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-checkpoint-150.yml"
-      - "scripts/PhotoSphereSweep.java"
   workflow_dispatch:
 permissions:
   contents: read

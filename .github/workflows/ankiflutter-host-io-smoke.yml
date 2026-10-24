@@ -1,9 +1,6 @@
 name: AnkiFlutter host filesystem and media smoke
 
 on:
-  push:
-    paths:
-      - ankiflutter-host-io-target.txt
   workflow_dispatch:
 
 permissions:

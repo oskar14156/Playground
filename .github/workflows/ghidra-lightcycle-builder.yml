@@ -2,10 +2,6 @@ name: Decompile LightCycle capture builder methods
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/ghidra-lightcycle-builder.yml"
 
 permissions:
   contents: read

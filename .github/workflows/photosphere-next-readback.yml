@@ -1,8 +1,5 @@
 name: Photo Sphere unresolved gaps readback
 on:
-  workflow_run:
-    workflows: ["Photo Sphere unresolved gap sweep"]
-    types: [completed]
   workflow_dispatch:
     inputs:
       source_run_id:

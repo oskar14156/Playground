@@ -1,9 +1,5 @@
 name: Photo Sphere image accessor methods ARM64 92
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-accessor-methods-92.yml"
   workflow_dispatch:
 permissions:
   contents: read

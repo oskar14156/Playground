@@ -1,11 +1,6 @@
 name: Photo Sphere session metadata fixtures
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - "scripts/photosphere_session_metadata_fixtures.py"
-      - ".github/workflows/photosphere-session-fixtures-88.yml"
 permissions:
   contents: read
 jobs:

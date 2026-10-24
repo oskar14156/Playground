@@ -1,9 +1,6 @@
 name: Traffic counting fisheye speed-quality lab
 
 on:
-  push:
-    paths:
-      - ".github/workflows/traffic-counting-fisheye-quality-speed.yml"
   workflow_dispatch:
 
 permissions:

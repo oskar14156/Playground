@@ -1,10 +1,6 @@
 name: Photo Sphere graph interface and coefficient
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-graph-blend-candidates.yml"
 permissions:
   contents: read
 jobs:

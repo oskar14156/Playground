@@ -1,10 +1,6 @@
 name: Photo Sphere mask-generator vtable
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-mask-generator-vtable.yml"
 permissions:
   contents: read
 jobs:

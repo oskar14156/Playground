@@ -1,9 +1,5 @@
 name: Photo Sphere checkpoint 159 original DEX metadata math
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-checkpoint-159.yml"
   workflow_dispatch:
 permissions:
   contents: read

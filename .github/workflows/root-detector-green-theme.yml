@@ -1,10 +1,6 @@
 name: Root Detector fixed green brand theme verification
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/root-detector-green-theme.yml
   workflow_dispatch:
 
 permissions:

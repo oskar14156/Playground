@@ -1,8 +1,5 @@
 name: Photo Sphere checkpoint 132 native RGB8 LUT inverse roundtrip
 on:
-  push:
-    branches: [main]
-    paths: [".github/workflows/photosphere-checkpoint-132.yml"]
   workflow_dispatch:
 permissions:
   contents: read

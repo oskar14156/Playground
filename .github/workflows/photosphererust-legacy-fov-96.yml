@@ -1,10 +1,6 @@
 name: Photo Sphere legacy capture FOV 96
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphererust-legacy-fov-96.yml"
 permissions:
   contents: read
 jobs:

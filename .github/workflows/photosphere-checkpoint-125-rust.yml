@@ -1,9 +1,5 @@
 name: Photo Sphere Gamma aperture full Rust regression 125
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-checkpoint-125-rust.yml"
   workflow_dispatch:
 permissions:
   contents: read

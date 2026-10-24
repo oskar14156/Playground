@@ -1,9 +1,5 @@
 name: Photo Sphere metadata strings lens RTTI audit
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-metadata-lens-strings-87.yml"
   workflow_dispatch:
 permissions:
   contents: read

@@ -2,10 +2,6 @@ name: Dump LightCycle disassembly
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/dump-lightcycle-disassembly.yml"
 
 permissions:
   contents: read

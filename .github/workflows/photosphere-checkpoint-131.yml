@@ -1,8 +1,5 @@
 name: Photo Sphere checkpoint 131 fast thumbnail LUT provenance
 on:
-  push:
-    branches: [main]
-    paths: [".github/workflows/photosphere-checkpoint-131.yml"]
   workflow_dispatch:
 permissions:
   contents: read

@@ -2,10 +2,6 @@ name: Inspect Pixel Camera LightCycle native library
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/inspect-lightcycle-native.yml"
 
 permissions:
   contents: read

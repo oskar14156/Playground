@@ -1,8 +1,5 @@
 name: Photo Sphere checkpoint 122 packed thumbnail dimensions provenance
 on:
-  push:
-    branches: [main]
-    paths: [".github/workflows/photosphere-checkpoint-122.yml"]
   workflow_dispatch:
 permissions:
   contents: read

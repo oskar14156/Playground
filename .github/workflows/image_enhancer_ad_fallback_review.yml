@@ -1,9 +1,6 @@
 name: Image Enhancer ad fallback regression review
 
 on:
-  push:
-    paths:
-      - .github/workflows/image_enhancer_ad_fallback_review.yml
   workflow_dispatch:
 
 permissions:

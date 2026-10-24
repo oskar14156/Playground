@@ -1,8 +1,5 @@
 name: Photo Sphere checkpoint 158 native RenderNextSession manager vtable owner
 on:
-  push:
-    branches: [main]
-    paths: [".github/workflows/photosphere-checkpoint-158.yml", "scripts/photosphere_checkpoint_158.py"]
   workflow_dispatch:
 permissions:
   contents: read

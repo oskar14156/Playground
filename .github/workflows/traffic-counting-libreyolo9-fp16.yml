@@ -2,10 +2,6 @@ name: Traffic Counting LibreYOLO9 FP16 edge validation
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - ".github/workflows/traffic-counting-libreyolo9-fp16.yml"
-      - "debug_triggers/traffic-counting-libreyolo9-fp16.txt"
 
 permissions:
   contents: read

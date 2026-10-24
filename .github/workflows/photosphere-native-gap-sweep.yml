@@ -1,11 +1,6 @@
 name: Photo Sphere native gap sweep
 on:
   workflow_dispatch:
-  push:
-    branches: [investigate/photosphere-oct08-gaps]
-    paths:
-      - "scripts/PhotoSphereSweep.java"
-      - ".github/workflows/photosphere-native-gap-sweep.yml"
 permissions:
   contents: read
 jobs:

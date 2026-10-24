@@ -1,10 +1,6 @@
 name: Resistor Scanner Core ML PR30
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/resistor-coreml-pr30.yml'
   workflow_dispatch:
 
 permissions:

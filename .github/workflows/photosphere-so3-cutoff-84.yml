@@ -1,9 +1,5 @@
 name: Photo Sphere SO3 log singular threshold
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-so3-cutoff-84.yml"
   workflow_dispatch:
 permissions:
   contents: read

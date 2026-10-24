@@ -1,10 +1,6 @@
 name: Traffic counting ARM64 NCNN runtime benchmark
 
 on:
-  push:
-    paths:
-      - ".github/workflows/traffic-counting-arm64-ncnn-runtime-bench.yml"
-      - "debug_triggers/traffic-counting-arm64-ncnn-runtime-bench.txt"
   workflow_dispatch:
 
 permissions:

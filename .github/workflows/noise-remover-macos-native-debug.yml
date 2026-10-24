@@ -2,10 +2,6 @@ name: Noise Remover macOS native debug
 # verification target: noise_remover macos-release afa50b1de8975e8b5dae460e781a63f5744cc9be
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/noise-remover-macos-native-debug.yml'
   workflow_dispatch:
     inputs:
       ref:

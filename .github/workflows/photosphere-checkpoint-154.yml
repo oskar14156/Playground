@@ -1,8 +1,5 @@
 name: Photo Sphere checkpoint 154 camera correction constructor and vtable provenance
 on:
-  push:
-    branches: [main]
-    paths: [".github/workflows/photosphere-checkpoint-154.yml"]
   workflow_dispatch:
 permissions:
   contents: read

@@ -1,9 +1,5 @@
 name: Photo Sphere seam unit mask corrected regression 20261012
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/photosphere-seam-unit-mask-corrected-20261012.yml"
   workflow_dispatch:
 permissions:
   contents: read
