@@ -162,6 +162,12 @@ def _chatterbox_child(beats, wav_out, ref, exaggeration, cfg, seed, device, gaps
                 break
         _, w, f0 = best
         ref_f0 = ref_f0 or f0
+        # Chatterbox sometimes rushes a block in every take (4.5 words/s); slow just that block
+        # with ffmpeg atempo (pitch kept) instead of re-rolling forever
+        rate = n_words / (len(w) / sr)
+        if rate > 3.9:
+            w = retime(w, sr, 3.6 / rate)
+            print(f"      slowed to {n_words / (len(w) / sr):.1f} words/s", flush=True)
         fade = int(sr * 0.012)
         w[:fade] *= np.linspace(0, 1, fade)
         w[-fade:] *= np.linspace(1, 0, fade)
@@ -173,6 +179,20 @@ def _chatterbox_child(beats, wav_out, ref, exaggeration, cfg, seed, device, gaps
             torch.mps.empty_cache()
     audio = np.concatenate(pieces[:-1]).astype(np.float32)
     torchaudio.save(str(wav_out), torch.from_numpy(audio).unsqueeze(0), sr)
+
+
+def retime(w, sr, factor):
+    """Tempo change without pitch change (factor < 1 = slower)."""
+    import numpy as np
+
+    with tempfile.TemporaryDirectory() as td:
+        src, dst = pathlib.Path(td) / "a.f32", pathlib.Path(td) / "b.f32"
+        w.astype(np.float32).tofile(src)
+        subprocess.run(
+            ["ffmpeg", "-v", "error", "-y", "-f", "f32le", "-ar", str(sr), "-ac", "1", "-i", str(src), "-filter:a", f"atempo={factor:.4f}", "-f", "f32le", str(dst)],
+            check=True,
+        )
+        return np.fromfile(dst, dtype=np.float32)
 
 
 def median_f0(w, sr):
