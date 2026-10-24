@@ -30,6 +30,7 @@ ap.add_argument("--stills", default="")
 ap.add_argument("--render", action="store_true")
 ap.add_argument("--draft", action="store_true")
 ap.add_argument("--only", default="")
+ap.add_argument("--engine", default="eevee", choices=["eevee", "cycles"], help="cycles = GPU path tracing (cloud)")
 ap.add_argument("--chunk", default="")
 ap.add_argument("--res", type=int, default=100)
 ap.add_argument("--samples", type=int, default=48)
@@ -627,6 +628,8 @@ for name in only:
     if not want and not (a.render and name in mine):
         continue
     sc = C.new_scene(name, start, end, res=a.res, samples=a.samples)
+    if a.engine == "cycles":
+        C.use_cycles(sc, a.samples)
     fn(sc)
     print(f"BUILT {name} {start}-{end}", flush=True)
     if sc.get("flank"):

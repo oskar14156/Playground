@@ -82,6 +82,34 @@ def new_scene(name, frame_start, frame_end, res=100, samples=48):
     return sc
 
 
+def use_cycles(sc, samples=64):
+    """Cycles on the NVIDIA GPU (OptiX, else CUDA) — for cloud VMs where EEVEE has no OpenGL
+    driver and silently falls back to software rendering. Denoised, adaptive sampling."""
+    prefs = bpy.context.preferences.addons["cycles"].preferences
+    for kind in ("OPTIX", "CUDA"):
+        try:
+            prefs.compute_device_type = kind
+            prefs.refresh_devices()
+            devs = [d for d in prefs.devices if d.type == kind]
+            if devs:
+                for d in prefs.devices:
+                    d.use = d.type == kind
+                print("CYCLES GPU", kind, [d.name for d in devs], flush=True)
+                break
+        except TypeError:
+            continue
+    sc.render.engine = "CYCLES"
+    sc.cycles.device = "GPU"
+    sc.cycles.samples = samples
+    sc.cycles.use_adaptive_sampling = True
+    sc.cycles.adaptive_threshold = 0.02
+    sc.cycles.use_denoising = True
+    sc.cycles.denoiser = "OPTIX" if prefs.compute_device_type == "OPTIX" else "OPENIMAGEDENOISE"
+    sc.cycles.volume_step_rate = 4.0
+    sc.cycles.max_bounces = 6
+    sc.cycles.volume_bounces = 1
+
+
 def link(sc, ob):
     for c in list(ob.users_collection):
         c.objects.unlink(ob)
