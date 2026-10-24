@@ -6,6 +6,8 @@
   colab download -s render /content/out.tar out/colab/
   colab stop -s render
 
+Poll:  echo 'import os;print(open("/content/job.log").read()[-1500:], os.path.exists("/content/job.done"))' | colab exec -s render
+
 The VM pulls the code from the public mirror (branch `motionshorts` of oskar14156/Playground),
 installs Blender once per VM, renders, and packs public/<plate>/ + out/stills/ into /content/out.tar.
 """
@@ -37,13 +39,13 @@ if not os.path.exists(BL):
     sh("mkdir -p /content/blender && curl -sL https://download.blender.org/release/Blender5.2/blender-5.2.3-linux-x64.tar.xz | tar -xJ -C /content/blender --strip-components=1")
 print("setup", round(time.time() - t0), "s;", sh("nvidia-smi --query-gpu=name,memory.total --format=csv,noheader", show=False).stdout.strip(), flush=True)
 
-t1 = time.time()
-cmd = f"cd {SRC} && {BL} -b -P blender/{JOB['script']}.py -- {JOB['args']}"
-proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
-for line in proc.stdout:
-    if any(k in line for k in ("BUILT", "STILL", "RENDERED", "BAKED", "DONE", "Error", "Traceback", "File \"", "GPU", "EGL", "Vulkan", "OpenGL")):
-        print(line.rstrip(), flush=True)
-proc.wait()
-print("render", round(time.time() - t1), "s, exit", proc.returncode, flush=True)
+# run Blender detached: `colab exec` busy-waits at 100 % local CPU while a cell runs, so the
+# cell returns at once and the agent polls /content/job.log with short execs instead
 plate = JOB.get("plate", "")
-sh(f"cd {SRC} && tar -cf /content/out.tar {'public/' + plate if plate else ''} out/stills 2>/dev/null; ls -la /content/out.tar")
+runner = f"""cd {SRC} && rm -f /content/job.done && START=$(date +%s) && \\
+{BL} -b -P blender/{JOB['script']}.py -- {JOB['args']} 2>&1 | grep --line-buffered -E 'BUILT|STILL|RENDERED|BAKED|DONE|Error|Traceback|File "|Saved:' | while read -r l; do echo "$(date +%T) $l"; done > /content/job.log; \\
+echo "render $(( $(date +%s) - START )) s" >> /content/job.log; \\
+tar -cf /content/out.tar {'public/' + plate if plate else ''} out/stills 2>/dev/null; touch /content/job.done"""
+open("/content/run.sh", "w").write(runner)
+subprocess.Popen(["bash", "/content/run.sh"], start_new_session=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+print("started", flush=True)

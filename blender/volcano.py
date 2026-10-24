@@ -558,8 +558,8 @@ def helens(sc, part):
     # froxels only where the plumes are (10–20 km from the camera) → enough depth slices for billows
     sc.eevee.volumetric_start = 9000
     sc.eevee.volumetric_end = 21000
-    sc.eevee.volumetric_tile_size = "2"
-    sc.eevee.volumetric_samples = 128
+    sc.eevee.volumetric_tile_size = "4"  # tile 2 / 128 samples cost >30 s per frame even on an L4
+    sc.eevee.volumetric_samples = 64
     sc.eevee.volumetric_sample_distribution = 0.2
     ter = heightfield("helens", 34000, 520, cone, keys=(("bulge", bulged), ("collapse", collapsed)))
     mm, ash = mountain_material()
