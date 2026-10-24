@@ -9,3 +9,5 @@ videos/_voicetest/
 .DS_Store
 public/bbb/frames/
 out/bbb_cache/
+public/tib/frames/
+public/tib/draft/

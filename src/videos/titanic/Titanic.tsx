@@ -32,7 +32,7 @@ export const World: React.FC = () => {
   return <active.C f={f} />;
 };
 
-const Hud: React.FC = () => (
+export const Hud: React.FC = () => (
   <>
     <StatPill at={5} until={c.then} from={0} value={73} countFrames={14} unit="YEARS" palette={P} top={300} />
     <Readout at={c.depth} until={c.two} from={0} value={3800} countFrames={22} unit="M" label="DEPTH" palette={P} top={230} />
@@ -44,7 +44,7 @@ const Hud: React.FC = () => (
   </>
 );
 
-const Sound: React.FC = () => (
+export const Sound: React.FC = () => (
   <>
     <Audio src={staticFile("titanic/vo.mp3")} />
     <MusicBed name="dark" words={words} volume={0.3} cuts={[[c.ruler, c.snapped]]} />

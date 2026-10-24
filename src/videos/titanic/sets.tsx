@@ -176,7 +176,7 @@ export const SetWreck: React.FC<SetProps> = ({ f }) => {
   );
 };
 
-const Tag: React.FC<{ x: number; y: number; text: string; o: number }> = ({ x, y, text, o }) => (
+export const Tag: React.FC<{ x: number; y: number; text: string; o: number }> = ({ x, y, text, o }) => (
   <div
     style={{
       position: "absolute",
@@ -197,7 +197,7 @@ const Tag: React.FC<{ x: number; y: number; text: string; o: number }> = ({ x, y
 );
 
 /** Dimension line between two screen points with end ticks and a label. */
-const Measure: React.FC<{ a: { x: number; y: number }; b: { x: number; y: number }; t: number; label: string }> = ({ a, b, t, label }) => {
+export const Measure: React.FC<{ a: { x: number; y: number }; b: { x: number; y: number }; t: number; label: string }> = ({ a, b, t, label }) => {
   const mx = a.x + (b.x - a.x) * t;
   const my = a.y + (b.y - a.y) * t;
   const cx = (a.x + b.x) / 2;
@@ -616,7 +616,7 @@ export const SetLifeboat: React.FC<SetProps> = ({ f }) => {
   );
 };
 
-const InquiryCard: React.FC<{ f: number; o: number }> = ({ f, o }) => {
+export const InquiryCard: React.FC<{ f: number; o: number }> = ({ f, o }) => {
   const stamp = ramp(f, c.them + 4, c.them + 9, easeOut);
   return (
     <div

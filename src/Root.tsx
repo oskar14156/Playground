@@ -14,6 +14,7 @@ import { CoasterLab, COASTER_LAB_DURATION } from "./videos/_lab/CoasterLab";
 import { VolcanoLab, VOLCANO_LAB_DURATION } from "./videos/_lab/VolcanoLab";
 import { LinerLab, LINER_LAB_DURATION } from "./videos/_lab/LinerLab";
 import { BlackBoxBlender } from "./videos/black-box/BlackBoxBlender";
+import { TitanicBlender } from "./videos/titanic/TitanicBlender";
 import { HumanLab, HUMAN_LAB_DURATION } from "./videos/_lab/HumanLab";
 
 // One <Composition> per video in src/videos/<slug>/. Keep ids = slugs.
@@ -32,6 +33,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="volcano-lab" component={VolcanoLab} durationInFrames={VOLCANO_LAB_DURATION} {...VIDEO} />
     <Composition id="liner-lab" component={LinerLab} durationInFrames={LINER_LAB_DURATION} {...VIDEO} />
     <Composition id="black-box-blender" component={BlackBoxBlender} durationInFrames={BB_DURATION} {...VIDEO} />
+    <Composition id="titanic-blender" component={TitanicBlender} durationInFrames={TI_DURATION} defaultProps={{ plate: "tib/frames" }} {...VIDEO} />
     <Composition id="human-lab" component={HumanLab} durationInFrames={HUMAN_LAB_DURATION} {...VIDEO} />
   </>
 );

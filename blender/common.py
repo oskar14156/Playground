@@ -319,6 +319,19 @@ def key(ob, path, value, frame, index=-1):
     ob.keyframe_insert(path, frame=frame, index=index)
 
 
+def fcurves(idb):
+    """F-curves of an ID's action (Blender 5 keeps them in a channelbag per action slot)."""
+    ad = getattr(idb, "animation_data", None)
+    if not ad or not ad.action:
+        return []
+    if hasattr(ad.action, "fcurves"):
+        return list(ad.action.fcurves)
+    from bpy_extras import anim_utils
+
+    cb = anim_utils.action_get_channelbag_for_slot(ad.action, ad.action_slot)
+    return list(cb.fcurves) if cb else []
+
+
 def smooth_keys(ob):
     ad = ob.animation_data
     if ad and ad.action:
