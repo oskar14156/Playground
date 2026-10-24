@@ -80,72 +80,7 @@ def shot(name, start, end):
 
 
 # ───────────────────────── shared: night sky, calm sea ─────────────────────────
-def night_sky(sc, strength=1.0, stars=1.0):
-    """Moonless, starry (14 April 1912 had no moon): dark gradient + soft star points."""
-    nt = sc.world.node_tree
-    bg = nt.nodes["Background"]
-    tc = nt.nodes.new("ShaderNodeTexCoord")
-    sep = nt.nodes.new("ShaderNodeSeparateXYZ")
-    nt.links.new(tc.outputs["Generated"], sep.inputs["Vector"])
-    ramp = nt.nodes.new("ShaderNodeMapRange")
-    ramp.inputs["From Min"].default_value = -0.02
-    ramp.inputs["From Max"].default_value = 0.5
-    nt.links.new(sep.outputs["Z"], ramp.inputs["Value"])
-    mix = nt.nodes.new("ShaderNodeMix")
-    mix.data_type = "RGBA"
-    mix.inputs[6].default_value = (0.02, 0.032, 0.06, 1)  # horizon glow
-    mix.inputs[7].default_value = (0.002, 0.003, 0.009, 1)  # zenith
-    nt.links.new(ramp.outputs["Result"], mix.inputs["Factor"])
-    vor = nt.nodes.new("ShaderNodeTexVoronoi")
-    vor.inputs["Scale"].default_value = 260
-    nt.links.new(tc.outputs["Generated"], vor.inputs["Vector"])
-    soft = nt.nodes.new("ShaderNodeMapRange")
-    soft.inputs["From Min"].default_value = 0.05
-    soft.inputs["From Max"].default_value = 0.14
-    soft.inputs["To Min"].default_value = 1.0
-    soft.inputs["To Max"].default_value = 0.0
-    nt.links.new(vor.outputs["Distance"], soft.inputs["Value"])
-    sepc = nt.nodes.new("ShaderNodeSeparateColor")
-    nt.links.new(vor.outputs["Color"], sepc.inputs["Color"])
-    pw = nt.nodes.new("ShaderNodeMath")  # most stars faint, a few bright
-    pw.operation = "POWER"
-    pw.inputs[1].default_value = 6.0
-    nt.links.new(sepc.outputs[0], pw.inputs[0])
-    few = nt.nodes.new("ShaderNodeMath")  # only ~1 in 4 cells holds a visible star
-    few.operation = "GREATER_THAN"
-    few.inputs[1].default_value = 0.75
-    nt.links.new(sepc.outputs[1], few.inputs[0])
-    pw2 = nt.nodes.new("ShaderNodeMath")
-    pw2.operation = "MULTIPLY"
-    nt.links.new(pw.outputs[0], pw2.inputs[0])
-    nt.links.new(few.outputs[0], pw2.inputs[1])
-    m1 = nt.nodes.new("ShaderNodeMath")
-    m1.operation = "MULTIPLY"
-    nt.links.new(soft.outputs["Result"], m1.inputs[0])
-    nt.links.new(pw2.outputs[0], m1.inputs[1])
-    above = nt.nodes.new("ShaderNodeMath")  # no stars below the horizon
-    above.operation = "GREATER_THAN"
-    above.inputs[1].default_value = 0.02
-    nt.links.new(sep.outputs["Z"], above.inputs[0])
-    m2 = nt.nodes.new("ShaderNodeMath")
-    m2.operation = "MULTIPLY"
-    nt.links.new(m1.outputs[0], m2.inputs[0])
-    nt.links.new(above.outputs[0], m2.inputs[1])
-    m3 = nt.nodes.new("ShaderNodeMath")
-    m3.operation = "MULTIPLY"
-    m3.inputs[1].default_value = 14.0 * stars
-    nt.links.new(m2.outputs[0], m3.inputs[0])
-    add = nt.nodes.new("ShaderNodeMix")
-    add.data_type = "RGBA"
-    add.blend_type = "ADD"
-    add.inputs["Factor"].default_value = 1
-    nt.links.new(mix.outputs[2], add.inputs[6])
-    cc = nt.nodes.new("ShaderNodeCombineColor")
-    for i in range(3):
-        nt.links.new(m3.outputs[0], cc.inputs[i])
-    nt.links.new(cc.outputs[0], add.inputs[7])
-    nt.links.new(add.outputs[2], bg.inputs["Color"])
-    bg.inputs["Strength"].default_value = strength
+night_sky = C.night_sky
 
 
 def calm_sea(sc, start, end, size=320, repeat=5, scale=0.35):
