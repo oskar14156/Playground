@@ -40,6 +40,23 @@ class Cues:
         return round(self.words[self._find(phrase, nth)]["start"] * FPS)
 
 
+def chunk(shots, spec):
+    """Split the frames of all shots into N contiguous blocks for parallel (cloud) rendering.
+    spec "i/N" (1-based) → {shot: (start, end)} for the frames of block i; "" → everything."""
+    if not spec:
+        return {k: (s, e) for k, (s, e, _) in shots.items()}
+    i, n = (int(x) for x in spec.split("/"))
+    frames = sorted(f for s, e, _ in shots.values() for f in range(s, e + 1))
+    per = -(-len(frames) // n)
+    mine = set(frames[(i - 1) * per : i * per])
+    out = {}
+    for k, (s, e, _) in shots.items():
+        fs = [f for f in range(s, e + 1) if f in mine]
+        if fs:
+            out[k] = (fs[0], fs[-1])
+    return out
+
+
 # ---------- scene ----------
 def new_scene(name, frame_start, frame_end, res=100, samples=48):
     """Reset Blender and configure its single scene (bpy.ops only add to the active scene,

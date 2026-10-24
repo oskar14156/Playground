@@ -31,6 +31,7 @@ ap.add_argument("--stills", default="")
 ap.add_argument("--render", action="store_true")
 ap.add_argument("--draft", action="store_true", help="quarter resolution, few samples → public/tib/draft")
 ap.add_argument("--only", default="")
+ap.add_argument("--chunk", default="", help="i/N: render only block i of N (parallel cloud jobs)")
 ap.add_argument("--res", type=int, default=100)
 ap.add_argument("--samples", type=int, default=48)
 ap.add_argument("--stills_out", default=os.path.join(C.ROOT, "out", "stills", "tib"))
@@ -610,10 +611,11 @@ only = [x for x in a.only.split(",") if x] or list(SHOTS)
 stills = [int(x) for x in a.stills.split(",") if x]
 os.makedirs(a.stills_out, exist_ok=True)
 os.makedirs(OUT, exist_ok=True)
+mine = C.chunk({k: SHOTS[k] for k in only}, a.chunk)
 for name in only:
     start, end, fn = SHOTS[name]
     want = [f for f in stills if start <= f <= end]
-    if not a.render and not want:
+    if not want and not (a.render and name in mine):
         continue
     sc = C.new_scene(name, start, end, res=a.res, samples=a.samples)
     sc.view_settings.exposure = 0.0
@@ -628,7 +630,8 @@ for name in only:
         sc.render.filepath = os.path.join(a.stills_out, f"s_{f:04d}.jpg")
         bpy.ops.render.render(write_still=True)
         print(f"STILL {f} ({name})", flush=True)
-    if a.render:
+    if a.render and name in mine:
+        sc.frame_start, sc.frame_end = mine[name]
         sc.render.filepath = os.path.join(OUT, "f_")
         bpy.ops.render.render(animation=True)
         print(f"RENDERED {name}", flush=True)
