@@ -1,0 +1,29 @@
+name: motionshorts Remotion render
+# Renders a Remotion composition of github.com/oskar14156/motionshorts (branch `motionshorts`) on a CPU runner.
+#   gh workflow run motionshorts-remotion.yml -R oskar14156/playground -f composition=volcano
+on:
+  workflow_dispatch:
+    inputs:
+      composition: { description: "composition id", required: true }
+      props: { description: "JSON input props", default: "{}" }
+      scale: { description: "output scale", default: "1" }
+      ref: { description: "branch with the motionshorts code", default: "motionshorts" }
+permissions:
+  contents: read
+jobs:
+  render:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: "${{ inputs.ref }}" }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci --no-audit --no-fund
+      - name: Remotion render (software WebGL)
+        run: |
+          START=$(date +%s)
+          npx remotion render ${{ inputs.composition }} out/${{ inputs.composition }}.mp4 --props='${{ inputs.props }}' --scale=${{ inputs.scale }} --gl=swangle --concurrency=4 --log=error
+          echo "render seconds: $(( $(date +%s) - START ))"
+      - uses: actions/upload-artifact@v4
+        with: { name: video, path: "out/${{ inputs.composition }}.mp4", retention-days: 7 }
