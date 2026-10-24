@@ -1,0 +1,27 @@
+import React from "react";
+import { Composition } from "remotion";
+import { VIDEO } from "./lib/theme";
+import { DURATION as GC_DURATION, GreatCircle } from "./videos/great-circle/GreatCircle";
+import { BlackBox, DURATION as BB_DURATION } from "./videos/black-box/BlackBox";
+import { Titanic, DURATION as TI_DURATION } from "./videos/titanic/Titanic";
+import { BoatLab, BOAT_LAB_DURATION } from "./videos/_lab/BoatLab";
+import { VolcanoReel, DURATION as VO_DURATION } from "./videos/volcano/Volcano";
+import { Php2Shell, DURATION as PH_DURATION } from "./videos/php2shell/Php2Shell";
+import { VolcanoLab, VOLCANO_LAB_DURATION } from "./videos/_lab/VolcanoLab";
+import { LinerLab, LINER_LAB_DURATION } from "./videos/_lab/LinerLab";
+import { HumanLab, HUMAN_LAB_DURATION } from "./videos/_lab/HumanLab";
+
+// One <Composition> per video in src/videos/<slug>/. Keep ids = slugs.
+export const RemotionRoot: React.FC = () => (
+  <>
+    <Composition id="great-circle" component={GreatCircle} durationInFrames={GC_DURATION} {...VIDEO} />
+    <Composition id="black-box" component={BlackBox} durationInFrames={BB_DURATION} {...VIDEO} />
+    <Composition id="titanic" component={Titanic} durationInFrames={TI_DURATION} {...VIDEO} />
+    <Composition id="boat-lab" component={BoatLab} durationInFrames={BOAT_LAB_DURATION} {...VIDEO} />
+    <Composition id="volcano" component={VolcanoReel} durationInFrames={VO_DURATION} {...VIDEO} />
+    <Composition id="php2shell" component={Php2Shell} durationInFrames={PH_DURATION} {...VIDEO} />
+    <Composition id="volcano-lab" component={VolcanoLab} durationInFrames={VOLCANO_LAB_DURATION} {...VIDEO} />
+    <Composition id="liner-lab" component={LinerLab} durationInFrames={LINER_LAB_DURATION} {...VIDEO} />
+    <Composition id="human-lab" component={HumanLab} durationInFrames={HUMAN_LAB_DURATION} {...VIDEO} />
+  </>
+);

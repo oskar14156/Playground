@@ -1,0 +1,20 @@
+# HOOK (loop target: the outro line "Which is why..." flows into this line)
+Your flight from New York to Tokyo doesn't fly straight.
+
+# SETUP
+On a map, it bends way up toward the Arctic.
+Looks like a huge detour, right?
+
+# TURN
+But the map is lying.
+Earth is a ball. Flatten it, and everything near the poles gets stretched.
+
+# PROOF
+That straight line? 12,800 kilometers.
+The curve? Only 10,900.
+
+# PAYOFF
+On the globe, the curve is the shortcut. It's called a great circle.
+
+# LOOP OUTRO (unfinished sentence, completed by the hook)
+Airlines fly close to it every day. Which is why...

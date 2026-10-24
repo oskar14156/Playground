@@ -1,0 +1,9 @@
+node_modules
+.venv
+.venv-tts
+out
+*.tmp.mp3
+__pycache__/
+public/_voicetest/
+videos/_voicetest/
+.DS_Store

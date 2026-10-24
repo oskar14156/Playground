@@ -1,0 +1,17 @@
+# HOOK
+Until this week, every PHP website on Earth had the same two holes.
+
+# SETUP
+PHP runs about 7 in 10 websites. The bugs are called PHP2Shell, rated 9.2 out of 10.
+
+# MECHANISM
+One fires when PHP runs out of memory mid-request. The other, when leftovers from one visitor leak into the next. Either way, a stranger can run their own code on the server. No password. One request.
+
+# STAKES
+But here's the worst part. The fix was planned for October 22nd, and the details leaked early. Amazon's honeypots caught an attack 4 days before the bugs were public.
+
+# PAYOFF
+If you run a website, update PHP today, and restart it.
+
+# LOOP OUTRO
+Because until this week…
