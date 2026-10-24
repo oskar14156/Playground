@@ -48,8 +48,12 @@ Wenn keine natürliche Stimme eingerichtet ist, fragt der Agent dich, welche du 
 - **Codex (ChatGPT):** `codex` im Ordner starten → „Mach ein Video über Vulkane“
 - **Cursor:** Ordner öffnen, Agent-Modus → gleiche Nachricht
 
-Der Agent liest `AGENTS.md` bzw. `CLAUDE.md` und arbeitet nach den Anleitungen in
-`.claude/skills/`. Brauchbare Anweisungen sind zum Beispiel:
+Der Agent liest `AGENTS.md` (Claude Code über `CLAUDE.md`, Gemini über `GEMINI.md`, die beide
+`AGENTS.md` einbinden). Das ist das komplette Handbuch: was er bei Sitzungsbeginn prüft, wann
+er dich fragt, jeder Schritt mit Befehl und Ergebnisdatei, Blender-Ablauf, Fehlerbehebung und
+eine Fertig-Checkliste. Die Detailregeln stehen in `.claude/skills/`. Falls ein Agent die
+Datei nicht von selbst liest, sag ihm einfach: „Lies zuerst AGENTS.md.“ Brauchbare
+Anweisungen sind zum Beispiel:
 - „Mach ein Video über X“ (er schlägt 5 Hooks vor, du wählst)
 - „Mach das in Blender, so realistisch wie möglich“ (du bekommst erst einen 3-Minuten-Entwurf)
 - „Die Stimme soll tiefer sein“, „Shot 4 sieht schlecht aus, weil …“
