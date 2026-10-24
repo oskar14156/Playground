@@ -2,516 +2,516 @@
  {
   "word": "Black",
   "start": 0.0,
-  "end": 0.16
+  "end": 0.18
  },
  {
   "word": "boxes",
-  "start": 0.16,
-  "end": 0.54
+  "start": 0.18,
+  "end": 0.56
  },
  {
   "word": "aren't",
-  "start": 0.54,
-  "end": 0.86
+  "start": 0.56,
+  "end": 0.9
  },
  {
   "word": "black.",
-  "start": 0.86,
-  "end": 1.1
+  "start": 0.9,
+  "end": 1.14
  },
  {
   "word": "They're",
-  "start": 1.86,
-  "end": 2.06
+  "start": 1.603,
+  "end": 1.72
  },
  {
   "word": "bright",
-  "start": 2.06,
-  "end": 2.28
+  "start": 1.72,
+  "end": 1.94
  },
  {
   "word": "orange,",
-  "start": 2.28,
-  "end": 2.72
+  "start": 1.94,
+  "end": 2.32
  },
  {
   "word": "so",
-  "start": 2.92,
-  "end": 3.12
+  "start": 2.52,
+  "end": 2.64
  },
  {
   "word": "search",
-  "start": 3.12,
-  "end": 3.38
+  "start": 2.64,
+  "end": 2.9
  },
  {
   "word": "teams",
-  "start": 3.38,
-  "end": 3.62
+  "start": 2.9,
+  "end": 3.16
  },
  {
   "word": "can",
-  "start": 3.62,
-  "end": 3.86
+  "start": 3.16,
+  "end": 3.38
  },
  {
   "word": "spot",
-  "start": 3.86,
-  "end": 4.08
+  "start": 3.38,
+  "end": 3.58
  },
  {
   "word": "them",
-  "start": 4.08,
-  "end": 4.24
+  "start": 3.58,
+  "end": 3.78
  },
  {
   "word": "in",
-  "start": 4.24,
-  "end": 4.36
+  "start": 3.78,
+  "end": 3.88
  },
  {
   "word": "the",
-  "start": 4.36,
-  "end": 4.44
+  "start": 3.88,
+  "end": 3.96
  },
  {
   "word": "wreckage.",
-  "start": 4.44,
-  "end": 4.88
+  "start": 3.96,
+  "end": 4.38
  },
  {
   "word": "And",
-  "start": 5.18,
-  "end": 5.38
+  "start": 4.888,
+  "end": 5.0
  },
  {
   "word": "they",
-  "start": 5.38,
-  "end": 5.5
+  "start": 5.0,
+  "end": 5.1
  },
  {
   "word": "ride",
-  "start": 5.5,
-  "end": 5.7
+  "start": 5.1,
+  "end": 5.3
  },
  {
   "word": "in",
-  "start": 5.7,
-  "end": 5.84
+  "start": 5.3,
+  "end": 5.46
  },
  {
   "word": "the",
-  "start": 5.84,
-  "end": 5.94
+  "start": 5.46,
+  "end": 5.58
  },
  {
   "word": "tail,",
-  "start": 5.94,
-  "end": 6.16
+  "start": 5.58,
+  "end": 5.82
  },
  {
   "word": "the",
-  "start": 6.36,
-  "end": 6.44
+  "start": 6.12,
+  "end": 6.2
  },
  {
   "word": "part",
-  "start": 6.44,
-  "end": 6.6
+  "start": 6.2,
+  "end": 6.4
  },
  {
   "word": "most",
-  "start": 6.6,
-  "end": 6.76
+  "start": 6.4,
+  "end": 6.58
  },
  {
   "word": "likely",
-  "start": 6.76,
-  "end": 7.04
+  "start": 6.58,
+  "end": 6.86
  },
  {
   "word": "to",
-  "start": 7.04,
-  "end": 7.22
+  "start": 6.86,
+  "end": 7.06
  },
  {
   "word": "survive.",
-  "start": 7.22,
-  "end": 7.56
+  "start": 7.06,
+  "end": 7.44
  },
  {
   "word": "But",
-  "start": 8.18,
-  "end": 8.5
+  "start": 8.239,
+  "end": 8.42
  },
  {
   "word": "the",
-  "start": 8.5,
-  "end": 8.84
+  "start": 8.42,
+  "end": 8.58
  },
  {
   "word": "orange",
-  "start": 8.84,
-  "end": 9.08
+  "start": 8.58,
+  "end": 8.8
  },
  {
   "word": "box",
-  "start": 9.08,
-  "end": 9.42
+  "start": 8.8,
+  "end": 9.08
  },
  {
   "word": "is",
-  "start": 9.42,
-  "end": 9.62
+  "start": 9.08,
+  "end": 9.38
  },
  {
   "word": "just",
-  "start": 9.62,
-  "end": 9.78
+  "start": 9.38,
+  "end": 9.6
  },
  {
   "word": "armor.",
-  "start": 9.78,
-  "end": 10.12
+  "start": 9.6,
+  "end": 9.9
  },
  {
   "word": "The",
-  "start": 10.66,
-  "end": 10.8
+  "start": 10.443,
+  "end": 10.52
  },
  {
   "word": "real",
-  "start": 10.8,
-  "end": 10.98
+  "start": 10.52,
+  "end": 10.7
  },
  {
   "word": "recorder",
-  "start": 10.98,
-  "end": 11.34
+  "start": 10.7,
+  "end": 10.96
  },
  {
   "word": "is",
-  "start": 11.34,
-  "end": 11.66
+  "start": 10.96,
+  "end": 11.36
  },
  {
   "word": "this",
-  "start": 11.66,
-  "end": 11.9
+  "start": 11.36,
+  "end": 11.6
  },
  {
   "word": "little",
-  "start": 11.9,
-  "end": 12.16
+  "start": 11.6,
+  "end": 11.82
  },
  {
   "word": "chip,",
-  "start": 12.16,
-  "end": 12.42
+  "start": 11.82,
+  "end": 12.08
  },
  {
   "word": "and",
-  "start": 12.58,
-  "end": 12.74
+  "start": 12.24,
+  "end": 12.32
  },
  {
   "word": "it",
-  "start": 12.74,
-  "end": 12.84
+  "start": 12.32,
+  "end": 12.42
  },
  {
   "word": "has",
-  "start": 12.84,
-  "end": 13.0
+  "start": 12.42,
+  "end": 12.56
  },
  {
   "word": "to",
-  "start": 13.0,
-  "end": 13.14
+  "start": 12.56,
+  "end": 12.68
  },
  {
   "word": "pass",
-  "start": 13.14,
-  "end": 13.34
+  "start": 12.68,
+  "end": 12.9
  },
  {
   "word": "three",
-  "start": 13.34,
-  "end": 13.64
+  "start": 12.9,
+  "end": 13.18
  },
  {
   "word": "tests.",
-  "start": 13.64,
-  "end": 13.96
+  "start": 13.18,
+  "end": 13.54
  },
  {
   "word": "First,",
-  "start": 14.72,
-  "end": 15.04
+  "start": 13.78,
+  "end": 14.06
  },
  {
   "word": "a",
-  "start": 15.3,
-  "end": 15.36
+  "start": 14.26,
+  "end": 14.36
  },
  {
   "word": "hit",
-  "start": 15.36,
-  "end": 15.56
+  "start": 14.36,
+  "end": 14.5
  },
  {
   "word": "of",
-  "start": 15.56,
-  "end": 15.76
+  "start": 14.5,
+  "end": 14.58
  },
  {
   "word": "3,400",
-  "start": 15.76,
-  "end": 16.4
+  "start": 14.58,
+  "end": 15.16
  },
  {
   "word": "g.",
-  "start": 16.4,
-  "end": 16.7
+  "start": 15.16,
+  "end": 15.46
  },
  {
   "word": "A",
-  "start": 17.22,
-  "end": 17.36
+  "start": 15.837,
+  "end": 15.9
  },
  {
   "word": "fighter",
-  "start": 17.36,
-  "end": 17.52
+  "start": 15.9,
+  "end": 16.1
  },
  {
   "word": "pilot",
-  "start": 17.52,
-  "end": 17.82
+  "start": 16.1,
+  "end": 16.42
  },
  {
   "word": "blacks",
-  "start": 17.82,
-  "end": 18.04
+  "start": 16.42,
+  "end": 16.68
  },
  {
   "word": "out",
-  "start": 18.04,
-  "end": 18.26
+  "start": 16.68,
+  "end": 16.9
  },
  {
   "word": "at",
-  "start": 18.26,
-  "end": 18.38
+  "start": 16.9,
+  "end": 17.02
  },
  {
   "word": "9.",
-  "start": 18.38,
-  "end": 18.62
+  "start": 17.02,
+  "end": 17.3
  },
  {
   "word": "Then",
-  "start": 19.24,
-  "end": 19.56
+  "start": 18.035,
+  "end": 18.14
  },
  {
   "word": "fire.",
-  "start": 19.56,
-  "end": 19.82
+  "start": 18.14,
+  "end": 18.4
  },
  {
   "word": "1,100",
-  "start": 19.82,
-  "end": 20.94
+  "start": 18.4,
+  "end": 18.566
  },
  {
   "word": "degrees,",
-  "start": 20.94,
-  "end": 21.44
+  "start": 19.14,
+  "end": 19.52
  },
  {
   "word": "for",
-  "start": 21.7,
-  "end": 21.82
+  "start": 19.7,
+  "end": 19.82
  },
  {
   "word": "a",
-  "start": 21.82,
-  "end": 21.96
+  "start": 19.82,
+  "end": 19.9
  },
  {
   "word": "full",
-  "start": 21.96,
-  "end": 22.08
+  "start": 19.9,
+  "end": 20.02
  },
  {
   "word": "hour.",
-  "start": 22.08,
-  "end": 22.4
+  "start": 20.02,
+  "end": 20.26
  },
  {
   "word": "Then",
-  "start": 23.04,
-  "end": 23.42
+  "start": 20.65,
+  "end": 20.74
  },
  {
   "word": "the",
-  "start": 23.42,
-  "end": 23.64
+  "start": 20.74,
+  "end": 20.86
  },
  {
   "word": "ocean,",
-  "start": 23.64,
-  "end": 23.92
+  "start": 20.86,
+  "end": 21.12
  },
  {
   "word": "20,000",
-  "start": 23.92,
-  "end": 24.72
+  "start": 21.12,
+  "end": 21.84
  },
  {
   "word": "feet",
-  "start": 24.72,
-  "end": 24.88
+  "start": 21.84,
+  "end": 21.98
  },
  {
   "word": "down.",
-  "start": 24.88,
-  "end": 25.16
+  "start": 21.98,
+  "end": 22.22
  },
  {
   "word": "Underwater,",
-  "start": 25.88,
-  "end": 26.36
+  "start": 22.517,
+  "end": 22.9
  },
  {
   "word": "a",
-  "start": 26.56,
-  "end": 26.66
+  "start": 23.02,
+  "end": 23.12
  },
  {
   "word": "beacon",
-  "start": 26.66,
-  "end": 26.84
+  "start": 23.12,
+  "end": 23.26
  },
  {
   "word": "pings",
-  "start": 26.84,
-  "end": 27.14
+  "start": 23.26,
+  "end": 23.56
  },
  {
   "word": "every",
-  "start": 27.14,
-  "end": 27.38
+  "start": 23.56,
+  "end": 23.8
  },
  {
   "word": "second,",
-  "start": 27.38,
-  "end": 27.68
+  "start": 23.8,
+  "end": 24.1
  },
  {
   "word": "for",
-  "start": 27.86,
-  "end": 28.1
+  "start": 24.2,
+  "end": 24.3
  },
  {
   "word": "90",
-  "start": 28.1,
-  "end": 28.28
+  "start": 24.3,
+  "end": 24.52
  },
  {
   "word": "days.",
-  "start": 28.28,
-  "end": 28.5
+  "start": 24.52,
+  "end": 24.88
  },
  {
   "word": "Then",
-  "start": 29.34,
-  "end": 29.52
+  "start": 25.08,
+  "end": 25.22
  },
  {
   "word": "it",
-  "start": 29.52,
-  "end": 29.64
+  "start": 25.22,
+  "end": 25.32
  },
  {
   "word": "goes",
-  "start": 29.64,
-  "end": 29.7
+  "start": 25.32,
+  "end": 25.42
  },
  {
   "word": "silent.",
-  "start": 29.7,
-  "end": 30.04
+  "start": 25.42,
+  "end": 25.72
  },
  {
   "word": "So",
-  "start": 30.7,
-  "end": 31.02
+  "start": 26.387,
+  "end": 26.54
  },
  {
   "word": "the",
-  "start": 31.02,
-  "end": 31.24
+  "start": 26.54,
+  "end": 26.88
  },
  {
   "word": "one",
-  "start": 31.24,
-  "end": 31.36
+  "start": 26.88,
+  "end": 27.04
  },
  {
   "word": "thing",
-  "start": 31.36,
-  "end": 31.56
+  "start": 27.04,
+  "end": 27.24
  },
  {
   "word": "it",
-  "start": 31.56,
-  "end": 31.66
+  "start": 27.24,
+  "end": 27.36
  },
  {
   "word": "can't",
-  "start": 31.66,
-  "end": 31.92
+  "start": 27.36,
+  "end": 27.68
  },
  {
   "word": "survive",
-  "start": 31.92,
-  "end": 32.14
+  "start": 27.68,
+  "end": 27.88
  },
  {
   "word": "is",
-  "start": 32.14,
-  "end": 32.38
+  "start": 27.88,
+  "end": 28.14
  },
  {
   "word": "not",
-  "start": 32.38,
-  "end": 32.54
+  "start": 28.14,
+  "end": 28.32
  },
  {
   "word": "being",
-  "start": 32.54,
-  "end": 32.74
+  "start": 28.32,
+  "end": 28.56
  },
  {
   "word": "found.",
-  "start": 32.74,
-  "end": 33.06
+  "start": 28.56,
+  "end": 28.94
  },
  {
   "word": "Which",
-  "start": 33.48,
-  "end": 33.66
+  "start": 29.35,
+  "end": 29.46
  },
  {
   "word": "is",
-  "start": 33.66,
-  "end": 33.8
+  "start": 29.46,
+  "end": 29.6
  },
  {
   "word": "why\u2026",
-  "start": 33.8,
-  "end": 34.24
+  "start": 29.6,
+  "end": 30.18
  }
 ]

@@ -32,7 +32,7 @@ export const World: React.FC = () => {
   return <active.C f={f} />;
 };
 
-const Hud: React.FC = () => (
+export const Hud: React.FC = () => (
   <>
     <Readout at={c.g3400} until={c.fighter} from={0} value={3400} countFrames={10} unit="G" label="IMPACT TEST" palette={P} top={230} />
     <Gauge at={c.fighter - 2} until={c.fire} from={0} value={3400} countFrames={8} max={3400} unit="G" label="BLACK BOX" x={290} y={760} size={340} palette={P} />
@@ -45,7 +45,7 @@ const Hud: React.FC = () => (
   </>
 );
 
-const Sound: React.FC = () => {
+export const Sound: React.FC = () => {
   const pings = Array.from({ length: Math.max(0, Math.ceil((c.silent - c.underwater) / 30)) }, (_, i) => c.underwater + i * 30);
   return (
     <>

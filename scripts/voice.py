@@ -138,10 +138,23 @@ def _chatterbox_child(beats, wav_out, ref, exaggeration, cfg, seed, device, gaps
     if ref:
         model.prepare_conditionals(str(ref), exaggeration=exaggeration)
     sr = model.sr
+    # Chatterbox hard-codes max_new_tokens=1000 (~40 s); a runaway take then decodes for 15+ min
+    # on CPU. Cap it per block (speech ≈ 25 tokens/s) and remember whether a take hit the cap.
+    cap = {"n": 1000, "hit": False}
+    orig_inference = model.t3.inference
+
+    def capped(*args, **kw):
+        kw["max_new_tokens"] = min(kw.get("max_new_tokens", 1000), cap["n"])
+        out = orig_inference(*args, **kw)
+        cap["hit"] = out.shape[-1] >= cap["n"] - 2
+        return out
+
+    model.t3.inference = capped
     rng = np.random.default_rng(seed)
     pieces, ref_f0 = [], None
     for ci, text in enumerate(chunk_beats(beats)):
         n_words = len(text.split())
+        cap["n"] = int(n_words * 14 + 60)
         best = None
         # up to 4 takes per block; keep the first whose pace and pitch match the voice
         # (long blocks drift: a 230-char block came out 3.5 semitones higher than the rest)
@@ -153,8 +166,10 @@ def _chatterbox_child(beats, wav_out, ref, exaggeration, cfg, seed, device, gaps
             rate = n_words / (len(w) / sr)
             f0 = median_f0(w, sr)
             off_pitch = ref_f0 is not None and not (0.89 < f0 / ref_f0 < 1.12)
-            ok = 2.3 <= rate <= 4.0 and not off_pitch  # numbers ("16") are one token but several spoken words
-            score = abs(rate - 2.9) + (abs(np.log(f0 / ref_f0)) * 8 if ref_f0 else 0)
+            ok = 2.3 <= rate <= 4.0 and not off_pitch and not cap["hit"]  # numbers ("16") are one token but several spoken words
+            score = abs(rate - 2.9) + (abs(np.log(f0 / ref_f0)) * 8 if ref_f0 else 0) + (50 if cap["hit"] else 0)
+            if cap["hit"]:
+                print(f"  [{ci + 1}] take {take + 1}: ran into the token cap (runaway) — discarded", flush=True)
             print(f"  [{ci + 1}] take {take + 1}: {rate:.1f} words/s, {f0:.0f} Hz{'' if ok else '  (redo)'}", flush=True)
             if best is None or score < best[0]:
                 best = (score, w, f0)

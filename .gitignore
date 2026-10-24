@@ -7,3 +7,5 @@ __pycache__/
 public/_voicetest/
 videos/_voicetest/
 .DS_Store
+public/bbb/frames/
+out/bbb_cache/
