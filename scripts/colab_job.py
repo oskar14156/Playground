@@ -43,7 +43,7 @@ print("setup", round(time.time() - t0), "s;", sh("nvidia-smi --query-gpu=name,me
 # cell returns at once and the agent polls /content/job.log with short execs instead
 plate = JOB.get("plate", "")
 runner = f"""cd {SRC} && rm -f /content/job.done && START=$(date +%s) && \\
-{BL} -b -P blender/{JOB['script']}.py -- {JOB['args']} 2>&1 | grep --line-buffered -E 'BUILT|STILL|RENDERED|BAKED|DONE|Error|Traceback|File "|Saved:' | while read -r l; do echo "$(date +%T) $l"; done > /content/job.log; \\
+{BL} -b -P blender/{JOB['script']}.py -- {JOB['args']} 2>&1 | grep --line-buffered -E 'BUILT|STILL|RENDERED|BAKED|DONE|Error|Traceback|File "|Saved:|CYCLES GPU' | while read -r l; do echo "$(date +%T) $l"; done > /content/job.log; \\
 echo "render $(( $(date +%s) - START )) s" >> /content/job.log; \\
 tar -cf /content/out.tar {'public/' + plate if plate else ''} out/stills 2>/dev/null; touch /content/job.done"""
 open("/content/run.sh", "w").write(runner)

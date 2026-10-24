@@ -83,10 +83,11 @@ def new_scene(name, frame_start, frame_end, res=100, samples=48):
 
 
 def use_cycles(sc, samples=64):
-    """Cycles on the NVIDIA GPU (OptiX, else CUDA) — for cloud VMs where EEVEE has no OpenGL
-    driver and silently falls back to software rendering. Denoised, adaptive sampling."""
+    """Cycles on the NVIDIA GPU via CUDA — for cloud VMs where EEVEE has no OpenGL driver and
+    silently falls back to software rendering. Colab lacks the OptiX runtime (libnvoptix), so
+    CUDA + OpenImageDenoise. Adaptive sampling."""
     prefs = bpy.context.preferences.addons["cycles"].preferences
-    for kind in ("OPTIX", "CUDA"):
+    for kind in ("CUDA",):
         try:
             prefs.compute_device_type = kind
             prefs.refresh_devices()
@@ -104,7 +105,7 @@ def use_cycles(sc, samples=64):
     sc.cycles.use_adaptive_sampling = True
     sc.cycles.adaptive_threshold = 0.02
     sc.cycles.use_denoising = True
-    sc.cycles.denoiser = "OPTIX" if prefs.compute_device_type == "OPTIX" else "OPENIMAGEDENOISE"
+    sc.cycles.denoiser = "OPENIMAGEDENOISE"
     sc.cycles.volume_step_rate = 4.0
     sc.cycles.max_bounces = 6
     sc.cycles.volume_bounces = 1
