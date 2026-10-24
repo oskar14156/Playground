@@ -75,6 +75,6 @@ jobs:
         run: |
           ls public/${{ inputs.plate }}/${{ inputs.subdir }} | wc -l
           SCALE=$([ "${{ inputs.subdir }}" = draft ] && echo 0.5 || echo 1)
-          npx remotion render ${{ inputs.composite }} out/${{ inputs.composite }}.mp4 --props='{"plate":"${{ inputs.plate }}/${{ inputs.subdir }}"}' --scale=$SCALE --concurrency=4 --log=error
+          npx remotion render ${{ inputs.composite }} out/${{ inputs.composite }}.mp4 --props='{"plate":"${{ inputs.plate }}/${{ inputs.subdir }}"}' --scale=$SCALE --gl=swangle --concurrency=4 --log=error
       - uses: actions/upload-artifact@v4
         with: { name: video, path: "out/${{ inputs.composite }}.mp4", retention-days: 7 }
