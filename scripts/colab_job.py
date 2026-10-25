@@ -48,6 +48,7 @@ if os.path.isdir(NV):
     open("/usr/share/glvnd/egl_vendor.d/10_nvidia.json", "w").write('{"file_format_version":"1.0.0","ICD":{"library_path":"libEGL_nvidia.so.0"}}')
     print("nvidia libs:", sh(f"ls {NV} | grep -iE 'egl|optix|glx' | tr '\\n' ' '", show=False).stdout.strip(), flush=True)
 ENV = f"export LD_LIBRARY_PATH={NV}:$LD_LIBRARY_PATH __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/10_nvidia.json; "
+ENV += "".join(f"export {kv}; " for kv in JOB.get("env", "").split() if "=" in kv)  # e.g. "CYCLES_OPTIX=1"
 
 # run Blender detached: `colab exec` busy-waits at 100 % local CPU while a cell runs, so the
 # cell returns at once and the agent polls /content/job.log with short execs instead
