@@ -1,0 +1,95 @@
+# Builds MP4 Repair's Play bundle from the private repository, unsigned.
+#
+# Nothing secret enters this public workflow beyond the read token every
+# bridge job here uses: the bundle is signed on the developer's Mac, and the
+# Sentry upload happens there too. What leaves the runner is encrypted to a
+# public key passed in at dispatch, so the artifact is useless to anyone else.
+name: MP4 Repair Android bundle
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Commit or branch of oskar14156/mp4repair
+        required: true
+        default: main
+      public_key:
+        description: Base64 of the PEM public key the artifact is encrypted to
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mp4repair-android-bundle
+  cancel-in-progress: false
+
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Check out the private repository
+        uses: actions/checkout@v4
+        with:
+          repository: oskar14156/mp4repair
+          ref: ${{ inputs.ref }}
+          token: ${{ secrets.CI_BRIDGE_READ_TOKEN }}
+          path: app
+          persist-credentials: false
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Android SDK pieces the build pins
+        run: |
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "ndk;27.1.12297006" "platforms;android-36" "build-tools;36.0.0" > /dev/null
+
+      - name: Install dependencies
+        working-directory: app
+        run: npm ci --no-audit --no-fund
+
+      - name: Build the unsigned bundle
+        working-directory: app/android
+        env:
+          SENTRY_DISABLE_AUTO_UPLOAD: 'true'
+        run: ./gradlew bundleRelease -PreactNativeArchitectures=armeabi-v7a,arm64-v8a --no-daemon
+
+      - name: Encrypt the bundle and its JavaScript source maps
+        env:
+          PUBLIC_KEY_B64: ${{ inputs.public_key }}
+        run: |
+          set -euo pipefail
+          printf '%s' "$PUBLIC_KEY_B64" | base64 -d > public.pem
+          out=app/android/app/build
+          tar -czf payload.tgz \
+            -C "$out/outputs/bundle/release" app-release.aab \
+            -C "$GITHUB_WORKSPACE/$out" $(cd "$out" && find generated/sourcemaps intermediates/sourcemaps generated/assets -type f \( -name '*.map' -o -name '*.bundle' \) 2>/dev/null)
+          openssl rand -out session.key 32
+          openssl enc -aes-256-cbc -pbkdf2 -salt -in payload.tgz -out payload.enc -pass file:session.key
+          openssl pkeyutl -encrypt -pubin -inkey public.pem -pkeyopt rsa_padding_mode:oaep -in session.key -out session.key.enc
+          rm -f session.key payload.tgz
+          ls -la payload.enc session.key.enc
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mp4repair-bundle
+          path: |
+            payload.enc
+            session.key.enc
+          retention-days: 2
+
+      - name: Remove the private checkout
+        if: always()
+        run: rm -rf app public.pem session.key payload.tgz
