@@ -39,10 +39,20 @@ if not os.path.exists(BL):
     sh("mkdir -p /content/blender && curl -sL https://download.blender.org/release/Blender5.2/blender-5.2.3-linux-x64.tar.xz | tar -xJ -C /content/blender --strip-components=1")
 print("setup", round(time.time() - t0), "s;", sh("nvidia-smi --query-gpu=name,memory.total --format=csv,noheader", show=False).stdout.strip(), flush=True)
 
+# Colab ships the NVIDIA user-space libs in /usr/lib64-nvidia but no EGL vendor file, so Blender's
+# EEVEE falls back to Mesa software rendering (EGL_BAD_MATCH). Register the NVIDIA EGL ICD and put
+# the libs on the path; the same path also provides libnvoptix for Cycles OptiX.
+NV = "/usr/lib64-nvidia"
+if os.path.isdir(NV):
+    os.makedirs("/usr/share/glvnd/egl_vendor.d", exist_ok=True)
+    open("/usr/share/glvnd/egl_vendor.d/10_nvidia.json", "w").write('{"file_format_version":"1.0.0","ICD":{"library_path":"libEGL_nvidia.so.0"}}')
+    print("nvidia libs:", sh(f"ls {NV} | grep -iE 'egl|optix|glx' | tr '\\n' ' '", show=False).stdout.strip(), flush=True)
+ENV = f"export LD_LIBRARY_PATH={NV}:$LD_LIBRARY_PATH __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/10_nvidia.json; "
+
 # run Blender detached: `colab exec` busy-waits at 100 % local CPU while a cell runs, so the
 # cell returns at once and the agent polls /content/job.log with short execs instead
 plate = JOB.get("plate", "")
-runner = f"""cd {SRC} && rm -f /content/job.done && START=$(date +%s) && \\
+runner = ENV + f"""cd {SRC} && rm -f /content/job.done && START=$(date +%s) && \\
 {BL} -b -P blender/{JOB['script']}.py -- {JOB['args']} 2>&1 | grep --line-buffered -E 'BUILT|STILL|RENDERED|BAKED|DONE|Error|Traceback|File "|Saved:|CYCLES GPU' | while read -r l; do echo "$(date +%T) $l"; done > /content/job.log; \\
 echo "render $(( $(date +%s) - START )) s" >> /content/job.log; \\
 tar -cf /content/out.tar {'public/' + plate if plate else ''} out/stills 2>/dev/null; touch /content/job.done"""

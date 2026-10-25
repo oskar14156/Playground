@@ -87,7 +87,7 @@ def use_cycles(sc, samples=64):
     silently falls back to software rendering. Colab lacks the OptiX runtime (libnvoptix), so
     CUDA + OpenImageDenoise. Adaptive sampling."""
     prefs = bpy.context.preferences.addons["cycles"].preferences
-    for kind in ("CUDA",):
+    for kind in ("OPTIX", "CUDA") if os.environ.get("CYCLES_OPTIX") else ("CUDA",):
         try:
             prefs.compute_device_type = kind
             prefs.refresh_devices()
@@ -105,7 +105,7 @@ def use_cycles(sc, samples=64):
     sc.cycles.use_adaptive_sampling = True
     sc.cycles.adaptive_threshold = 0.02
     sc.cycles.use_denoising = True
-    sc.cycles.denoiser = "OPENIMAGEDENOISE"
+    sc.cycles.denoiser = "OPTIX" if prefs.compute_device_type == "OPTIX" else "OPENIMAGEDENOISE"
     sc.cycles.volume_step_rate = 4.0
     sc.cycles.max_bounces = 6
     sc.cycles.volume_bounces = 1
