@@ -1,5 +1,5 @@
 name: Fast premium 3D lookdev still checks
-# Quality iteration 3: wider physical filter explosion and camera-centered filter end shot
+# Quality iteration 4: legible full filter reveal, wide dramatic final, shot-specific text
 on:
   push:
     branches: [vacuum-v2-3d]
