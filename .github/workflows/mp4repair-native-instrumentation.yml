@@ -56,3 +56,5 @@ jobs:
       - name: Erase private checkout and APKs
         if: always()
         run: rm -rf app
+
+# Final test branch: aspect-ratio regression, eight Android instrumentation tests.
