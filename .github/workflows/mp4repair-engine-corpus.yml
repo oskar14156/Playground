@@ -41,3 +41,5 @@ jobs:
       - name: Delete private checkout and fixtures
         if: always()
         run: rm -rf app /tmp/kotlin.zip
+
+# Re-run after selecting portable Linux FFmpeg encoders.
