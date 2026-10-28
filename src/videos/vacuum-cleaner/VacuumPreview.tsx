@@ -118,7 +118,6 @@ const Apartment:React.FC<{f:number;cleaned:boolean;gone:boolean}>=({f,cleaned,go
   </g>;
 };
 const Machine:React.FC<{f:number;step:number}>=({f,step})=>{
-  const t=f/FPS;
   const fan=step>=1;
   const dust=step>=2;
   const cyclone=step>=3;
