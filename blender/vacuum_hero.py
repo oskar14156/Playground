@@ -46,6 +46,8 @@ def mat(name, c, metal=0, rough=.36, transmission=0, emission=0,coat=.0):
     if "Coat Weight" in p.inputs: p.inputs["Coat Weight"].default_value=coat
     if name.startswith(("01 ","02 ","04 ")):
         tex=m.node_tree.nodes.new("ShaderNodeTexNoise")
+        coords=m.node_tree.nodes.new("ShaderNodeTexCoord")
+        m.node_tree.links.new(coords.outputs["Generated"],tex.inputs["Vector"])
         tex.inputs["Scale"].default_value=230 if name.startswith("01 ") else 90
         tex.inputs["Detail"].default_value=2
         bump=m.node_tree.nodes.new("ShaderNodeBump")
