@@ -46,6 +46,9 @@ jobs:
 
   emulator:
     name: Android emulator install and real sample repair
+    # Updating the workflow solely to re-check formatting should not duplicate
+    # an Android build already running in a different workflow attempt.
+    if: github.event.head_commit.message != 'Rerun MP4Repair code checks'
     runs-on: ubuntu-latest
     timeout-minutes: 75
     steps:
