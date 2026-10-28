@@ -1,0 +1,98 @@
+name: motionshorts vacuum preview
+on:
+  push:
+    branches: [motionshorts]
+    paths:
+      - "src/videos/vacuum-cleaner/**"
+      - "videos/vacuum-cleaner/**"
+      - "src/Root.tsx"
+      - ".github/workflows/motionshorts-vacuum-preview.yml"
+  workflow_dispatch: {}
+permissions:
+  contents: read
+concurrency:
+  group: vacuum-preview
+  cancel-in-progress: true
+jobs:
+  preview:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22, cache: npm}
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - name: Install
+        run: |
+          npm ci --no-audit --no-fund
+          python -m pip install --disable-pip-version-check edge-tts
+      - name: Voice and timings
+        run: |
+          mkdir -p public/vacuum-cleaner
+          python3 - <<'PY'
+          import asyncio, json, re, pathlib, subprocess
+          src=pathlib.Path('videos/vacuum-cleaner/script.txt').read_text()
+          spoken=' '.join(x.strip() for x in src.splitlines() if x.strip() and not x.lstrip().startswith('#'))
+          toks=spoken.split()
+          out=pathlib.Path('public/vacuum-cleaner')
+          boundaries=[]
+          async def synth():
+              import edge_tts
+              c=edge_tts.Communicate(text=spoken,voice='en-US-AndrewNeural',rate='+12%')
+              with (out/'vo.mp3').open('wb') as fd:
+                  async for chunk in c.stream():
+                      if chunk['type']=='audio': fd.write(chunk['data'])
+                      elif chunk['type']=='WordBoundary':
+                          boundaries.append({'word':chunk['text'],'start':chunk['offset']/10000000,'end':(chunk['offset']+chunk['duration'])/10000000})
+          try:
+              asyncio.run(synth())
+              if len(boundaries)<len(toks)*0.8: raise RuntimeError('incomplete synthesis')
+              print('Edge TTS:',len(boundaries),'boundaries')
+          except Exception as e:
+              print('Fallback to offline espeak:',e)
+              subprocess.run(['sudo','apt-get','update','-qq'],check=True)
+              subprocess.run(['sudo','apt-get','install','-y','-qq','espeak-ng','ffmpeg'],check=True)
+              subprocess.run(['espeak-ng','-v','en-us','-s','175','-w',str(out/'vo.wav'),spoken],check=True)
+              subprocess.run(['ffmpeg','-y','-v','error','-i',str(out/'vo.wav'),str(out/'vo.mp3')],check=True)
+              boundaries=[]
+          dur=float(subprocess.check_output(['ffprobe','-v','error','-show_entries','format=duration','-of','default=noprint_wrappers=1:nokey=1',str(out/'vo.mp3')]).decode())
+          norm=lambda s:re.sub(r'[^a-z0-9]','',s.lower())
+          if [norm(x['word']) for x in boundaries]==[norm(x) for x in toks]:
+              words=[dict(word=w,start=e['start'],end=e['end']) for w,e in zip(toks,boundaries)]
+              print('Exact word timestamps')
+          else:
+              print('Approximate fallback timestamps')
+              weights=[max(1.3,len(x)**0.7) for x in toks]
+              total=sum(weights)
+              cursor=0
+              words=[]
+              for word,wt in zip(toks,weights):
+                  start=cursor/total*dur
+                  cursor+=wt
+                  words.append(dict(word=word,start=start,end=cursor/total*dur))
+          (out/'words.json').write_text(json.dumps(words,indent=2))
+          print('Duration',round(dur,1),'seconds')
+          PY
+      - name: Check types
+        run: npx tsc --noEmit
+      - name: Render draft
+        run: |
+          mkdir -p out
+          npx remotion render vacuum-cleaner out/vacuum-cleaner_preview.mp4 --scale=0.4 --crf=30 --gl=swangle --concurrency=2 --log=error
+          ffprobe -v error -show_entries format=duration,size -of default=noprint_wrappers=1 out/vacuum-cleaner_preview.mp4
+      - name: Contact sheet
+        if: success()
+        run: ffmpeg -y -v error -i out/vacuum-cleaner_preview.mp4 -vf "fps=1/7,scale=120:-1,tile=6x2" -frames:v 1 out/vacuum-contact.jpg
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: vacuum-cleaner-preview
+          path: |
+            out/vacuum-cleaner_preview.mp4
+            out/vacuum-contact.jpg
+            public/vacuum-cleaner/vo.mp3
+            public/vacuum-cleaner/words.json
+          if-no-files-found: warn
+          retention-days: 7
