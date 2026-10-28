@@ -1,0 +1,64 @@
+name: Recover slow 3D film segments using optimized geometry
+on:
+  push:
+    branches: [vacuum-v2-3d]
+    paths:
+      - ".github/workflows/vacuum-fox-recovery.yml"
+  workflow_dispatch: {}
+permissions:
+  contents: read
+  actions: read
+jobs:
+  render:
+    strategy:
+      fail-fast: false
+      max-parallel: 5
+      matrix:
+        part: [3,5,6,9,11]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22, cache: npm}
+      - name: Install
+        run: npm ci --no-audit --no-fund
+      - uses: actions/download-artifact@v4
+        with:
+          name: vacuum-live-3d-models-lite
+          run-id: 40752972311
+          github-token: ${{ github.token }}
+          path: out/models
+      - uses: actions/download-artifact@v4
+        with:
+          name: vacuum-fox-full-low-quality-preview
+          run-id: 40744763890
+          github-token: ${{ github.token }}
+          path: out/voice
+      - name: Stage voice and optimized meshes
+        run: |
+          mkdir -p public/vacuum-live
+          for file in fox_helmet room vacuum_body; do
+            src=$(find out/models -name "$file.glb" -type f -print -quit)
+            test -s "$src"; cp "$src" "public/vacuum-live/$file.glb"
+          done
+          for file in words.json vo.mp3; do
+            src=$(find out/voice -name "$file" -type f -print -quit)
+            test -s "$src"; cp "$src" "public/vacuum-live/$file"
+          done
+      - name: Render missing 183 frame true Three.js segment
+        run: |
+          part=${{ matrix.part }}
+          start=$((part*183))
+          end=$((start+182))
+          if [ "$end" -gt 2187 ]; then end=2187; fi
+          printf -v seq "%02d" "$part"
+          mkdir -p out
+          npx remotion render vacuum-fox-live "out/part-$seq.mp4" --frames="$start-$end" --scale=0.4 --crf=30 --gl=swangle --concurrency=3 --log=error
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vacuum-live-recovery-${{ matrix.part }}
+          path: out/*.mp4
+          retention-days: 7
+          if-no-files-found: error
