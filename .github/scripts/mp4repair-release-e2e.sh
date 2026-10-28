@@ -1,0 +1,165 @@
+#!/usr/bin/env bash
+# E2E regression matrix on a real Android emulator, using a Release-mode
+# APK signed ONLY with the disposable development key on a CI runner.
+# The original user files are never uploaded. No purchase is attempted.
+set -euo pipefail
+
+APK=app/android/app/build/outputs/apk/release/app-release.apk
+PACKAGE=com.oskarpolster.mp4repair
+adb install -r "$APK"
+adb shell am force-stop "$PACKAGE" || true
+adb logcat -c || true
+adb shell am start -n "$PACKAGE/.MainActivity"
+sleep 7
+
+python3 - <<'PY'
+import re, subprocess, time, xml.etree.ElementTree as ET, traceback
+
+P='com.oskarpolster.mp4repair'
+checks=[]
+def adb(*args, timeout=45):
+    return subprocess.check_output(['adb', *args], timeout=timeout, text=True, stderr=subprocess.STDOUT)
+def nodes():
+    for i in range(3):
+        try:
+            adb('shell','uiautomator','dump','/sdcard/ui.xml')
+            xml=adb('shell','cat','/sdcard/ui.xml')
+            return list(ET.fromstring(xml[xml.index('<?xml'):]).iter('node'))
+        except (ValueError,ET.ParseError,subprocess.CalledProcessError,subprocess.TimeoutExpired):
+            time.sleep(1)
+    raise AssertionError('Android accessibility hierarchy unavailable')
+def ui():
+    return ' | '.join((n.get('text','')+' '+n.get('content-desc','')).strip() for n in nodes())
+def tap(name):
+    options=[]
+    for n in nodes():
+        label=' '.join((n.get('text',''),n.get('content-desc','')))
+        if name.casefold() not in label.casefold():continue
+        m=re.fullmatch(r'\[(\d+),(\d+)\]\[(\d+),(\d+)\]',n.get('bounds',''))
+        if not m:continue
+        x1,y1,x2,y2=map(int,m.groups())
+        if x2<=x1 or y2<=y1:continue
+        options.append((n.get('clickable')=='true',(x2-x1)*(y2-y1),x1,y1,x2,y2))
+    if not options:return False
+    clickable,area,x1,y1,x2,y2=max(options)
+    print('TAP',name,'clickable',clickable,'coords',((x1+x2)//2,(y1+y2)//2),flush=True)
+    adb('shell','input','tap',str((x1+x2)//2),str((y1+y2)//2))
+    return True
+def expect_any(names,seconds=30):
+    last=''
+    deadline=time.monotonic()+seconds
+    while time.monotonic()<deadline:
+        last=ui()
+        if "Quickstep isn't responding" in last:
+            tap('Close app')
+            adb('shell','am','start','-n',P+'/.MainActivity')
+        for name in names:
+            if name.casefold() in last.casefold():return name,last
+        time.sleep(1)
+    raise AssertionError('Expected any of '+str(names)+' but got: '+last[:1100])
+def check(name,action):
+    print('CASE START',name,flush=True)
+    try:
+        action()
+        checks.append((name,'PASS'))
+        print('CASE PASS',name,flush=True)
+    except Exception as e:
+        checks.append((name,'FAIL'))
+        print('CASE FAIL',name,repr(e),'UI=',ui()[:1200],flush=True)
+        try:
+            print('MEMORY',adb('shell','dumpsys','meminfo',P)[:1400],flush=True)
+            print('RECENT APP LOGS', '\n'.join(l for l in adb('logcat','-d','-t','700').splitlines() if P in l or 'ReactNativeJS' in l or 'FATAL EXCEPTION' in l)[-10000:],flush=True)
+        except Exception as caught:print('Log capture issue:',caught,flush=True)
+        raise
+
+def onboarding():
+    for _ in range(12):
+        state=ui()
+        if 'Try an example' in state:return
+        for label in ('Skip','Get started','Next','Continue','Done'):
+            if tap(label):break
+        else:time.sleep(2)
+        time.sleep(.7)
+    expect_any(['Try an example'],10)
+check('onboarding-to-home',onboarding)
+
+def settings():
+    assert tap('Settings'),'Settings button not present'
+    expect_any(['Settings','Language'],15)
+    adb('shell','input','keyevent','4')
+    expect_any(['Try an example'],15)
+check('settings-back-navigation',settings)
+
+def diagnosis():
+    assert tap('Try an example'),'sample button missing'
+    found,page=expect_any(['Video index missing','Diagnosis'],25)
+    if 'Video index missing' not in page:found,page=expect_any(['Video index missing'],20)
+    assert 'SampleDamaged.mp4' in page,page[:700]
+    print('DIAGNOSIS',page[:800],flush=True)
+    # Let reference evaluation complete before pressing Repair.
+    time.sleep(2)
+check('sample-diagnosis',diagnosis)
+
+def repair():
+    assert tap('Start repair'),'start button missing'
+    progress_seen=False
+    for i in range(90):
+        state=ui()
+        if i % 8 == 0:print('REPAIR',i,state[:750],flush=True)
+        if 'Rebuilding your video' in state or 'Writing the repaired' in state:
+            progress_seen=True
+        if 'Your video is ready' in state or 'Unlock MP4 Repair Pro' in state:
+            tap('Close')
+            time.sleep(1)
+        if 'Your video is back' in state or 'Frames recovered' in state:
+            print('REPAIR RESULT',state[:1200],flush=True)
+            assert 'Preview' in state or 'Frames recovered' in state
+            return
+        if 'This file could not be repaired' in state or 'No video frames' in state:
+            raise AssertionError('Native repair failed: '+state[:1400])
+        if i==8 and 'Diagnosis' in state and 'Start repair' in state:
+            print('STUCK DIAGNOSIS; APP LOGS:', '\n'.join(l for l in adb('logcat','-d','-t','700').splitlines() if 'ReactNativeJS' in l or 'AndroidRuntime' in l)[-5000:],flush=True)
+        time.sleep(1)
+    raise AssertionError('No successful result; last UI: '+ui()[:1200])
+check('real-native-sample-repair',repair)
+
+def background_restore():
+    adb('shell','input','keyevent','3')
+    time.sleep(1)
+    adb('shell','am','start','-n',P+'/.MainActivity')
+    expect_any(['Your video is back','Frames recovered','Your video is ready'],20)
+check('background-and-resume-preview',background_restore)
+
+def result_to_home():
+    assert tap('Repair another video'),'Result action missing'
+    state=expect_any(['Try an example'],20)[1]
+    assert 'REPAIRED VIDEOS' in state.upper() or 'SampleDamaged' in state
+check('result-back-to-home',result_to_home)
+
+def reopen():
+    # Most recent repaired file must be reachable from home.
+    state=ui()
+    print('HOME AFTER REPAIR',state[:900],flush=True)
+    if 'SampleDamaged' not in state:
+        raise AssertionError('Repaired file was not listed on Home')
+    assert tap('SampleDamaged'),'Repaired file list row not actionable'
+    expect_any(['Preview','Save in full quality','Share','Delete from app'],15)
+    adb('shell','input','keyevent','4')
+    expect_any(['Try an example'],20)
+check('reopen-repaired-video-and-back',reopen)
+
+def second_sample():
+    assert tap('Try an example'),'Try an example missing after repair'
+    expect_any(['Video index missing'],25)
+    assert tap('Start repair')
+    expect_any(['Rebuilding your video','Your video is back','This file could not be repaired','Your video is ready'],30)
+check('second-repair-progress',second_sample)
+
+print('ANDROID MATRIX FINAL',checks,flush=True)
+PY
+
+if adb logcat -d -t 1500 | grep -E 'FATAL EXCEPTION|OutOfMemoryError|SIGABRT'; then
+  echo 'FAIL: Android fatal crash found'
+  exit 1
+fi
+echo 'PASS: Android native logs have no recent fatal exception'
