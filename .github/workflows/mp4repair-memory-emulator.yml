@@ -159,3 +159,5 @@ jobs:
         run: rm -rf app
 
 # CI replay: extra preview lifecycle regression guards.
+
+# CI replay: account for the Bitmap cleanup comment in the test assertion.
