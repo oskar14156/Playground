@@ -43,10 +43,18 @@ jobs:
           test -s out/vacuum_blender/hero.png
           test -s out/vacuum_blender/cyclone.png
           test -s out/vacuum_blender/brush.png
+      - name: Render frame-sequence motion review
+        run: |
+          mkdir -p out/vacuum_motion
+          ~/blender/blender -b -t 4 -P blender/vacuum_hero.py -- --motion --res 33 --samples 9 --out out/vacuum_motion 2>&1 | tail -40
+          test -s out/vacuum_motion/f_000.png
+          test -s out/vacuum_motion/f_044.png
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: vacuum-blender-cinematic-stills
-          path: out/vacuum_blender/
+          path: |
+            out/vacuum_blender/
+            out/vacuum_motion/
           retention-days: 7
           if-no-files-found: warn
