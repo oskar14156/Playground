@@ -47,3 +47,5 @@ jobs:
 # Re-run after selecting portable Linux FFmpeg encoders.
 
 # Re-run after reference-aspect-ratio geometry selection fix.
+
+# Isolate HEVC 1080p resize-vs-decode failure before changing candidate selection.
