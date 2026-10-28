@@ -32,3 +32,10 @@ The hero character was exported as a simplified foam shell/primitive costume hea
 - Downloader: `scripts/polyhaven_asset.py`.
 - Action workflow: `.github/workflows/vacuum-pbr-assets.yml`.
 - User-supplied reference quality bar: AC-130, submarine, FedEx styled coded motion explainers.
+
+## Additional completed PBR asset tests (2026-10-28)
+- Run 40774222729: first textured Poly Haven sofa; render succeeded, camera saw couch back and helmet opening. Rejected.
+- Run 40774697608: front-facing sofa and fox correctly in three inspected stills. Real PBR upholstery and tufting better; blank room and plastic toy helmet remain. Rejected.
+- Run 40775165985: 17,000 emitter hairs plus interpolated children via Cycles particle grooming on fox helmet. Inspected all three renders: fur looks like rigid spikes; underlying sculpt still cartoonish, with flat triangle ears and oversized eyes. **Rejected**. Not approved for final reel.
+- Poly Haven downloader with maps and checksums works: scripts/polyhaven_asset.py fetched sofa_02.bin, albedo/normal/ARM textures; sample code blender/fox_pbr_living_room_hero.py. Production must use comparable real model assets, not extend poor primitives.
+- Replacement mask candidate: CC BY Fox Fursuit base, https://sketchfab.com/3d-models/fursuit-base-kemono-fox-3d-print-015d8f28b7bf4c03baede4f0a6ca619d (~323k tris). **Not yet downloaded nor tested**; may require Sketchfab login. Needs proper fur grooming/face finish. Avoid unlicensed asset copying.
