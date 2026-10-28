@@ -1,0 +1,84 @@
+name: Fox Pocket Puh LIVE 3D full episode
+on:
+  push:
+    branches: [vacuum-v2-3d]
+    paths:
+      - "src/videos/vacuum3d/VacuumFoxLive.tsx"
+      - "src/Root.tsx"
+      - ".github/workflows/vacuum-fox-live-preview.yml"
+  workflow_dispatch: {}
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: vacuum-fox-animated-live
+  cancel-in-progress: true
+jobs:
+  preview:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 105
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install render tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg >/dev/null
+          npm ci --no-audit --no-fund
+      - name: Download real glTF from Blender
+        uses: actions/download-artifact@v4
+        with:
+          name: vacuum-live-3d-models
+          run-id: 40748764251
+          github-token: ${{ github.token }}
+          path: out/models
+      - name: Download previously synthesized voice and word timings
+        uses: actions/download-artifact@v4
+        with:
+          name: vacuum-fox-full-low-quality-preview
+          run-id: 40744763890
+          github-token: ${{ github.token }}
+          path: out/old-voice
+      - name: Stage real 3D assets
+        run: |
+          mkdir -p public/vacuum-live
+          for file in fox_helmet room vacuum_body; do
+            src=$(find out/models -name "$file.glb" -type f -print -quit)
+            test -s "$src"
+            cp "$src" "public/vacuum-live/$file.glb"
+          done
+          for file in words.json vo.mp3; do
+            src=$(find out/old-voice -name "$file" -type f -print -quit)
+            test -s "$src"
+            cp "$src" "public/vacuum-live/$file"
+          done
+          du -h public/vacuum-live/*
+          npx tsc --noEmit
+      - name: Render five actual 3D motion proof stills
+        run: |
+          mkdir -p out/vacuum-live
+          for frame in 24 60 100 145 203; do
+            npx remotion still vacuum-fox-live-proof "out/vacuum-live/proof_$frame.png" --frame="$frame" --scale=0.4 --gl=swangle --log=error
+          done
+      - name: Render 7.5s actual 3D movement test
+        run: |
+          npx remotion render vacuum-fox-live-proof out/vacuum-live/real-3d-motion-proof.mp4 --scale=0.4 --crf=30 --gl=swangle --concurrency=2 --log=error
+          ffmpeg -y -v error -i out/vacuum-live/real-3d-motion-proof.mp4 -vf "fps=1/0.65,scale=140:-1,tile=6x2" -frames:v 1 out/vacuum-live/motion_contact.jpg
+      - name: Render complete live 3D short with narration
+        run: |
+          npx remotion render vacuum-fox-live out/vacuum-live/vacuum-fox-live-3d-preview.mp4 --scale=0.4 --crf=30 --gl=swangle --concurrency=2 --log=error
+          ffprobe -v error -show_entries format=duration,size:stream=width,height,nb_frames -of json out/vacuum-live/vacuum-fox-live-3d-preview.mp4 > out/vacuum-live/metadata.json
+          ffmpeg -y -v error -i out/vacuum-live/vacuum-fox-live-3d-preview.mp4 -vf "fps=1/7,scale=120:-1,tile=6x2" -frames:v 1 out/vacuum-live/full_contact.jpg
+          cat out/vacuum-live/metadata.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: vacuum-fox-actual-live-3d-mp4
+          path: out/vacuum-live/
+          if-no-files-found: warn
+          retention-days: 7
