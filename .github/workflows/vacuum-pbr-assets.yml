@@ -1,0 +1,71 @@
+name: Premium PBR asset replacement prototype
+on:
+  push:
+    branches: [vacuum-v2-3d]
+    paths:
+      - "scripts/polyhaven_asset.py"
+      - "blender/fox_pbr_living_room_hero.py"
+      - ".github/workflows/vacuum-pbr-assets.yml"
+  workflow_dispatch: {}
+permissions:
+  contents: read
+  actions: read
+jobs:
+  pbr-lookdev:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: python3 -m py_compile scripts/polyhaven_asset.py blender/fox_pbr_living_room_hero.py
+      - name: Download actual PBR living-room sofa from Poly Haven (CC0)
+        run: |
+          python3 scripts/polyhaven_asset.py sofa_02 out/pbr-assets/sofa_02
+          find out/pbr-assets/sofa_02 -maxdepth 3 -type f -printf '%P %k KB\n' | head -40
+      - name: Read verified source path and dependency status
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          data=json.loads(Path("out/pbr-assets/sofa_02/LICENSE_AND_ASSET.json").read_text())
+          Path("out/sofa-path.txt").write_text(data["main"])
+          print(data)
+          PY
+      - uses: actions/download-artifact@v4
+        with:
+          name: vacuum-live-3d-models-lite
+          run-id: 40752972311
+          github-token: ${{ github.token }}
+          path: out/previous
+      - uses: actions/cache@v4
+        with:
+          path: ~/blender
+          key: blender-5.2.3-linux
+      - name: Install Blender
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq libegl1 libgl1-mesa-dri libxi6 libxkbcommon0 libxrender1 libxxf86vm1 libsm6 libxfixes3 libxkbcommon-x11-0 >/dev/null
+          if [ ! -x ~/blender/blender ]; then
+            mkdir -p ~/blender
+            curl -fsSL https://download.blender.org/release/Blender5.2/blender-5.2.3-linux-x64.tar.xz | tar -xJ -C ~/blender --strip-components=1
+          fi
+      - name: Real scanned/PBR sofa + 3D mask from previous iterations
+        run: |
+          mkdir -p out/pbr-frames
+          SOFA="$(cat out/sofa-path.txt)"
+          FOX="$(find out/previous -name fox_helmet.glb -type f -print -quit)"
+          test -s "$SOFA"; test -s "$FOX"
+          ~/blender/blender -b -t 4 -P blender/fox_pbr_living_room_hero.py -- --sofa "$SOFA" --fox "$FOX" --res 45 --samples 18 --out out/pbr-frames 2>&1 | tee out/pbr.log | tail -100
+          for shot in wide sofa close; do test -s "out/pbr-frames/$shot.png"; done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: vacuum-quality-real-cc0-pbr-model-comparison
+          path: |
+            out/pbr-frames/
+            out/pbr.log
+            out/pbr-assets/sofa_02/LICENSE_AND_ASSET.json
+          retention-days: 7
+          if-no-files-found: warn
