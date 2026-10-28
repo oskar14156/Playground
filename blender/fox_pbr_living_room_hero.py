@@ -105,9 +105,9 @@ def imported_asset(filepath,name,target_width,target,turn=0):
        "dimension_m",tuple(round(maxs[i]-mins[i],3) for i in range(3)),
        "scale",round(s,4),flush=True)
  return root
-sofa=imported_asset(SOFA,"REAL SCANNED PBR SOFA",2.7,(-.60,1.1,.0),turn=math.pi)
+sofa=imported_asset(SOFA,"REAL SCANNED PBR SOFA",2.7,(-.60,1.1,.0),turn=0)
 if FOX:
- fox=imported_asset(FOX,"FURSUIT HELMET ON UPHOLSTERY",.77,(-.62,1.10,.83),turn=math.pi)
+ fox=imported_asset(FOX,"FURSUIT HELMET ON UPHOLSTERY",.77,(-.62,1.10,.83),turn=0)
 # Add believable small interior details.
 bpy.ops.mesh.primitive_cylinder_add(vertices=56,radius=.28,depth=.42,location=(2.54,1.43,.26))
 plantpot=bpy.context.object;plantpot.name="Ceramic planter";plantpot.data.materials.append(simple_mat("Matte clay",(.44,.37,.30),0,.8))
