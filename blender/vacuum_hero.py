@@ -396,6 +396,11 @@ if a.export_model:
  if bpy.context.selected_objects:
   bpy.context.view_layer.objects.active=bpy.context.selected_objects[0]
   bpy.ops.object.join()
+  if a.export_lite:
+   target=bpy.context.view_layer.objects.active
+   modifier=target.modifiers.new("Lightweight animated video LOD","DECIMATE")
+   modifier.ratio=0.27
+   bpy.ops.object.modifier_apply(modifier=modifier.name)
  bpy.ops.export_scene.gltf(filepath=os.path.join(out,"vacuum_body.glb"),export_format="GLB",use_selection=True,export_apply=True)
  print("EXPORTED LIVE THREE.JS VACUUM BODY GLB",flush=True)
 elif a.motion:
