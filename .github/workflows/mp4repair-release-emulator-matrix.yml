@@ -65,3 +65,5 @@ jobs:
       - name: Delete private build and checkout
         if: always()
         run: rm -rf app
+
+# Rerun: automatic paywall must stay dismissed after background and billing refresh.
