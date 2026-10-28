@@ -1,0 +1,156 @@
+# Self-contained test harness for the private MP4 Repair code.
+# Only oskar14156/playground executes CI. The app repository is checked
+# out read-only using the existing CI bridge secret; its own CI is not used.
+name: MP4 Repair build 13 memory regression + emulator
+on:
+  push:
+    paths:
+      - .github/workflows/mp4repair-memory-emulator.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    name: TypeScript, lint and Jest
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout private MP4 Repair branch
+        uses: actions/checkout@v4
+        with:
+          repository: oskar14156/mp4repair
+          ref: fix/build13-android-memory
+          token: ${{ secrets.CI_BRIDGE_READ_TOKEN }}
+          persist-credentials: false
+          path: app
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+      - name: Install dependencies
+        working-directory: app
+        run: npm ci --no-audit --no-fund
+      - name: Test and static analysis
+        working-directory: app
+        run: |
+          npm run typecheck
+          npm run lint
+          npm run format:check
+          npm run test:ci
+      - name: Remove private checkout
+        if: always()
+        run: rm -rf app
+
+  emulator:
+    name: Android emulator install and real sample repair
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    steps:
+      - name: Checkout private MP4 Repair branch
+        uses: actions/checkout@v4
+        with:
+          repository: oskar14156/mp4repair
+          ref: fix/build13-android-memory
+          token: ${{ secrets.CI_BRIDGE_READ_TOKEN }}
+          persist-credentials: false
+          path: app
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Install dependencies
+        working-directory: app
+        run: npm ci --no-audit --no-fund
+      - name: Bundle JS into the debug APK (no Metro)
+        working-directory: app
+        run: |
+          mkdir -p android/app/src/debug/assets android/app/src/debug/res
+          node node_modules/react-native/cli.js bundle \
+            --platform android --dev true --entry-file index.js \
+            --bundle-output android/app/src/debug/assets/index.android.bundle \
+            --assets-dest android/app/src/debug/res
+      - name: Build emulator-compatible APK (x86_64 and arm64)
+        working-directory: app/android
+        env:
+          SENTRY_DISABLE_AUTO_UPLOAD: 'true'
+        run: ./gradlew assembleDebug -PreactNativeArchitectures=x86_64,arm64-v8a --no-daemon
+      - name: Run on an actual Android emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          arch: x86_64
+          profile: pixel_6
+          disable-animations: true
+          emulator-boot-timeout: 900
+          script: |
+            set -euo pipefail
+            adb install -r app/android/app/build/outputs/apk/debug/app-debug.apk
+            adb shell am start -n com.oskarpolster.mp4repair/.MainActivity
+            sleep 10
+            adb shell dumpsys activity activities | grep -E 'mResumedActivity|topResumedActivity|ResumedActivity' || true
+            adb logcat -d -t 400 | grep -E 'FATAL EXCEPTION|OutOfMemoryError|AndroidRuntime' && exit 1 || true
+            python3 - <<'PY'
+            import re,subprocess,time,xml.etree.ElementTree as ET
+            def sh(*args):
+                return subprocess.check_output(['adb',*args],text=True,stderr=subprocess.STDOUT)
+            def nodes():
+                sh('shell','uiautomator','dump','/sdcard/mp4repair-ui.xml')
+                data=sh('shell','cat','/sdcard/mp4repair-ui.xml')
+                return ET.fromstring(data[data.index('<?xml'):])
+            def click_contains(key):
+                for e in nodes().iter('node'):
+                    title=' '.join((e.get('text',''),e.get('content-desc','')))
+                    if key.lower() not in title.lower(): continue
+                    bounds=e.get('bounds','')
+                    match=re.fullmatch(r'\[(\d+),(\d+)\]\[(\d+),(\d+)\]',bounds)
+                    if match:
+                        x1,y1,x2,y2=map(int,match.groups())
+                        sh('shell','input','tap',str((x1+x2)//2),str((y1+y2)//2))
+                        return True
+                return False
+            def screen():
+                return ' | '.join((e.get('text','')+' '+e.get('content-desc','')).strip() for e in nodes().iter('node'))
+            for _ in range(8):
+                ui=screen()
+                print('UI:',ui[:850])
+                if 'Try an example' in ui: break
+                for label in ('Get started','Continue','Next','Start','Done'):
+                    if click_contains(label): break
+                else: time.sleep(3)
+                time.sleep(1)
+            assert click_contains('Try an example'), 'Home screen/example action not found'
+            time.sleep(5)
+            assert click_contains('Start repair'), 'Sample diagnosis/start repair missing'
+            complete=False
+            for i in range(55):
+                time.sleep(2)
+                ui=screen()
+                if any(k in ui.lower() for k in ('repair complete','your video is back','frames recovered')):
+                    complete=True
+                    print('Repair result:',ui[:1200])
+                    break
+                if 'repair failed' in ui.lower() or 'no video frames' in ui.lower():
+                    raise AssertionError('Sample repair failed: '+ui[:1400])
+            assert complete, 'Sample repair result not reached within 110 seconds'
+            print('PASS: installed, onboarded, repaired sample video on Android emulator.')
+            PY
+            adb logcat -d -t 500 | grep -E 'FATAL EXCEPTION|OutOfMemoryError|AndroidRuntime' && exit 1 || true
+      - name: Upload emulator APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: mp4repair-memory-test-apk
+          path: app/android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+          retention-days: 2
+      - name: Remove private checkout
+        if: always()
+        run: rm -rf app
