@@ -52,3 +52,15 @@ Show only **real inspected renders**, plus the branch link; say candidly what is
 - Round 4 (40719560480): brighter exposure, tighter room/punchline shots; both the plush-on-sofa and captured-plush read clearly. Still **FAILS reference quality**: artificial primitives, simple bookshelf, lifeless plush with visibly sparse fur, unrealistically bright washed-out palette, blue particles like isolated beads, and bin geometry that resembles an open tank, not a real canister vacuum. No rendered movement for these new story scenes. Do NOT call perfect or start final render.
 - Artifacts round 4: https://github.com/oskar14156/Playground/actions/runs/40719560480
 - Required next step: genuinely detailed CC0/PBR furnished room, better stylized plush rig + fur, actual carpet shedding/brush motion, mechanically plausible transparent bin and realistic actor integration. Inspect motion sequences before the full low-quality preview.
+
+## Full fox-helmet Pocket Puh episode: Low-quality preview
+- Run: https://github.com/oskar14156/Playground/actions/runs/40744763890
+- Composition: `src/videos/vacuum3d/VacuumFoxFullPreview.tsx`.
+- New owner-approved Pocket Puh design: orange/white wearable fox fursuit helmet from `blender/fox_helmet_sample.py`. The former blue plush is superseded.
+- Story script: `videos/vacuum-cleaner/fox-preview-script.txt`; about 286 words; narrator generated with Edge TTS (offline voice fallback wired).
+- Blender scene images with orange fox helmet: `blender/vacuum_story_samples.py`, six room and container views.
+- Mechanism and fox-head plates from previously QA-checked Blender Github artifact runs `40713013472` and `40742755079`.
+- Output: 72.90 s, 432 x 768, 30 fps, 2187 frames, MP4 with embedded narration, synchronized on-screen word captions. GitHub artifact `vacuum-fox-full-low-quality-preview`, 7-day retention.
+- Reviewed actual `contact.jpg`, `frame10.jpg`, `frame50.jpg`, opening and near-end frames. Technical audio and video streams are present.
+- CRITICAL remaining quality gate: This is **a full timing/storyboard low-quality animatic assembled from actual Blender-rendered 3D plates**, with animated overlays, particle/caption graphics and camera-crop moves; it is **not** continuously animated 3D throughout. The mechanical 3D plate is frequently repeated. The fox-head prop and room are still visibly simplified. The full project quality bar `AGENTS.md` §3a/3b/3d is not yet passed; do not call it final or publish it. Need distinct continuous Blender 3D shots, a faithful physically coherent fox helmet in all scenes, believable character interaction, sound design, refined material/lighting and frame-sequence QA before final release.
+- Next: user review and direction on pacing, premise, comic payoff; then rebuild repetitive still-plate sections as proper 3D animated shots. No final render without signoff.
