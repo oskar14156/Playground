@@ -38,6 +38,13 @@ jobs:
       - name: Android production billing and release config
         working-directory: app
         run: npm run launch:check:release:android
+      - name: Build Android App Bundle with both production device ABIs
+        working-directory: app/android
+        env:
+          SENTRY_DISABLE_AUTO_UPLOAD: 'true'
+        run: ./gradlew :app:bundleRelease -PreactNativeArchitectures=armeabi-v7a,arm64-v8a --no-daemon
+      - name: Verify generated bundle exists
+        run: test -s app/android/app/build/outputs/bundle/release/app-release.aab
       - name: Validate Android version is eligible for upcoming 1.3 release
         working-directory: app
         run: |
@@ -52,13 +59,6 @@ jobs:
             process.exit(1);
           }
           NODE
-      - name: Build Android App Bundle with both production device ABIs
-        working-directory: app/android
-        env:
-          SENTRY_DISABLE_AUTO_UPLOAD: 'true'
-        run: ./gradlew :app:bundleRelease -PreactNativeArchitectures=armeabi-v7a,arm64-v8a --no-daemon
-      - name: Verify generated bundle exists
-        run: test -s app/android/app/build/outputs/bundle/release/app-release.aab
       - name: Erase private source and unsigned artifacts
         if: always()
         run: rm -rf app
