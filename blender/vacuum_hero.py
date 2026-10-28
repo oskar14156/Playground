@@ -44,6 +44,15 @@ def mat(name, c, metal=0, rough=.36, transmission=0, emission=0,coat=.0):
     p.inputs["Roughness"].default_value=rough
     if "Transmission Weight" in p.inputs: p.inputs["Transmission Weight"].default_value=transmission
     if "Coat Weight" in p.inputs: p.inputs["Coat Weight"].default_value=coat
+    if name.startswith(("01 ","02 ","04 ")):
+        tex=m.node_tree.nodes.new("ShaderNodeTexNoise")
+        tex.inputs["Scale"].default_value=230 if name.startswith("01 ") else 90
+        tex.inputs["Detail"].default_value=2
+        bump=m.node_tree.nodes.new("ShaderNodeBump")
+        bump.inputs["Strength"].default_value=.085 if name.startswith("02 ") else .04
+        bump.inputs["Distance"].default_value=.011
+        m.node_tree.links.new(tex.outputs["Fac"],bump.inputs["Height"])
+        m.node_tree.links.new(bump.outputs["Normal"],p.inputs["Normal"])
     if emission:
         p.inputs["Emission Color"].default_value=(*c,1)
         p.inputs["Emission Strength"].default_value=emission
@@ -58,7 +67,7 @@ accent_dark=mat("07 Warm inner copper",(.45,.15,.07),.82,.24)
 cyan=mat("08 Flow diagnostic",(.08,.71,.99),.05,.18,emission=5)
 cyan_soft=mat("09 Flow glow",(.12,.44,.92),.0,.3,emission=1.5)
 white=mat("10 Porcelain white details",(.75,.86,.86),.24,.29)
-fluff=mat("11 Blue plush fibers",(.18,.47,.92),.0,.88)
+fluff=mat("11 Blue plush fibers",(.04,.24,.88),.0,.88)
 gold=mat("12 Motor windings",(.9,.49,.17),.74,.3)
 floor=mat("13 Slate backdrop",(.035,.058,.077),.13,.33)
 line=mat("14 Hairline LED",(.03,.66,.79),.1,.27,emission=2.2)
@@ -216,14 +225,14 @@ for k in range(19):
 
 # Particle flow: blue fibers and cyan helical tracer at different radii,
 # clear-air return is central, orange mass settles in the base.
-for k in range(4):
+for k in range(2):
     pts=[]
     for j in range(175):
         t=j/174
-        theta=(k*math.pi/2)+t*math.pi*7.2
+        theta=(k*math.pi)+t*math.pi*4.7
         r=.48-.035*t
         pts.append((cx+r*math.cos(theta),cy+r*math.sin(theta),2.35-1.24*t))
-    curve("Tangential illuminated airflow path %d"%k,pts,cyan if k==0 else cyan_soft,.010 if k else .018)
+    curve("Tangential illuminated airflow path %d"%k,pts,cyan if k==0 else cyan_soft,.009 if k else .016)
 for k in range(3):
     pts=[]
     for j in range(70):
@@ -237,7 +246,7 @@ for i in range(230):
     pts=[]
     for j in range(4):
         u=j/3
-        pts.append((cx+r*math.cos(ang)+.018*u,cy+r*math.sin(ang)+.012*u,z+.04*u+.008*math.sin(u*6+ang)))
+        pts.append((cx+r*math.cos(ang)+.014*u,cy+r*math.sin(ang)+.007*u,z+.014*u+.005*math.sin(u*6+ang)))
     curve("Collected blue lint fiber %03d"%i,pts,fluff,.0025)
 for i in range(130):
     a0=R.uniform(-math.pi,math.pi);r=R.uniform(.20,.44);z=R.uniform(1.24,2.30)
@@ -300,7 +309,7 @@ for i in range(5):
 cube("Status indicator housing",(1.70,-.47,.55),(.49,.10,.24),chrome,.05)
 cube("Status cyan display",(1.70,-.531,.55),(.37,.012,.13),cyan_soft,.018)
 text3("Machine model marking","VORTEX / 01",(-.32,-.69,.37),.13,white)
-text3("Brand microtext","CYCLONE",(-.66,-.60,2.78),.13,accent)
+text3("Brand microtext","CYCLONE",(-.67,-.58,2.66),.095,accent)
 # Lower front nozzle: remove opaque box and model only a rounded open-front frame.
 # The exposed brush axle and bristles MUST be visible to the near-side camera.
 cube("Nozzle rear manifold",(-2.55,-.89,.30),(1.46,.25,.39),graphite,.065)
@@ -328,14 +337,14 @@ for i in range(55):
 carpet_mat=mat("Beige low-pile woven carpet",(.35,.29,.23),0,.96)
 pile_mat=mat("Warm wool pile",(.53,.45,.34),0,.92)
 cube("Actual rug carpet",(-2.60,-1.72,-.018),(2.95,2.30,.078),carpet_mat,.012)
-for i in range(170):
+for i in range(280):
     x=-3.88+R.random()*2.6
     y=-2.75+R.random()*2.0
-    points=[(x,y,.04),(x+.012,y+.016,.09),(x+.032,y+.027,.04)]
-    curve("carpet wool pile",points,pile_mat,.003)
-for i in range(180):
+    points=[(x,y,.035),(x+.005,y+.008,.051),(x+.014,y+.012,.038)]
+    curve("soft carpet wool tuft",points,pile_mat,.0017)
+for i in range(220):
     x=-3.80+R.random()*2.4;y=-2.50+R.random()*1.4
-    curve("uncollected plush fur at rug",[(x,y,.07),(x+.018,y+.035,.10),(x+.060,y+.07,.075)],fluff,.004)
+    curve("uncollected blue fur strand",[(x,y,.047),(x+.018,y+.017,.061),(x+.044,y+.022,.050)],fluff,.0025)
 
 # Camera view (portrait), cinematic focal length tuned per target; no camera clipping.
 def camera(name,position,target,lens=40,focus=0):
@@ -349,9 +358,9 @@ def camera(name,position,target,lens=40,focus=0):
     return o
 
 views={
-    "hero":((3.4,-7.0,4.05),(-.28,.0,1.55),38,9),
+    "hero":((3.3,-6.15,3.42),(-.1,-.02,1.46),43,10),
     "cyclone":((1.35,-4.4,2.95),(-.54,.10,1.75),54,9),
-    "brush":((-3.35,-3.9,1.48),(-2.55,-1.23,.26),48,9),
+    "brush":((-2.88,-3.88,.83),(-2.55,-1.30,.23),50,10),
 }
 out=os.path.abspath(a.out)
 os.makedirs(out,exist_ok=True)
