@@ -157,3 +157,5 @@ jobs:
       - name: Remove private checkout
         if: always()
         run: rm -rf app
+
+# CI replay: extra preview lifecycle regression guards.
