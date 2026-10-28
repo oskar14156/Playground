@@ -5,6 +5,7 @@ on:
     paths:
       - "src/videos/vacuum3d/**"
       - "src/Root.tsx"
+      - "tsconfig.json"
       - ".github/workflows/vacuum-v2-lookdev.yml"
   workflow_dispatch: {}
 permissions:
