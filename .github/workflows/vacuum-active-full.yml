@@ -1,4 +1,4 @@
-name: Full TRUE Animated 3D Fox Vacuum Preview
+name: Full TRUE Animated 3D Fox Vacuum Preview V2
 on:
   push:
     branches: [vacuum-v2-3d]
@@ -24,6 +24,19 @@ jobs:
           run-id: 40744763890
           github-token: ${{ github.token }}
           path: out/narration
+      - name: Download higher quality Blender cyclone model
+        uses: actions/download-artifact@v4
+        with:
+          name: vacuum-live-3d-models-lite
+          run-id: 40752972311
+          github-token: ${{ github.token }}
+          path: out/premium-model
+      - name: Stage actual detailed 3D mesh
+        run: |
+          mkdir -p public/vacuum-quality
+          MODEL="$(find out/premium-model -name vacuum_body.glb -print -quit)"
+          test -s "$MODEL"
+          cp "$MODEL" public/vacuum-quality/vacuum_body.glb
       - name: Stage narration timings
         run: |
           mkdir -p public/vacuum-motion public/vacuum-live
