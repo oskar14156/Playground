@@ -7,7 +7,7 @@ R=random.Random(91)
 p=argparse.ArgumentParser()
 argv=sys.argv[sys.argv.index("--")+1:] if "--" in sys.argv else []
 p.add_argument("--res",type=int,default=45);p.add_argument("--samples",type=int,default=22)
-p.add_argument("--out",default="out/vacuum_story");a=p.parse_args(argv)
+p.add_argument("--out",default="out/vacuum_story");p.add_argument("--export-model",action="store_true");a=p.parse_args(argv)
 bpy.ops.object.select_all(action="SELECT");bpy.ops.object.delete(use_global=False)
 sc=bpy.context.scene;sc.render.engine="CYCLES";sc.cycles.samples=a.samples;sc.cycles.use_denoising=True
 sc.render.resolution_x=1080;sc.render.resolution_y=1920;sc.render.resolution_percentage=a.res
@@ -197,22 +197,42 @@ views={
  "punchline":((2.35,-3.45,2.10),(1,-1.12,1.39),43),
  "bin_close":((1.9,-2.8,1.9),(1,-1.12,1.42),66)
 }
-out=os.path.abspath(a.out);os.makedirs(out,exist_ok=True)
-for name,(c,t,l) in views.items():
- def is_child(ob,parent):
-  while ob.parent:
-   if ob.parent==parent:return True
-   ob=ob.parent
-  return False
+if a.export_model:
+ out=os.path.abspath(a.out);os.makedirs(out,exist_ok=True)
+ # Export realistic furnished room WITHOUT fox, floating hair or payoff vacuum.
+ bpy.ops.object.select_all(action="DESELECT")
  for ob in bpy.data.objects:
-  if is_child(ob,root):ob.hide_render=(name not in ("punchline","bin_close"))
-  if is_child(ob,P):ob.hide_render=(name in ("punchline","bin_close"))
-  if is_child(ob,Pcaptured):ob.hide_render=(name not in ("punchline","bin_close"))
- for ob in floating:ob.hide_render=(name in ("punchline","bin_close"))
+  if ob.name in _room_meshes and ob.type in ("MESH","CURVE"):
+   ob.select_set(True)
+ for ob in list(bpy.context.selected_objects):
+  if ob.type=="CURVE":
+   bpy.ops.object.select_all(action="DESELECT")
+   ob.select_set(True);bpy.context.view_layer.objects.active=ob;bpy.ops.object.convert(target="MESH")
+ bpy.ops.object.select_all(action="DESELECT")
  for ob in bpy.data.objects:
-  if ob.name.startswith("Loose shed fiber"):ob.hide_render=(name in ("punchline","bin_close"))
- camera(c,t,l)
- sc.render.filepath=os.path.join(out,name+".png")
- print("RENDER",name,sc.render.filepath,flush=True)
- bpy.ops.render.render(write_still=True)
-print("DONE")
+  if ob.name in _room_meshes and ob.type=="MESH":ob.select_set(True)
+ if bpy.context.selected_objects:
+  bpy.context.view_layer.objects.active=bpy.context.selected_objects[0];bpy.ops.object.join()
+ bpy.ops.export_scene.gltf(filepath=os.path.join(out,"room.glb"),export_format="GLB",use_selection=True,export_apply=True)
+ print("EXPORTED LIVE THREE.JS ROOM GLB",flush=True)
+else:
+ out=os.path.abspath(a.out);os.makedirs(out,exist_ok=True)
+ for name,(c,t,l) in views.items():
+  def is_child(ob,parent):
+   while ob.parent:
+    if ob.parent==parent:return True
+    ob=ob.parent
+   return False
+  for ob in bpy.data.objects:
+   if is_child(ob,root):ob.hide_render=(name not in ("punchline","bin_close"))
+   if is_child(ob,P):ob.hide_render=(name in ("punchline","bin_close"))
+   if is_child(ob,Pcaptured):ob.hide_render=(name not in ("punchline","bin_close"))
+  for ob in floating:ob.hide_render=(name in ("punchline","bin_close"))
+  for ob in bpy.data.objects:
+   if ob.name.startswith("Loose shed fiber"):ob.hide_render=(name in ("punchline","bin_close"))
+  camera(c,t,l)
+  sc.render.filepath=os.path.join(out,name+".png")
+  print("RENDER",name,sc.render.filepath,flush=True)
+  bpy.ops.render.render(write_still=True)
+ print("DONE")
+ 
