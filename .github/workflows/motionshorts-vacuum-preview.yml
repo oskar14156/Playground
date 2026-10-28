@@ -47,7 +47,7 @@ jobs:
                       elif chunk['type']=='WordBoundary':
                           boundaries.append({'word':chunk['text'],'start':chunk['offset']/10000000,'end':(chunk['offset']+chunk['duration'])/10000000})
           try:
-              asyncio.run(synth())
+              asyncio.run(asyncio.wait_for(synth(),timeout=35))
               if len(boundaries)<len(toks)*0.8: raise RuntimeError('incomplete synthesis')
               print('Edge TTS:',len(boundaries),'boundaries')
           except Exception as e:
