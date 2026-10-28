@@ -5,10 +5,10 @@ import bpy,math,random,sys,argparse,os
 from mathutils import Vector
 r=random.Random(2028);ap=argparse.ArgumentParser();av=sys.argv[sys.argv.index("--")+1:] if "--" in sys.argv else []
 ap.add_argument("--res",type=int,default=48);ap.add_argument("--samples",type=int,default=24)
-ap.add_argument("--out",default="out/fox_helmet");a=ap.parse_args(av)
+ap.add_argument("--out",default="out/fox_helmet");opts=ap.parse_args(av)
 bpy.ops.object.select_all(action="SELECT");bpy.ops.object.delete(use_global=False)
-sc=bpy.context.scene;sc.render.engine="CYCLES";sc.cycles.samples=a.samples;sc.cycles.use_denoising=True
-sc.render.resolution_x=1080;sc.render.resolution_y=1920;sc.render.resolution_percentage=a.res
+sc=bpy.context.scene;sc.render.engine="CYCLES";sc.cycles.samples=opts.samples;sc.cycles.use_denoising=True
+sc.render.resolution_x=1080;sc.render.resolution_y=1920;sc.render.resolution_percentage=opts.res
 sc.view_settings.view_transform="AgX";sc.view_settings.look="AgX - Medium High Contrast"
 sc.view_settings.exposure=-.1
 def mat(n,c,rough=.6,metal=0):
@@ -142,9 +142,9 @@ views={
  "threequarter":((-3.8,-5.2,3.1),(0,-.05,2.01),48),
  "wearable":((2.6,4.3,3.0),(0,0,1.77),50)
 }
-os.makedirs(a.out,exist_ok=True)
+os.makedirs(opts.out,exist_ok=True)
 for name,(pos,t,lens) in views.items():
  bpy.ops.object.camera_add(location=pos);cam=bpy.context.object;cam.name="Shot "+name;cam.data.lens=lens;aim(cam,t);sc.camera=cam
- sc.render.filepath=os.path.abspath(os.path.join(a.out,name+".png"))
+ sc.render.filepath=os.path.abspath(os.path.join(opts.out,name+".png"))
  print("RENDER",name,sc.render.filepath,flush=True);bpy.ops.render.render(write_still=True)
 print("DONE")
