@@ -135,7 +135,7 @@ check('files-picker-open-and-cancel',open_and_cancel_file_picker)
 
 def open_and_cancel_photo_picker():
     before=ui()
-    assert tap('Choose from Photos'), 'Choose from Photos button not present'
+    assert (tap('Choose from Gallery') or tap('Choose from Photos')), 'Gallery picker entry not present'
     time.sleep(2)
     opened=ui()
     assert opened != before, 'Android photo picker never appeared'
