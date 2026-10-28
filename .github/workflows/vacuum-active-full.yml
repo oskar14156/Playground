@@ -1,4 +1,5 @@
 name: Full TRUE Animated 3D Fox Vacuum Preview V2
+# Retry after strict TypeScript premium composition cleanup
 on:
   push:
     branches: [vacuum-v2-3d]
