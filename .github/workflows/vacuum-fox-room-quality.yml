@@ -1,0 +1,58 @@
+name: Cinematic Blender-GLB fox apartment quality loop
+on:
+  push:
+    branches: [vacuum-v2-3d]
+    paths:
+      - "src/videos/vacuum3d/VacuumFoxRoomCinematic.tsx"
+      - "src/vacuum-room-quality-entry.tsx"
+      - ".github/workflows/vacuum-fox-room-quality.yml"
+  workflow_dispatch: {}
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: vacuum-fox-room-quality
+  cancel-in-progress: true
+jobs:
+  lookdev:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 70
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22, cache: npm}
+      - run: npm ci --no-audit --no-fund
+      - uses: actions/download-artifact@v4
+        with:
+          name: vacuum-live-3d-models-lite
+          run-id: 40752972311
+          github-token: ${{ github.token }}
+          path: out/models
+      - name: Stage detailed real Blender glTF scene and helmet
+        run: |
+          mkdir -p public/vacuum-quality out/room-quality
+          for model in room fox_helmet; do
+            p="$(find out/models -name "$model.glb" -print -quit)"
+            test -s "$p"
+            cp "$p" "public/vacuum-quality/$model.glb"
+          done
+      - name: Render three live 3D sample frames and camera-motion MP4
+        run: |
+          npx remotion still src/vacuum-room-quality-entry.tsx room-quality out/room-quality/a_wide.png --frame=7 --scale=0.5 --gl=swangle --log=error
+          npx remotion still src/vacuum-room-quality-entry.tsx room-quality out/room-quality/b_mid.png --frame=68 --scale=0.5 --gl=swangle --log=error
+          npx remotion still src/vacuum-room-quality-entry.tsx room-quality out/room-quality/c_close.png --frame=140 --scale=0.5 --gl=swangle --log=error
+          npx remotion render src/vacuum-room-quality-entry.tsx room-quality out/room-quality/fox_room_motion.mp4 --scale=0.4 --crf=30 --gl=swangle --concurrency=2 --log=error
+      - name: Make movement contact and probe result
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg >/dev/null
+          ffmpeg -v error -y -i out/room-quality/fox_room_motion.mp4 -vf "fps=2,scale=135:-1,tile=5x2" -frames:v 1 out/room-quality/motion_contact.png
+          ffprobe -v error -show_entries format=duration,size:stream=width,height,nb_frames -of json out/room-quality/fox_room_motion.mp4 > out/room-quality/probe.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: blender-glb-fox-room-actual-motion
+          path: out/room-quality/
+          retention-days: 7
+          if-no-files-found: warn
