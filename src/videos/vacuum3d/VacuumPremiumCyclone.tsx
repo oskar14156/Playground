@@ -128,7 +128,6 @@ const Stage:React.FC<{f:number;camera:Cam}>=({f,camera})=>{
  });
  return sc;
 },[model.scene]);
- const t=f/30;
  const explode=smooth((f-78)/38)*1.85;
  const isFlow=f>=16;
  return <>
