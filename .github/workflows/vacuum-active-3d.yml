@@ -32,8 +32,9 @@ jobs:
           path: out/prior-narration
       - name: Stage soundtrack and timings
         run: |
-          mkdir -p public/vacuum-motion
+          mkdir -p public/vacuum-motion public/vacuum-live
           cp out/prior-narration/public/vacuum-full/{words.json,vo.mp3} public/vacuum-motion/
+          cp out/prior-narration/public/vacuum-full/{words.json,vo.mp3} public/vacuum-live/
           test -s public/vacuum-motion/words.json
       - name: Typecheck actual animated 3D
         run: npx tsc --noEmit
