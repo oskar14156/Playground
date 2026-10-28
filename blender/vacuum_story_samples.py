@@ -111,6 +111,7 @@ for i in range(24):
  angle=i*2.399;h=.52+R.random()*1.4
  sph("Physical plant leaf",(2.8+.34*math.cos(angle),1.15+.3*math.sin(angle),h),(.23,.10,.08),plantmat,12)
 carpet()
+_room_meshes=set(ob.name for ob in bpy.data.objects if ob.type in ("MESH","CURVE"))
 # From now on POCKET PUH = orange-and-white WEARABLE FOX FURSUIT HEAD, not a blue plush.
 foxOrange=material("Pocket Puh fox helmet orange synthetic fur",(.69,.21,.045),.92)
 foxCream=material("Pocket Puh fox helmet white muzzle",(.86,.81,.71),.9)
