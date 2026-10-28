@@ -46,7 +46,6 @@ const lin=(a:number,b:number,p:number)=>a+(b-a)*p;
 const smooth=(t:number)=>{const p=Math.max(0,Math.min(1,t));return p*p*(3-2*p)};
 const lerpV=(a:V,b:V,p:number):V=>[lin(a[0],b[0],p),lin(a[1],b[1],p),lin(a[2],b[2],p)];
 const interp=(a:V,b:V,p:number)=>lerpV(a,b,smooth(p));
-const cool="#5fdded",amber="#ffb66a";
 function cameraFor(mode:number,age:number):Cam{
  const e=Math.max(0,age),wig=Math.sin(e*.7);
  if(mode===0)return {pos:[4.9-e*.18,3.05+.15*wig,7.0-e*.16],look:[-1.25,1.28,-1.6],fov:42};
