@@ -83,3 +83,5 @@ jobs:
 # Final retest: dismiss the expected Pro offer after each new repair.
 
 # Android UI text regression: Gallery label varies by platform, corrected in test driver.
+
+# Final 13-case Android 16 suite using corrected Gallery and paywall navigation.
