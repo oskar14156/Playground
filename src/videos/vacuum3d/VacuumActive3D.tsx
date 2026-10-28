@@ -94,7 +94,7 @@ const Room:React.FC<{frame:number;clean:boolean}>=({frame,clean})=><group>
  </group>;
 const DustCloud:React.FC<{frame:number;type:"room"|"flow"|"cyclone"|"carpet";blocked?:boolean}>=({frame,type,blocked=false})=>{
  const t=frame/FPS;
- const count=type==="room"?150:95;
+ const count=type==="room"?85:48;
  return <group>{Array.from({length:count},(_,i)=>{
    const ph=hash(i*41)*Math.PI*2,r=hash(i*17),a=ph+t*(type==="cyclone"?4.3:1.4);
    let x=0,y=0,z=0;
@@ -103,7 +103,7 @@ const DustCloud:React.FC<{frame:number;type:"room"|"flow"|"cyclone"|"carpet";blo
    else if(type==="flow"){x=-3+(t*2.1+r*7)%6;y=.8+Math.sin(a)*.3;z=Math.cos(ph)*.24;}
    else{x=-2+(t*1.2+r*5)%4;y=.17+Math.abs(Math.sin(a))*.24;z=hash(i*13)*2-1;}
    return <mesh key={i} position={[x,y,z]} scale={[1,1.7,1]} rotation={[a,a*.3,0]}>
-     <icosahedronGeometry args={[type==="room"?.025:.039,0]}/><meshStandardMaterial color={blocked?"#e36b45":i%3===0?"#ffc075":"#f09038"} emissive="#b54a06" emissiveIntensity={.17} roughness={.95}/>
+     <sphereGeometry args={[type==="room"?.010:.016,7,5]}/><meshStandardMaterial color={blocked?"#e36b45":i%3===0?"#ffc075":"#f09038"} emissive="#b54a06" emissiveIntensity={.06} roughness={.95}/>
    </mesh>;
   })}</group>;
 };
@@ -152,10 +152,10 @@ const ArrowField:React.FC<{frame:number;phase:Phase}>=({frame,phase})=>{
  if(!["fan","exhaust","cyclone","filter","bin","brush"].includes(phase))return null;
  const t=frame/FPS;
  return <group>
-   {Array.from({length:18},(_,i)=>{const a=i*.35+t*3.7;
+   {Array.from({length:8},(_,i)=>{const a=i*.65+t*3.7;
     const cyclone=phase==="cyclone"||phase==="bin";
     return <mesh key={i} position={cyclone?[-.46+Math.cos(a)*(.68+i%3*.05),.85+((t*.45+i*.13)%1.25),Math.sin(a)*(.68+i%3*.05)]:[-2.4+((t*1.8+i*.20)%3.2),.80+Math.sin(a)*.14,.8]} rotation={[a,0,a]}>
-    <coneGeometry args={[.055,.19,5]}/><meshBasicMaterial color={phase==="exhaust"?"#ff9c58":"#4feaff"} toneMapped={false}/>
+    <coneGeometry args={[.023,.082,5]}/><meshBasicMaterial color={phase==="exhaust"?"#ff9c58":"#4feaff"} toneMapped={false}/>
    </mesh>})}
  </group>;
 };
