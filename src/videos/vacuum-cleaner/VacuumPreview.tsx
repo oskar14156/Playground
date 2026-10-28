@@ -35,18 +35,9 @@ const c={
   eyes:at("Two googly eyes stare back"),
   wrong:at("Your friend says"),
 };
-const ease=(x:number)=>{const v=Math.max(0,Math.min(1,x));return v*v*(3-2*v)};
-const progress=(f:number,a:number,frames=14)=>ease((f-a)/frames);
 const d=(i:number)=>{const x=Math.sin(i*127.13+34.1)*43758.5453;return x-Math.floor(x)};
 const fuzz=Array.from({length:185},(_,i)=>({x:75+d(i*7)*920,y:1000+d(i*11)*660,r:3+d(i*17)*13,phase:d(i*23)*Math.PI*2}));
-const sparkle=Array.from({length:55},(_,i)=>({x:200+d(i*41)*680,y:1080+d(i*45)*430,r:1+d(i*53)*5}));
 const colors=["#ffd56d","#f7ede0","#6ba5e7","#9bc3db","#e6d5ba","#dd8b75","#85a48d"];
-const Label:React.FC<{x:number;y:number;text:string;color?:string;size?:number}>=({x,y,text,color="#f9d269",size=32})=>(
-  <g>
-    <rect x={x-14} y={y-38} rx="16" width={text.length*size*0.57+28} height="52" fill="#101d2a" stroke={color} strokeWidth="3"/>
-    <text x={x} y={y} fill={color} fontFamily="Arial, sans-serif" fontWeight="900" fontSize={size} letterSpacing="1">{text}</text>
-  </g>
-);
 const Plush:React.FC<{x:number;y:number;s?:number;t:number;inside?:boolean}>=({x,y,s=1,t,inside=false})=>(
   <g transform={"translate("+x+" "+(y+Math.sin(t*2.3)*4)+") scale("+s+")"}>
     <ellipse cx="0" cy="300" rx="162" ry="26" fill="#112846" opacity="0.36"/>
@@ -201,8 +192,6 @@ const Title:React.FC<{f:number;step:number}>=({f,step})=>{
   </g>;
 };
 const Insert:React.FC<{f:number;step:number}>=({f,step})=>{
-  const on=[c.fan,c.cyclone,c.fine,c.brush,c.thermal];
-  const slot=on.findIndex((v,i)=>f>=v&&f<(on[i+1]??c.done));
   const mode=step===1?"PRESSURE DIFFERENCE":step===3?"CYCLONIC SEPARATION":step===4?"FINE FILTRATION":step===5?"CARPET AGITATION":step===6?"OVERHEAT PROTECTION":"";
   if(!mode)return null;
   return <g>
