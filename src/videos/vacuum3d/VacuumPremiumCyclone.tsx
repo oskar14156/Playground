@@ -163,8 +163,8 @@ const Label:React.FC<{p:V;cam:Cam;w:number;h:number;name:string;sub:string;color
    <div style={{fontSize:18,color:"#b5cfdd",marginTop:4}}>{sub}</div>
  </div>;
 };
-export const VacuumPremiumCyclone:React.FC=()=>{
- const f=useCurrentFrame(),{width,height}=useVideoConfig();
+export const VacuumPremiumCyclone:React.FC<{embed?:boolean;shot?:"cyclone"|"filter"}>=({embed=false,shot="cyclone"})=>{
+ const f=useCurrentFrame()+(shot==="filter"?110:0),{width,height}=useVideoConfig();
  const t=f/30;
  const blend=(a:number,b:number,u:number)=>a+(b-a)*u;
  const move=(from:V,to:V,u:number):V=>[blend(from[0],to[0],u),blend(from[1],to[1],u),blend(from[2],to[2],u)];
@@ -181,12 +181,12 @@ export const VacuumPremiumCyclone:React.FC=()=>{
    <Stage f={f} camera={cam}/>
   </ThreeCanvas>
   <AbsoluteFill style={{pointerEvents:"none",background:"linear-gradient(180deg,rgba(2,12,24,.65),transparent 26%,transparent 62%,rgba(2,12,24,.78))"}}/>
-  <div style={{position:"absolute",top:85,left:60,color:"#e6f5fd",fontFamily:"Arial",fontWeight:800,fontSize:25,letterSpacing:3}}>POCKET PUH / ENGINEERING EXPLAINED</div>
-  <div style={{position:"absolute",top:138,left:58,color:"#fff",fontFamily:"Arial",fontWeight:900,fontSize:52,letterSpacing:1}}>{f>110?"EXHAUST FILTRATION":"CYCLONE SEPARATOR"}</div>
-  <div style={{position:"absolute",top:220,left:61,color:"#acd3e4",fontFamily:"Arial",fontWeight:700,fontSize:28}}>REAL 3D CUTAWAY • MOVING AIRFLOW</div>
+  {!embed&&<div style={{position:"absolute",top:85,left:60,color:"#e6f5fd",fontFamily:"Arial",fontWeight:800,fontSize:25,letterSpacing:3}}>POCKET PUH / ENGINEERING EXPLAINED</div>}
+  {!embed&&<div style={{position:"absolute",top:138,left:58,color:"#fff",fontFamily:"Arial",fontWeight:900,fontSize:52,letterSpacing:1}}>{f>110?"EXHAUST FILTRATION":"CYCLONE SEPARATOR"}</div>}
+  {!embed&&<div style={{position:"absolute",top:220,left:61,color:"#acd3e4",fontFamily:"Arial",fontWeight:700,fontSize:28}}>REAL 3D CUTAWAY • MOVING AIRFLOW</div>}
   {f>42&&f<107&&<Label p={[-.49,2.30,-.14]} cam={cam} w={width} h={height} name="CYCLONE" sub="Heavy lint falls out" color="#feb36d"/>}
   {f>103&&<Label p={[.89+smooth((f-78)/38)*1.04,1.65,-.2]} cam={cam} w={width} h={height} name="HEPA FILTER" sub="Fine particles stay" color="#6ce4ff" pos={0}/>}
-  {f>110&&<div style={{position:"absolute",right:60,top:265,font:"800 28px Arial",color:"#80eaff",letterSpacing:2}}>EXPLODED VIEW</div>}
-  <div style={{position:"absolute",bottom:125,left:50,right:50,color:"white",fontFamily:"Arial",textAlign:"center",fontSize:48,fontWeight:900,textShadow:"0 4px 16px black"}}>{f>110?"CAPTURE THE FINE DUST":"SPIN → SEPARATE → FILTER"}</div>
+  {!embed&&f>110&&<div style={{position:"absolute",right:60,top:265,font:"800 28px Arial",color:"#80eaff",letterSpacing:2}}>EXPLODED VIEW</div>}
+  {!embed&&<div style={{position:"absolute",bottom:125,left:50,right:50,color:"white",fontFamily:"Arial",textAlign:"center",fontSize:48,fontWeight:900,textShadow:"0 4px 16px black"}}>{f>110?"CAPTURE THE FINE DUST":"SPIN → SEPARATE → FILTER"}</div>}
  </AbsoluteFill>;
 };
