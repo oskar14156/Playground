@@ -318,15 +318,20 @@ cube("Nozzle rear manifold",(-2.55,-.89,.30),(1.46,.25,.39),graphite,.065)
 cube("Nozzle left cheek",(-3.26,-1.31,.29),(.14,.76,.35),steel,.06)
 cube("Nozzle right cheek",(-1.84,-1.31,.29),(.14,.76,.35),steel,.06)
 cube("Nozzle chrome upper rail",(-2.55,-1.0,.48),(1.3,.12,.07),chrome,.025)
-cube("Clear top inspection cover",(-2.55,-1.38,.48),(1.18,.48,.035),glass,.015)
-cube("Nozzle cyan work light",(-2.55,-1.72,.28),(1.1,.018,.027),cyan_soft,.005)
-
-cyl("Brush roller axle",(-2.55,-1.28,.22),.11,1.12,accent_dark,36,(0,math.pi/2,0))
-for i in range(58):
-    x=-3.06+(i/57)*1.02
-    ang=i*math.pi*.79
-    curve("Individual roller bristle",[(x,-1.28,.22),
-        (x,-1.28+.13*math.cos(ang),.22+.13*math.sin(ang))],fluff,.006)
+# The near-side shell is intentionally REMOVED for the educational cutaway.
+cube("Nozzle cyan work light",(-2.55,-1.70,.52),(1.1,.020,.027),cyan_soft,.005)
+cyl("Brush roller barrel",(-2.55,-1.45,.28),.123,1.12,accent_dark,48,(0,math.pi/2,0))
+for i in range(44):
+    x=-3.075+(i/43)*1.05
+    for j in range(11):
+        ang=2*math.pi*j/11+i*.29
+        p0=(x,-1.45+.118*math.cos(ang),.28+.118*math.sin(ang))
+        p1=(x+.018,-1.45+.21*math.cos(ang),.28+.21*math.sin(ang))
+        p2=(x+.027,-1.45+.24*math.cos(ang+.17),.28+.24*math.sin(ang+.17))
+        curve("Spiral colored brush bristles",[p0,p1,p2],
+              accent if j%4<2 else fluff,.0042)
+for x in (-3.11,-1.99):
+    cyl("Brush end bearing",(x,-1.45,.28),.135,.035,chrome,24,(0,math.pi/2,0))
 for i in range(22):
     bolthead("Nozzle CNC screw",(-3.16+i*.057,-1.62,.44))
 for i in range(55):
