@@ -16,6 +16,7 @@ ap.add_argument("--samples",type=int,default=22)
 ap.add_argument("--shot",default="all")
 ap.add_argument("--out",default="out/vacuum_blender")
 ap.add_argument("--quality",default="draft")
+ap.add_argument("--export-model",action="store_true")
 ap.add_argument("--motion",action="store_true",help="Render a sampled 3D camera+particle animation for motion QA")
 a=ap.parse_args(argv)
 R=random.Random(23)
@@ -168,6 +169,7 @@ area("Soft frontal",(1,-5.2,3.6),650,(.75,.86,1),"RECTANGLE",4,(0,0,1.2),5)
 sc.world.color=(.075,.075,.075)
 sc.render.film_transparent=False
 
+_vacuum_before=set(bpy.data.objects.keys())
 # Compact high-end canister vacuum body: caster chassis, 6 spoke wheel and molded housing.
 cube("Chassis carbon composite",(.23,.22,.38),(2.7,1.32,.46),graphite,.21)
 cube("Undertray satin metal",(.24,.15,.17),(2.95,1.53,.12),steel,.065)
@@ -354,6 +356,7 @@ for i in range(220):
     x=-3.80+R.random()*2.4;y=-2.50+R.random()*1.4
     curve("uncollected blue fur strand",[(x,y,.047),(x+.018,y+.017,.061),(x+.044,y+.022,.050)],fluff,.0025)
 
+_vacuum_meshes=set(bpy.data.objects.keys())-_vacuum_before
 # Camera view (portrait), cinematic focal length tuned per target; no camera clipping.
 def camera(name,position,target,lens=40,focus=0):
     bpy.ops.object.camera_add(location=position)
@@ -372,7 +375,26 @@ views={
 }
 out=os.path.abspath(a.out)
 os.makedirs(out,exist_ok=True)
-if a.motion:
+if a.export_model:
+ # Export true 3D vacuum body to a compact glTF; moving impeller/brush are re-built
+ # separately in Three.js so their rotation is frame-driven (not baked stills).
+ skip=("Sculpted impeller blade","Brush roller barrel","Spiral colored brush bristles")
+ allowed=[ob for ob in bpy.data.objects if ob.name in _vacuum_meshes and ob.type in ("MESH","CURVE")
+          and not any(v in ob.name for v in skip)]
+ for ob in allowed:
+  if ob.type=="CURVE":
+   bpy.ops.object.select_all(action="DESELECT");ob.select_set(True);bpy.context.view_layer.objects.active=ob
+   bpy.ops.object.convert(target="MESH")
+ bpy.ops.object.select_all(action="DESELECT")
+ for ob in bpy.data.objects:
+  if ob.name in _vacuum_meshes and ob.type=="MESH" and not any(v in ob.name for v in skip):
+   ob.select_set(True)
+ if bpy.context.selected_objects:
+  bpy.context.view_layer.objects.active=bpy.context.selected_objects[0]
+  bpy.ops.object.join()
+ bpy.ops.export_scene.gltf(filepath=os.path.join(out,"vacuum_body.glb"),export_format="GLB",use_selection=True,export_apply=True)
+ print("EXPORTED LIVE THREE.JS VACUUM BODY GLB",flush=True)
+elif a.motion:
     # Actual changing 3D samples, not pan/zoom of prerendered images.
     position,target,lens,dof=views["cyclone"]
     eye=camera("Animated orbit camera / cyclone",position,target,lens,dof)
