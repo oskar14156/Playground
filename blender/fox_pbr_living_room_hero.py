@@ -108,6 +108,40 @@ def imported_asset(filepath,name,target_width,target,turn=0):
 sofa=imported_asset(SOFA,"REAL SCANNED PBR SOFA",2.7,(-.60,1.1,.0),turn=0)
 if FOX:
  fox=imported_asset(FOX,"FURSUIT HELMET ON UPHOLSTERY",.77,(-.62,1.10,.83),turn=0)
+ # HAIR GROOM. The previous glTF's plastic foam surface fails the fursuit
+ # requirement. Emit real path-traced fibers from a conforming scalp,
+ # not 2D painted fake hairs or billboards.
+ orange_fur=simple_mat("DENSE REAL FUR STRANDS / fox orange",(.54,.13,.035),0,.88)
+ bpy.ops.mesh.primitive_uv_sphere_add(segments=64,ring_count=42,location=(0,0,1.92))
+ scalp=bpy.context.object
+ scalp.name="Hidden fox hair scalp emitter"
+ scalp.scale=(.648,.576,.765)
+ scalp.parent=fox
+ scalp.matrix_parent_inverse.identity()
+ scalp.data.materials.append(orange_fur)
+ # Avoid growing fibers across the goggles, nose and face.
+ vg=scalp.vertex_groups.new(name="Hair density except eye+snout")
+ for vertex in scalp.data.vertices:
+  x,y,z=vertex.co
+  if y<-.40 and abs(x)<.66 and -.24<z<.48:
+   continue
+  vg.add([vertex.index],1.0,"REPLACE")
+ bpy.ops.object.select_all(action="DESELECT")
+ scalp.select_set(True)
+ bpy.context.view_layer.objects.active=scalp
+ bpy.ops.object.particle_system_add()
+ ps=scalp.particle_systems[-1]
+ ps.settings.type="HAIR"
+ ps.settings.count=17000
+ ps.settings.hair_length=.045
+ ps.settings.render_type="PATH"
+ ps.settings.use_emit_random=True
+ ps.vertex_group_density=vg.name
+ ps.settings.child_type="INTERPOLATED"
+ ps.settings.rendered_child_count=3
+ ps.settings.material=1
+ scalp.show_instancer_for_render=False
+ print("HAIR_GROOM_READY",ps.settings.count,"main strands",ps.settings.rendered_child_count,"children",flush=True)
 # Add believable small interior details.
 bpy.ops.mesh.primitive_cylinder_add(vertices=56,radius=.28,depth=.42,location=(2.54,1.43,.26))
 plantpot=bpy.context.object;plantpot.name="Ceramic planter";plantpot.data.materials.append(simple_mat("Matte clay",(.44,.37,.30),0,.8))
