@@ -1,0 +1,49 @@
+name: Vacuum GLB Assets For Live 3D
+on:
+  push:
+    branches: [vacuum-v2-3d]
+    paths:
+      - "blender/fox_helmet_sample.py"
+      - "blender/vacuum_story_samples.py"
+      - "blender/vacuum_hero.py"
+      - ".github/workflows/vacuum-live-assets.yml"
+  workflow_dispatch: {}
+permissions:
+  contents: read
+concurrency:
+  group: vacuum-live-assets
+  cancel-in-progress: true
+jobs:
+  assets:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq libegl1 libgl1-mesa-dri libxi6 libxkbcommon0 libxrender1 libxxf86vm1 libsm6 libxfixes3 libxkbcommon-x11-0 >/dev/null
+          python3 -m py_compile blender/fox_helmet_sample.py blender/vacuum_story_samples.py blender/vacuum_hero.py
+      - uses: actions/cache@v4
+        with:
+          path: ~/blender
+          key: blender-5.2.3-linux
+      - name: Use Blender
+        run: |
+          if [ ! -x ~/blender/blender ]; then
+            mkdir -p ~/blender
+            curl -fsSL https://download.blender.org/release/Blender5.2/blender-5.2.3-linux-x64.tar.xz | tar -xJ -C ~/blender --strip-components=1
+          fi
+      - name: Export fox helmet, apartment and detailed vacuum as glTF models
+        run: |
+          mkdir -p out/vacuum-live
+          ~/blender/blender -b -t 4 -P blender/fox_helmet_sample.py -- --export-model --out out/vacuum-live > /tmp/fox.log 2>&1 || { tail -60 /tmp/fox.log; exit 1; }
+          ~/blender/blender -b -t 4 -P blender/vacuum_story_samples.py -- --export-model --out out/vacuum-live > /tmp/room.log 2>&1 || { tail -60 /tmp/room.log; exit 1; }
+          ~/blender/blender -b -t 4 -P blender/vacuum_hero.py -- --export-model --out out/vacuum-live > /tmp/vacuum.log 2>&1 || { tail -60 /tmp/vacuum.log; exit 1; }
+          for model in fox_helmet room vacuum_body; do test -s "out/vacuum-live/$model.glb" || exit 1; done
+          du -h out/vacuum-live/*.glb
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vacuum-live-3d-models
+          path: out/vacuum-live/*.glb
+          retention-days: 7
