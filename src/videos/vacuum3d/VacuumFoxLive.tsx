@@ -135,7 +135,7 @@ const Airflow:React.FC<{frame:number;mode:number}>=({frame,mode})=>{
  return mode===8||mode===9||mode===10?<primitive object={mesh}/>:null;
 };
 const Impeller:React.FC<{frame:number}>=({frame})=><group position={[1.55,1.02,.67]} rotation={[0,0,frame*.34]}>
- <mesh><cylinderGeometry args={[.07,.07,.16,22]} rotation={[Math.PI/2,0,0]}/><meshStandardMaterial metalness={.8} roughness={.23} color="#e6c175"/></mesh>
+ <mesh rotation={[Math.PI/2,0,0]}><cylinderGeometry args={[.07,.07,.16,22]}/><meshStandardMaterial metalness={.8} roughness={.23} color="#e6c175"/></mesh>
  {Array.from({length:9},(_,i)=>{
    const a=i*Math.PI*2/9;
    return <mesh key={i} rotation={[0,0,a+.28]} position={[Math.cos(a)*.23,Math.sin(a)*.23,0]}>
