@@ -31,3 +31,9 @@ Date: 2026-10-28. Owner requires actual code-built 3D (NO AI-generated stills) a
 
 ## Delivery gate
 Show only **real inspected renders**, plus the branch link; say candidly what is still deficient. Do not claim the film is done until a genuinely reviewable 60–90 sec low-quality preview with voice exists.
+
+## Round 4 — GitHub run 40710755828
+- Three stills and Python syntax validation succeeded. The brush is finally visibly bristled with 484 modeled orange and blue curved fibers; the closer hero camera shows more of the real cyclone separator.
+- Honest visual review: better than rounds 1–3, **NOT production quality and NOT close enough to the references**. The scene is still a stand-alone studio prototype, not the required furnished realistic apartment. Plush and working human figures are not yet integrated. The brush head still needs connected airflow, physical debris motion and sequence review. Cyclone airflow looks like a luminous spring rather than a sampled moving dust cloud. Materials and silhouette lack manufacturer-grade detail.
+- No full reel/voice/final render is approved. Stop polishing simple primitives endlessly; next substantive step must be a robust authored/CC0 3D asset set with PBR textures, rigged characters and a real animated 3D room before full script assembly. Recheck CC0 licensing and attribution notes prior to asset imports.
+- Artifact (7-day GitHub retention): https://github.com/oskar14156/Playground/actions/runs/40710755828
