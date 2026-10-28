@@ -68,11 +68,16 @@ for i in range(nphi+1):
 for i in range(nphi):
  for j in range(nt):
   a=i*nt+j;b=i*nt+(j+1)%nt;c=(i+1)*nt+(j+1)%nt;d=(i+1)*nt+j
+  mid=[verts[q] for q in (a,b,c,d)]
+  cy=sum(v[1] for v in mid)/4;cz=sum(v[2] for v in mid)/4
+  if cy>.19 and 1.39<cz<2.40:continue  # actual rear entry opening
   faces.append((a,b,c,d))
 me=bpy.data.meshes.new("Wearable hollow foam shell mesh");me.from_pydata(verts,[],faces);me.update()
 o=bpy.data.objects.new("HOLLOW FOX HELMET SHELL / OPEN NECK",me);bpy.context.collection.objects.link(o);assign(o,orange)
 for face in me.polygons:face.use_smooth=True
 solid=o.modifiers.new("Molded wearable foam wall","SOLIDIFY");solid.thickness=.032
+# Deep dark interior through open back.
+sphere("Interior black acoustic mesh",(0,.03,1.94),(.53,.49,.66),foam)
 # Separate raised brows, cheeks and snout.
 for sgn in (-1,1):
  sphere("Fox cheek faux fur",(sgn*.46,-.32,1.77),(.30,.32,.30),light)
@@ -110,14 +115,15 @@ sphere("Lower fox jaw",(0,-.68,1.46),(.36,.27,.11),ivory)
 curve("Stitched smile left",[(-.15,-.927,1.56),(-.10,-.96,1.52),(0,-.97,1.51)],black,.011)
 curve("Stitched smile right",[(0,-.97,1.51),(.12,-.95,1.53),(.23,-.89,1.57)],black,.011)
 # Fine fur tufts, aligned to ellipsoid normals and limited to tiny length (not spikes).
-for i in range(2600):
+for i in range(1750):
  u=r.uniform(-.91,.93);ang=r.uniform(0,2*math.pi)
  v=math.sqrt(1-u*u);px=.65*v*math.cos(ang);py=.58*v*math.sin(ang);pz=1.92+.77*u
- if py < -.41 and 1.66<pz<2.26:continue  # Keep eyes/snout unobscured
+ if py < -.41 and 1.66<pz<2.26:continue
+ if py>.15 and 1.39<pz<2.42:continue  # Keep eyes/snout unobscured
  direction=Vector((px/.65**2,py/.58**2,(pz-1.92)/.77**2)).normalized()
  start=Vector((px,py,pz))
- end=start+direction*r.uniform(.042,.085)
- curve("Short directionally combed artificial fur strand",[start,start+(end-start)*.55,end],orange if i%3 else light,.0018)
+ end=start+direction*r.uniform(.014,.039)
+ curve("Short directionally combed artificial fur strand",[start,start+(end-start)*.55,end],orange if i%3 else light,.0014)
 # Interior ring, retaining pads and adjustable fabric strap: recognizable wearability.
 for i in range(2):
  zz=1.37+i*.12
@@ -140,7 +146,7 @@ lightlamp("Camera fill",(1,-5.0,3.5),260,(.75,.85,1),2.9,(0,0,1.8))
 views={
  "front":((3.05,-6.7,3.38),(0,-.10,1.93),48),
  "threequarter":((-3.8,-5.2,3.1),(0,-.05,2.01),48),
- "wearable":((2.15,2.75,2.80),(0,0,1.86),48)
+ "wearable":((1.56,3.42,2.47),(0,0,1.84),49)
 }
 os.makedirs(opts.out,exist_ok=True)
 for name,(pos,t,lens) in views.items():
