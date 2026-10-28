@@ -64,3 +64,5 @@ jobs:
         run: rm -rf app
 
 # Verify Android 1.3.0 build 14 on unmerged release candidate branch.
+
+# Retest the foreground-only paywall fix in fix/build13-android-memory.
