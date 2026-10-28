@@ -4,9 +4,8 @@ on:
     branches: [motionshorts]
     paths:
       - "src/videos/vacuum-cleaner/**"
-      - "videos/vacuum-cleaner/**"
+      - "videos/vacuum-cleaner/script.txt"
       - "src/Root.tsx"
-      - ".github/workflows/motionshorts-vacuum-preview.yml"
   workflow_dispatch: {}
 permissions:
   contents: read
