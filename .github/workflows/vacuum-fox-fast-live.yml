@@ -1,0 +1,77 @@
+name: Fox Pocket Puh fast LIVE 3D low-quality full video
+on:
+  push:
+    branches: [vacuum-v2-3d]
+    paths:
+      - "src/videos/vacuum3d/VacuumFoxLiveFast.tsx"
+      - "src/vacuum-fast-entry.tsx"
+      - ".github/workflows/vacuum-fox-fast-live.yml"
+  workflow_dispatch: {}
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: vacuum-fast-3d
+  cancel-in-progress: true
+jobs:
+  fast-preview:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 105
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22, cache: npm}
+      - name: Install video render tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg >/dev/null
+          npm ci --no-audit --no-fund
+      - name: Download original Blender GLB models
+        uses: actions/download-artifact@v4
+        with:
+          name: vacuum-live-3d-models
+          run-id: 40748764251
+          github-token: ${{ github.token }}
+          path: out/models
+      - name: Download voice + accurate captions
+        uses: actions/download-artifact@v4
+        with:
+          name: vacuum-fox-full-low-quality-preview
+          run-id: 40744763890
+          github-token: ${{ github.token }}
+          path: out/audio
+      - name: Stage files and type-check independent Remotion entry
+        run: |
+          mkdir -p public/vacuum-live out/fast
+          for asset in fox_helmet room vacuum_body; do
+            f=$(find out/models -name "$asset.glb" -print -quit)
+            test -s "$f"; cp "$f" "public/vacuum-live/$asset.glb"
+          done
+          for asset in words.json vo.mp3; do
+            f=$(find out/audio -name "$asset" -print -quit)
+            test -s "$f"; cp "$f" "public/vacuum-live/$asset"
+          done
+          npx tsc --noEmit
+      - name: Render entire genuine 3D timeline - 10 fps preview
+        run: |
+          npx remotion render src/vacuum-fast-entry.tsx vacuum-fox-live-fast out/fast/vacuum-fox-live-3d-10fps.mp4 --scale=0.4 --crf=31 --gl=swangle --concurrency=3 --log=error
+          ffprobe -v error -show_entries format=duration,size:stream=width,height,r_frame_rate -of json out/fast/vacuum-fox-live-3d-10fps.mp4 > out/fast/metadata.json
+          ffmpeg -y -v error -i out/fast/vacuum-fox-live-3d-10fps.mp4 -vf "fps=1/7,scale=125:-1,tile=6x2" -frames:v 1 out/fast/contact.jpg
+      - name: Upload motion preview immediately
+        uses: actions/upload-artifact@v4
+        with:
+          name: vacuum-fox-live-3d-fast-complete
+          path: out/fast/
+          retention-days: 7
+      - name: Create smoothed 30fps viewing copy
+        run: |
+          ffmpeg -y -loglevel error -i out/fast/vacuum-fox-live-3d-10fps.mp4 -vf "minterpolate=fps=30:mi_mode=mci:mc_mode=obmc" -c:v libx264 -preset veryfast -crf 27 -c:a copy out/fast/vacuum-fox-live-smoothed-30fps.mp4
+      - name: Upload smoother 30fps
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: vacuum-fox-live-3d-fast-smoothed
+          path: out/fast/vacuum-fox-live-smoothed-30fps.mp4
+          if-no-files-found: warn
+          retention-days: 7
