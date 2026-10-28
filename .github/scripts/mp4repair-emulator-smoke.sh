@@ -42,20 +42,38 @@ def screen():
     )
 
 def click_contains(key):
+    options = []
     for e in get_nodes():
         label = ' '.join((e.get('text', ''), e.get('content-desc', '')))
         if key.casefold() not in label.casefold():
             continue
         m = re.fullmatch(r'\[(\d+),(\d+)\]\[(\d+),(\d+)\]', e.get('bounds', ''))
         if m:
-            a, b, c, d = map(int, m.groups())
-            adb('shell', 'input', 'tap', str((a+c)//2), str((b+d)//2))
-            return True
-    return False
+            x1, y1, x2, y2 = map(int, m.groups())
+            if x2 <= x1 or y2 <= y1:
+                continue
+            # A Text label is often nested inside the real Pressable. Prefer
+            # the large clickable accessibility node over the first text match.
+            clickable = e.get('clickable') == 'true'
+            area = (x2 - x1) * (y2 - y1)
+            options.append((clickable, area, x1, y1, x2, y2, label[:100]))
+    if not options:
+        return False
+    clickable, area, x1, y1, x2, y2, label = max(options)
+    print('Tap', key, 'using', label, 'clickable=', clickable,
+          'bounds=', (x1,y1,x2,y2), flush=True)
+    adb('shell', 'input', 'tap', str((x1+x2)//2), str((y1+y2)//2))
+    return True
 
 for attempt in range(9):
     ui = screen()
     print('Onboarding state', attempt, ':', ui[:500], flush=True)
+    if "Quickstep isn't responding" in ui:
+        print('Closing crashed emulator launcher, not MP4Repair', flush=True)
+        click_contains('Close app')
+        adb('shell', 'am', 'start', '-n', 'com.oskarpolster.mp4repair/.MainActivity')
+        time.sleep(2)
+        continue
     if 'Try an example' in ui:
         break
     for label in ('Skip', 'Get started', 'Next', 'Continue', 'Done'):
@@ -71,6 +89,12 @@ time.sleep(5)
 print('Diagnosis UI:', screen()[:900], flush=True)
 assert click_contains('Start repair'), 'Start repair button not found'
 print('Starting native repair...', flush=True)
+# A tap on the child Text node can be swallowed by a debug warning overlay.
+# Verify navigation rather than mistaking a delivered input event for a click.
+time.sleep(2)
+if 'Start repair' in screen() and 'Video index missing' in screen():
+    print('Still on diagnosis after first tap; retrying actual Pressable', flush=True)
+    click_contains('Start repair')
 
 success = False
 for index in range(90):
