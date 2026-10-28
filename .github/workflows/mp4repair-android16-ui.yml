@@ -1,0 +1,69 @@
+name: MP4Repair Android 16 release UI matrix
+on:
+  push:
+    paths:
+      - .github/workflows/mp4repair-android16-ui.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  release-emulator:
+    runs-on: ubuntu-latest
+    timeout-minutes: 70
+    steps:
+      - name: Checkout private app code read-only
+        uses: actions/checkout@v4
+        with:
+          repository: oskar14156/mp4repair
+          ref: fix/build13-android-memory
+          token: ${{ secrets.CI_BRIDGE_READ_TOKEN }}
+          persist-credentials: false
+          path: app
+      - name: Checkout public test driver
+        uses: actions/checkout@v4
+        with:
+          path: ci
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: npm ci
+        working-directory: app
+        run: npm ci --no-audit --no-fund
+      - name: Build production-JS Android APK with disposable test signing
+        working-directory: app/android
+        env:
+          SENTRY_DISABLE_AUTO_UPLOAD: 'true'
+        run: |
+          ./gradlew assembleRelease -PreactNativeArchitectures=x86_64 \
+            -PMP4REPAIR_UPLOAD_STORE_FILE=debug.keystore \
+            -PMP4REPAIR_UPLOAD_STORE_PASSWORD=android \
+            -PMP4REPAIR_UPLOAD_KEY_ALIAS=androiddebugkey \
+            -PMP4REPAIR_UPLOAD_KEY_PASSWORD=android --no-daemon
+      - name: Enable KVM acceleration
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - name: Exercise extended UI, repeat previews and cancellation on Android 16 (API 36)
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 36
+          arch: x86_64
+          profile: pixel_6
+          disable-animations: true
+          emulator-boot-timeout: 600
+          script: bash ci/.github/scripts/mp4repair-release-e2e.sh
+      - name: Delete private build and checkout
+        if: always()
+        run: rm -rf app
+
+# Rerun: automatic paywall must stay dismissed after background and billing refresh.
