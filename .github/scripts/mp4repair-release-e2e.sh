@@ -193,7 +193,8 @@ def background_restore():
     adb('shell','input','keyevent','3')
     time.sleep(1)
     adb('shell','am','start','-n',P+'/.MainActivity')
-    expect_any(['Your video is back','Frames recovered','Your video is ready'],20)
+    _,state=expect_any(['Your video is back','Frames recovered'],20)
+    assert 'Restore purchases' not in state, 'Automatic paywall appeared after background/restore'
 check('background-and-resume-preview',background_restore)
 
 def result_to_home():
