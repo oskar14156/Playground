@@ -124,7 +124,7 @@ def area(name,loc,power,color,shape,size,target,size_y=None):
     if size_y and shape=="RECTANGLE":o.data.size_y=size_y
     point_at(o,target)
     return o
-def mesh_shell(name,rad,z_bottom,z_top,opening=(23,157),matl=glass):
+def mesh_shell(name,rad,z_bottom,z_top,opening=(23,157),matl=glass,center=(0,0)):
     # Segmented 300-degree wall physically opens towards camera (+Y), revealing internals.
     verts=[];faces=[]
     ts=[math.radians(deg) for deg in range(opening[1],opening[0]+360+1,3)]
@@ -134,7 +134,7 @@ def mesh_shell(name,rad,z_bottom,z_top,opening=(23,157),matl=glass):
     for i in range(len(ts)-1):
         j=i*2;faces.append((j,j+2,j+3,j+1))
     me=bpy.data.meshes.new(name);me.from_pydata(verts,[],faces);me.update()
-    o=bpy.data.objects.new(name,me);bpy.context.collection.objects.link(o);link(o,matl)
+    o=bpy.data.objects.new(name,me);bpy.context.collection.objects.link(o);o.location=(center[0],center[1],0);link(o,matl)
     solid=o.modifiers.new("molded shell thickness","SOLIDIFY");solid.thickness=.013
     bev=o.modifiers.new("edge polish","BEVEL");bev.width=.006;bev.segments=2
     for f in me.polygons:f.use_smooth=True
@@ -177,7 +177,7 @@ cyl("Collection base",(cx,cy,.65),.61,.18,graphite)
 cyl("Container orange bottom rim",(cx,cy,.78),.622,.065,accent)
 cyl("Cyclone top machined silver cap",(cx,cy,2.57),.65,.16,chrome)
 cyl("Cap blue black accent",(cx,cy,2.65),.58,.055,graphite)
-mesh_shell("Cutaway polycarbonate cup",.61,.80,2.52, (24,155),glass)
+mesh_shell("Cutaway polycarbonate cup",.61,.80,2.52, (24,155),glass,(cx,cy))
 for z in (.86,1.02,1.80,2.45):
     # Open-front rings match the missing front segment, no rings hiding the section.
     points=[]
