@@ -122,6 +122,40 @@ def settings():
     expect_any(['Try an example'],15)
 check('settings-back-navigation',settings)
 
+def open_and_cancel_file_picker():
+    before=ui()
+    assert tap('Choose a video file'), 'Choose a video file button not present'
+    time.sleep(2)
+    opened=ui()
+    assert opened != before, 'Android document picker never appeared'
+    print('DOCUMENT PICKER',opened[:550],flush=True)
+    adb('shell','input','keyevent','4')
+    expect_any(['Try an example'],20)
+check('files-picker-open-and-cancel',open_and_cancel_file_picker)
+
+def open_and_cancel_photo_picker():
+    before=ui()
+    assert tap('Choose from Photos'), 'Choose from Photos button not present'
+    time.sleep(2)
+    opened=ui()
+    assert opened != before, 'Android photo picker never appeared'
+    print('PHOTO PICKER',opened[:550],flush=True)
+    adb('shell','input','keyevent','4')
+    expect_any(['Try an example'],20)
+check('photos-picker-open-and-cancel',open_and_cancel_photo_picker)
+
+def pro_paywall_without_purchase():
+    assert tap('Settings'), 'Settings entry absent'
+    expect_any(['Unlock Pro'],15)
+    assert tap('Unlock Pro'), 'Upgrade entry absent'
+    expect_any(['Restore purchases','Unlock now','Your video is ready'],25)
+    print('PRO PAYWALL (NO PURCHASE)',ui()[:800],flush=True)
+    assert tap('Close'), 'Paywall could not be dismissed'
+    expect_any(['Settings','MP4 Repair Pro'],15)
+    adb('shell','input','keyevent','4')
+    expect_any(['Try an example'],20)
+check('paywall-open-and-dismiss-no-purchase',pro_paywall_without_purchase)
+
 def diagnosis():
     assert tap('Try an example'),'sample button missing'
     found,page=expect_any(['Video index missing','Diagnosis'],25)
