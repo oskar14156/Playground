@@ -1,4 +1,5 @@
 import React from "react";
+import {VacuumFoxFullPreview,FOX_VACUUM_DURATION} from "./videos/vacuum3d/VacuumFoxFullPreview";
 import {Vacuum3DLab, VACUUM_3D_DURATION} from "./videos/vacuum3d/Vacuum3DLab";
 import { Composition } from "remotion";
 import { VIDEO } from "./lib/theme";
@@ -22,6 +23,7 @@ import { HumanLab, HUMAN_LAB_DURATION } from "./videos/_lab/HumanLab";
 // One <Composition> per video in src/videos/<slug>/. Keep ids = slugs.
 export const RemotionRoot: React.FC = () => (
   <>
+    <Composition id="vacuum-fox-preview" component={VacuumFoxFullPreview} durationInFrames={FOX_VACUUM_DURATION} {...VIDEO} />
     <Composition id="vacuum-3d-hero" component={Vacuum3DLab} durationInFrames={VACUUM_3D_DURATION} {...VIDEO} />
     <Composition id="vacuum-3d-motion" component={Vacuum3DLab} durationInFrames={VACUUM_3D_DURATION} defaultProps={{motion:true}} {...VIDEO} />
     <Composition id="great-circle" component={GreatCircle} durationInFrames={GC_DURATION} {...VIDEO} />
