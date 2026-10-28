@@ -5,7 +5,7 @@ import bpy,math,random,sys,argparse,os
 from mathutils import Vector
 r=random.Random(2028);ap=argparse.ArgumentParser();av=sys.argv[sys.argv.index("--")+1:] if "--" in sys.argv else []
 ap.add_argument("--res",type=int,default=48);ap.add_argument("--samples",type=int,default=24)
-ap.add_argument("--out",default="out/fox_helmet");opts=ap.parse_args(av)
+ap.add_argument("--out",default="out/fox_helmet");ap.add_argument("--export-model",action="store_true");opts=ap.parse_args(av)
 bpy.ops.object.select_all(action="SELECT");bpy.ops.object.delete(use_global=False)
 sc=bpy.context.scene;sc.render.engine="CYCLES";sc.cycles.samples=opts.samples;sc.cycles.use_denoising=True
 sc.render.resolution_x=1080;sc.render.resolution_y=1920;sc.render.resolution_percentage=opts.res
@@ -56,6 +56,7 @@ bpy.ops.mesh.primitive_cylinder_add(vertices=32,radius=.065,depth=1.12,location=
 assign(bpy.context.object,metal)
 # Stand mannequin is visible below neck opening, confirming helmet scale.
 sphere("Mannequin shoulderless neck foam",(0,0,1.29),(.22,.19,.35),foam)
+_fox_before=set(bpy.data.objects.keys())
 # Fox mask designed as a WEARABLE shell: actual open underside and thin interior.
 # Construct an ellipsoidal outer shell omitting lower rings, solidify thickness,
 # so a viewer can see the dark hollow interior through the rear/bottom opening.
@@ -131,6 +132,7 @@ for i in range(2):
  curve("Foam brow/neck comfort ring",pts,foam,.045)
 curve("Adjustable chin strap",[(-.36,-.25,1.42),(-.33,-.4,1.25),(0,-.46,1.16),(.33,-.4,1.25),(.36,-.25,1.42)],foam,.027)
 box("Clip-on adjustable buckle",(.21,-.45,1.25),(.11,.05,.075),metal,.012)
+_fox_meshes=set(bpy.data.objects.keys())-_fox_before
 # Extra useful believable detail on table: fabric swatches, tailor's tape, cutting scissors handle
 box("Fur fabric sample swatch",(1.12,-.25,.23),(.65,.95,.045),orange,.017)
 for i in range(70):
@@ -148,9 +150,29 @@ views={
  "threequarter":((-3.8,-5.2,3.1),(0,-.05,2.01),48),
  "wearable":((1.56,3.42,2.47),(0,0,1.84),49)
 }
-os.makedirs(opts.out,exist_ok=True)
-for name,(pos,t,lens) in views.items():
- bpy.ops.object.camera_add(location=pos);cam=bpy.context.object;cam.name="Shot "+name;cam.data.lens=lens;aim(cam,t);sc.camera=cam
- sc.render.filepath=os.path.abspath(os.path.join(opts.out,name+".png"))
- print("RENDER",name,sc.render.filepath,flush=True);bpy.ops.render.render(write_still=True)
-print("DONE")
+if opts.export_model:
+ os.makedirs(opts.out,exist_ok=True)
+ bpy.ops.object.select_all(action="DESELECT")
+ for ob in bpy.data.objects:
+  if ob.name in _fox_meshes and ob.type in ("MESH","CURVE"):
+   ob.select_set(True)
+ for ob in list(bpy.context.selected_objects):
+  if ob.type=="CURVE":
+   bpy.ops.object.select_all(action="DESELECT");ob.select_set(True);bpy.context.view_layer.objects.active=ob
+   bpy.ops.object.convert(target="MESH")
+ bpy.ops.object.select_all(action="DESELECT")
+ for ob in bpy.data.objects:
+  if ob.name in _fox_meshes and ob.type=="MESH":ob.select_set(True)
+ # Many individual fibers are combined into a single rig model for efficient WebGL drawing.
+ if bpy.context.selected_objects:
+  bpy.context.view_layer.objects.active=bpy.context.selected_objects[0]
+  bpy.ops.object.join()
+ bpy.ops.export_scene.gltf(filepath=os.path.abspath(os.path.join(opts.out,"fox_helmet.glb")),export_format="GLB",use_selection=True,export_apply=True)
+ print("EXPORTED LIVE THREE.JS FOX HELMET GLB",flush=True)
+else:
+ os.makedirs(opts.out,exist_ok=True)
+ for name,(pos,t,lens) in views.items():
+  bpy.ops.object.camera_add(location=pos);cam=bpy.context.object;cam.name="Shot "+name;cam.data.lens=lens;aim(cam,t);sc.camera=cam
+  sc.render.filepath=os.path.abspath(os.path.join(opts.out,name+".png"))
+  print("RENDER",name,sc.render.filepath,flush=True);bpy.ops.render.render(write_still=True)
+ print("DONE")
