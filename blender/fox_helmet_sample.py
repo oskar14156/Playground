@@ -172,6 +172,11 @@ if opts.export_model:
  if bpy.context.selected_objects:
   bpy.context.view_layer.objects.active=bpy.context.selected_objects[0]
   bpy.ops.object.join()
+  if opts.export_lite:
+   target=bpy.context.view_layer.objects.active
+   modifier=target.modifiers.new("Lightweight animated video LOD","DECIMATE")
+   modifier.ratio=0.6
+   bpy.ops.object.modifier_apply(modifier=modifier.name)
  bpy.ops.export_scene.gltf(filepath=os.path.abspath(os.path.join(opts.out,"fox_helmet.glb")),export_format="GLB",use_selection=True,export_apply=True)
  print("EXPORTED LIVE THREE.JS FOX HELMET GLB",flush=True)
 else:
