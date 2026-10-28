@@ -81,3 +81,5 @@ jobs:
 # E2E complete: cover file/photo picker and billing paywall without purchases.
 
 # Retest the foreground-only paywall fix in fix/build13-android-memory.
+
+# Final retest: dismiss the expected Pro offer after each new repair.
