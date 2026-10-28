@@ -16,6 +16,7 @@ ap.add_argument("--samples",type=int,default=22)
 ap.add_argument("--shot",default="all")
 ap.add_argument("--out",default="out/vacuum_blender")
 ap.add_argument("--quality",default="draft")
+ap.add_argument("--motion",action="store_true",help="Render a sampled 3D camera+particle animation for motion QA")
 a=ap.parse_args(argv)
 R=random.Random(23)
 bpy.ops.object.select_all(action="SELECT")
@@ -371,12 +372,37 @@ views={
 }
 out=os.path.abspath(a.out)
 os.makedirs(out,exist_ok=True)
-shots=views.keys() if a.shot=="all" else [a.shot]
-for name in shots:
-    position,target,lens,dof=views[name]
-    camera("Camera / "+name,position,target,lens,dof)
-    sc.render.filepath=os.path.join(out,name+".png")
-    sc.camera.data.lens=lens
-    print("RENDERING",name,sc.render.filepath,flush=True)
-    bpy.ops.render.render(write_still=True)
+if a.motion:
+    # Actual changing 3D samples, not pan/zoom of prerendered images.
+    position,target,lens,dof=views["cyclone"]
+    eye=camera("Animated orbit camera / cyclone",position,target,lens,dof)
+    motes=[obj for obj in bpy.data.objects if obj.name.startswith("Suspended fur mote")]
+    original=[tuple(o.location) for o in motes]
+    # 12 sample frames across a 1.5 s shot, inspect consecutive frame changes.
+    for frame in range(0,45,4):
+        sec=frame/30
+        eye.location=(position[0]+.55*math.sin(sec*.86),
+                      position[1]+.22*math.sin(sec*.55),
+                      position[2]+.16*math.sin(sec*.92))
+        point_at(eye,target)
+        for ob,p in zip(motes,original):
+            dx=p[0]-cx;dy=p[1]-cy
+            ang=math.atan2(dy,dx)+frame*.055
+            radius=math.hypot(dx,dy)
+            ob.location=(cx+radius*math.cos(ang),
+                         cy+radius*math.sin(ang),
+                         max(1.1,p[2]-.012*frame)%2.32)
+        sc.frame_set(frame+1)
+        sc.render.filepath=os.path.join(out,"f_%03d.png"%frame)
+        print("MOTION FRAME",frame,flush=True)
+        bpy.ops.render.render(write_still=True)
+else:
+    shots=views.keys() if a.shot=="all" else [a.shot]
+    for name in shots:
+        position,target,lens,dof=views[name]
+        camera("Camera / "+name,position,target,lens,dof)
+        sc.render.filepath=os.path.join(out,name+".png")
+        sc.camera.data.lens=lens
+        print("RENDERING",name,sc.render.filepath,flush=True)
+        bpy.ops.render.render(write_still=True)
 print("DONE",out,flush=True)
