@@ -1,0 +1,49 @@
+name: Full TRUE Animated 3D Fox Vacuum Preview
+on:
+  push:
+    branches: [vacuum-v2-3d]
+    paths:
+      - ".github/workflows/vacuum-active-full.yml"
+  workflow_dispatch: {}
+permissions:
+  contents: read
+  actions: read
+jobs:
+  full:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22, cache: npm}
+      - run: npm ci --no-audit --no-fund
+      - uses: actions/download-artifact@v4
+        with:
+          name: vacuum-fox-full-low-quality-preview
+          run-id: 40744763890
+          github-token: ${{ github.token }}
+          path: out/narration
+      - name: Stage narration timings
+        run: |
+          mkdir -p public/vacuum-motion public/vacuum-live
+          cp out/narration/public/vacuum-full/{words.json,vo.mp3} public/vacuum-motion/
+          cp out/narration/public/vacuum-full/{words.json,vo.mp3} public/vacuum-live/
+      - run: npx tsc --noEmit
+      - name: Render complete true animated 3D low-quality preview
+        run: |
+          mkdir -p out/active-full
+          npx remotion render vacuum-active-full out/active-full/fox-vacuum-real-3d.mp4 --scale=0.3 --crf=31 --gl=swangle --concurrency=3 --log=error
+      - name: QA actual MP4 contact and metadata
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg >/dev/null
+          ffprobe -v error -show_entries stream=width,height,nb_frames -show_entries format=duration,size -of json out/active-full/fox-vacuum-real-3d.mp4 >out/active-full/probe.json
+          ffmpeg -v error -y -i out/active-full/fox-vacuum-real-3d.mp4 -vf "fps=1/8,scale=90:-1,tile=6x2" -frames:v 1 out/active-full/contact.jpg
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: fox-vacuum-full-true-3d-preview
+          path: out/active-full/
+          if-no-files-found: warn
+          retention-days: 7
