@@ -12,7 +12,7 @@ ffmpeg -hide_banner -loglevel error -nostdin -y \
 python3 - <<'PY'
 import os
 size=os.path.getsize('/tmp/mp4repair-large/reference.mp4')
-loops=max(2,int(460_000_000/size)+1)
+loops=max(2,int(1_030_000_000/size)+1)
 print('REFERENCE_BYTES',size,'STREAM_LOOP',loops,flush=True)
 with open('/tmp/mp4repair-large/repeats','w') as f:f.write(str(loops))
 PY
@@ -50,6 +50,6 @@ with open(src,'rb') as f,open(dst,'wb') as w:
     if skipped!=1:raise Exception('Expected exactly 1 moov, found '+str(skipped))
 broken=os.path.getsize(dst)
 print('BROKEN_BYTES',broken,flush=True)
-if broken<300_000_000:raise Exception('Generated video is too small for stress')
+if broken<1_000_000_000:raise Exception('Generated video is too small for 1GB stress')
 PY
 rm -f "$OUT/healthy.mp4"
