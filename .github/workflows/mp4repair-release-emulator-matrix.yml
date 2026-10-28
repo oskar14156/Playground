@@ -62,8 +62,18 @@ jobs:
           disable-animations: true
           emulator-boot-timeout: 600
           script: bash ci/.github/scripts/mp4repair-release-e2e.sh
+      - name: Archive synthetic emulator failure screenshot
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mp4repair-android35-ui-diagnostic
+          path: ci/.github/test-output/mp4repair
+          if-no-files-found: warn
+          retention-days: 3
       - name: Delete private build and checkout
         if: always()
         run: rm -rf app
 
 # Rerun: automatic paywall must stay dismissed after background and billing refresh.
+
+# Rerun 2026-10-28: verify extended UI with coordinate diagnostics.
