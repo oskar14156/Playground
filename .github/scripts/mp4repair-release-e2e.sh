@@ -152,8 +152,44 @@ def second_sample():
     assert tap('Try an example'),'Try an example missing after repair'
     expect_any(['Video index missing'],25)
     assert tap('Start repair')
-    expect_any(['Rebuilding your video','Your video is back','This file could not be repaired','Your video is ready'],30)
-check('second-repair-progress',second_sample)
+    # Progress alone is not evidence of a second successful repair.
+    deadline=time.monotonic()+100
+    while time.monotonic()<deadline:
+        state=ui()
+        if 'Your video is ready' in state or 'Unlock MP4 Repair Pro' in state:
+            tap('Close')
+        elif 'Your video is back' in state or 'Frames recovered' in state:
+            return
+        elif 'This file could not be repaired' in state:
+            raise AssertionError('Second repair failed: '+state[:1100])
+        time.sleep(1)
+    raise AssertionError('Second repair never reached the result screen: '+ui()[:1100])
+check('second-repair-complete',second_sample)
+
+def repeated_preview_lifecycle():
+    assert tap('Repair another video'),'Cannot return home for preview stress'
+    expect_any(['Try an example'],20)
+    for n in range(6):
+        assert tap('SampleDamaged'), 'Cannot open saved recording pass '+str(n)
+        expect_any(['Preview','Share','Save in full quality'],20)
+        adb('shell','input','keyevent','3')
+        time.sleep(.5)
+        adb('shell','am','start','-n',P+'/.MainActivity')
+        expect_any(['Preview','Share','Save in full quality'],20)
+        adb('shell','input','keyevent','4')
+        expect_any(['Try an example'],20)
+        print('Preview lifecycle cycle',n+1,'of 6 PASS',flush=True)
+check('six-reopen-and-background-cycles',repeated_preview_lifecycle)
+
+def cancel_repair():
+    assert tap('Try an example'),'Cannot start cancellation scenario'
+    expect_any(['Video index missing'],25)
+    assert tap('Start repair')
+    page=expect_any(['Rebuilding your video'],20)[1]
+    assert tap('Stop'),'Could not tap cancellation'
+    # A cancellation is not a crash; it must navigate safely out of progress.
+    expect_any(['Try an example','Video index missing','This file could not be repaired'],30)
+check('cancel-repair-and-recover-navigation',cancel_repair)
 
 print('ANDROID MATRIX FINAL',checks,flush=True)
 PY
