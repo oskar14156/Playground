@@ -192,17 +192,18 @@ views={
 }
 out=os.path.abspath(a.out);os.makedirs(out,exist_ok=True)
 for name,(c,t,l) in views.items():
- if name=="punchline":
-  P.hide_render=True
-  Pcaptured.hide_render=False
-  for ob in floating:ob.hide_render=True
-  for ob in bpy.data.objects:
-   if ob.name.startswith("Loose shed fiber"):ob.hide_render=True
- else:
-  P.hide_render=False
-  Pcaptured.hide_render=True
-  for ob in floating:ob.hide_render=False
- root.hide_render=(name!="punchline")
+ def is_child(ob,parent):
+  while ob.parent:
+   if ob.parent==parent:return True
+   ob=ob.parent
+  return False
+ for ob in bpy.data.objects:
+  if is_child(ob,root):ob.hide_render=(name!="punchline")
+  if is_child(ob,P):ob.hide_render=(name=="punchline")
+  if is_child(ob,Pcaptured):ob.hide_render=(name!="punchline")
+ for ob in floating:ob.hide_render=(name=="punchline")
+ for ob in bpy.data.objects:
+  if ob.name.startswith("Loose shed fiber"):ob.hide_render=(name=="punchline")
  camera(c,t,l)
  sc.render.filepath=os.path.join(out,name+".png")
  print("RENDER",name,sc.render.filepath,flush=True)
