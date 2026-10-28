@@ -79,3 +79,5 @@ jobs:
 # Rerun 2026-10-28: verify extended UI with coordinate diagnostics.
 
 # E2E complete: cover file/photo picker and billing paywall without purchases.
+
+# Retest the foreground-only paywall fix in fix/build13-android-memory.
