@@ -58,7 +58,7 @@ for attempt in range(9):
     print('Onboarding state', attempt, ':', ui[:500], flush=True)
     if 'Try an example' in ui:
         break
-    for label in ('Get started', 'Next', 'Continue', 'Done'):
+    for label in ('Skip', 'Get started', 'Next', 'Continue', 'Done'):
         if click_contains(label):
             break
     else:
