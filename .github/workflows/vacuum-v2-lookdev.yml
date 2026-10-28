@@ -33,12 +33,9 @@ jobs:
           npx remotion still vacuum-3d-hero out/vacuum3d/03_cyclone.png --frame=72 --scale=0.5 --gl=swangle --log=error
           npx remotion still vacuum-3d-hero out/vacuum3d/04_brush.png --frame=102 --scale=0.5 --gl=swangle --log=error
           npx remotion still vacuum-3d-hero out/vacuum3d/05_punchline.png --frame=132 --scale=0.5 --gl=swangle --log=error
-          ffmpeg -y -v error -framerate 1 -pattern_type glob -i "out/vacuum3d/0*.png" -vf "scale=240:-1,tile=5x1" -frames:v 1 out/vacuum3d/contact.jpg
       - name: Render 5-second real 3D camera-motion proof
         run: |
           npx remotion render vacuum-3d-motion out/vacuum3d/threejs-motion-test.mp4 --scale=0.5 --crf=28 --gl=swangle --concurrency=2 --log=error
-          ffprobe -v error -show_entries format=duration,size -of default=noprint_wrappers=1 out/vacuum3d/threejs-motion-test.mp4
-          ffmpeg -y -v error -i out/vacuum3d/threejs-motion-test.mp4 -vf "fps=3,scale=280:-1,tile=5x3" -frames:v 1 out/vacuum3d/motion-check.jpg
       - uses: actions/upload-artifact@v4
         if: always()
         with:
