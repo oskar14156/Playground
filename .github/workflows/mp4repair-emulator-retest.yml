@@ -1,0 +1,45 @@
+# Fast repeated Android smoke tests against the APK built by the full
+# Playground workflow. Do not rebuild in the private MP4 Repair repository.
+name: MP4 Repair emulator retest (reuse APK)
+on:
+  push:
+    paths:
+      - .github/workflows/mp4repair-emulator-retest.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  emulator-retest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout test script from Playground
+        uses: actions/checkout@v4
+        with:
+          path: ci
+      - name: Download already compiled Android APK from Playground
+        uses: actions/download-artifact@v4
+        with:
+          name: mp4repair-memory-test-apk
+          run-id: 40747796056
+          github-token: ${{ github.token }}
+          path: app/android/app/build/outputs/apk/debug
+      - name: Check APK was downloaded
+        run: test -s app/android/app/build/outputs/apk/debug/app-debug.apk
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - name: Real Android emulator UI and repair test
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          arch: x86_64
+          profile: pixel_6
+          disable-animations: true
+          emulator-boot-timeout: 600
+          script: bash ci/.github/scripts/mp4repair-emulator-smoke.sh
