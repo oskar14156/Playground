@@ -101,7 +101,6 @@ def imported_asset(filepath,name,target_width,target,turn=0):
  root.matrix_world=Matrix.Translation(Vector(target)) @ Matrix.Rotation(turn,4,'Z') @ Matrix.Scale(s,4) @ Matrix.Translation(-center)
  for m in meshes:
   for polygon in m.data.polygons:polygon.use_smooth=True
-  m.cycles_visibility.camera=True
  print("ASSET_IMPORT",name,"meshes",len(meshes),"vertices",sum(len(o.data.vertices) for o in meshes),
        "dimension_m",tuple(round(maxs[i]-mins[i],3) for i in range(3)),
        "scale",round(s,4),flush=True)
