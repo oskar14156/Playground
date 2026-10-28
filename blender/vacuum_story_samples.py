@@ -11,7 +11,7 @@ p.add_argument("--out",default="out/vacuum_story");a=p.parse_args(argv)
 bpy.ops.object.select_all(action="SELECT");bpy.ops.object.delete(use_global=False)
 sc=bpy.context.scene;sc.render.engine="CYCLES";sc.cycles.samples=a.samples;sc.cycles.use_denoising=True
 sc.render.resolution_x=1080;sc.render.resolution_y=1920;sc.render.resolution_percentage=a.res
-sc.view_settings.view_transform="AgX";sc.view_settings.look="AgX - Medium High Contrast"
+sc.view_settings.view_transform="AgX";sc.view_settings.look="AgX - Medium High Contrast";sc.view_settings.exposure=-1.25
 def material(name,rgb,rough=.65,metal=0,sub=0):
  m=bpy.data.materials.new(name);m.diffuse_color=(*rgb,1);m.use_nodes=True
  bs=m.node_tree.nodes.get("Principled BSDF")
@@ -76,6 +76,7 @@ for i in range(29):
 box("Rear solid wall",(0,3.72,2.26),(7.5,.23,4.65),plaster)
 box("Left solid wall",(-3.78,0,2.26),(.22,7.5,4.65),plaster)
 box("Ceiling perimeter cornice",(0,3.54,4.5),(7.5,.22,.15),cream)
+box("Real finished ceiling",(0,0,4.67),(7.5,7.5,.25),plaster)
 box("Floor skirting",(0,3.51,.19),(7.5,.15,.28),cream)
 # Large glazed sash and physical architecture
 box("Timber window frame outer",(1.6,3.51,3.07),(2.8,.11,2.75),cream)
@@ -159,34 +160,47 @@ def vparent(o):o.parent=root;o.matrix_parent_inverse=root.matrix_world.inverted(
 vparent(box("Vacuum motor body",(0,0,.47),(1.55,.96,.75),vac,.20))
 for side in (-1,1):
  o=cyl("Roller wheel",(0,side*.60,.30),.31,.20,iron);o.rotation_euler=(math.pi/2,0,0);vparent(o)
-vparent(cyl("Vacuum clear bin cylinder",(0,0,1.48),.61,1.25,glass))
+# Clear cutaway cup is physically open toward the camera: no opaque white cylinder.
+cup=bpy.data.meshes.new("Clear open-front cylindrical cup")
+verts=[];faces=[]
+for i in range(66):
+ theta=math.radians(-20+i*(220/65))
+ verts.extend([(.61*math.cos(theta),.61*math.sin(theta),.90),
+               (.61*math.cos(theta),.61*math.sin(theta),2.03)])
+for i in range(65):faces.append((i*2,i*2+2,i*2+3,i*2+1))
+cup.from_pydata(verts,[],faces);cup.update()
+cup_ob=bpy.data.objects.new("Polycarbonate open cutaway cup",cup)
+bpy.context.collection.objects.link(cup_ob);add(cup_ob,glass);vparent(cup_ob)
+
 vparent(cyl("Vacuum bin bottom black",(0,0,.85),.63,.13,iron))
 vparent(cyl("Vacuum bin top orange",(0,0,2.08),.64,.16,leather))
-vparent(sph("Puh captive giant googly eyes inside transparent bin",(-.19,-.54,1.45),(.16,.06,.18),eyes))
-vparent(sph("Puh captive right eye inside bin",(.19,-.54,1.45),(.16,.06,.18),eyes))
-vparent(sph("Puh captive black pupil A",(-.16,-.61,1.44),(.075,.03,.08),pupil))
-vparent(sph("Puh captive black pupil B",(.21,-.61,1.44),(.075,.03,.08),pupil))
-vparent(sph("Puh captive squashed blue body",(0,0,1.27),(.43,.44,.39),blue))
+
+
+
+
+Pcaptured=pocket((1.00,-1.22,.90),.43)
 root.location=(1.00,-1.13,0)
 # Cinematic integrated lighting, actual geometry, ambient occlusion from path trace
-light("Window sun broad softbox",(1.5,-3.2,7),1550,(1,.81,.59),4.2,(0,0,1))
-light("Cool blue soft fill",(-4,-1.6,5.2),850,(.55,.76,1),3.3,(-1,1,1))
-light("Bright rim light",(1.5,3.2,5.1),1200,(.92,.81,.73),3,(-1,1,1))
-light("Table lamp glow",(-2.3,2.8,2.5),360,(1,.57,.25),1.8,(-1,1,1))
+light("Window sun broad softbox",(1.5,-3.2,7),700,(1,.81,.59),4.2,(0,0,1))
+light("Cool blue soft fill",(-4,-1.6,5.2),320,(.55,.76,1),3.3,(-1,1,1))
+light("Bright rim light",(1.5,3.2,5.1),480,(.92,.81,.73),3,(-1,1,1))
+light("Table lamp glow",(-2.3,2.8,2.5),140,(1,.57,.25),1.8,(-1,1,1))
 views={
- "room":((4.8,-7.45,4.1),(-.55,.55,1.43),37),
- "fur":((2.45,-4.8,1.55),(-1.10,.68,1.28),42),
- "punchline":((3.02,-4.5,2.2),(1,-1.15,1.31),60)
+ "room":((3.9,-6.5,2.95),(-1.55,1.38,1.31),47),
+ "fur":((1.55,-3.62,1.9),(-1.45,1.1,1.55),54),
+ "punchline":((2.95,-3.75,2.55),(1,-1.14,1.37),51)
 }
 out=os.path.abspath(a.out);os.makedirs(out,exist_ok=True)
 for name,(c,t,l) in views.items():
  if name=="punchline":
   P.hide_render=True
+  Pcaptured.hide_render=False
   for ob in floating:ob.hide_render=True
   for ob in bpy.data.objects:
    if ob.name.startswith("Loose shed fiber"):ob.hide_render=True
  else:
   P.hide_render=False
+  Pcaptured.hide_render=True
   for ob in floating:ob.hide_render=False
  root.hide_render=(name!="punchline")
  camera(c,t,l)
