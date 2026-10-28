@@ -1,4 +1,5 @@
 import React from "react";
+import {VacuumActive3D,ACTIVE_DURATION} from "./videos/vacuum3d/VacuumActive3D";
 import {VacuumFoxLive,VACUUM_LIVE_DURATION} from "./videos/vacuum3d/VacuumFoxLive";
 import {Vacuum3DLab, VACUUM_3D_DURATION} from "./videos/vacuum3d/Vacuum3DLab";
 import { Composition } from "remotion";
@@ -26,6 +27,8 @@ export const RemotionRoot: React.FC = () => (
   <>
     <Composition id="vacuum-fox-live" component={VacuumFoxLive} durationInFrames={VACUUM_LIVE_DURATION} {...VIDEO} />
     <Composition id="vacuum-fox-live-proof" component={VacuumFoxLive} durationInFrames={225} defaultProps={{proof:true}} {...VIDEO}/>
+    <Composition id="vacuum-motion-sample" component={VacuumActive3D} durationInFrames={240} defaultProps={{sample:true}} {...VIDEO} />
+    <Composition id="vacuum-active-full" component={VacuumActive3D} durationInFrames={ACTIVE_DURATION} {...VIDEO} />
     <Composition id="vacuum-3d-hero" component={Vacuum3DLab} durationInFrames={VACUUM_3D_DURATION} {...VIDEO} />
     <Composition id="vacuum-3d-motion" component={Vacuum3DLab} durationInFrames={VACUUM_3D_DURATION} defaultProps={{motion:true}} {...VIDEO} />
     <Composition id="great-circle" component={GreatCircle} durationInFrames={GC_DURATION} {...VIDEO} />
