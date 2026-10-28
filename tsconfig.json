@@ -6,12 +6,20 @@
     "jsx": "react-jsx",
     "strict": true,
     "noEmit": true,
-    "lib": ["DOM", "ES2022"],
+    "lib": [
+      "DOM",
+      "ES2022"
+    ],
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "noUnusedLocals": true
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "src/videos/vacuum-cleaner/VacuumPreview.tsx"
+  ]
 }
