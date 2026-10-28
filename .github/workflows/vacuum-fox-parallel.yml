@@ -1,0 +1,101 @@
+name: Full 30fps Live 3D Fox Film - parallel render
+on:
+  push:
+    branches: [vacuum-v2-3d]
+    paths:
+      - ".github/workflows/vacuum-fox-parallel.yml"
+  workflow_dispatch: {}
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: vacuum-live-3d-parallel
+  cancel-in-progress: true
+jobs:
+  render:
+    strategy:
+      fail-fast: false
+      max-parallel: 12
+      matrix:
+        part: [0,1,2,3,4,5,6,7,8,9,10,11]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 100
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22, cache: npm}
+      - name: Install Remotion and ffmpeg
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg >/dev/null
+          npm ci --no-audit --no-fund
+      - uses: actions/download-artifact@v4
+        with:
+          name: vacuum-live-3d-models
+          run-id: 40748764251
+          github-token: ${{ github.token }}
+          path: out/glbs
+      - uses: actions/download-artifact@v4
+        with:
+          name: vacuum-fox-full-low-quality-preview
+          run-id: 40744763890
+          github-token: ${{ github.token }}
+          path: out/voice
+      - name: Stage original genuine Blender models
+        run: |
+          mkdir -p public/vacuum-live
+          for file in fox_helmet room vacuum_body; do
+            src=$(find out/glbs -name "$file.glb" -type f -print -quit)
+            test -s "$src"; cp "$src" "public/vacuum-live/$file.glb"
+          done
+          for file in vo.mp3 words.json; do
+            src=$(find out/voice -name "$file" -type f -print -quit)
+            test -s "$src"; cp "$src" "public/vacuum-live/$file"
+          done
+      - name: Render one unique 183-frame live-3D segment
+        run: |
+          part=${{ matrix.part }}
+          start=$((part*183))
+          end=$((start+182))
+          if [ "$end" -gt 2187 ]; then end=2187; fi
+          printf -v seq "%02d" "$part"
+          mkdir -p out/chunks
+          npx remotion render vacuum-fox-live "out/chunks/part-$seq.mp4" --frames="$start-$end" --scale=0.4 --crf=30 --gl=swangle --concurrency=3 --log=error
+          ffprobe -v error -show_entries format=duration,size -of default=noprint_wrappers=1 "out/chunks/part-$seq.mp4"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vacuum-live-chunk-${{ matrix.part }}
+          path: out/chunks/*.mp4
+          if-no-files-found: error
+          retention-days: 7
+  merge:
+    needs: render
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Install ffmpeg
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg >/dev/null
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: vacuum-live-chunk-*
+          merge-multiple: true
+          path: out/chunks
+      - name: Join genuine animation chunks with continuous audio
+        run: |
+          mkdir -p out/full
+          for i in $(seq -w 0 11); do
+            test -s "out/chunks/part-$i.mp4"
+            printf "file '%s'\n" "$(pwd)/out/chunks/part-$i.mp4" >> out/chunks.txt
+          done
+          ffmpeg -y -loglevel error -f concat -safe 0 -i out/chunks.txt -c copy out/full/vacuum-fox-LIVE-3D-30fps.mp4
+          ffprobe -v error -show_entries format=duration,size:stream=width,height,nb_frames -of json out/full/vacuum-fox-LIVE-3D-30fps.mp4 > out/full/metadata.json
+          ffmpeg -y -loglevel error -i out/full/vacuum-fox-LIVE-3D-30fps.mp4 -vf "fps=1/7,scale=120:-1,tile=6x2" -frames:v 1 out/full/contact.jpg
+          cat out/full/metadata.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vacuum-fox-full-30fps-genuine-3d
+          path: out/full/
+          retention-days: 7
