@@ -151,8 +151,8 @@ def pro_paywall_without_purchase():
     expect_any(['Restore purchases','Unlock now','Your video is ready'],25)
     print('PRO PAYWALL (NO PURCHASE)',ui()[:800],flush=True)
     assert tap('Close'), 'Paywall could not be dismissed'
-    expect_any(['Settings','MP4 Repair Pro'],15)
-    adb('shell','input','keyevent','4')
+    # The upgrade sheet replaces Settings, rather than stacking atop it:
+    # closing returns directly to Home. A further Back would exit the app.
     expect_any(['Try an example'],20)
 check('paywall-open-and-dismiss-no-purchase',pro_paywall_without_purchase)
 
