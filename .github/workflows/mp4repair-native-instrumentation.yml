@@ -38,7 +38,7 @@ jobs:
         working-directory: app/android
         env:
           SENTRY_DISABLE_AUTO_UPLOAD: 'true'
-        run: ./gradlew assembleDebug assembleDebugAndroidTest -PreactNativeArchitectures=x86_64 --no-daemon
+        run: ./gradlew :app:assembleDebug :app:assembleDebugAndroidTest -PreactNativeArchitectures=x86_64 --no-daemon
       - name: Enable KVM for emulator
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
