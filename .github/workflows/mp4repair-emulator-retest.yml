@@ -43,3 +43,5 @@ jobs:
           disable-animations: true
           emulator-boot-timeout: 600
           script: bash ci/.github/scripts/mp4repair-emulator-smoke.sh
+
+# Retest: prefer clickable Pressable nodes and dismiss emulator launcher ANR.
