@@ -36,6 +36,7 @@ jobs:
         working-directory: app
         env:
           MP4REPAIR_DEBUG_GEOMETRY: '1'
+          MP4REPAIR_ONLY_GEOMETRY: '1'
         run: npm run test:repair:android
       - name: Run supported containers and codecs matrix
         working-directory: app
