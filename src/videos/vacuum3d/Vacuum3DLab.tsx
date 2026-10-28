@@ -20,7 +20,6 @@ const Ball:React.FC<{p:V;s:V;color:string;rough?:number;metal?:number}>=({p,s,co
   <sphereGeometry args={[1,30,22]}/><meshStandardMaterial color={color} roughness={rough} metalness={metal}/>
 </mesh>;
 const rnd=(n:number)=>{const r=Math.sin(n*127.1+43.9)*43173.73;return r-Math.floor(r)};
-const clamp=(n:number)=>Math.min(1,Math.max(0,n));
 
 const FloorAndRoom:React.FC=()=>{
   const books=useMemo(()=>Array.from({length:54},(_,i)=>({
@@ -150,7 +149,7 @@ const Pipe:React.FC<{points:V[];r:number;color:string;metal?:number;transparent?
   const curve=useMemo(()=>new THREE.CatmullRomCurve3(points.map(p=>new THREE.Vector3(...p))),[JSON.stringify(points)]);
   return <mesh castShadow>
     <tubeGeometry args={[curve,48,r,14,false]}/>
-    <meshStandardMaterial color={color} metalness={metal} roughness={.3} transparent={transparent} opacity={transparent?.44:1}/>
+    <meshStandardMaterial color={color} metalness={metal} roughness={.3} transparent={transparent} opacity={transparent ? 0.44 : 1}/>
   </mesh>;
 };
 
