@@ -1,0 +1,43 @@
+name: MP4Repair full Kotlin repair corpus
+on:
+  push:
+    paths:
+      - .github/workflows/mp4repair-engine-corpus.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  corpus:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: oskar14156/mp4repair
+          ref: fix/build13-android-memory
+          token: ${{ secrets.CI_BRIDGE_READ_TOKEN }}
+          persist-credentials: false
+          path: app
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install Kotlin compiler 2.1.20
+        run: |
+          curl -fsSL --retry 2 -o /tmp/kotlin.zip https://github.com/JetBrains/kotlin/releases/download/v2.1.20/kotlin-compiler-2.1.20.zip
+          unzip -q /tmp/kotlin.zip -d "$RUNNER_TEMP"
+          echo "KOTLIN_HOME=$RUNNER_TEMP/kotlinc" >> "$GITHUB_ENV"
+      - name: Install ffmpeg for actual media output validation
+        run: sudo apt-get update -qq && sudo apt-get install -y ffmpeg
+      - name: Run damaged-video repair corpus against ffmpeg
+        working-directory: app
+        run: npm run test:repair:android
+      - name: Run supported containers and codecs matrix
+        working-directory: app
+        run: npm run test:formats
+      - name: Delete private checkout and fixtures
+        if: always()
+        run: rm -rf app /tmp/kotlin.zip
