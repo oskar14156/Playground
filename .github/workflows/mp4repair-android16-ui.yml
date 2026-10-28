@@ -77,3 +77,5 @@ jobs:
 # Rerun: automatic paywall must stay dismissed after background and billing refresh.
 
 # Rerun 2026-10-28: verify extended UI with coordinate diagnostics.
+
+# Retest the foreground-only paywall fix in fix/build13-android-memory.
