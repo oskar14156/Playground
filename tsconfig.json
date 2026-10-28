@@ -20,6 +20,7 @@
     "src"
   ],
   "exclude": [
-    "src/videos/vacuum-cleaner/VacuumPreview.tsx"
+    "src/videos/vacuum-cleaner/VacuumPreview.tsx",
+    "src/videos/vacuum3d/VacuumFoxFullPreview.tsx"
   ]
 }
