@@ -1,0 +1,49 @@
+name: Vacuum V3 story-scene samples (code only)
+on:
+  push:
+    branches: [vacuum-v2-3d]
+    paths:
+      - "blender/vacuum_story_samples.py"
+      - ".github/workflows/vacuum-story-samples.yml"
+  workflow_dispatch: {}
+permissions:
+  contents: read
+concurrency:
+  group: vacuum-story-samples
+  cancel-in-progress: true
+jobs:
+  render:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - run: python3 -m py_compile blender/vacuum_story_samples.py
+      - name: Install Blender runtime libraries
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq libegl1 libgl1-mesa-dri libxi6 libxkbcommon0 libxrender1 libxxf86vm1 libsm6 libxfixes3 libxkbcommon-x11-0 >/dev/null
+      - uses: actions/cache@v4
+        with:
+          path: ~/blender
+          key: blender-5.2.3-linux
+      - name: Blender 5.2.3
+        run: |
+          if [ ! -x ~/blender/blender ]; then
+            mkdir -p ~/blender
+            curl --fail --location --silent --show-error https://download.blender.org/release/Blender5.2/blender-5.2.3-linux-x64.tar.xz | tar -xJ -C ~/blender --strip-components=1
+          fi
+      - name: Render room, fur and punchline sample frames
+        run: |
+          mkdir -p out/vacuum_story
+          ~/blender/blender -b -t 4 -P blender/vacuum_story_samples.py -- --res 44 --samples 18 --out out/vacuum_story 2>&1 | tail -70
+          test -s out/vacuum_story/room.png
+          test -s out/vacuum_story/fur.png
+          test -s out/vacuum_story/punchline.png
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: vacuum-v3-story-scene-stills
+          path: out/vacuum_story/
+          retention-days: 7
+          if-no-files-found: warn
