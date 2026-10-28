@@ -1,5 +1,5 @@
 name: Fast premium 3D lookdev still checks
-# Quality iteration 2: full-mechanism wide → transparent cyclone → filter close
+# Quality iteration 3: wider physical filter explosion and camera-centered filter end shot
 on:
   push:
     branches: [vacuum-v2-3d]
