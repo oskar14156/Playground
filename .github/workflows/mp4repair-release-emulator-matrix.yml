@@ -77,3 +77,5 @@ jobs:
 # Rerun: automatic paywall must stay dismissed after background and billing refresh.
 
 # Rerun 2026-10-28: verify extended UI with coordinate diagnostics.
+
+# E2E complete: cover file/photo picker and billing paywall without purchases.
