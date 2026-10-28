@@ -233,6 +233,14 @@ def second_sample():
 check('second-repair-complete',second_sample)
 
 def repeated_preview_lifecycle():
+    # Each *new* repair deliberately offers Pro once. A test that arrives at
+    # the result before the 2.4s upsell must dismiss that legitimate modal
+    # rather than mistaking it for a broken result navigation button.
+    state=ui()
+    if 'Restore purchases' in state and 'Your video is ready' in state:
+        print('Dismissing expected second-repair paywall',flush=True)
+        assert tap('Close'), 'Cannot dismiss expected Pro sheet'
+        time.sleep(1)
     assert tap('Repair another video'),'Cannot return home for preview stress'
     expect_any(['Try an example'],20)
     for n in range(6):
