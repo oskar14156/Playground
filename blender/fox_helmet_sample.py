@@ -5,7 +5,7 @@ import bpy,math,random,sys,argparse,os
 from mathutils import Vector
 r=random.Random(2028);ap=argparse.ArgumentParser();av=sys.argv[sys.argv.index("--")+1:] if "--" in sys.argv else []
 ap.add_argument("--res",type=int,default=48);ap.add_argument("--samples",type=int,default=24)
-ap.add_argument("--out",default="out/fox_helmet");ap.add_argument("--export-model",action="store_true");opts=ap.parse_args(av)
+ap.add_argument("--out",default="out/fox_helmet");ap.add_argument("--export-model",action="store_true");ap.add_argument("--export-lite",action="store_true");opts=ap.parse_args(av)
 bpy.ops.object.select_all(action="SELECT");bpy.ops.object.delete(use_global=False)
 sc=bpy.context.scene;sc.render.engine="CYCLES";sc.cycles.samples=opts.samples;sc.cycles.use_denoising=True
 sc.render.resolution_x=1080;sc.render.resolution_y=1920;sc.render.resolution_percentage=opts.res
@@ -154,7 +154,7 @@ if opts.export_model:
  os.makedirs(opts.out,exist_ok=True)
  bpy.ops.object.select_all(action="DESELECT")
  for ob in bpy.data.objects:
-  if ob.name in _fox_meshes and ob.type in ("MESH","CURVE"):
+  if ob.name in _fox_meshes and ob.type in ("MESH","CURVE") and (not opts.export_lite or ob.type=="MESH" or not ob.name.startswith("Short directionally combed artificial fur strand") or int(ob.name.split(".")[-1])%10==0 if ob.name.rsplit(".",1)[-1].isdigit() else True):
    ob.select_set(True)
  for ob in list(bpy.context.selected_objects):
   if ob.type=="CURVE":
