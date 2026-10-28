@@ -378,13 +378,19 @@ if a.motion:
     eye=camera("Animated orbit camera / cyclone",position,target,lens,dof)
     motes=[obj for obj in bpy.data.objects if obj.name.startswith("Suspended fur mote")]
     original=[tuple(o.location) for o in motes]
-    # 12 sample frames across a 1.5 s shot, inspect consecutive frame changes.
+    bright=[sphere("Animated visible airflow tracer %02d"%i,
+                   (cx,cy,1.6),(.025,.025,.025),cyan) for i in range(24)]
+    # Actual spatial orbit, actual dust displacement, and visible flow markers.
+    # Sampling at 4-frame intervals makes a verifiable motion contact sheet.
     for frame in range(0,45,4):
-        sec=frame/30
-        eye.location=(position[0]+.55*math.sin(sec*.86),
-                      position[1]+.22*math.sin(sec*.55),
-                      position[2]+.16*math.sin(sec*.92))
+        t=frame/44
+        eye.location=(1.10+1.25*t,-4.40+.65*t,2.75+.28*t)
         point_at(eye,target)
+        for i,ob in enumerate(bright):
+            theta=2*math.pi*i/24 + frame*.16
+            radius=.42-.05*t
+            z=2.36-.95*(i/23)-.18*t
+            ob.location=(cx+radius*math.cos(theta),cy+radius*math.sin(theta),z)
         for ob,p in zip(motes,original):
             dx=p[0]-cx;dy=p[1]-cy
             ang=math.atan2(dy,dx)+frame*.055
