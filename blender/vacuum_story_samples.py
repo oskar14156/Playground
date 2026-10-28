@@ -7,7 +7,7 @@ R=random.Random(91)
 p=argparse.ArgumentParser()
 argv=sys.argv[sys.argv.index("--")+1:] if "--" in sys.argv else []
 p.add_argument("--res",type=int,default=45);p.add_argument("--samples",type=int,default=22)
-p.add_argument("--out",default="out/vacuum_story");p.add_argument("--export-model",action="store_true");a=p.parse_args(argv)
+p.add_argument("--out",default="out/vacuum_story");p.add_argument("--export-model",action="store_true");p.add_argument("--export-lite",action="store_true");a=p.parse_args(argv)
 bpy.ops.object.select_all(action="SELECT");bpy.ops.object.delete(use_global=False)
 sc=bpy.context.scene;sc.render.engine="CYCLES";sc.cycles.samples=a.samples;sc.cycles.use_denoising=True
 sc.render.resolution_x=1080;sc.render.resolution_y=1920;sc.render.resolution_percentage=a.res
@@ -203,7 +203,7 @@ if a.export_model:
  # Export realistic furnished room WITHOUT fox, floating hair or payoff vacuum.
  bpy.ops.object.select_all(action="DESELECT")
  for ob in bpy.data.objects:
-  if ob.name in _room_meshes and ob.type in ("MESH","CURVE"):
+  if ob.name in _room_meshes and ob.type in ("MESH","CURVE") and (not a.export_lite or ob.type=="MESH"):
    ob.select_set(True)
  for ob in list(bpy.context.selected_objects):
   if ob.type=="CURVE":
