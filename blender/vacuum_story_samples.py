@@ -34,7 +34,7 @@ glass=material("Clear plastic tinted",(.49,.79,.89),.12,.08)
 leather=material("Warm yellow leather",(.59,.41,.17),.73)
 brick=material("Red baked brick",(.48,.23,.17),.82)
 plantmat=material("Foliage",(.12,.31,.16),.77)
-furblue=material("Loose blue fibers",(.2,.54,.98),.96)
+furblue=material("Loose orange fox fur",(.88,.35,.09),.96)
 def add(o,ma):
  o.data.materials.append(ma);return o
 def box(n,pos,size,ma,bevel=.05):
@@ -111,39 +111,42 @@ for i in range(24):
  angle=i*2.399;h=.52+R.random()*1.4
  sph("Physical plant leaf",(2.8+.34*math.cos(angle),1.15+.3*math.sin(angle),h),(.23,.10,.08),plantmat,12)
 carpet()
-# Pocket Puh: original character geometry and proportions from src/lib/three/Plush.tsx
-# body approx 0.82 wide 0.9 tall with stubby appendages, round ears and googly eyes.
-def pocket(pos=(0,0,0),size=1.0):
- root=bpy.data.objects.new("POCKET_PUH_RIG_ROOT",None);bpy.context.collection.objects.link(root)
+# From now on POCKET PUH = orange-and-white WEARABLE FOX FURSUIT HEAD, not a blue plush.
+foxOrange=material("Pocket Puh fox helmet orange synthetic fur",(.69,.21,.045),.92)
+foxCream=material("Pocket Puh fox helmet white muzzle",(.86,.81,.71),.9)
+foxBlack=material("Fox mesh eyes and padded opening",(.015,.021,.025),.52)
+foxInner=material("Fox inner ear velvet",(.37,.12,.14),.87)
+def foxhelmet(pos=(0,0,0),size=1):
+ root=bpy.data.objects.new("FOX_POCKET_PUH_WEARABLE_HELMET",None);bpy.context.collection.objects.link(root)
  root.location=pos;root.scale=(size,)*3
- def parent(o):o.parent=root;o.matrix_parent_inverse.identity();return o
- parent(sph("Blue oval soft plush body",(0,0,.85),(.82,.75,.90),blue))
- parent(sph("Pale furry belly",(0,-.48,.73),(.53,.34,.59),belly))
- for s in (-1,1):
-  parent(sph("Round blue pocket puh ear",(s*.51,-.025,1.7),(.30,.13,.29),blue))
-  parent(sph("Inner plush ear",(s*.51,-.145,1.7),(.175,.065,.175),belly))
-  parent(sph("Soft furry arm",(s*.77,-.05,.93),(.19,.21,.35),blue))
-  parent(sph("Stubby plush foot",(s*.36,-.37,.14),(.26,.35,.145),blue))
-  parent(sph("Shiny white cartoon eye",(s*.24,-.62,1.29),(.17,.09,.19),eyes))
-  parent(sph("Small off-center pupil",(s*.24+.035,-.71,1.25),(.075,.04,.087),pupil))
- parent(sph("Little stuffed nose",(0,-.755,1.12),(.075,.06,.05),pupil))
- for j in range(2):
-  pts=[]
-  for k in range(12):
-   t=k/11*math.pi*.75
-   pts.append((.17*math.cos(t+(math.pi*.1 if j else .7)), -.725,.91-.15*math.sin(t)))
-  parent(hair("Stitched half-smile",pts,pupil,.010))
- # Sparse individual fabric fibers, no hedgehog spikes
- for i in range(530):
-  u=R.uniform(-1,1);t=R.uniform(0,math.pi*2);v=math.sqrt(1-u*u)
-  x=.82*v*math.cos(t);y=.75*v*math.sin(t);z=.85+.9*u
-  if y<-.51 and z>0.55 and z<1.32:continue # belly surface
-  d=Vector((x/.82**2,y/.75**2,u/.9)).normalized()
-  base=Vector((x,y,z))
-  parent(hair("Short blue plush tuft",
-              [base,base+d*.018,base+d*.025+Vector((.012,0,.005))],blue,.0025))
+ def parent(ob):
+  ob.parent=root;ob.matrix_parent_inverse.identity()
+  return ob
+ parent(sph("Wearable fox helmet shell",(0,0,.80),(.67,.60,.74),foxOrange))
+ parent(sph("Fursuit pale cheek left",(-.40,-.38,.54),(.32,.29,.26),foxCream))
+ parent(sph("Fursuit pale cheek right",(.40,-.38,.54),(.32,.29,.26),foxCream))
+ for q in (-1,1):
+  ear=box("Tapered tall fox ear",(q*.44,-.08,1.52),(.34,.23,.65),foxOrange,.11)
+  ear.rotation_euler[1]=-q*.24;parent(ear)
+  parent(sph("Deep pink inner ear",(q*.44,-.228,1.53),(.17,.055,.24),foxInner))
+  parent(sph("Fursuit shaped socket",(q*.25,-.53,.91),(.195,.12,.195),foxBlack))
+  parent(sph("Amber glossy eye",(q*.25,-.65,.91),(.15,.067,.135),eyes))
+  parent(sph("Dark iris",(q*.25+.02,-.713,.91),(.077,.025,.080),pupil))
+  parent(sph("Long fox muzzle",(q*.13,-.65,.56),(.23,.25,.21),foxCream))
+ parent(sph("Black triangular foam nose",(0,-.88,.64),(.16,.13,.10),foxBlack))
+ parent(sph("White lower jaw",(0,-.55,.38),(.33,.26,.13),foxCream))
+ # Dark wearable neck opening and retaining flange.
+ o=cyl("Dark padded wearer neck opening",(0,0,.135),.40,.17,foxBlack);parent(o)
+ # Simulated physical fur, not a single texture plane.
+ for i in range(580):
+  u=R.uniform(-.8,.9);angle=R.uniform(0,2*math.pi);v=math.sqrt(1-u*u)
+  x=.67*v*math.cos(angle);y=.60*v*math.sin(angle);z=.80+.74*u
+  if y<-.37 and .56<z<1.16:continue
+  base=Vector((x,y,z));d=Vector((x/.67**2,y/.60**2,u/.74)).normalized()
+  parent(hair("Short orange faux-fur strands",[base,base+d*.02,base+d*.035],foxOrange,.002))
  return root
-P=pocket((-1.40,1.16,1.02),.72)
+P=foxhelmet((-1.40,1.16,1.14),.72)
+
 # Loose fur, animated via independent keyframed fibers after scene constructed.
 floating=[]
 for i in range(230):
@@ -178,7 +181,7 @@ vparent(cyl("Vacuum bin top orange",(0,0,2.08),.64,.16,leather))
 
 
 
-Pcaptured=pocket((1.00,-1.13,.91),.49)
+Pcaptured=foxhelmet((1.00,-1.13,.98),.49)
 root.location=(1.00,-1.13,0)
 # Cinematic integrated lighting, actual geometry, ambient occlusion from path trace
 light("Window sun broad softbox",(1.5,-3.2,7),1050,(1,.81,.59),4.2,(0,0,1))
@@ -188,8 +191,11 @@ light("Table lamp glow",(-2.3,2.8,2.5),280,(1,.57,.25),1.8,(-1,1,1))
 light("Front beauty key",(0,-3.8,3.4),820,(1.0,.98,.94),3,(-.7,.9,1.15))
 views={
  "room":((2.65,-5.25,2.62),(-1.42,1.44,1.26),47),
+ "room_wide":((4.2,-7.0,3.25),(-.48,.56,1.38),42),
+ "sofa_detail":((.8,-2.65,2.2),(-1.40,1.34,1.42),58),
  "fur":((1.55,-3.62,1.9),(-1.45,1.1,1.55),54),
- "punchline":((2.35,-3.45,2.10),(1,-1.12,1.39),43)
+ "punchline":((2.35,-3.45,2.10),(1,-1.12,1.39),43),
+ "bin_close":((1.9,-2.8,1.9),(1,-1.12,1.42),66)
 }
 out=os.path.abspath(a.out);os.makedirs(out,exist_ok=True)
 for name,(c,t,l) in views.items():
@@ -199,12 +205,12 @@ for name,(c,t,l) in views.items():
    ob=ob.parent
   return False
  for ob in bpy.data.objects:
-  if is_child(ob,root):ob.hide_render=(name!="punchline")
-  if is_child(ob,P):ob.hide_render=(name=="punchline")
-  if is_child(ob,Pcaptured):ob.hide_render=(name!="punchline")
- for ob in floating:ob.hide_render=(name=="punchline")
+  if is_child(ob,root):ob.hide_render=(name not in ("punchline","bin_close"))
+  if is_child(ob,P):ob.hide_render=(name in ("punchline","bin_close"))
+  if is_child(ob,Pcaptured):ob.hide_render=(name not in ("punchline","bin_close"))
+ for ob in floating:ob.hide_render=(name in ("punchline","bin_close"))
  for ob in bpy.data.objects:
-  if ob.name.startswith("Loose shed fiber"):ob.hide_render=(name=="punchline")
+  if ob.name.startswith("Loose shed fiber"):ob.hide_render=(name in ("punchline","bin_close"))
  camera(c,t,l)
  sc.render.filepath=os.path.join(out,name+".png")
  print("RENDER",name,sc.render.filepath,flush=True)
