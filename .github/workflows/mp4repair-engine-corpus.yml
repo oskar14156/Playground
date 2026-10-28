@@ -49,3 +49,5 @@ jobs:
 # Re-run after reference-aspect-ratio geometry selection fix.
 
 # Isolate HEVC 1080p resize-vs-decode failure before changing candidate selection.
+
+# Rerun: 64-pixel coded HEVC CTU alignment regression.
