@@ -10,14 +10,14 @@ bpy.ops.object.select_all(action="SELECT");bpy.ops.object.delete(use_global=Fals
 sc=bpy.context.scene;sc.render.engine="CYCLES";sc.cycles.samples=opts.samples;sc.cycles.use_denoising=True
 sc.render.resolution_x=1080;sc.render.resolution_y=1920;sc.render.resolution_percentage=opts.res
 sc.view_settings.view_transform="AgX";sc.view_settings.look="AgX - Medium High Contrast"
-sc.view_settings.exposure=-.1
+sc.view_settings.exposure=-1.05
 def mat(n,c,rough=.6,metal=0):
  m=bpy.data.materials.new(n);m.use_nodes=True;m.diffuse_color=(*c,1)
  p=m.node_tree.nodes.get("Principled BSDF");p.inputs["Base Color"].default_value=(*c,1);p.inputs["Roughness"].default_value=rough;p.inputs["Metallic"].default_value=metal
  if "Sheen Weight" in p.inputs and "Fur" in n:p.inputs["Sheen Weight"].default_value=.5
  return m
-orange=mat("Fur / burnt fox orange",(.70,.19,.045),.94)
-light=mat("Fur / golden orange",(.96,.49,.14),.92)
+orange=mat("Fur / burnt fox orange",(.55,.09,.012),.94)
+light=mat("Fur / golden orange",(.72,.25,.045),.92)
 ivory=mat("Fur / warm white",(.87,.82,.74),.93)
 inner=mat("Ear interior dusty rose",(.38,.12,.14),.91)
 black=mat("Matte black nose and muzzle line",(.022,.026,.033),.59)
@@ -110,13 +110,13 @@ sphere("Lower fox jaw",(0,-.68,1.46),(.36,.27,.11),ivory)
 curve("Stitched smile left",[(-.15,-.927,1.56),(-.10,-.96,1.52),(0,-.97,1.51)],black,.011)
 curve("Stitched smile right",[(0,-.97,1.51),(.12,-.95,1.53),(.23,-.89,1.57)],black,.011)
 # Fine fur tufts, aligned to ellipsoid normals and limited to tiny length (not spikes).
-for i in range(980):
+for i in range(2600):
  u=r.uniform(-.91,.93);ang=r.uniform(0,2*math.pi)
  v=math.sqrt(1-u*u);px=.65*v*math.cos(ang);py=.58*v*math.sin(ang);pz=1.92+.77*u
  if py < -.41 and 1.66<pz<2.26:continue  # Keep eyes/snout unobscured
  direction=Vector((px/.65**2,py/.58**2,(pz-1.92)/.77**2)).normalized()
  start=Vector((px,py,pz))
- end=start+direction*r.uniform(.026,.060)
+ end=start+direction*r.uniform(.042,.085)
  curve("Short directionally combed artificial fur strand",[start,start+(end-start)*.55,end],orange if i%3 else light,.0018)
 # Interior ring, retaining pads and adjustable fabric strap: recognizable wearability.
 for i in range(2):
@@ -133,14 +133,14 @@ for i in range(70):
 box("Fox helmet interior detail card",(-1.2,-.1,.23),(.74,.9,.025),ivory,.01)
 box("Wall rear studio plane",(0,4,2.0),(8,.1,5),wall,.0)
 box("Floor behind workbench",(0,0,-1.45),(12,12,.10),wall,.0)
-lightlamp("Warm front soft key",(-3,-4.7,5.8),1100,(1,.85,.72),4,(0,0,2))
-lightlamp("Cool rim",(3.7,2.0,4.9),1100,(.52,.79,1),3,(0,0,2.1))
-lightlamp("Top white softbox",(0,-1.1,6.2),1400,(1,.97,.91),3.2,(0,0,2))
-lightlamp("Camera fill",(1,-5.0,3.5),430,(.75,.85,1),2.9,(0,0,1.8))
+lightlamp("Warm front soft key",(-3,-4.7,5.8),560,(1,.85,.72),4,(0,0,2))
+lightlamp("Cool rim",(3.7,2.0,4.9),620,(.52,.79,1),3,(0,0,2.1))
+lightlamp("Top white softbox",(0,-1.1,6.2),740,(1,.97,.91),3.2,(0,0,2))
+lightlamp("Camera fill",(1,-5.0,3.5),260,(.75,.85,1),2.9,(0,0,1.8))
 views={
  "front":((3.05,-6.7,3.38),(0,-.10,1.93),48),
  "threequarter":((-3.8,-5.2,3.1),(0,-.05,2.01),48),
- "wearable":((2.6,4.3,3.0),(0,0,1.77),50)
+ "wearable":((2.15,2.75,2.80),(0,0,1.86),48)
 }
 os.makedirs(opts.out,exist_ok=True)
 for name,(pos,t,lens) in views.items():
