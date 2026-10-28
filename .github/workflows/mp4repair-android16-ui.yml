@@ -81,3 +81,5 @@ jobs:
 # Retest the foreground-only paywall fix in fix/build13-android-memory.
 
 # Final retest: dismiss the expected Pro offer after each new repair.
+
+# Android UI text regression: Gallery label varies by platform, corrected in test driver.
