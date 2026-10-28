@@ -1,0 +1,64 @@
+name: MP4Repair Android 450MB damaged-video stress
+on:
+  push:
+    paths:
+      - .github/workflows/mp4repair-large-stress.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  real-large-repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 85
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: oskar14156/mp4repair
+          ref: fix/build13-android-memory
+          token: ${{ secrets.CI_BRIDGE_READ_TOKEN }}
+          persist-credentials: false
+          path: app
+      - uses: actions/checkout@v4
+        with:
+          path: ci
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Install application dependencies
+        working-directory: app
+        run: npm ci --no-audit --no-fund
+      - name: Build native Android test APK
+        working-directory: app/android
+        env:
+          SENTRY_DISABLE_AUTO_UPLOAD: 'true'
+        run: ./gradlew :app:assembleDebug :app:assembleDebugAndroidTest -PreactNativeArchitectures=x86_64 --no-daemon
+      - name: Install ffmpeg and generate realistic large damaged video
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg
+          bash ci/.github/scripts/mp4repair-large-fixture.sh
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - name: Repair 450MB+ missing-index video on Android emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          arch: x86_64
+          profile: pixel_6
+          disk-size: 7000M
+          disable-animations: true
+          emulator-boot-timeout: 700
+          script: bash ci/.github/scripts/mp4repair-large-stress-emulator.sh
+      - name: Remove generated and private files
+        if: always()
+        run: rm -rf app /tmp/mp4repair-large /tmp/mp4repair-large-test.log
