@@ -84,20 +84,20 @@ const FloorAndRoom:React.FC=()=>{
 
 const FurryPlush:React.FC<{position:V;scale?:number;f:number}>=({position,scale=1,f})=>{
   const fur=useMemo(()=>{
-    const geom=new THREE.ConeGeometry(.028,.12,4);
+    const geom=new THREE.ConeGeometry(.012,.045,5);
     const mat=new THREE.MeshStandardMaterial({color:"#4297de",roughness:.98,side:THREE.DoubleSide});
-    const mesh=new THREE.InstancedMesh(geom,mat,1800);
+    const mesh=new THREE.InstancedMesh(geom,mat,1300);
     const matrix=new THREE.Matrix4(), up=new THREE.Vector3(0,1,0);
     const center=new THREE.Vector3(0,1.12,0);
     const temp=new THREE.Object3D();
-    for(let i=0;i<1800;i++){
+    for(let i=0;i<1300;i++){
       const u=rnd(i*7)*2-1, a=rnd(i*11)*Math.PI*2,s=Math.sqrt(1-u*u);
       const n=new THREE.Vector3(s*Math.cos(a),u,s*Math.sin(a));
       const surf=new THREE.Vector3(n.x*.82,n.y*.96,n.z*.68);
       const norm=new THREE.Vector3(n.x/.82,n.y/.96,n.z/.68).normalize();
       temp.position.copy(center).add(surf).addScaledVector(norm,.045);
       temp.quaternion.setFromUnitVectors(up,norm);
-      const size=.5+rnd(i*17)*.9;
+      const size=.5+rnd(i*17)*.65;
       temp.scale.set(size,size,size);temp.updateMatrix();
       matrix.copy(temp.matrix);mesh.setMatrixAt(i,matrix);
     }
@@ -125,13 +125,13 @@ const FurryPlush:React.FC<{position:V;scale?:number;f:number}>=({position,scale=
 
 const FurDebris:React.FC<{f:number;clean?:boolean}>=({f,clean=false})=>{
   const fluff=useMemo(()=>{
-    const geo=new THREE.IcosahedronGeometry(.075,1);
+    const geo=new THREE.IcosahedronGeometry(.045,2);
     const mat=new THREE.MeshStandardMaterial({color:"#54b1fb",roughness:.95,flatShading:true});
-    const count=450,mesh=new THREE.InstancedMesh(geo,mat,count);
+    const count=740,mesh=new THREE.InstancedMesh(geo,mat,count);
     const o=new THREE.Object3D();
     for(let i=0;i<count;i++){
       const x=-3.2+rnd(i*9)*6.3,z=-.85+rnd(i*17)*4.35;
-      o.position.set(x,.11+rnd(i*13)*.10,z);const s=.30+rnd(i*27)*1.8;
+      o.position.set(x,.11+rnd(i*13)*.10,z);const s=.25+rnd(i*27)*.9;
       o.scale.set(s*.8,s*.25,s*.9);o.rotation.y=rnd(i*19)*Math.PI*2;o.updateMatrix();mesh.setMatrixAt(i,o.matrix);
     }
     mesh.castShadow=true;mesh.instanceMatrix.needsUpdate=true;return mesh;
@@ -169,8 +169,8 @@ const Vacuum:React.FC<{f:number;shot:number;finale?:boolean}>=({f,shot,finale=fa
     </group>)}
     {/* Main motor outer case and visible impeller in real 3D */}
     <mesh position={[.68,.86,0]} rotation={[Math.PI/2,0,0]} castShadow><cylinderGeometry args={[.47,.47,.83,40,1,true]}/><meshStandardMaterial color="#344657" side={THREE.DoubleSide} metalness={.7} roughness={.25}/></mesh>
-    <mesh position={[.68,.86,.45]}><torusGeometry args={[.39,.06,10,40]}/><meshStandardMaterial color="#b4d2de" metalness={.75} roughness={.22}/></mesh>
-    <group position={[.68,.86,.47]} rotation={[0,0,t*17]}>
+    <mesh position={[.68,.86,.61]}><torusGeometry args={[.39,.06,10,40]}/><meshStandardMaterial color="#b4d2de" metalness={.75} roughness={.22}/></mesh>
+    <group position={[.68,.86,.63]} rotation={[0,0,t*17]}>
       {blades.map(i=><mesh key={i} rotation={[0,0,i*Math.PI*2/9]} position={[0,.19,0]}>
         <boxGeometry args={[.19,.31,.035]}/><meshStandardMaterial color="#e4aa61" metalness={.75} roughness={.27} side={THREE.DoubleSide}/>
       </mesh>)}
@@ -197,7 +197,7 @@ const Vacuum:React.FC<{f:number;shot:number;finale?:boolean}>=({f,shot,finale=fa
         <torusGeometry args={[.145,.016,5,20]}/><meshStandardMaterial color="#718795" metalness={.55} roughness={.35}/>
       </mesh>;
     })}
-    <Panel position={[-2.03,.24,1.11]} size={[.91,.30,.77]} color="#354b5c" metalness={.3} roughness={.32}/>
+    <mesh position={[-2.03,.24,1.11]} castShadow><boxGeometry args={[.91,.30,.77]}/><meshPhysicalMaterial color="#82c1d2" roughness={.16} metalness={.09} transparent opacity={.32} depthWrite={false}/></mesh>
     <Panel position={[-2.00,.095,1.47]} size={[.95,.055,.03]} color="#67d7e7" metalness={.4}/>
     {/* Brush roll: actual rotating geometry */}
     <group position={[-2.03,.18,1.14]} rotation={[0,0,0]}>
@@ -248,11 +248,11 @@ const CamFor=(shot:number,f:number,motion=false):Cam=>{
   const s=f/30;
   if(motion)return {pos:[4.15+Math.sin(s*.66)*.72,2.60+Math.sin(s*.9)*.18,5.22-Math.min(1.0,s*.24)],look:[1.18,1.28,1.03],fov:31};
   const wob=Math.sin(s*.8)*.12;
-  if(shot===0)return {pos:[5.1+wob,3.65,8.4-s*.18],look:[-.3,1.1,-1.2],fov:41};
-  if(shot===1)return {pos:[4.85+wob,2.25,5.68],look:[1.78,1.0,1.28],fov:37};
-  if(shot===2)return {pos:[2.25+wob,2.80,4.6],look:[1.13,1.46,1.15],fov:34};
-  if(shot===3)return {pos:[.25+wob,.73,4.28],look:[-.38,.25,2.12],fov:34};
-  return {pos:[3.7+wob,2.62,5.8],look:[1.08,1.42,1.4],fov:36};
+  if(shot===0)return {pos:[5.4+wob,3.55,9.0-s*.15],look:[-.15,1.25,-.95],fov:44};
+  if(shot===1)return {pos:[4.10+wob,1.95,5.18],look:[2.18,.92,1.58],fov:34};
+  if(shot===2)return {pos:[2.88+wob,2.35,4.95],look:[1.22,1.37,1.15],fov:37};
+  if(shot===3)return {pos:[-1.1+wob,1.24,4.48],look:[-.45,.25,2.22],fov:38};
+  return {pos:[3.5+wob,2.62,5.7],look:[1.19,1.30,1.32],fov:38};
 };
 export const VACUUM_3D_DURATION=150;
 export const Vacuum3DLab:React.FC<{motion?:boolean}>=({motion=false})=>{
