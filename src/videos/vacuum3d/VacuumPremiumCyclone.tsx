@@ -171,10 +171,10 @@ export const VacuumPremiumCyclone:React.FC=()=>{
  const p1=smooth((f-28)/42),p2=smooth((f-100)/36);
  const wide:V=[6.0+Math.sin(t*.40)*.15,3.12,7.15];
  const macro:V=[3.15+Math.sin(t*.34)*.18,2.54,4.22];
- const filter:V=[2.85+Math.sin(t*.30)*.14,2.15,4.6];
+ const filter:V=[4.6+Math.sin(t*.30)*.15,2.45,5.6];
  const pos=move(move(wide,macro,p1),filter,p2);
- const look=move(move([-.60,1.40,.10],[-.49,1.55,-.14],p1),[.96,1.62,-.15],p2);
- const cam:Cam={pos,look,fov:blend(blend(49,37,p1),38,p2)};
+ const look=move(move([-.60,1.40,.10],[-.49,1.55,-.14],p1),[.55,1.42,-.05],p2);
+ const cam:Cam={pos,look,fov:blend(blend(49,37,p1),46,p2)};
 
  return <AbsoluteFill style={{background:"#061523",overflow:"hidden"}}>
   <ThreeCanvas width={width} height={height} shadows camera={{fov:36,near:.05,far:70}}>
@@ -182,11 +182,11 @@ export const VacuumPremiumCyclone:React.FC=()=>{
   </ThreeCanvas>
   <AbsoluteFill style={{pointerEvents:"none",background:"linear-gradient(180deg,rgba(2,12,24,.65),transparent 26%,transparent 62%,rgba(2,12,24,.78))"}}/>
   <div style={{position:"absolute",top:85,left:60,color:"#e6f5fd",fontFamily:"Arial",fontWeight:800,fontSize:25,letterSpacing:3}}>POCKET PUH / ENGINEERING EXPLAINED</div>
-  <div style={{position:"absolute",top:138,left:58,color:"#fff",fontFamily:"Arial",fontWeight:900,fontSize:52,letterSpacing:1}}>CYCLONE SEPARATOR</div>
+  <div style={{position:"absolute",top:138,left:58,color:"#fff",fontFamily:"Arial",fontWeight:900,fontSize:52,letterSpacing:1}}>{f>110?"EXHAUST FILTRATION":"CYCLONE SEPARATOR"}</div>
   <div style={{position:"absolute",top:220,left:61,color:"#acd3e4",fontFamily:"Arial",fontWeight:700,fontSize:28}}>REAL 3D CUTAWAY • MOVING AIRFLOW</div>
   {f>42&&f<107&&<Label p={[-.49,2.30,-.14]} cam={cam} w={width} h={height} name="CYCLONE" sub="Heavy lint falls out" color="#feb36d"/>}
   {f>103&&<Label p={[.89+smooth((f-78)/38)*1.04,1.65,-.2]} cam={cam} w={width} h={height} name="HEPA FILTER" sub="Fine particles stay" color="#6ce4ff" pos={0}/>}
   {f>110&&<div style={{position:"absolute",right:60,top:265,font:"800 28px Arial",color:"#80eaff",letterSpacing:2}}>EXPLODED VIEW</div>}
-  <div style={{position:"absolute",bottom:125,left:50,right:50,color:"white",fontFamily:"Arial",textAlign:"center",fontSize:48,fontWeight:900,textShadow:"0 4px 16px black"}}>SPIN → SEPARATE → FILTER</div>
+  <div style={{position:"absolute",bottom:125,left:50,right:50,color:"white",fontFamily:"Arial",textAlign:"center",fontSize:48,fontWeight:900,textShadow:"0 4px 16px black"}}>{f>110?"CAPTURE THE FINE DUST":"SPIN → SEPARATE → FILTER"}</div>
  </AbsoluteFill>;
 };
