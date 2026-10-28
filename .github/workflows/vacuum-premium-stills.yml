@@ -1,0 +1,42 @@
+name: Fast premium 3D lookdev still checks
+on:
+  push:
+    branches: [vacuum-v2-3d]
+    paths:
+      - ".github/workflows/vacuum-premium-stills.yml"
+  workflow_dispatch: {}
+permissions:
+  contents: read
+  actions: read
+jobs:
+  stills:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 22
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22, cache: npm}
+      - run: npm ci --no-audit --no-fund
+      - uses: actions/download-artifact@v4
+        with:
+          name: vacuum-live-3d-models-lite
+          run-id: 40752972311
+          github-token: ${{ github.token }}
+          path: out/models
+      - run: |
+          mkdir -p public/vacuum-quality out/quality-stills
+          F="$(find out/models -name vacuum_body.glb -print -quit)"
+          test -s "$F"
+          cp "$F" public/vacuum-quality/vacuum_body.glb
+      - name: Render actual 3D before, during and after animated cutaway
+        run: |
+          npx remotion still src/vacuum-quality-entry.tsx quality-cyclone out/quality-stills/a_start.png --frame=8 --scale=0.5 --gl=swangle --log=error
+          npx remotion still src/vacuum-quality-entry.tsx quality-cyclone out/quality-stills/b_vortex.png --frame=72 --scale=0.5 --gl=swangle --log=error
+          npx remotion still src/vacuum-quality-entry.tsx quality-cyclone out/quality-stills/c_exploded.png --frame=136 --scale=0.5 --gl=swangle --log=error
+      - uses: actions/upload-artifact@v4
+        with:
+          name: premium-cyclone-qa-frames
+          path: out/quality-stills/
+          if-no-files-found: warn
+          retention-days: 7
