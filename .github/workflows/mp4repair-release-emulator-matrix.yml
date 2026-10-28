@@ -87,3 +87,5 @@ jobs:
 # Android UI text regression: Gallery label varies by platform, corrected in test driver.
 
 # Final 13-case test driver: paywall closes straight to Home.
+
+# Foreground paywall: dismiss already-visible automatic offer on background.
