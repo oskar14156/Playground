@@ -112,7 +112,22 @@ const BracketHardware:React.FC<{explode:number}>=({explode})=><group>
 
 const Stage:React.FC<{f:number;camera:Cam}>=({f,camera})=>{
  const model=useLoader(GLTFLoader,staticFile("vacuum-quality/vacuum_body.glb"));
- const scene=useMemo(()=>model.scene.clone(true),[model.scene]);
+ const scene=useMemo(()=>{
+ const sc=model.scene.clone(true);
+ sc.traverse((o)=>{
+   if(!(o instanceof THREE.Mesh))return;
+   o.castShadow=true;o.receiveShadow=true;
+   const material=o.material;
+   if(material instanceof THREE.MeshStandardMaterial){
+     const m=material.clone();
+     if(m.name.includes("Satin gunmetal")){m.color.set("#607282");m.roughness=.31;m.metalness=.64;}
+     if(m.name.includes("Graphite anodized")){m.color.set("#263b4b");m.roughness=.36;m.metalness=.70;}
+     if(m.name.includes("Tinted polycarbonate")){m.color.set("#afdeee");m.transparent=true;m.opacity=.24;m.depthWrite=false;m.roughness=.10;}
+     o.material=m;
+   }
+ });
+ return sc;
+},[model.scene]);
  const t=f/30;
  const explode=smooth((f-78)/38)*.7;
  const isFlow=f>=16;
@@ -124,6 +139,7 @@ const Stage:React.FC<{f:number;camera:Cam}>=({f,camera})=>{
   <directionalLight position={[-4.5,6,5]} intensity={3.4} color="#f5e9d5" castShadow shadow-mapSize={[1024,1024]} shadow-camera-left={-6} shadow-camera-right={6} shadow-camera-top={7} shadow-camera-bottom={-6}/>
   <spotLight position={[4,3,1]} angle={.72} intensity={85} penumbra={.7} color="#65c9ff" distance={11}/>
   <pointLight position={[-2,4,-1]} intensity={32} distance={9} color="#ffad67"/>
+  <pointLight position={[-1.2,2.2,3.2]} intensity={14} distance={8} color="#ffffff"/>
   <group position={[0,0,0]}><primitive object={scene}/></group>
   <BracketHardware explode={explode}/>
   <Shaft f={f}/>
@@ -150,10 +166,16 @@ const Label:React.FC<{p:V;cam:Cam;w:number;h:number;name:string;sub:string;color
 export const VacuumPremiumCyclone:React.FC=()=>{
  const f=useCurrentFrame(),{width,height}=useVideoConfig();
  const t=f/30;
- const cam:Cam={
-   pos:[3.85-1.8*smooth(f/135)+Math.sin(t*.52)*.17,2.8+.22*Math.sin(t*.36),4.5-1.0*smooth(f/125)],
-   look:[-.20,1.45,-.02],fov:33+4*smooth((f-92)/60)
- };
+ const blend=(a:number,b:number,u:number)=>a+(b-a)*u;
+ const move=(from:V,to:V,u:number):V=>[blend(from[0],to[0],u),blend(from[1],to[1],u),blend(from[2],to[2],u)];
+ const p1=smooth((f-28)/42),p2=smooth((f-100)/36);
+ const wide:V=[6.0+Math.sin(t*.40)*.15,3.12,7.15];
+ const macro:V=[3.15+Math.sin(t*.34)*.18,2.54,4.22];
+ const filter:V=[3.25+Math.sin(t*.30)*.14,2.30,3.65];
+ const pos=move(move(wide,macro,p1),filter,p2);
+ const look=move(move([-.60,1.40,.10],[-.49,1.55,-.14],p1),[.45,1.70,-.15],p2);
+ const cam:Cam={pos,look,fov:blend(blend(49,37,p1),37,p2)};
+
  return <AbsoluteFill style={{background:"#061523",overflow:"hidden"}}>
   <ThreeCanvas width={width} height={height} shadows camera={{fov:36,near:.05,far:70}}>
    <Stage f={f} camera={cam}/>
@@ -162,8 +184,8 @@ export const VacuumPremiumCyclone:React.FC=()=>{
   <div style={{position:"absolute",top:85,left:60,color:"#e6f5fd",fontFamily:"Arial",fontWeight:800,fontSize:25,letterSpacing:3}}>POCKET PUH / ENGINEERING EXPLAINED</div>
   <div style={{position:"absolute",top:138,left:58,color:"#fff",fontFamily:"Arial",fontWeight:900,fontSize:52,letterSpacing:1}}>CYCLONE SEPARATOR</div>
   <div style={{position:"absolute",top:220,left:61,color:"#acd3e4",fontFamily:"Arial",fontWeight:700,fontSize:28}}>REAL 3D CUTAWAY • MOVING AIRFLOW</div>
-  {f>30&&f<145&&<Label p={[-.49,2.30,-.14]} cam={cam} w={width} h={height} name="CYCLONE" sub="Heavy lint falls out" color="#feb36d"/>}
-  {f>65&&<Label p={[.89,1.65,-.2]} cam={cam} w={width} h={height} name="HEPA FILTER" sub="Fine particles stay" color="#6ce4ff" pos={1}/>}
+  {f>42&&f<107&&<Label p={[-.49,2.30,-.14]} cam={cam} w={width} h={height} name="CYCLONE" sub="Heavy lint falls out" color="#feb36d"/>}
+  {f>103&&<Label p={[.89,1.65,-.2]} cam={cam} w={width} h={height} name="HEPA FILTER" sub="Fine particles stay" color="#6ce4ff" pos={1}/>}
   <div style={{position:"absolute",bottom:125,left:50,right:50,color:"white",fontFamily:"Arial",textAlign:"center",fontSize:48,fontWeight:900,textShadow:"0 4px 16px black"}}>SPIN → SEPARATE → FILTER</div>
  </AbsoluteFill>;
 };
