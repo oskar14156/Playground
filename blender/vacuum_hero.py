@@ -17,6 +17,7 @@ ap.add_argument("--shot",default="all")
 ap.add_argument("--out",default="out/vacuum_blender")
 ap.add_argument("--quality",default="draft")
 ap.add_argument("--export-model",action="store_true")
+ap.add_argument("--export-lite",action="store_true")
 ap.add_argument("--motion",action="store_true",help="Render a sampled 3D camera+particle animation for motion QA")
 a=ap.parse_args(argv)
 R=random.Random(23)
@@ -379,15 +380,18 @@ if a.export_model:
  # Export true 3D vacuum body to a compact glTF; moving impeller/brush are re-built
  # separately in Three.js so their rotation is frame-driven (not baked stills).
  skip=("Sculpted impeller blade","Brush roller barrel","Spiral colored brush bristles")
+ major_paths=("Intake air route rubber","Coaxial molded hose rim","Separator clean air duct","Filtered air outlet")
  allowed=[ob for ob in bpy.data.objects if ob.name in _vacuum_meshes and ob.type in ("MESH","CURVE")
-          and not any(v in ob.name for v in skip)]
+          and not any(v in ob.name for v in skip)
+          and (not a.export_lite or ob.type=="MESH" or ob.name.startswith(major_paths))]
+ allowed_names=set(ob.name for ob in allowed)
  for ob in allowed:
   if ob.type=="CURVE":
    bpy.ops.object.select_all(action="DESELECT");ob.select_set(True);bpy.context.view_layer.objects.active=ob
    bpy.ops.object.convert(target="MESH")
  bpy.ops.object.select_all(action="DESELECT")
  for ob in bpy.data.objects:
-  if ob.name in _vacuum_meshes and ob.type=="MESH" and not any(v in ob.name for v in skip):
+  if ob.name in allowed_names and ob.type=="MESH":
    ob.select_set(True)
  if bpy.context.selected_objects:
   bpy.context.view_layer.objects.active=bpy.context.selected_objects[0]
