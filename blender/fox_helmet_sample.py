@@ -152,9 +152,14 @@ views={
 }
 if opts.export_model:
  os.makedirs(opts.out,exist_ok=True)
+ def keep_preview_geometry(ob):
+  if not opts.export_lite or ob.type=="MESH":return True
+  if not ob.name.startswith("Short directionally combed artificial fur strand"):return True
+  suffix=ob.name.rsplit(".",1)[-1]
+  return suffix.isdigit() and int(suffix)%10==0
  bpy.ops.object.select_all(action="DESELECT")
  for ob in bpy.data.objects:
-  if ob.name in _fox_meshes and ob.type in ("MESH","CURVE") and (not opts.export_lite or ob.type=="MESH" or not ob.name.startswith("Short directionally combed artificial fur strand") or int(ob.name.split(".")[-1])%10==0 if ob.name.rsplit(".",1)[-1].isdigit() else True):
+  if ob.name in _fox_meshes and ob.type in ("MESH","CURVE") and keep_preview_geometry(ob):
    ob.select_set(True)
  for ob in list(bpy.context.selected_objects):
   if ob.type=="CURVE":
