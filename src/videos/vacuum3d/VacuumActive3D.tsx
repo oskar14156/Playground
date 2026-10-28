@@ -1,7 +1,8 @@
 import React from "react";
 import * as THREE from "three";
 import {ThreeCanvas} from "@remotion/three";
-import {AbsoluteFill,Audio,staticFile,useCurrentFrame,useVideoConfig} from "remotion";
+import {AbsoluteFill,Audio,Sequence,staticFile,useCurrentFrame,useVideoConfig} from "remotion";
+import {VacuumPremiumCyclone} from "./VacuumPremiumCyclone";
 import {CameraRig,type Cam} from "../../lib/three/core";
 import wordsJson from "../../../public/vacuum-motion/words.json";
 type Word={word:string,start:number,end:number};
@@ -208,8 +209,30 @@ export const VacuumActive3D:React.FC<{sample?:boolean}>=({sample=false})=>{
  const actualFrame=sample?frame+Math.round(cue("So you make the air spin")):frame;
  let stage=0;for(let i=0;i<beats.length;i++)if(actualFrame>=beats[i].f)stage=i;else break;
  const b=beats[stage],local=actualFrame-b.f;
+ const spinStart=Math.floor(cue("So you make the air spin"));
+ const filterStart=Math.floor(cue("So you add a fine filter"));
+ const useCinematicCyclone=!sample && frame>=spinStart&&frame<spinStart+150;
+ const useCinematicFilter=!sample && frame>=filterStart&&frame<filterStart+150;
  let wordIdx=0;const sec=actualFrame/FPS;
  for(let i=0;i<words.length;i++)if(words[i].start<=sec)wordIdx=i;else break;
+ if(useCinematicCyclone||useCinematicFilter){
+   const isFilter=useCinematicFilter;
+   const start=isFilter?filterStart:spinStart;
+   return <AbsoluteFill style={{background:"#091827"}}>
+      <Sequence from={start} layout="none">
+         <VacuumPremiumCyclone embed shot={isFilter?"filter":"cyclone"}/>
+      </Sequence>
+      <div style={{position:"absolute",left:60,right:60,top:95,font:"900 42px Arial",color:"#fff",textShadow:"0 5px 10px #08141e"}}>
+       {isFilter?"FINE DUST FILTER":"CYCLONIC SEPARATION"}
+      </div>
+      <div style={{position:"absolute",left:40,right:40,bottom:150,display:"flex",alignItems:"center",justifyContent:"center",height:175}}>
+        <span style={{fontFamily:"Arial Black,Arial,sans-serif",fontWeight:900,fontSize:Math.min(130,Math.max(66,900/Math.max(2,(words[wordIdx]?.word.length??6)*.70))),textTransform:"uppercase",color:"white",textShadow:"3px 3px #09121c,-3px -3px #09121c,0 6px 8px #000"}}>
+           {words[wordIdx]?.word??""}
+        </span>
+      </div>
+      <Audio src={staticFile("vacuum-motion/vo.mp3")}/>
+   </AbsoluteFill>;
+ }
  return <AbsoluteFill style={{background:"#172734"}}>
   <ThreeCanvas width={width} height={height} camera={{fov:40,near:.05,far:50}} shadows>
    <MachineScene frame={actualFrame} phase={b.kind} progress={smooth(local/65)}/>
