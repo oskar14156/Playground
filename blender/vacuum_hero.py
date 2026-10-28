@@ -177,11 +177,11 @@ cyl("Collection base",(cx,cy,.65),.61,.18,graphite)
 cyl("Container orange bottom rim",(cx,cy,.78),.622,.065,accent)
 cyl("Cyclone top machined silver cap",(cx,cy,2.57),.65,.16,chrome)
 cyl("Cap blue black accent",(cx,cy,2.65),.58,.055,graphite)
-mesh_shell("Cutaway polycarbonate cup",.61,.80,2.52, (24,155),glass,(cx,cy))
+mesh_shell("Cutaway polycarbonate cup",.61,.80,2.52, (203,337),glass,(cx,cy))
 for z in (.86,1.02,1.80,2.45):
     # Open-front rings match the missing front segment, no rings hiding the section.
     points=[]
-    for deg in range(155,385,4):
+    for deg in range(337,563,4):
         th=math.radians(deg)
         points.append((cx+.615*math.cos(th),cy+.615*math.sin(th),z))
     curve("Transparent chamber seam "+str(z),points,chrome,.012)
@@ -192,7 +192,7 @@ for i in range(12):
 
 # Internal true cone, no opaque cover masking the core.
 bpy.ops.mesh.primitive_cone_add(vertices=72,radius1=.17,radius2=.44,depth=1.24,location=(cx,cy,1.59))
-co=bpy.context.object;co.name="Cyclone tapered separation funnel";link(co,chrome)
+co=bpy.context.object;co.name="Cyclone tapered separation funnel";link(co,steel)
 co.modifiers.new("Cone bevel","BEVEL").width=.015
 for f in co.data.polygons:f.use_smooth=True
 cyl("Central clean-air vortex finder",(cx,cy,2.12),.125,.7,graphite)
@@ -301,9 +301,15 @@ cube("Status indicator housing",(1.70,-.47,.55),(.49,.10,.24),chrome,.05)
 cube("Status cyan display",(1.70,-.531,.55),(.37,.012,.13),cyan_soft,.018)
 text3("Machine model marking","VORTEX / 01",(-.32,-.69,.37),.13,white)
 text3("Brand microtext","CYCLONE",(-.66,-.60,2.78),.13,accent)
-# Lower front nozzle, with truly visible brush roll: open top cutaway and gumlike bristles.
-cube("Nozzle intake body",(-2.55,-1.25,.27),(1.40,.81,.26),graphite,.11)
-cube("Transparent brush inspection pane",(-2.55,-1.10,.43),(1.19,.42,.055),glass,.055)
+# Lower front nozzle: remove opaque box and model only a rounded open-front frame.
+# The exposed brush axle and bristles MUST be visible to the near-side camera.
+cube("Nozzle rear manifold",(-2.55,-.89,.30),(1.46,.25,.39),graphite,.065)
+cube("Nozzle left cheek",(-3.26,-1.31,.29),(.14,.76,.35),steel,.06)
+cube("Nozzle right cheek",(-1.84,-1.31,.29),(.14,.76,.35),steel,.06)
+cube("Nozzle chrome upper rail",(-2.55,-1.0,.48),(1.3,.12,.07),chrome,.025)
+cube("Clear top inspection cover",(-2.55,-1.38,.48),(1.18,.48,.035),glass,.015)
+cube("Nozzle cyan work light",(-2.55,-1.72,.28),(1.1,.018,.027),cyan_soft,.005)
+
 cyl("Brush roller axle",(-2.55,-1.28,.22),.11,1.12,accent_dark,36,(0,math.pi/2,0))
 for i in range(58):
     x=-3.06+(i/57)*1.02
@@ -317,6 +323,20 @@ for i in range(55):
     yy=-1.8+R.uniform(0,1)*.35
     curve("blue debris at intake",[(x,yy,.025),(x+.025,yy+.025,.035)],fluff,.004)
 
+
+# Textile carpet segment placed under the cleaning head (actual dimensional weave).
+carpet_mat=mat("Beige low-pile woven carpet",(.35,.29,.23),0,.96)
+pile_mat=mat("Warm wool pile",(.53,.45,.34),0,.92)
+cube("Actual rug carpet",(-2.60,-1.72,-.018),(2.95,2.30,.078),carpet_mat,.012)
+for i in range(170):
+    x=-3.88+R.random()*2.6
+    y=-2.75+R.random()*2.0
+    points=[(x,y,.04),(x+.012,y+.016,.09),(x+.032,y+.027,.04)]
+    curve("carpet wool pile",points,pile_mat,.003)
+for i in range(180):
+    x=-3.80+R.random()*2.4;y=-2.50+R.random()*1.4
+    curve("uncollected plush fur at rug",[(x,y,.07),(x+.018,y+.035,.10),(x+.060,y+.07,.075)],fluff,.004)
+
 # Camera view (portrait), cinematic focal length tuned per target; no camera clipping.
 def camera(name,position,target,lens=40,focus=0):
     bpy.ops.object.camera_add(location=position)
@@ -329,9 +349,9 @@ def camera(name,position,target,lens=40,focus=0):
     return o
 
 views={
-    "hero":((4.7,-9.2,5.1),(-.28,.0,1.35),36,8),
-    "cyclone":((1.9,-5.0,3.7),(-.54,.08,1.65),55,7),
-    "brush":((-3.8,-4.4,1.55),(-2.39,-1.14,.32),48,5),
+    "hero":((3.4,-7.0,4.05),(-.28,.0,1.55),38,9),
+    "cyclone":((1.35,-4.4,2.95),(-.54,.10,1.75),54,9),
+    "brush":((-3.35,-3.9,1.48),(-2.55,-1.23,.26),48,9),
 }
 out=os.path.abspath(a.out)
 os.makedirs(out,exist_ok=True)
