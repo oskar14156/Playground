@@ -39,6 +39,15 @@ jobs:
         env:
           SENTRY_DISABLE_AUTO_UPLOAD: 'true'
         run: ./gradlew :app:assembleDebug :app:assembleDebugAndroidTest -PreactNativeArchitectures=x86_64 --no-daemon
+      - name: Generate actual 3840x2160 H.264 stress video
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg
+          ffmpeg -hide_banner -loglevel error -nostdin -y \
+            -f lavfi -i testsrc2=size=3840x2160:rate=15:duration=2 \
+            -c:v libx264 -threads 2 -preset ultrafast -crf 39 \
+            -pix_fmt yuv420p -movflags +faststart /tmp/mp4repair-stress-4k.mp4
+          test -s /tmp/mp4repair-stress-4k.mp4
       - name: Enable KVM for emulator
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
