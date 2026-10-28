@@ -40,7 +40,13 @@ def tap(name):
         x1,y1,x2,y2=map(int,m.groups())
         if x2<=x1 or y2<=y1:continue
         options.append((n.get('clickable')=='true',(x2-x1)*(y2-y1),x1,y1,x2,y2))
-    if not options:return False
+    if not options:
+        print('NO VALID TOUCH TARGET',name, 'candidates=', [
+            (n.get('text',''),n.get('content-desc',''),n.get('bounds',''))
+            for n in nodes() if name.casefold() in
+            (n.get('text','')+' '+n.get('content-desc','')).casefold()
+        ][:12],flush=True)
+        return False
     clickable,area,x1,y1,x2,y2=max(options)
     print('TAP',name,'clickable',clickable,'coords',((x1+x2)//2,(y1+y2)//2),flush=True)
     adb('shell','input','tap',str((x1+x2)//2),str((y1+y2)//2))
@@ -67,6 +73,14 @@ def check(name,action):
         checks.append((name,'FAIL'))
         print('CASE FAIL',name,repr(e),'UI=',ui()[:1200],flush=True)
         try:
+            import os
+            os.makedirs('ci/.github/test-output/mp4repair',exist_ok=True)
+            adb('shell','screencap','-p','/sdcard/mp4repair-test-fail.png')
+            adb('pull','/sdcard/mp4repair-test-fail.png',
+                'ci/.github/test-output/mp4repair/'+name+'.png')
+        except Exception as screenshot_error:
+            print('Unable to save screenshot:',str(screenshot_error),flush=True)
+        try:
             print('MEMORY',adb('shell','dumpsys','meminfo',P)[:1400],flush=True)
             print('RECENT APP LOGS', '\n'.join(l for l in adb('logcat','-d','-t','700').splitlines() if P in l or 'ReactNativeJS' in l or 'FATAL EXCEPTION' in l)[-10000:],flush=True)
         except Exception as caught:print('Log capture issue:',caught,flush=True)
@@ -76,9 +90,27 @@ def onboarding():
     for _ in range(12):
         state=ui()
         if 'Try an example' in state:return
+        acted=False
         for label in ('Skip','Get started','Next','Continue','Done'):
-            if tap(label):break
-        else:time.sleep(2)
+            if label.casefold() not in state.casefold():continue
+            if tap(label):
+                acted=True
+                break
+            if label == 'Skip':
+                # Android's UIAutomator on some API 36 snapshots exposes a
+                # visible Skip label with a malformed/off-screen bounds rect.
+                # The fixed top-right target is a fallback only when the
+                # actual Skip node is visible but impossible to tap by bounds.
+                size=adb('shell','wm','size')
+                matches=re.findall(r'(\\d+)x(\\d+)',size)
+                if matches:
+                    width,height=map(int,matches[-1])
+                    point=(int(width*.92),int(min(190,max(115,height*.075))))
+                    print('FALLBACK SKIP',point,'screen',size.strip(),flush=True)
+                    adb('shell','input','tap',*map(str,point))
+                    acted=True
+                    break
+        if not acted:time.sleep(2)
         time.sleep(.7)
     expect_any(['Try an example'],10)
 check('onboarding-to-home',onboarding)
