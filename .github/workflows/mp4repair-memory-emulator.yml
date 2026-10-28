@@ -6,6 +6,7 @@ on:
   push:
     paths:
       - .github/workflows/mp4repair-memory-emulator.yml
+      - .github/scripts/mp4repair-emulator-smoke.sh
   workflow_dispatch:
 
 permissions:
@@ -91,6 +92,10 @@ jobs:
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
+      - name: Checkout Playground's emulator smoke script
+        uses: actions/checkout@v4
+        with:
+          path: ci
       - name: Run on an actual Android emulator
         uses: reactivecircus/android-emulator-runner@v2
         with:
@@ -99,60 +104,9 @@ jobs:
           profile: pixel_6
           disable-animations: true
           emulator-boot-timeout: 900
-          script: |
-            set -euo pipefail
-            adb install -r app/android/app/build/outputs/apk/debug/app-debug.apk
-            adb shell am start -n com.oskarpolster.mp4repair/.MainActivity
-            sleep 10
-            adb shell dumpsys activity activities | grep -E 'mResumedActivity|topResumedActivity|ResumedActivity' || true
-            adb logcat -d -t 400 | grep -E 'FATAL EXCEPTION|OutOfMemoryError|AndroidRuntime' && exit 1 || true
-            python3 - <<'PY'
-            import re,subprocess,time,xml.etree.ElementTree as ET
-            def sh(*args):
-                return subprocess.check_output(['adb',*args],text=True,stderr=subprocess.STDOUT)
-            def nodes():
-                sh('shell','uiautomator','dump','/sdcard/mp4repair-ui.xml')
-                data=sh('shell','cat','/sdcard/mp4repair-ui.xml')
-                return ET.fromstring(data[data.index('<?xml'):])
-            def click_contains(key):
-                for e in nodes().iter('node'):
-                    title=' '.join((e.get('text',''),e.get('content-desc','')))
-                    if key.lower() not in title.lower(): continue
-                    bounds=e.get('bounds','')
-                    match=re.fullmatch(r'\[(\d+),(\d+)\]\[(\d+),(\d+)\]',bounds)
-                    if match:
-                        x1,y1,x2,y2=map(int,match.groups())
-                        sh('shell','input','tap',str((x1+x2)//2),str((y1+y2)//2))
-                        return True
-                return False
-            def screen():
-                return ' | '.join((e.get('text','')+' '+e.get('content-desc','')).strip() for e in nodes().iter('node'))
-            for _ in range(8):
-                ui=screen()
-                print('UI:',ui[:850])
-                if 'Try an example' in ui: break
-                for label in ('Get started','Continue','Next','Start','Done'):
-                    if click_contains(label): break
-                else: time.sleep(3)
-                time.sleep(1)
-            assert click_contains('Try an example'), 'Home screen/example action not found'
-            time.sleep(5)
-            assert click_contains('Start repair'), 'Sample diagnosis/start repair missing'
-            complete=False
-            for i in range(55):
-                time.sleep(2)
-                ui=screen()
-                if any(k in ui.lower() for k in ('repair complete','your video is back','frames recovered')):
-                    complete=True
-                    print('Repair result:',ui[:1200])
-                    break
-                if 'repair failed' in ui.lower() or 'no video frames' in ui.lower():
-                    raise AssertionError('Sample repair failed: '+ui[:1400])
-            assert complete, 'Sample repair result not reached within 110 seconds'
-            print('PASS: installed, onboarded, repaired sample video on Android emulator.')
-            PY
-            adb logcat -d -t 500 | grep -E 'FATAL EXCEPTION|OutOfMemoryError|AndroidRuntime' && exit 1 || true
+          script: bash ci/.github/scripts/mp4repair-emulator-smoke.sh
       - name: Upload emulator APK
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: mp4repair-memory-test-apk
