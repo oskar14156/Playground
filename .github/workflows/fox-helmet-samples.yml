@@ -1,0 +1,49 @@
+name: Fox Fursuit Helmet Blender Samples
+on:
+  push:
+    branches: [vacuum-v2-3d]
+    paths:
+      - "blender/fox_helmet_sample.py"
+      - ".github/workflows/fox-helmet-samples.yml"
+  workflow_dispatch: {}
+permissions:
+  contents: read
+concurrency:
+  group: fox-helmet-samples
+  cancel-in-progress: true
+jobs:
+  render:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - run: python3 -m py_compile blender/fox_helmet_sample.py
+      - name: Dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq libegl1 libgl1-mesa-dri libxi6 libxkbcommon0 libxrender1 libxxf86vm1 libsm6 libxfixes3 libxkbcommon-x11-0 >/dev/null
+      - uses: actions/cache@v4
+        with:
+          path: ~/blender
+          key: blender-5.2.3-linux
+      - name: Blender
+        run: |
+          if [ ! -x ~/blender/blender ]; then
+            mkdir -p ~/blender
+            curl --fail --location --silent --show-error https://download.blender.org/release/Blender5.2/blender-5.2.3-linux-x64.tar.xz | tar -xJ -C ~/blender --strip-components=1
+          fi
+      - name: Render three wearable fox helmet views
+        run: |
+          mkdir -p out/fox_helmet
+          ~/blender/blender -b -t 4 -P blender/fox_helmet_sample.py -- --res 45 --samples 22 --out out/fox_helmet 2>&1 | tail -70
+          test -s out/fox_helmet/front.png
+          test -s out/fox_helmet/threequarter.png
+          test -s out/fox_helmet/wearable.png
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: fox-fursuit-helmet-stills
+          path: out/fox_helmet/
+          if-no-files-found: warn
+          retention-days: 7
