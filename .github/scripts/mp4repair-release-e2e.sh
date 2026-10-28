@@ -102,7 +102,7 @@ def onboarding():
                 # The fixed top-right target is a fallback only when the
                 # actual Skip node is visible but impossible to tap by bounds.
                 size=adb('shell','wm','size')
-                matches=re.findall(r'(\\d+)x(\\d+)',size)
+                matches=re.findall(r'(\d+)x(\d+)',size)
                 if matches:
                     width,height=map(int,matches[-1])
                     point=(int(width*.92),int(min(190,max(115,height*.075))))
