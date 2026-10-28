@@ -30,6 +30,20 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y -qq ffmpeg >/dev/null
           npm ci --no-audit --no-fund
+      - name: Wait for Blender GLB export to succeed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for i in $(seq 1 110); do
+            status=$(gh api repos/oskar14156/Playground/actions/runs/40748764251 --jq '.status')
+            if [ "$status" = "completed" ]; then
+              result=$(gh api repos/oskar14156/Playground/actions/runs/40748764251 --jq '.conclusion')
+              test "$result" = "success" || { echo "3D model export failed: $result"; exit 1; }
+              break
+            fi
+            sleep 15
+          done
+          test "$(gh api repos/oskar14156/Playground/actions/runs/40748764251 --jq '.conclusion')" = "success"
       - name: Download real glTF from Blender
         uses: actions/download-artifact@v4
         with:
