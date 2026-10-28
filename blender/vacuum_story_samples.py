@@ -11,7 +11,7 @@ p.add_argument("--out",default="out/vacuum_story");a=p.parse_args(argv)
 bpy.ops.object.select_all(action="SELECT");bpy.ops.object.delete(use_global=False)
 sc=bpy.context.scene;sc.render.engine="CYCLES";sc.cycles.samples=a.samples;sc.cycles.use_denoising=True
 sc.render.resolution_x=1080;sc.render.resolution_y=1920;sc.render.resolution_percentage=a.res
-sc.view_settings.view_transform="AgX";sc.view_settings.look="AgX - Medium High Contrast";sc.view_settings.exposure=-.55
+sc.view_settings.view_transform="AgX";sc.view_settings.look="AgX - Medium High Contrast";sc.view_settings.exposure=.10
 def material(name,rgb,rough=.65,metal=0,sub=0):
  m=bpy.data.materials.new(name);m.diffuse_color=(*rgb,1);m.use_nodes=True
  bs=m.node_tree.nodes.get("Principled BSDF")
@@ -181,14 +181,15 @@ vparent(cyl("Vacuum bin top orange",(0,0,2.08),.64,.16,leather))
 Pcaptured=pocket((1.00,-1.13,.91),.49)
 root.location=(1.00,-1.13,0)
 # Cinematic integrated lighting, actual geometry, ambient occlusion from path trace
-light("Window sun broad softbox",(1.5,-3.2,7),700,(1,.81,.59),4.2,(0,0,1))
-light("Cool blue soft fill",(-4,-1.6,5.2),320,(.55,.76,1),3.3,(-1,1,1))
-light("Bright rim light",(1.5,3.2,5.1),480,(.92,.81,.73),3,(-1,1,1))
-light("Table lamp glow",(-2.3,2.8,2.5),140,(1,.57,.25),1.8,(-1,1,1))
+light("Window sun broad softbox",(1.5,-3.2,7),1050,(1,.81,.59),4.2,(0,0,1))
+light("Cool blue soft fill",(-4,-1.6,5.2),600,(.55,.76,1),3.3,(-1,1,1))
+light("Bright rim light",(1.5,3.2,5.1),650,(.92,.81,.73),3,(-1,1,1))
+light("Table lamp glow",(-2.3,2.8,2.5),280,(1,.57,.25),1.8,(-1,1,1))
+light("Front beauty key",(0,-3.8,3.4),820,(1.0,.98,.94),3,(-.7,.9,1.15))
 views={
- "room":((3.9,-6.5,2.95),(-1.40,1.31,1.31),45),
+ "room":((2.65,-5.25,2.62),(-1.42,1.44,1.26),47),
  "fur":((1.55,-3.62,1.9),(-1.45,1.1,1.55),54),
- "punchline":((2.52,-3.67,2.35),(1,-1.13,1.42),48)
+ "punchline":((2.35,-3.45,2.10),(1,-1.12,1.39),43)
 }
 out=os.path.abspath(a.out);os.makedirs(out,exist_ok=True)
 for name,(c,t,l) in views.items():
