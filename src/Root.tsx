@@ -20,6 +20,7 @@ import { TitanicBlender } from "./videos/titanic/TitanicBlender";
 import { VolcanoBlender } from "./videos/volcano/VolcanoBlender";
 import { HumanLab, HUMAN_LAB_DURATION } from "./videos/_lab/HumanLab";
 
+// Live 3D: rendered model geometry and animation, not prerendered still-image plates.
 // One <Composition> per video in src/videos/<slug>/. Keep ids = slugs.
 export const RemotionRoot: React.FC = () => (
   <>
