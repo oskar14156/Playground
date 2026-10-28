@@ -43,3 +43,5 @@ jobs:
         run: rm -rf app /tmp/kotlin.zip
 
 # Re-run after selecting portable Linux FFmpeg encoders.
+
+# Re-run after reference-aspect-ratio geometry selection fix.
