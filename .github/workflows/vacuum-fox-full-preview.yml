@@ -1,0 +1,159 @@
+name: Full Fox Pocket Puh Vacuum Video Preview
+on:
+  push:
+    branches: [vacuum-v2-3d]
+    paths:
+      - "blender/vacuum_story_samples.py"
+      - "videos/vacuum-cleaner/fox-preview-script.txt"
+      - "src/videos/vacuum3d/VacuumFoxFullPreview.tsx"
+      - "src/Root.tsx"
+      - ".github/workflows/vacuum-fox-full-preview.yml"
+  workflow_dispatch: {}
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: vacuum-fox-full-preview
+  cancel-in-progress: true
+jobs:
+  preview:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 100
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22, cache: npm}
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - name: Install render, voice and video tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg espeak-ng libegl1 libgl1-mesa-dri libxi6 libxkbcommon0 libxrender1 libxxf86vm1 libsm6 libxfixes3 libxkbcommon-x11-0 >/dev/null
+          npm ci --no-audit --no-fund
+          python -m pip install -q edge-tts
+      - uses: actions/cache@v4
+        with:
+          path: ~/blender
+          key: blender-5.2.3-linux
+      - name: Blender runtime
+        run: |
+          if [ ! -x ~/blender/blender ]; then
+            mkdir -p ~/blender
+            curl --fail --location --silent --show-error https://download.blender.org/release/Blender5.2/blender-5.2.3-linux-x64.tar.xz | tar -xJ -C ~/blender --strip-components=1
+          fi
+          ~/blender/blender --version | head -1
+      - name: Import QA-checked physical 3D motor, cyclone and brush assets
+        uses: actions/download-artifact@v4
+        with:
+          name: vacuum-blender-cinematic-stills
+          run-id: 40713013472
+          github-token: ${{ github.token }}
+          path: out/machine_assets
+      - name: Import wearable fox helmet from approved sample renders
+        uses: actions/download-artifact@v4
+        with:
+          name: fox-fursuit-helmet-stills
+          run-id: 40742755079
+          github-token: ${{ github.token }}
+          path: out/fox_assets
+      - name: Render fox helmet in actual Blender living room and dust bin
+        run: |
+          mkdir -p out/room_assets
+          ~/blender/blender -b -t 4 -P blender/vacuum_story_samples.py -- --res 42 --samples 15 --out out/room_assets > out/story_blender.log 2>&1 || { tail -130 out/story_blender.log; exit 1; }
+          for name in room_wide room sofa_detail fur punchline bin_close; do test -s "out/room_assets/$name.png" || { echo "MISSING $name"; exit 1; }; done
+      - name: Stage real 3D render plates
+        run: |
+          mkdir -p public/vacuum-full/{rooms,fox,machine}
+          cp out/room_assets/*.png public/vacuum-full/rooms/
+          cp out/fox_assets/{front,threequarter,wearable}.png public/vacuum-full/fox/
+          cp -R out/machine_assets/vacuum_blender public/vacuum-full/machine/
+          cp -R out/machine_assets/vacuum_motion public/vacuum-full/machine/
+          test -s public/vacuum-full/machine/vacuum_motion/f_044.png
+          echo "All scene plates ready"
+      - name: Generate full English voice and per-word caption timings
+        run: |
+          python3 - <<'PY'
+          import asyncio,json,re,subprocess,pathlib
+          out=pathlib.Path("public/vacuum-full");out.mkdir(exist_ok=True)
+          script=pathlib.Path("videos/vacuum-cleaner/fox-preview-script.txt").read_text()
+          text=" ".join(x.strip() for x in script.splitlines() if x.strip() and not x.startswith("#"))
+          tokens=text.split()
+          bounds=[]
+          async def synth():
+              import edge_tts
+              c=edge_tts.Communicate(text,voice="en-US-AndrewNeural",rate="+18%")
+              with (out/"voice_edge.mp3").open("wb") as f:
+                  async for b in c.stream():
+                      if b["type"]=="audio":f.write(b["data"])
+                      elif b["type"]=="WordBoundary":
+                          bounds.append({"word":b["text"],"start":b["offset"]/1e7,"end":(b["offset"]+b["duration"])/1e7})
+          generated=False
+          try:
+              asyncio.run(asyncio.wait_for(synth(),timeout=30))
+              if len(bounds)<len(tokens)*.8:raise RuntimeError("Partial Edge word stream")
+              (out/"voice_edge.mp3").rename(out/"vo.mp3")
+              generated=True
+              print("Natural Edge TTS used")
+          except Exception as e:
+              print("Offline espeak draft fallback:",str(e))
+              subprocess.run(["espeak-ng","-v","en-us","-s","215","-w",str(out/"voice.wav"),text],check=True)
+              subprocess.run(["ffmpeg","-y","-loglevel","error","-i",str(out/"voice.wav"),"-codec:a","libmp3lame","-q:a","4",str(out/"vo.mp3")],check=True)
+              bounds=[]
+          def duration(path):
+              return float(subprocess.check_output(["ffprobe","-v","error","-show_entries","format=duration","-of","default=noprint_wrappers=1:nokey=1",str(path)]))
+          dur=duration(out/"vo.mp3");factor=1
+          if dur>87:
+              factor=dur/86
+              subprocess.run(["ffmpeg","-y","-loglevel","error","-i",str(out/"vo.mp3"),"-filter:a",f"atempo={factor:.5f}",str(out/"faster.mp3")],check=True)
+              (out/"faster.mp3").replace(out/"vo.mp3")
+              dur=duration(out/"vo.mp3")
+          norm=lambda w:re.sub("[^a-z0-9]","",w.lower())
+          if generated and [norm(b["word"]) for b in bounds]==[norm(t) for t in tokens]:
+              words=[{"word":word,"start":b["start"]/factor,"end":b["end"]/factor} for word,b in zip(tokens,bounds)]
+          else:
+              weights=[max(1.2,len(t)**.75) for t in tokens]
+              total=sum(weights);c=0;words=[]
+              for word,weight in zip(tokens,weights):
+                  start=dur*c/total;c+=weight
+                  words.append({"word":word,"start":start,"end":dur*c/total})
+          (out/"words.json").write_text(json.dumps(words,indent=2))
+          print("VOICE",round(dur,1),"s",len(tokens),"words; natural voice",generated)
+          assert dur<90
+          PY
+      - name: Typecheck and validate word-anchored scene cues
+        run: |
+          npx tsc --noEmit
+          python3 - <<'PY'
+          import json,re
+          x=json.load(open("public/vacuum-full/words.json"))
+          tok=[re.sub("[^a-z0-9]","",w["word"].lower()) for w in x]
+          phrases=["It's a furry fox helmet","His entire apartment is turning orange","So you grab a broom","So you put a spinning fan","But you've built a machine","So you seal a dust container","But the filter clogs","So you make the air spin","The smaller dust can keep going","So you add a fine filter","But the carpet is still orange","So you add a rotating brush","But the hose gets blocked","So you add a thermal cutout","Finally the floor is spotless","Even the giant pocket puh is gone","You look inside the transparent dust bin","Your friend says","And that's what happens when"]
+          for p in phrases:
+              q=[re.sub("[^a-z0-9]","",w.lower()) for w in p.split()]
+              assert any(tok[i:i+len(q)]==q for i in range(len(tok))),p
+          print("All",len(phrases),"scene cues resolved")
+          PY
+      - name: Render complete 9:16 draft MP4 at 40 percent scale
+        run: |
+          mkdir -p out/full-preview
+          npx remotion render vacuum-fox-preview out/full-preview/vacuum-fox-full-low-quality.mp4 --scale=0.4 --crf=30 --gl=swangle --concurrency=2 --log=error
+          ffprobe -v error -show_entries stream=width,height,nb_frames -show_entries format=duration,size -of json out/full-preview/vacuum-fox-full-low-quality.mp4 > out/full-preview/metadata.json
+          cat out/full-preview/metadata.json
+      - name: Contact sheet and selected-frame QA
+        if: success()
+        run: |
+          ffmpeg -y -loglevel error -i out/full-preview/vacuum-fox-full-low-quality.mp4 -vf "fps=1/8,scale=115:-1,tile=6x2" -frames:v 1 out/full-preview/contact.jpg
+          ffmpeg -y -loglevel error -ss 10 -i out/full-preview/vacuum-fox-full-low-quality.mp4 -frames:v 1 out/full-preview/frame10.jpg
+          ffmpeg -y -loglevel error -ss 50 -i out/full-preview/vacuum-fox-full-low-quality.mp4 -frames:v 1 out/full-preview/frame50.jpg
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: vacuum-fox-full-low-quality-preview
+          path: |
+            out/full-preview/
+            out/story_blender.log
+            public/vacuum-full/words.json
+            public/vacuum-full/vo.mp3
+          if-no-files-found: warn
+          retention-days: 7
