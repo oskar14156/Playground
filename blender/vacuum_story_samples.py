@@ -11,7 +11,7 @@ p.add_argument("--out",default="out/vacuum_story");a=p.parse_args(argv)
 bpy.ops.object.select_all(action="SELECT");bpy.ops.object.delete(use_global=False)
 sc=bpy.context.scene;sc.render.engine="CYCLES";sc.cycles.samples=a.samples;sc.cycles.use_denoising=True
 sc.render.resolution_x=1080;sc.render.resolution_y=1920;sc.render.resolution_percentage=a.res
-sc.view_settings.view_transform="AgX";sc.view_settings.look="AgX - Medium High Contrast";sc.view_settings.exposure=-1.25
+sc.view_settings.view_transform="AgX";sc.view_settings.look="AgX - Medium High Contrast";sc.view_settings.exposure=-.55
 def material(name,rgb,rough=.65,metal=0,sub=0):
  m=bpy.data.materials.new(name);m.diffuse_color=(*rgb,1);m.use_nodes=True
  bs=m.node_tree.nodes.get("Principled BSDF")
@@ -116,7 +116,7 @@ carpet()
 def pocket(pos=(0,0,0),size=1.0):
  root=bpy.data.objects.new("POCKET_PUH_RIG_ROOT",None);bpy.context.collection.objects.link(root)
  root.location=pos;root.scale=(size,)*3
- def parent(o):o.parent=root;o.matrix_parent_inverse=root.matrix_world.inverted();return o
+ def parent(o):o.parent=root;o.matrix_parent_inverse.identity();return o
  parent(sph("Blue oval soft plush body",(0,0,.85),(.82,.75,.90),blue))
  parent(sph("Pale furry belly",(0,-.48,.73),(.53,.34,.59),belly))
  for s in (-1,1):
@@ -143,7 +143,7 @@ def pocket(pos=(0,0,0),size=1.0):
   parent(hair("Short blue plush tuft",
               [base,base+d*.018,base+d*.025+Vector((.012,0,.005))],blue,.0025))
  return root
-P=pocket((-1.50,1.16,1.10),.81)
+P=pocket((-1.40,1.16,1.02),.72)
 # Loose fur, animated via independent keyframed fibers after scene constructed.
 floating=[]
 for i in range(230):
@@ -156,7 +156,7 @@ for i in range(900):
 # Vacuum canister prop, physical hollow shell and clear front window facing camera.
 vac=material("Vacuum shell satin",(.06,.10,.14),.28,.35)
 root=bpy.data.objects.new("Vacuum_PUNCHLINE",None);bpy.context.collection.objects.link(root)
-def vparent(o):o.parent=root;o.matrix_parent_inverse=root.matrix_world.inverted();return o
+def vparent(o):o.parent=root;o.matrix_parent_inverse.identity();return o
 vparent(box("Vacuum motor body",(0,0,.47),(1.55,.96,.75),vac,.20))
 for side in (-1,1):
  o=cyl("Roller wheel",(0,side*.60,.30),.31,.20,iron);o.rotation_euler=(math.pi/2,0,0);vparent(o)
@@ -164,7 +164,7 @@ for side in (-1,1):
 cup=bpy.data.meshes.new("Clear open-front cylindrical cup")
 verts=[];faces=[]
 for i in range(66):
- theta=math.radians(-20+i*(220/65))
+ theta=math.radians(18+i*(144/65))
  verts.extend([(.61*math.cos(theta),.61*math.sin(theta),.90),
                (.61*math.cos(theta),.61*math.sin(theta),2.03)])
 for i in range(65):faces.append((i*2,i*2+2,i*2+3,i*2+1))
@@ -178,7 +178,7 @@ vparent(cyl("Vacuum bin top orange",(0,0,2.08),.64,.16,leather))
 
 
 
-Pcaptured=pocket((1.00,-1.22,.90),.43)
+Pcaptured=pocket((1.00,-1.13,.91),.49)
 root.location=(1.00,-1.13,0)
 # Cinematic integrated lighting, actual geometry, ambient occlusion from path trace
 light("Window sun broad softbox",(1.5,-3.2,7),700,(1,.81,.59),4.2,(0,0,1))
@@ -186,9 +186,9 @@ light("Cool blue soft fill",(-4,-1.6,5.2),320,(.55,.76,1),3.3,(-1,1,1))
 light("Bright rim light",(1.5,3.2,5.1),480,(.92,.81,.73),3,(-1,1,1))
 light("Table lamp glow",(-2.3,2.8,2.5),140,(1,.57,.25),1.8,(-1,1,1))
 views={
- "room":((3.9,-6.5,2.95),(-1.55,1.38,1.31),47),
+ "room":((3.9,-6.5,2.95),(-1.40,1.31,1.31),45),
  "fur":((1.55,-3.62,1.9),(-1.45,1.1,1.55),54),
- "punchline":((2.95,-3.75,2.55),(1,-1.14,1.37),51)
+ "punchline":((2.52,-3.67,2.35),(1,-1.13,1.42),48)
 }
 out=os.path.abspath(a.out);os.makedirs(out,exist_ok=True)
 for name,(c,t,l) in views.items():
