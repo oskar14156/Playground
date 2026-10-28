@@ -1,0 +1,57 @@
+name: Cinematic 3D cyclone quality loop
+on:
+  push:
+    branches: [vacuum-v2-3d]
+    paths:
+      - "src/videos/vacuum3d/VacuumPremiumCyclone.tsx"
+      - "src/vacuum-quality-entry.tsx"
+      - ".github/workflows/vacuum-premium-quality.yml"
+  workflow_dispatch: {}
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: vacuum-premium-cyclone
+  cancel-in-progress: true
+jobs:
+  lookdev:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: 22, cache: npm}
+      - run: npm ci --no-audit --no-fund
+      - name: Download Blender-exported detailed vacuum GLB
+        uses: actions/download-artifact@v4
+        with:
+          name: vacuum-live-3d-models-lite
+          run-id: 40752972311
+          github-token: ${{ github.token }}
+          path: out/models
+      - name: Stage real 3D geometry
+        run: |
+          mkdir -p public/vacuum-quality
+          find out/models -name vacuum_body.glb -print
+          FILE="$(find out/models -name vacuum_body.glb -print -quit)"
+          test -s "$FILE"
+          cp "$FILE" public/vacuum-quality/vacuum_body.glb
+      - name: Render full five-second 3D cutaway with dynamic moving elements
+        run: |
+          mkdir -p out/quality
+          npx remotion render src/vacuum-quality-entry.tsx quality-cyclone out/quality/cyclone_v3.mp4 --scale=0.4 --crf=30 --gl=swangle --concurrency=2 --log=error
+      - name: Generate motion contact + metadata
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg >/dev/null
+          ffprobe -v error -show_entries format=duration,size:stream=width,height,nb_frames -of json out/quality/cyclone_v3.mp4 > out/quality/metadata.json
+          ffmpeg -y -v error -i out/quality/cyclone_v3.mp4 -vf "fps=2,scale=150:-1,tile=5x2" -frames:v 1 out/quality/contact.png
+          ffmpeg -y -v error -ss 2 -i out/quality/cyclone_v3.mp4 -frames:v 1 out/quality/hero_frame.png
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: premium-cyclone-quality-3d
+          path: out/quality/
+          retention-days: 7
+          if-no-files-found: warn
