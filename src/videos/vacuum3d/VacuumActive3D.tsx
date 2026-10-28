@@ -1,4 +1,4 @@
-import React,{useMemo} from "react";
+import React from "react";
 import * as THREE from "three";
 import {ThreeCanvas} from "@remotion/three";
 import {AbsoluteFill,Audio,staticFile,useCurrentFrame,useVideoConfig} from "remotion";
