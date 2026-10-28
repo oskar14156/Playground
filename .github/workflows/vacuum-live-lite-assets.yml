@@ -1,4 +1,4 @@
-name: Optimized lightweight GLB for actual moving 3D
+name: Optimized lightweight GLB for actual moving 3D v2
 on:
   push:
     branches: [vacuum-v2-3d]
