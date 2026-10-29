@@ -67,3 +67,5 @@ jobs:
         run: rm -rf app
 
 # Final test branch: aspect-ratio regression, eight Android instrumentation tests.
+
+# 2026-10-29 final fix branch QA repeat after 14.txt metadata sync.
