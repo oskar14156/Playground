@@ -87,3 +87,5 @@ jobs:
 # Final 13-case Android 16 suite using corrected Gallery and paywall navigation.
 
 # Foreground paywall: dismiss already-visible automatic offer on background.
+
+# 2026-10-29 retest: large real damaged-video cancellation fixture in shared e2e driver.
