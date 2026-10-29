@@ -234,6 +234,21 @@ def repair():
     raise AssertionError('No successful result; last UI: '+ui()[:1200])
 check('real-native-sample-repair',repair)
 
+def free_result_export_requires_pro():
+    # Exercise BOTH paid actions without tapping Unlock now or charging Google Play.
+    # A successful native repair must remain available after the sheet closes.
+    result=expect_any(['Frames recovered','Your video is back'],20)[1]
+    assert 'Frames recovered' in result, 'Repair result vanished before Pro gate test'
+    for action in ('Save in full quality to Gallery','Share'):
+        assert tap(action),'Free result action missing: '+action
+        offer=expect_any(['Unlock MP4 Repair Pro','Restore purchases'],20)[1]
+        assert 'Unlock MP4 Repair Pro' in offer, 'Free export unexpectedly bypassed Pro gate: '+offer[:800]
+        assert tap('Close'),'Cannot dismiss Pro offer opened by '+action
+        restored=expect_any(['Frames recovered','Your video is back'],20)[1]
+        assert 'Frames recovered' in restored, 'Closing Pro offer lost repair result'
+        print('FREE RESULT PRO GATE VERIFIED',action,flush=True)
+check('free-result-save-and-share-are-gated',free_result_export_requires_pro)
+
 def background_restore():
     adb('shell','input','keyevent','3')
     time.sleep(1)
@@ -259,6 +274,21 @@ def reopen():
     adb('shell','input','keyevent','4')
     expect_any(['Try an example'],20)
 check('reopen-repaired-video-and-back',reopen)
+
+def reopened_result_export_requires_pro():
+    # Reopened previews cannot bypass the same entitlement gate via Share.
+    assert tap('SampleDamaged'), 'Cannot reopen repaired file for Pro entitlement test'
+    expect_any(['Save in full quality','Share'],20)
+    for action in ('Save in full quality to Gallery','Share'):
+        assert tap(action), 'Missing reopened export action: '+action
+        offer=expect_any(['Unlock MP4 Repair Pro','Restore purchases'],20)[1]
+        assert 'Unlock MP4 Repair Pro' in offer,'Reopened file export bypassed Pro: '+offer[:800]
+        assert tap('Close'),'Cannot close reopened file Pro sheet'
+        expect_any(['Save in full quality','Share'],20)
+        print('REOPENED FILE PRO GATE VERIFIED',action,flush=True)
+    adb('shell','input','keyevent','4')
+    expect_any(['Try an example'],20)
+check('reopened-file-save-and-share-are-gated',reopened_result_export_requires_pro)
 
 def second_sample():
     assert tap('Try an example'),'Try an example missing after repair'
@@ -342,6 +372,37 @@ def cancel_repair():
     assert 'This file could not be repaired' not in page,'Cancel raised a repair failure instead of recovering navigation'
     print('LIVE CANCELLATION OF LARGE DAMAGED FILE VERIFIED',page[:800],flush=True)
 check('cancel-repair-and-recover-navigation',cancel_repair)
+
+def cancelled_output_is_not_listed_and_app_recovers():
+    # The in-progress UI Stop must not create a phantom successful result.
+    # The native Android integration suite separately asserts output.exists() == false.
+    state=ui()
+    if 'Start repair' in state and 'Diagnosis' in state:
+        assert tap('Back'),'Cannot leave cancelled recording diagnosis'
+    home=expect_any(['Try an example'],20)[1]
+    assert 'MP4RepairCancelBroken-repaired' not in home, 'Cancelled output leaked into Recents'
+    adb('shell','input','keyevent','3')
+    time.sleep(1)
+    adb('shell','am','start','-n',P+'/.MainActivity')
+    home=expect_any(['Try an example'],20)[1]
+    assert 'MP4RepairCancelBroken-repaired' not in home, 'Cancelled output appeared after foreground reload'
+    # Prove a fresh real native repair still works after the cancellation.
+    assert tap('Try an example'),'Sample unavailable after cancellation'
+    expect_any(['Video index missing'],25)
+    assert tap('Start repair'),'Cannot restart native repair after cancellation'
+    deadline=time.monotonic()+100
+    while time.monotonic()<deadline:
+        state=ui()
+        if 'Your video is ready' in state or 'Unlock MP4 Repair Pro' in state:
+            assert tap('Close'),'Cannot dismiss expected upsell after new repair'
+        elif 'Frames recovered' in state and 'Your video is back' in state:
+            print('CANCEL RECOVERY REPAIR VERIFIED',state[:600],flush=True)
+            return
+        elif 'This file could not be repaired' in state:
+            raise AssertionError('Subsequent repair failed: '+state[:900])
+        time.sleep(1)
+    raise AssertionError('App did not recover for next repair after cancellation: '+ui()[:900])
+check('cancelled-output-absent-and-next-repair-works',cancelled_output_is_not_listed_and_app_recovers)
 
 print('ANDROID MATRIX FINAL',checks,flush=True)
 PY
