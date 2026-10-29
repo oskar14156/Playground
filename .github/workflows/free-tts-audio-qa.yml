@@ -1,0 +1,64 @@
+name: Free TTS ASR transcript and pace checks
+on:
+  push:
+    branches: [tts-voice-bakeoff-20261029]
+    paths: [.github/workflows/free-tts-audio-qa.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Download actual audio from completed bakeoff
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p inputs/pocket inputs/kokoro
+          gh run download 40966228410 --repo oskar14156/Playground -n tts-voice-bakeoff-pocket -D inputs/pocket
+          gh run download 40966228410 --repo oskar14156/Playground -n tts-voice-bakeoff-kokoro -D inputs/kokoro
+          find inputs -name '*.wav' | sort
+      - name: Install validation tools
+        run: |
+          python -m pip install -U pip
+          python -m pip install faster-whisper==1.2.1 jiwer soundfile numpy
+      - name: Recognize speech and calculate error rates
+        run: |
+          mkdir -p reports
+          cat > analyze.py <<'PY'
+          import json, re, pathlib, numpy as np, soundfile as sf
+          from jiwer import wer
+          from faster_whisper import WhisperModel
+          model=WhisperModel("base.en",device="cpu",compute_type="int8",cpu_threads=4)
+          ref=pathlib.Path("inputs/pocket/test_text.txt").read_text()
+          norm=lambda x: re.sub(r"\s+"," ",re.sub(r"[^a-z0-9\s']"," ",x.lower())).strip()
+          refn=norm(ref)
+          records=[]
+          for f in sorted(pathlib.Path("inputs").glob("*/*.wav")):
+              x,sr=sf.read(f)
+              segs,info=model.transcribe(str(f),beam_size=5,language="en",vad_filter=False)
+              transcript=" ".join(s.text.strip() for s in segs)
+              duration=len(x)/sr
+              words=len(re.findall(r"\b[\w]+(?:'[\w]+)?\b",ref))
+              metrics={"voice":f.stem,"duration_sec":round(duration,2),"wpm":round(words*60/duration),
+                       "word_error_rate":round(wer(refn,norm(transcript)),3),"transcript":transcript,
+                       "peak":round(float(np.max(abs(x))),3),"rms":round(float(np.sqrt(np.mean(x*x))),4)}
+              print(json.dumps(metrics),flush=True)
+              records.append(metrics)
+          pathlib.Path("reports/qa.json").write_text(json.dumps(records,indent=2))
+          pathlib.Path("reports/qa.md").write_text("# TTS QA\n\nOriginal: "+ref+"\n\n"+"\n\n".join(
+            f"## {r['voice']}\nWER: {r['word_error_rate']}; WPM: {r['wpm']}; duration: {r['duration_sec']} seconds\n\nTranscribed: {r['transcript']}" for r in records))
+          PY
+          python analyze.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tts-free-bakeoff-qa
+          path: reports/
+          retention-days: 14
