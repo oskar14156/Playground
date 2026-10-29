@@ -89,3 +89,5 @@ jobs:
 # Final 13-case test driver: paywall closes straight to Home.
 
 # Foreground paywall: dismiss already-visible automatic offer on background.
+
+# 2026-10-29 retest: large real damaged-video cancellation fixture in shared e2e driver.
