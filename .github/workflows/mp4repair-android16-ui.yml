@@ -99,3 +99,5 @@ jobs:
 # QA driver updated to verify the observed saved-file -> Home paywall return (API 36).
 
 # Retest API36: dismiss the expected first automatic repair upsell before gated Save/Share assertions.
+
+# QA rerun: strict Stop test on prolonged ~700MB fixture after prior end-of-repair race.
