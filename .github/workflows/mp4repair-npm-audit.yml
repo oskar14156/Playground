@@ -61,6 +61,16 @@ jobs:
             console.log('DEPENDENCY_ROOT',JSON.stringify({package:name,version:entries.map(v=>v.version),locations:entries.map(v=>v.location),dependents:paths}));
           }
           NODE
+      - name: Human-readable paths for critical vulnerability
+        working-directory: app
+        shell: bash
+        run: |
+          echo "CRITICAL_DEPENDENCY_PATH (installed package ancestry; not a runtime exploit proof)"
+          npm explain shell-quote | head -60
+          echo "HTTP_DEPENDENCY_PATH"
+          npm explain body-parser | head -35
+          echo "FETCH_DEPENDENCY_PATH"
+          npm explain undici | head -35
       - name: Remove private checkout
         if: always()
         run: rm -rf app
