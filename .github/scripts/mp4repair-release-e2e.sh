@@ -26,7 +26,7 @@ ffmpeg -hide_banner -loglevel error -nostdin -y \
 python3 - <<'PYFIXTURE'
 import os
 seed=os.path.getsize('/tmp/mp4repair-cancel/seed.mp4')
-loops=max(1, (360_000_000 // seed)+1)
+loops=max(1, (700_000_000 // seed)+1)
 print('CANCEL FIXTURE seed bytes',seed,'stream loops',loops,flush=True)
 with open('/tmp/mp4repair-cancel/loops','w') as f:f.write(str(loops))
 PYFIXTURE
@@ -348,7 +348,7 @@ def repeated_preview_lifecycle():
 check('six-reopen-and-background-cycles',repeated_preview_lifecycle)
 
 def cancel_repair():
-    # Exercise a REAL Android document import of a ~350MB truncated H.264 file.
+    # Exercise a REAL Android document import of a ~700MB truncated H.264 file.
     # The bundled five-second demo is NOT a valid live-cancellation fixture.
     filename='MP4RepairCancelBroken.mp4'
     assert tap('Choose a video file'),'Cannot open Files for cancellation clip'
@@ -363,7 +363,7 @@ def cancel_repair():
         elif attempt in (5,10):
             adb('shell','input','swipe','500','1400','500','450','400')
         time.sleep(1)
-    assert selected,'Synthetic 350MB damaged file absent from Android Files picker: '+ui()[:1100]
+    assert selected,'Synthetic 700MB damaged file absent from Android Files picker: '+ui()[:1100]
     # Android's Downloads provider sometimes resolves a tapped MP4 via its
     # system ACTION_VIEW chooser rather than immediately returning a document.
     # Select our app once and validate the real inbound-import integration.
