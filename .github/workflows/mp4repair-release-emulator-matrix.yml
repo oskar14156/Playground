@@ -101,3 +101,5 @@ jobs:
 # QA driver updated to verify the observed saved-file -> Home paywall return (API 35).
 
 # Retest API35: dismiss the expected first automatic repair upsell before gated Save/Share assertions.
+
+# QA rerun: delayed API35 cold boot must not exhaust onboarding polling before UI is ready.
