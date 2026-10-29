@@ -1,0 +1,50 @@
+name: MP4Repair Android 14 metadata and 38 Jest checks (Playground only)
+on:
+  push:
+    paths:
+      - .github/workflows/mp4repair-metadata-verify.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  metadata-and-jest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - name: Checkout current private fix branch read-only
+        uses: actions/checkout@v4
+        with:
+          repository: oskar14156/mp4repair
+          ref: fix/build13-android-memory
+          token: ${{ secrets.CI_BRIDGE_READ_TOKEN }}
+          persist-credentials: false
+          path: app
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+      - name: Install dependencies
+        working-directory: app
+        run: npm ci --no-audit --no-fund
+      - name: Run all JavaScript, type, listing, formatting and Jest checks
+        working-directory: app
+        run: npm run check
+      - name: Verify Android build 14 changelogs are tracked and deterministic
+        working-directory: app
+        run: |
+          git diff --exit-code -- fastlane/metadata
+          missing="$(git ls-files --others --exclude-standard -- fastlane/metadata)"
+          if [ -n "$missing" ]; then
+            echo 'FAIL: generator wrote untracked metadata files'
+            printf '%s\n' "$missing"
+            exit 1
+          fi
+          for file in fastlane/metadata/android/*/changelogs/14.txt; do
+            test -s "$file" || exit 1
+          done
+          test "$(find fastlane/metadata/android -type f -name '14.txt' | wc -l)" -eq 21
+          echo 'PASS: all 21 Play changelogs for build 14 are tracked and reproducible'
+      - name: Delete checkout
+        if: always()
+        run: rm -rf app
