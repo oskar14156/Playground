@@ -1,5 +1,20 @@
 # MP4Repair — Handoff für den nächsten Agenten (29.10.2026)
 
+## Continuation note (2026-10-29, ~16:39 Europe/Vienna)
+
+**Authoritative private handoff is:** https://github.com/oskar14156/mp4repair/blob/fix/build13-android-memory/docs/HANDOFF_NEXT_AGENT_2026-10-29.md. Read its newest `NEUESTE FORTSETZUNG` block first; the mirror below predates multiple newly verified runs.
+
+- App private draft PR #3 `fix/build13-android-memory`, **NO MERGE**. The private handoff was updated `[skip ci]` at commit `d508f6a6e0443c6211216df4bba9aa8153350556`; app version 1.3.0+14.
+- Real fix in private app branch: track Play 14.txt metadata for 21 locales instead of stale 13.txt, commit `64bd7c5a7ea3b7c6593c2fe8c398a93fdf71ba1d`. Current Playground metadata/Jest [40900479273](https://github.com/oskar14156/playground/actions/runs/40900479273) green **7/7 suites, 38/38 tests**, versioned 21/21 metadata.
+- Kotlin corpus/format matrix Playground [40899739237](https://github.com/oskar14156/playground/actions/runs/40899739237) job green **40/40 damaged, 4/4 healthy, 31/31 supported codecs**; overall workflow red only for pre-fix source snapshot metadata.
+- Full Android UI 15/16 [40900856799](https://github.com/oskar14156/playground/actions/runs/40900856799) / [40900863967](https://github.com/oskar14156/playground/actions/runs/40900863967): both **12/12 old UI PASS**; 13th synthetic 365MB file first encountered Android **`Open with`** chooser `MP4 Repair` / `Just once`. Driver updated to handle that dialog, commit `17c9c2978d4d7cb2b7d617adea94b0fc1fbc0b2b`; DO NOT mark cancellation PASS before actual Stop.
+- **CURRENT ACTIVE**: Android 15 [40903094984](https://github.com/oskar14156/playground/actions/runs/40903094984), Android 16 UI [40903122030](https://github.com/oskar14156/playground/actions/runs/40903122030), Android 16 native 10-case repeat [40903436565](https://github.com/oskar14156/playground/actions/runs/40903436565), actual 1GB Android stress repeat [40903424725](https://github.com/oskar14156/playground/actions/runs/40903424725). Read final logs. Build 13 PROD fatal OOM/SIGABRT in Sentry remain unresolved; no proof build14 resolves all.
+- Custom EMULATOR2 MCP calls failed internally, alternative Android_Emulator MCP connection unavailable. Playground real emulator via Android-emulator-runner is the available tested path. Do not report direct local EMULATOR2 success.
+- No app repo Actions; no Play purchase, merge, or release.
+
+---
+
+
 > **START HERE.** Stand aus tatsächlichen GitHub-Actions-Logs, Repository-Code und Sentry. Bitte alle Links/Run-Zustände beim Einstieg neu abrufen. Die letzte Code-/QA-Runde fand am 28.10.2026 UTC statt. **KEIN öffentlicher Release freigegeben; `mp4repair/main` nicht verändert.**
 
 ## 0. Nutzerauftrag / unverhandelbare Regeln
