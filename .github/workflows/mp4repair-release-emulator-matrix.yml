@@ -97,3 +97,5 @@ jobs:
 # 2026-10-29: retest Android Open-with chooser on 365MB synthetic video.
 
 # Extended release regression: unentitled Save/Share and no ghost output after Stop, API 35.
+
+# QA driver updated to verify the observed saved-file -> Home paywall return (API 35).
