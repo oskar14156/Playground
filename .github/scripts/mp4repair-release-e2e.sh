@@ -318,6 +318,15 @@ def cancel_repair():
             adb('shell','input','swipe','500','1400','500','450','400')
         time.sleep(1)
     assert selected,'Synthetic 350MB damaged file absent from Android Files picker: '+ui()[:1100]
+    # Android's Downloads provider sometimes resolves a tapped MP4 via its
+    # system ACTION_VIEW chooser rather than immediately returning a document.
+    # Select our app once and validate the real inbound-import integration.
+    post_pick=ui()
+    if 'Open with' in post_pick and 'Just once' in post_pick:
+        print('ANDROID FILE OPEN-WITH CHOOSER',post_pick[:650],flush=True)
+        assert (tap('Repair with MP4 Repair') or tap('MP4 Repair')), 'Cannot select MP4 Repair from Android Open with'
+        if 'Just once' in ui():
+            assert tap('Just once'), 'Cannot confirm Android chooser selection'
     # Copying the file to app-private storage is deliberately included here.
     page=expect_any(['Start repair','Choose a reference','This file could not be repaired'],180)[1]
     print('LARGE FILE DIAGNOSIS',page[:1000],flush=True)
