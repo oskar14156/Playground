@@ -47,8 +47,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: npm
-          cache-dependency-path: private-app/package-lock.json
 
       - uses: actions/setup-java@v4
         with:
@@ -56,6 +54,8 @@ jobs:
           java-version: '17'
 
       - uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-disabled: true # public Playground must not cache private compiled classes
 
       - name: Android SDK 36
         shell: bash
