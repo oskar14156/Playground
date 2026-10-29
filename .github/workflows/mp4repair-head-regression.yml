@@ -1,0 +1,77 @@
+name: MP4Repair fix-branch complete regression gates (Playground only)
+on:
+  push:
+    paths:
+      - .github/workflows/mp4repair-head-regression.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  js-and-store-metadata:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout private MP4Repair fix branch read-only
+        uses: actions/checkout@v4
+        with:
+          repository: oskar14156/mp4repair
+          ref: fix/build13-android-memory
+          token: ${{ secrets.CI_BRIDGE_READ_TOKEN }}
+          persist-credentials: false
+          path: app
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+      - name: Install JS dependencies
+        working-directory: app
+        run: npm ci --no-audit --no-fund
+      - name: TypeScript lint i18n metadata formatting and full Jest suite
+        working-directory: app
+        run: npm run check
+      - name: Store listing generator must not dirty source files
+        working-directory: app
+        run: git diff --exit-code -- fastlane/metadata
+      - name: Record non-sensitive metadata paths on failure
+        if: failure()
+        working-directory: app
+        run: git status --short -- fastlane/metadata
+      - name: Delete private checkout
+        if: always()
+        run: rm -rf app
+  kotlin-and-format-matrix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Checkout private MP4Repair fix branch read-only
+        uses: actions/checkout@v4
+        with:
+          repository: oskar14156/mp4repair
+          ref: fix/build13-android-memory
+          token: ${{ secrets.CI_BRIDGE_READ_TOKEN }}
+          persist-credentials: false
+          path: app
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install Kotlin 2.1.20 compiler
+        run: |
+          curl -fsSL --retry 2 -o /tmp/mp4repair-kotlin.zip https://github.com/JetBrains/kotlin/releases/download/v2.1.20/kotlin-compiler-2.1.20.zip
+          unzip -q /tmp/mp4repair-kotlin.zip -d "$RUNNER_TEMP"
+          echo "KOTLIN_HOME=$RUNNER_TEMP/kotlinc" >> "$GITHUB_ENV"
+      - name: Install FFmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y ffmpeg
+      - name: Run 40-case damaged media engine corpus
+        working-directory: app
+        run: npm run test:repair:android
+      - name: Run full container codec formats matrix
+        working-directory: app
+        run: npm run test:formats
+      - name: Delete private checkout and compiler zip
+        if: always()
+        run: rm -rf app /tmp/mp4repair-kotlin.zip
