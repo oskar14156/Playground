@@ -69,3 +69,5 @@ jobs:
             out/pbr-assets/sofa_02/LICENSE_AND_ASSET.json
           retention-days: 7
           if-no-files-found: warn
+
+# Render QA launched for PBR geometry proof.
