@@ -95,3 +95,5 @@ jobs:
 # 2026-10-29 retest: large real damaged-video cancellation fixture in shared e2e driver.
 
 # 2026-10-29: retest Android Open-with chooser on 365MB synthetic video.
+
+# Extended release regression: unentitled Save/Share and no ghost output after Stop, API 35.
