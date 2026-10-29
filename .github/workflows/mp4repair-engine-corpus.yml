@@ -51,3 +51,5 @@ jobs:
 # Rerun: 64-pixel coded HEVC CTU alignment regression.
 
 # Final 2026-10-29 user-requested release QA rerun: mp4repair-engine-corpus.yml; test only, no publication.
+
+# 2026-10-29: verify MPEG-TS fragment-limit OOM fix and 96MiB regression (Sentry MP4-REPAIR-15).
