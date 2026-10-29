@@ -276,18 +276,18 @@ def reopen():
 check('reopen-repaired-video-and-back',reopen)
 
 def reopened_result_export_requires_pro():
-    # Reopened previews cannot bypass the same entitlement gate via Share.
-    assert tap('SampleDamaged'), 'Cannot reopen repaired file for Pro entitlement test'
-    expect_any(['Save in full quality','Share'],20)
+    # The app deliberately dismisses RepairedFileSheet before opening Pro.
+    # Closing that paywall returns Home, so reopen the saved file per action.
     for action in ('Save in full quality to Gallery','Share'):
+        assert tap('SampleDamaged'), 'Cannot reopen repaired file for Pro entitlement test'
+        expect_any(['Save in full quality','Share'],20)
         assert tap(action), 'Missing reopened export action: '+action
         offer=expect_any(['Unlock MP4 Repair Pro','Restore purchases'],20)[1]
         assert 'Unlock MP4 Repair Pro' in offer,'Reopened file export bypassed Pro: '+offer[:800]
         assert tap('Close'),'Cannot close reopened file Pro sheet'
-        expect_any(['Save in full quality','Share'],20)
+        home=expect_any(['Try an example'],20)[1]
+        assert 'SampleDamaged-repaired' in home, 'Repaired file lost from Home after dismissing Pro'
         print('REOPENED FILE PRO GATE VERIFIED',action,flush=True)
-    adb('shell','input','keyevent','4')
-    expect_any(['Try an example'],20)
 check('reopened-file-save-and-share-are-gated',reopened_result_export_requires_pro)
 
 def second_sample():
