@@ -71,3 +71,5 @@ jobs:
 # 2026-10-29 final fix branch QA repeat after 14.txt metadata sync.
 
 # Final 2026-10-29 user-requested release QA rerun: mp4repair-native-android16.yml; test only, no publication.
+
+# OOM fix MP4-REPAIR-15 on Android candidate; rerun UI/native/large/stored bundle 2026-10-29.
