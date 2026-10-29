@@ -77,3 +77,5 @@ jobs:
         run: rm -rf app /tmp/mp4repair-kotlin.zip
 
 # Final 2026-10-29 user-requested release QA rerun: mp4repair-head-regression.yml; test only, no publication.
+
+# 2026-10-29: verify MPEG-TS fragment-limit OOM fix and 96MiB regression (Sentry MP4-REPAIR-15).
