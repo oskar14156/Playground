@@ -1,5 +1,20 @@
 # MP4Repair — Handoff für den nächsten Agenten (29.10.2026)
 
+## Final QA update — 2026-10-29, ~16:50 Europe/Vienna
+
+**All refreshed technical QA gates are now green** (the older notes below still show their in-progress states). Private full report: [MP4Repair fix-branch handoff](https://github.com/oskar14156/mp4repair/blob/fix/build13-android-memory/docs/HANDOFF_NEXT_AGENT_2026-10-29.md). Private fix-branch head after doc update: `14a6ef429dc162adb90520161a51615e0e23b123`; main untouched at `c72fa682e9fee2087ff652fd8bc8f36d8116f90c`.
+
+- [Android 15 / API35 UI](https://github.com/oskar14156/playground/actions/runs/40903094984): **13/13 PASS**, including real 365MB H264 damaged-video open-with/import and tap `Stop` *during* repair, return to diagnosis.
+- [Android 16 / API36 UI](https://github.com/oskar14156/playground/actions/runs/40903122030): **13/13 PASS**, same verified live cancellation, plus twice genuine repairs and six reopen/background loops.
+- [1GB damaged video real Android repair](https://github.com/oskar14156/playground/actions/runs/40903424725): **SUCCESS**, original `1043445048` bytes, repaired `1043546001`, `24960` recovered/validated frames, Java heap after `21532224` bytes vs limit `603979776`.
+- [Android16 native instrumentation](https://github.com/oskar14156/playground/actions/runs/40903436565): **10/10 PASS** on rerun; original SDK archive failure was infrastructure only.
+- [Android build14 metadata, type/lint/Jest](https://github.com/oskar14156/playground/actions/runs/40900479273): **38/38 Jest, 21/21 deterministic Play metadata locales**, all checks success.
+- [Full Kotlin/FFmpeg format corpus](https://github.com/oskar14156/playground/actions/runs/40899739237): green corpus job **40/40 damaged, 4/4 healthy, 31/31 supported format repair**; workflow overall red only because its snapshot predates metadata fix; metadata separately confirmed by newer green run.
+- **Not public-release-ready automatically**: real Play Internal-test entitlements/purchase restore/Pro Save-Share not yet tested; unresolved production 1.2.9+13 OOM/SIGABRT Sentry risk, 1.3.0+14 not yet deployed; no proof against every 4GB/85min recording. No purchase, no Play upload, no PR merge. Custom EMULATOR2 MCP remains unresponsive, CI tests used actual Android 15/16 emulators.
+
+---
+
+
 ## Continuation note (2026-10-29, ~16:39 Europe/Vienna)
 
 **Authoritative private handoff is:** https://github.com/oskar14156/mp4repair/blob/fix/build13-android-memory/docs/HANDOFF_NEXT_AGENT_2026-10-29.md. Read its newest `NEUESTE FORTSETZUNG` block first; the mirror below predates multiple newly verified runs.
