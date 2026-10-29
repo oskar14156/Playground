@@ -62,3 +62,5 @@ jobs:
       - name: Remove generated and private files
         if: always()
         run: rm -rf app /tmp/mp4repair-large /tmp/mp4repair-large-test.log
+
+# 2026-10-29 final fix branch QA repeat after 14.txt metadata sync.
