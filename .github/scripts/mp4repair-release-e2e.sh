@@ -132,22 +132,33 @@ def check(name,action):
         raise
 
 def onboarding():
-    for _ in range(12):
+    # Some API 35/36 cold boots show a blank app tree for >30 seconds.
+    # Do not consume a fixed number of attempts before onboarding is visible.
+    deadline=time.monotonic()+110
+    polls=0
+    last=''
+    while time.monotonic()<deadline:
         state=ui()
-        if 'Try an example' in state:return
+        last=state
+        polls+=1
+        if 'Try an example' in state:
+            print('ONBOARDING HOME REACHED after polls',polls,flush=True)
+            return
+        if polls%4==1:
+            print('ONBOARDING POLL',polls,state[-650:],flush=True)
         acted=False
+        if "Quickstep isn't responding" in state:
+            acted=tap('Close app')
+            if acted:
+                adb('shell','am','start','-n',P+'/.MainActivity')
         for label in ('Skip','Get started','Next','Continue','Done'):
-            if label.casefold() not in state.casefold():continue
+            if acted or label.casefold() not in state.casefold():continue
             if tap(label):
                 acted=True
                 break
             if label == 'Skip':
-                # Android's UIAutomator on some API 36 snapshots exposes a
-                # visible Skip label with a malformed/off-screen bounds rect.
-                # The fixed top-right target is a fallback only when the
-                # actual Skip node is visible but impossible to tap by bounds.
                 size=adb('shell','wm','size')
-                matches=re.findall(r'(\d+)x(\d+)',size)
+                matches=re.findall(r'(\\d+)x(\\d+)',size)
                 if matches:
                     width,height=map(int,matches[-1])
                     point=(int(width*.92),int(min(190,max(115,height*.075))))
@@ -157,7 +168,7 @@ def onboarding():
                     break
         if not acted:time.sleep(2)
         time.sleep(.7)
-    expect_any(['Try an example'],10)
+    raise AssertionError('Onboarding did not reach Home after 110 seconds: '+last[-1400:])
 check('onboarding-to-home',onboarding)
 
 def settings():
