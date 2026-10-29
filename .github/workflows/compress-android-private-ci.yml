@@ -103,6 +103,44 @@ jobs:
           echo "Release APK compiled and verified (size: $(stat -c %s "$APK") bytes)"
           echo "Private APK is intentionally NOT uploaded to public Playground."
 
+      - name: Free disk for a real hosted Android emulator
+        shell: bash
+        run: |
+          set -euo pipefail
+          df -h /
+          # Keep the standalone APK and smoke test script. No private cache is
+          # persisted; dependency/source caches are no longer needed post-build.
+          rm -rf "$HOME/.gradle/caches" "$HOME/.gradle/daemon" "$HOME/.npm/_cacache"
+          rm -rf private-app/node_modules private-app/android/.gradle
+          rm -rf private-app/android/app/build/intermediates
+          SDK_ROOT="${ANDROID_HOME:-$ANDROID_SDK_ROOT}"
+          sudo rm -rf "$SDK_ROOT/ndk" "$SDK_ROOT/cmake"
+          if [[ -e /dev/kvm ]]; then sudo chmod 666 /dev/kvm; fi
+          df -h /
+
+      - name: Boot emulator and verify standalone APK startup (no public screenshots)
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          target: default
+          arch: x86_64
+          profile: pixel_6
+          disable-animations: true
+          emulator-boot-timeout: 600
+          script: bash private-app/scripts/android-emulator-smoke.sh private-app/android/app/build/outputs/apk/release/app-release.apk
+
+      - name: Summarize real emulator result without publishing private logs
+        if: success()
+        run: |
+          test -s artifacts/android-emulator/initial.png
+          test -s artifacts/android-emulator/home.png
+          echo "API 34 emulator startup, onboarding and screenshots: verified."
+          echo "Media3 encoding, billing, export still require the connected emulator QA."
+
+      - name: Erase all emulator screenshots and logcat from the public runner
+        if: always()
+        run: rm -rf artifacts/android-emulator
+
       - name: Erase private source and binaries after CI
         if: always()
         shell: bash
