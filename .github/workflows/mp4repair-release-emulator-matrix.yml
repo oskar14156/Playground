@@ -103,3 +103,5 @@ jobs:
 # Retest API35: dismiss the expected first automatic repair upsell before gated Save/Share assertions.
 
 # QA rerun: delayed API35 cold boot must not exhaust onboarding polling before UI is ready.
+
+# Final 2026-10-29 user-requested release QA rerun: mp4repair-release-emulator-matrix.yml; test only, no publication.
