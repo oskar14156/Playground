@@ -49,3 +49,5 @@ jobs:
 # Isolate HEVC 1080p resize-vs-decode failure before changing candidate selection.
 
 # Rerun: 64-pixel coded HEVC CTU alignment regression.
+
+# Final 2026-10-29 user-requested release QA rerun: mp4repair-engine-corpus.yml; test only, no publication.
