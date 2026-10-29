@@ -23,14 +23,19 @@ jobs:
       - name: Download actual PBR living-room sofa from Poly Haven (CC0)
         run: |
           python3 scripts/polyhaven_asset.py sofa_02 out/pbr-assets/sofa_02
+          python3 scripts/polyhaven_asset.py coffee_table_round_01 out/pbr-assets/coffee_table_round_01
+          python3 scripts/polyhaven_asset.py modern_arm_chair_01 out/pbr-assets/modern_arm_chair_01
           find out/pbr-assets/sofa_02 -maxdepth 3 -type f -printf '%P %k KB\n' | head -40
       - name: Read verified source path and dependency status
         run: |
           python3 - <<'PY'
           import json
           from pathlib import Path
-          data=json.loads(Path("out/pbr-assets/sofa_02/LICENSE_AND_ASSET.json").read_text())
+          data=json.loads(Path("out/pbr-assets/*/LICENSE_AND_ASSET.json").read_text())
           Path("out/sofa-path.txt").write_text(data["main"])
+          for asset in ("coffee_table_round_01", "modern_arm_chair_01"):
+              src=json.loads(Path(f"out/pbr-assets/{asset}/LICENSE_AND_ASSET.json").read_text())
+              Path(f"out/{asset}-path.txt").write_text(src["main"])
           print(data)
           PY
       - uses: actions/download-artifact@v4
@@ -56,8 +61,10 @@ jobs:
           mkdir -p out/pbr-frames
           SOFA="$(cat out/sofa-path.txt)"
           FOX="$(find out/previous -name fox_helmet.glb -type f -print -quit)"
-          test -s "$SOFA"; test -s "$FOX"
-          ~/blender/blender -b -t 4 -P blender/fox_pbr_living_room_hero.py -- --sofa "$SOFA" --fox "$FOX" --res 45 --samples 18 --out out/pbr-frames 2>&1 | tee out/pbr.log | tail -100
+          TABLE="$(cat out/coffee_table_round_01-path.txt)"
+          CHAIR="$(cat out/modern_arm_chair_01-path.txt)"
+          test -s "$SOFA"; test -s "$FOX"; test -s "$TABLE"; test -s "$CHAIR"
+          ~/blender/blender -b -t 4 -P blender/fox_pbr_living_room_hero.py -- --sofa "$SOFA" --fox "$FOX" --table "$TABLE" --chair "$CHAIR" --motion 1 --res 35 --samples 12 --out out/pbr-frames 2>&1 | tee out/pbr.log | tail -100
           for shot in wide sofa close; do test -s "out/pbr-frames/$shot.png"; done
       - uses: actions/upload-artifact@v4
         if: always()
