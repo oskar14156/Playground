@@ -1,0 +1,109 @@
+name: Compress private Android release validation (Playground only)
+
+on:
+  push:
+    paths:
+      - .github/workflows/compress-android-private-ci.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: compress-private-android-qa
+  cancel-in-progress: true
+
+jobs:
+  android:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 100
+    env:
+      SENTRY_DISABLE_AUTO_UPLOAD: 'true'
+      CI: '1'
+    steps:
+      - name: Require private checkout access (never echo token)
+        env:
+          PRIVATE_TOKEN: ${{ secrets.CI_BRIDGE_READ_TOKEN || secrets.PRIVATE_REPO_TOKEN || secrets.GH_TOKEN || secrets.GH_RELEASE_TOKEN }}
+        shell: bash
+        run: |
+          if [[ -z "$PRIVATE_TOKEN" ]]; then
+            echo "::error::Playground needs a private-repository read token to test Compress."
+            exit 1
+          fi
+
+      - name: Checkout Compress PRIVATE feature branch read-only
+        uses: actions/checkout@v4
+        with:
+          repository: oskar14156/Compress
+          ref: feat/android-media3-launch-prep
+          token: ${{ secrets.CI_BRIDGE_READ_TOKEN || secrets.PRIVATE_REPO_TOKEN || secrets.GH_TOKEN || secrets.GH_RELEASE_TOKEN }}
+          persist-credentials: false
+          path: private-app
+
+      - name: Identify tested private commit (hash only)
+        working-directory: private-app
+        run: git rev-parse HEAD
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: private-app/package-lock.json
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Android SDK 36
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT="${ANDROID_HOME:-$ANDROID_SDK_ROOT}"
+          SDKMANAGER="$(find "$ROOT/cmdline-tools" -path '*/bin/sdkmanager' -type f | sort -Vr | head -n 1)"
+          test -n "$SDKMANAGER"
+          "$SDKMANAGER" --install "platforms;android-36" "build-tools;36.0.0"
+
+      - name: npm ci (private checkout, no source upload)
+        working-directory: private-app
+        run: npm ci --no-audit --no-fund
+
+      - name: Verify Expo SDK compatibility
+        working-directory: private-app
+        run: npx expo install --check
+
+      - name: TypeScript typecheck
+        working-directory: private-app
+        run: npm run typecheck
+
+      - name: All JavaScript regression tests
+        working-directory: private-app
+        run: npm test
+
+      - name: Expo Android prebuild (including Sentry native plugin)
+        working-directory: private-app
+        run: npx expo prebuild --platform android --clean --no-install
+
+      - name: Native Media3 Kotlin compiler
+        working-directory: private-app/android
+        run: ./gradlew :video-compression:compileDebugKotlin --no-daemon --console plain
+
+      - name: Full release APK build
+        working-directory: private-app/android
+        run: ./gradlew :app:assembleRelease --no-daemon --console plain
+
+      - name: Verify actual APK bytes without publishing the private binary
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK="private-app/android/app/build/outputs/apk/release/app-release.apk"
+          test -s "$APK"
+          echo "Release APK compiled and verified (size: $(stat -c %s "$APK") bytes)"
+          echo "Private APK is intentionally NOT uploaded to public Playground."
+
+      - name: Erase private source and binaries after CI
+        if: always()
+        shell: bash
+        run: rm -rf private-app
