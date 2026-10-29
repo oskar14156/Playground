@@ -103,6 +103,9 @@ jobs:
           echo "Release APK compiled and verified (size: $(stat -c %s "$APK") bytes)"
           echo "Private APK is intentionally NOT uploaded to public Playground."
 
+      - name: Audit ACTUAL packaged AndroidManifest.xml privacy, API levels, Billing
+        run: node private-app/scripts/check-android-apk.mjs private-app/android/app/build/outputs/apk/release/app-release.apk
+
       - name: Free disk for a real hosted Android emulator
         shell: bash
         run: |
