@@ -1,0 +1,152 @@
+name: Compress Sentry SDK native event smoke (temporary QA)
+
+on:
+  push:
+    paths:
+      - .github/workflows/compress-sentry-native-smoke.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: compress-sentry-native-smoke
+  cancel-in-progress: true
+
+jobs:
+  android:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 100
+    env:
+      SENTRY_DISABLE_AUTO_UPLOAD: 'true'
+      CI: '1'
+    steps:
+      - name: Require private checkout access (never echo token)
+        env:
+          PRIVATE_TOKEN: ${{ secrets.CI_BRIDGE_READ_TOKEN || secrets.PRIVATE_REPO_TOKEN || secrets.GH_TOKEN || secrets.GH_RELEASE_TOKEN }}
+        shell: bash
+        run: |
+          if [[ -z "$PRIVATE_TOKEN" ]]; then
+            echo "::error::Playground needs a private-repository read token to test Compress."
+            exit 1
+          fi
+
+      - name: Checkout Compress PRIVATE feature branch read-only
+        uses: actions/checkout@v4
+        with:
+          repository: oskar14156/Compress
+          ref: feat/android-media3-launch-prep
+          token: ${{ secrets.CI_BRIDGE_READ_TOKEN || secrets.PRIVATE_REPO_TOKEN || secrets.GH_TOKEN || secrets.GH_RELEASE_TOKEN }}
+          persist-credentials: false
+          path: private-app
+
+      - name: Identify tested private commit (hash only)
+        working-directory: private-app
+        run: git rev-parse HEAD
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-disabled: true # public Playground must not cache private compiled classes
+
+      - name: Android SDK 36
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT="${ANDROID_HOME:-$ANDROID_SDK_ROOT}"
+          SDKMANAGER="$(find "$ROOT/cmdline-tools" -path '*/bin/sdkmanager' -type f | sort -Vr | head -n 1)"
+          test -n "$SDKMANAGER"
+          "$SDKMANAGER" --install "platforms;android-36" "build-tools;36.0.0"
+
+      - name: npm ci (private checkout, no source upload)
+        working-directory: private-app
+        run: npm ci --no-audit --no-fund
+
+      - name: Verify Expo SDK compatibility
+        working-directory: private-app
+        run: npx expo install --check
+
+      - name: TypeScript typecheck
+        working-directory: private-app
+        run: npm run typecheck
+
+      - name: All JavaScript regression tests
+        working-directory: private-app
+        run: npm test
+
+      - name: Expo Android prebuild (including Sentry native plugin)
+        working-directory: private-app
+        run: npx expo prebuild --platform android --clean --no-install
+
+      - name: Native Media3 Kotlin compiler
+        working-directory: private-app/android
+        run: ./gradlew :video-compression:compileDebugKotlin --no-daemon --console plain
+
+      - name: Full release APK with opt-in native Sentry smoke event
+        working-directory: private-app/android
+        env:
+          EXPO_PUBLIC_SENTRY_SMOKE_TEST: '1'
+        run: ./gradlew :app:assembleRelease --no-daemon --console plain
+
+      - name: Verify actual APK bytes without publishing the private binary
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK="private-app/android/app/build/outputs/apk/release/app-release.apk"
+          test -s "$APK"
+          echo "Release APK compiled and verified (size: $(stat -c %s "$APK") bytes)"
+          echo "Private APK is intentionally NOT uploaded to public Playground."
+
+      - name: Audit ACTUAL packaged AndroidManifest.xml privacy, API levels, Billing
+        run: node private-app/scripts/check-android-apk.mjs private-app/android/app/build/outputs/apk/release/app-release.apk
+
+      - name: Free disk for a real hosted Android emulator
+        shell: bash
+        run: |
+          set -euo pipefail
+          df -h /
+          # Keep the standalone APK and smoke test script. No private cache is
+          # persisted; dependency/source caches are no longer needed post-build.
+          rm -rf "$HOME/.gradle/caches" "$HOME/.gradle/daemon" "$HOME/.npm/_cacache"
+          rm -rf private-app/node_modules private-app/android/.gradle
+          rm -rf private-app/android/app/build/intermediates
+          SDK_ROOT="${ANDROID_HOME:-$ANDROID_SDK_ROOT}"
+          sudo rm -rf "$SDK_ROOT/ndk" "$SDK_ROOT/cmake"
+          if [[ -e /dev/kvm ]]; then sudo chmod 666 /dev/kvm; fi
+          df -h /
+
+      - name: Boot emulator and verify standalone APK startup (no public screenshots)
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          target: default
+          arch: x86_64
+          profile: pixel_6
+          disable-animations: true
+          emulator-boot-timeout: 600
+          script: bash private-app/scripts/android-emulator-smoke.sh private-app/android/app/build/outputs/apk/release/app-release.apk
+
+      - name: Summarize real emulator result without publishing private logs
+        if: success()
+        run: |
+          test -s artifacts/android-emulator/initial.png
+          test -s artifacts/android-emulator/home.png
+          echo "API 34 emulator startup, onboarding and screenshots: verified."
+          echo "Media3 encoding, billing, export still require the connected emulator QA."
+
+      - name: Erase all emulator screenshots and logcat from the public runner
+        if: always()
+        run: rm -rf artifacts/android-emulator
+
+      - name: Erase private source and binaries after CI
+        if: always()
+        shell: bash
+        run: rm -rf private-app
