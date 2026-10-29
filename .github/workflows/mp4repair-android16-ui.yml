@@ -101,3 +101,5 @@ jobs:
 # Retest API36: dismiss the expected first automatic repair upsell before gated Save/Share assertions.
 
 # QA rerun: strict Stop test on prolonged ~700MB fixture after prior end-of-repair race.
+
+# Final 2026-10-29 user-requested release QA rerun: mp4repair-android16-ui.yml; test only, no publication.
