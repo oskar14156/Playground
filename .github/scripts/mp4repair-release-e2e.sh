@@ -12,6 +12,51 @@ adb logcat -c || true
 adb shell am start -n "$PACKAGE/.MainActivity"
 sleep 7
 
+# A real extended recording is required: the bundled five-second clip
+# finishes before uiautomator can find the Stop button. Generate in CI only.
+# Retain the fast-start moov while truncating the final mdat; this avoids
+# forcing an extra reference-picker flow, and keeps genuine video corruption.
+echo 'Creating extended damaged H.264 cancellation fixture (not user data)'
+mkdir -p /tmp/mp4repair-cancel
+ffmpeg -hide_banner -loglevel error -nostdin -y \
+  -f lavfi -i 'testsrc2=size=1280x720:rate=30:duration=12' \
+  -vf 'noise=alls=8:allf=t+u' -c:v libx264 -threads 2 \
+  -preset ultrafast -crf 21 -pix_fmt yuv420p \
+  -movflags +faststart /tmp/mp4repair-cancel/seed.mp4
+python3 - <<'PYFIXTURE'
+import os
+seed=os.path.getsize('/tmp/mp4repair-cancel/seed.mp4')
+loops=max(1, (360_000_000 // seed)+1)
+print('CANCEL FIXTURE seed bytes',seed,'stream loops',loops,flush=True)
+with open('/tmp/mp4repair-cancel/loops','w') as f:f.write(str(loops))
+PYFIXTURE
+ffmpeg -hide_banner -loglevel error -nostdin -y \
+  -stream_loop "$(cat /tmp/mp4repair-cancel/loops)" \
+  -i /tmp/mp4repair-cancel/seed.mp4 -c copy -movflags +faststart \
+  /tmp/mp4repair-cancel/healthy.mp4
+python3 - <<'PYTRUNCATE'
+import os, shutil
+source='/tmp/mp4repair-cancel/healthy.mp4'
+target='/tmp/mp4repair-cancel/MP4RepairCancelBroken.mp4'
+length=os.path.getsize(source)
+# Truncate mdat but preserve fast-start moov and the stream's codec metadata.
+with open(source,'rb') as inp, open(target,'wb') as out:
+    remaining=length*97//100
+    while remaining:
+        block=inp.read(min(4*1024*1024,remaining))
+        if not block: raise AssertionError('Unexpected short fixture')
+        out.write(block)
+        remaining-=len(block)
+size=os.path.getsize(target)
+assert size>=350_000_000,(size,length)
+print('CANCEL FIXTURE healthy',length,'damaged',size,flush=True)
+PYTRUNCATE
+rm -f /tmp/mp4repair-cancel/healthy.mp4
+adb shell mkdir -p /sdcard/Download
+adb push /tmp/mp4repair-cancel/MP4RepairCancelBroken.mp4 /sdcard/Download/MP4RepairCancelBroken.mp4
+adb shell am broadcast -a android.intent.action.MEDIA_SCANNER_SCAN_FILE \
+  -d file:///sdcard/Download/MP4RepairCancelBroken.mp4 || true
+
 python3 - <<'PY'
 import re, subprocess, time, xml.etree.ElementTree as ET, traceback
 
@@ -257,13 +302,36 @@ def repeated_preview_lifecycle():
 check('six-reopen-and-background-cycles',repeated_preview_lifecycle)
 
 def cancel_repair():
-    assert tap('Try an example'),'Cannot start cancellation scenario'
-    expect_any(['Video index missing'],25)
-    assert tap('Start repair')
-    page=expect_any(['Rebuilding your video'],20)[1]
-    assert tap('Stop'),'Could not tap cancellation'
-    # A cancellation is not a crash; it must navigate safely out of progress.
-    expect_any(['Try an example','Video index missing','This file could not be repaired'],30)
+    # Exercise a REAL Android document import of a ~350MB truncated H.264 file.
+    # The bundled five-second demo is NOT a valid live-cancellation fixture.
+    filename='MP4RepairCancelBroken.mp4'
+    assert tap('Choose a video file'),'Cannot open Files for cancellation clip'
+    selected=False
+    for attempt in range(16):
+        state=ui()
+        if filename.casefold() in state.casefold():
+            selected=tap(filename)
+            if selected:break
+        if 'Downloads' in state and attempt<6:
+            tap('Downloads')
+        elif attempt in (5,10):
+            adb('shell','input','swipe','500','1400','500','450','400')
+        time.sleep(1)
+    assert selected,'Synthetic 350MB damaged file absent from Android Files picker: '+ui()[:1100]
+    # Copying the file to app-private storage is deliberately included here.
+    page=expect_any(['Start repair','Choose a reference','This file could not be repaired'],180)[1]
+    print('LARGE FILE DIAGNOSIS',page[:1000],flush=True)
+    assert 'Start repair' in page,'Large video did not reach actionable diagnosis'
+    assert tap('Start repair'),'Could not start large damaged-video repair'
+    # Never accept a completed repair, paywall or failure as a substitute for
+    # an actual Stop on a visibly active repair. Any such state stays RED.
+    page=expect_any(['Rebuilding your video','Your video is ready','Your video is back','This file could not be repaired'],40)[1]
+    assert 'Rebuilding your video' in page,'Repair finished/failed before UI cancellation could be exercised: '+page[:900]
+    assert tap('Stop'),'Could not tap Stop while the real large repair was running'
+    page=expect_any(['Start repair','Try an example','This file could not be repaired'],45)[1]
+    assert 'Your video is back' not in page,'Cancel unexpectedly navigated to a successful result'
+    assert 'This file could not be repaired' not in page,'Cancel raised a repair failure instead of recovering navigation'
+    print('LIVE CANCELLATION OF LARGE DAMAGED FILE VERIFIED',page[:800],flush=True)
 check('cancel-repair-and-recover-navigation',cancel_repair)
 
 print('ANDROID MATRIX FINAL',checks,flush=True)
