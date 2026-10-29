@@ -1,0 +1,88 @@
+name: Free TTS voice bakeoff (isolated)
+on:
+  push:
+    branches: [tts-voice-bakeoff-20261029]
+    paths: [.github/workflows/free-tts-voice-bakeoff.yml]
+  workflow_dispatch:
+jobs:
+  synthesize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      matrix:
+        engine: [kokoro, pocket]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: System prerequisites
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq espeak-ng ffmpeg
+          python -m pip install -U pip
+          python -m pip install --extra-index-url https://download.pytorch.org/whl/cpu 'torch>=2.5' soundfile scipy numpy
+      - name: Install TTS engine
+        run: |
+          if [ "${{ matrix.engine }}" = "kokoro" ]; then
+            python -m pip install 'kokoro>=0.9.2'
+          else
+            python -m pip install 'pocket-tts'
+          fi
+      - name: Synthesize identical test with several English male voices
+        env:
+          ENGINE: ${{ matrix.engine }}
+        run: |
+          mkdir -p tts_bakeoff
+          cat > synthesize.py <<'PY'
+          import os, json, time, pathlib, traceback
+          import numpy as np, soundfile as sf
+          ENGINE=os.environ["ENGINE"]
+          TEXT=("Most people think the stock market moves because of the news. "
+                "But here's the part nobody tells you: by the time the headline reaches your phone, "
+                "the biggest trades may have already happened. So the real question isn't what changed. "
+                "It's who knew first, and how.")
+          out=pathlib.Path("tts_bakeoff")
+          (out/"test_text.txt").write_text(TEXT)
+          errors={}
+          if ENGINE=="kokoro":
+              from kokoro import KPipeline
+              for voice in ["am_michael","am_adam","bm_george"]:
+                  try:
+                      p=KPipeline(lang_code="b" if voice.startswith("b") else "a")
+                      t=time.monotonic()
+                      chunks=[audio for _,_,audio in p(TEXT,voice=voice,speed=1)]
+                      if not chunks: raise RuntimeError("Zero chunks generated")
+                      x=np.concatenate(chunks)
+                      sf.write(out/f"{ENGINE}_{voice}.wav",x,24000)
+                      print(f"SAMPLE {voice}: {len(x)/24000:.2f}s generation {time.monotonic()-t:.1f}s")
+                  except Exception as e:
+                      errors[voice]=str(e); traceback.print_exc()
+          elif ENGINE=="pocket":
+              from pocket_tts import TTSModel
+              print("LOADING PocketTTS...",flush=True)
+              model=TTSModel.load_model()
+              for voice in ["michael","marius","stuart_bell"]:
+                  try:
+                      t=time.monotonic()
+                      state=model.get_state_for_audio_prompt(voice)
+                      x=model.generate_audio(state,TEXT).detach().cpu().numpy().reshape(-1)
+                      sf.write(out/f"{ENGINE}_{voice}.wav",x,model.sample_rate)
+                      print(f"SAMPLE {voice}: {len(x)/model.sample_rate:.2f}s generation {time.monotonic()-t:.1f}s")
+                  except Exception as e:
+                      errors[voice]=str(e); traceback.print_exc()
+          (out/"errors.json").write_text(json.dumps(errors,indent=2))
+          files=list(out.glob("*.wav"))
+          if not files: raise SystemExit("NO AUDIO GENERATED")
+          PY
+          python synthesize.py
+          for a in tts_bakeoff/*.wav; do ffmpeg -hide_banner -loglevel error -y -i "$a" -ar 24000 -ac 1 -b:a 96k "${a%.wav}.mp3"; done
+      - name: Upload playable examples
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tts-voice-bakeoff-${{ matrix.engine }}
+          path: tts_bakeoff/
+          if-no-files-found: warn
+          retention-days: 14
