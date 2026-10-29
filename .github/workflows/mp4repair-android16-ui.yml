@@ -97,3 +97,5 @@ jobs:
 # Extended release regression: unentitled Save/Share and no ghost output after Stop, API 36.
 
 # QA driver updated to verify the observed saved-file -> Home paywall return (API 36).
+
+# Retest API36: dismiss the expected first automatic repair upsell before gated Save/Share assertions.
