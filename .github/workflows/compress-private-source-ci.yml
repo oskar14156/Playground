@@ -1,0 +1,43 @@
+name: Compress private source and Sentry privacy regression (Playground only)
+on:
+  push:
+    paths:
+      - .github/workflows/compress-private-source-ci.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: oskar14156/Compress
+          ref: feat/android-media3-launch-prep
+          token: ${{ secrets.CI_BRIDGE_READ_TOKEN || secrets.PRIVATE_REPO_TOKEN || secrets.GH_TOKEN || secrets.GH_RELEASE_TOKEN }}
+          persist-credentials: false
+          path: private-app
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Identify exact tested commit
+        working-directory: private-app
+        run: git rev-parse HEAD
+      - name: Install exact dependencies
+        working-directory: private-app
+        run: npm ci --no-audit --no-fund
+      - name: Expo compatibility
+        working-directory: private-app
+        run: CI=1 npx expo install --check
+      - name: TypeScript
+        working-directory: private-app
+        run: npm run typecheck
+      - name: Complete Node suite including real Sentry redaction tests
+        working-directory: private-app
+        run: npm test
+      - name: Delete private source on runner
+        if: always()
+        run: rm -rf private-app
