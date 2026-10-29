@@ -38,7 +38,7 @@ jobs:
       - name: TypeScript
         working-directory: private-app
         run: npm run typecheck
-      - name: Complete Node suite including verified public DSN and media redaction tests
+      - name: Validate Sentry public DSN, private-media redaction and gated native SDK QA capture
         working-directory: private-app
         run: npm test
       - name: Delete private source on runner
