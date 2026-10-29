@@ -1,0 +1,49 @@
+name: MP4Repair npm security audit (production and full dependency tree)
+on:
+  push:
+    paths:
+      - .github/workflows/mp4repair-npm-audit.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  dependency-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout private MP4Repair candidate (no credential persistence)
+        uses: actions/checkout@v4
+        with:
+          repository: oskar14156/mp4repair
+          ref: fix/build13-android-memory
+          token: ${{ secrets.CI_BRIDGE_READ_TOKEN }}
+          persist-credentials: false
+          path: app
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Audit locked production dependencies and entire dependency tree
+        working-directory: app
+        shell: bash
+        run: |
+          npm audit --json --omit=dev > "$RUNNER_TEMP/mp4repair-prod-audit.json" || true
+          npm audit --json > "$RUNNER_TEMP/mp4repair-all-audit.json" || true
+          node - <<'NODE'
+          const fs=require('fs');
+          for(const type of ['prod','all']) {
+            const path=process.env.RUNNER_TEMP+'/mp4repair-'+type+'-audit.json';
+            const report=JSON.parse(fs.readFileSync(path,'utf8'));
+            const vulns=report.vulnerabilities||{};
+            const hits=Object.entries(vulns).map(([name,v])=>({
+              package:name, severity:v.severity,
+              direct:!!v.isDirect, range:v.range,
+              fixAvailable:v.fixAvailable === true?'yes':typeof v.fixAvailable==='object'?JSON.stringify(v.fixAvailable):'no',
+              via:(v.via||[]).filter(q=>typeof q==='object').map(q=>({title:q.title,url:q.url,range:q.range})).slice(0,3)
+            }));
+            console.log('AUDIT_'+type.toUpperCase()+'_COUNT',JSON.stringify(report.metadata?.vulnerabilities||{}));
+            console.log('AUDIT_'+type.toUpperCase()+'_FINDINGS',JSON.stringify(hits.filter(x=>['critical','high','moderate'].includes(x.severity))));
+          }
+          NODE
+      - name: Remove private checkout
+        if: always()
+        run: rm -rf app
