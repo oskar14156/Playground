@@ -1,0 +1,62 @@
+name: Free Qwen3 TTS male voice probe
+on:
+  push:
+    branches: [tts-voice-bakeoff-20261029]
+    paths: [.github/workflows/free-tts-qwen.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  voices:
+    runs-on: ubuntu-latest
+    timeout-minutes: 32
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install free Qwen3-TTS runtime
+        run: |
+          python -m pip install -U pip
+          python -m pip install 'torch>=2.5' --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install qwen-tts soundfile
+      - name: Run same English finance text with two male voices
+        run: |
+          mkdir -p tts_qwen
+          cat > tts_qwen/synth.py <<'PY'
+          import time, traceback, json, pathlib
+          import torch, soundfile as sf
+          from qwen_tts import Qwen3TTSModel
+          t=time.monotonic()
+          torch.set_num_threads(4)
+          mdl=Qwen3TTSModel.from_pretrained("Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice",device_map="cpu",dtype=torch.float32,attn_implementation="sdpa")
+          print(f"Loaded model in {time.monotonic()-t:.1f}s",flush=True)
+          text=("Most people think the stock market moves because of the news. "
+                "But here's the part nobody tells you: by the time the headline reaches your phone, "
+                "the biggest trades may have already happened. So the real question isn't what changed. "
+                "It's who knew first, and how.")
+          pathlib.Path("tts_qwen/test_text.txt").write_text(text)
+          errors={}
+          for speaker in ["Ryan","Aiden"]:
+              try:
+                  t=time.monotonic()
+                  wavs,sr=mdl.generate_custom_voice(text=text,language="English",speaker=speaker,
+                              instruct="Speak like a real human explaining an interesting fact to a friend. Natural, conversational, clear American English. Moderate quick pace, subtle excitement; not theatrical.",max_new_tokens=1100)
+                  audio=wavs[0]
+                  sf.write(f"tts_qwen/qwen3_{speaker.lower()}.wav",audio,sr)
+                  print(f"SAMPLE {speaker}, {len(audio)/sr:.2f}s, render {time.monotonic()-t:.1f}s",flush=True)
+              except Exception as e:
+                  errors[speaker]=repr(e); traceback.print_exc()
+          pathlib.Path("tts_qwen/errors.json").write_text(json.dumps(errors))
+          if len(list(pathlib.Path("tts_qwen").glob("*.wav")))<1: raise SystemExit("NO WAV")
+          PY
+          python tts_qwen/synth.py
+          for a in tts_qwen/*.wav; do ffmpeg -hide_banner -loglevel error -y -i "$a" -ar 24000 -ac 1 -b:a 96k "${a%.wav}.mp3"; done
+      - name: Upload actual sample audio
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: free-qwen3-male-voices
+          path: tts_qwen/
+          retention-days: 14
+          if-no-files-found: warn
