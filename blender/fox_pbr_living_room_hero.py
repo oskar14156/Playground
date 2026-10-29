@@ -106,6 +106,12 @@ def imported_asset(filepath,name,target_width,target,turn=0):
        "scale",round(s,4),flush=True)
  return root
 sofa=imported_asset(SOFA,"REAL SCANNED PBR SOFA",2.7,(-.60,1.1,.0),turn=0)
+# Replace empty staging with real CC0 prop geometry and PBR materials.
+for flag,title,width,pos,rotation in [
+ ("--table","REAL PBR COFFEE TABLE",1.25,(-.4,-.90,.08),0),
+ ("--chair","REAL PBR ARMCHAIR",.92,(1.95,.6,.02),-.38)]:
+ asset=get(flag,"")
+ if asset: imported_asset(asset,title,width,pos,turn=rotation)
 if FOX:
  fox=imported_asset(FOX,"FURSUIT HELMET ON UPHOLSTERY",.77,(-.62,1.10,.83),turn=0)
  # HAIR GROOM. The previous glTF's plastic foam surface fails the fursuit
@@ -175,4 +181,18 @@ for name,(pos,point,lens) in shots.items():
  sc.render.filepath=os.path.abspath(os.path.join(OUT,name+".png"))
  print("RENDERING",name,flush=True)
  bpy.ops.render.render(write_still=True)
+# Camera moves through real 3D space, not Ken-Burns on PNGs.
+if get("--motion","0")=="1":
+ for frame in range(0,90,8):
+  t=frame/89.0
+  angle=-.22+.48*t
+  pivot=Vector((-.42,.75,1.05))
+  dist=4.3-.7*t
+  cam.location=(pivot.x+math.sin(angle)*dist,pivot.y-dist*math.cos(angle),2.35-.12*t)
+  cam.rotation_euler=(pivot-cam.location).to_track_quat("-Z","Y").to_euler()
+  cam.data.lens=57
+  sc.camera=cam
+  sc.frame_set(frame)
+  sc.render.filepath=os.path.abspath(os.path.join(OUT,"motion_%03d.png"%frame))
+  bpy.ops.render.render(write_still=True)
 print("COMPLETE",flush=True)
