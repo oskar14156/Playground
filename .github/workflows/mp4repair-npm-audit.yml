@@ -44,6 +44,23 @@ jobs:
             console.log('AUDIT_'+type.toUpperCase()+'_FINDINGS',JSON.stringify(hits.filter(x=>['critical','high','moderate'].includes(x.severity))));
           }
           NODE
+      - name: Trace security advisories to dependency roots
+        working-directory: app
+        shell: bash
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund >/dev/null
+          for package in shell-quote undici body-parser launch-editor compression joi zod; do
+            npm explain "$package" --json > "$RUNNER_TEMP/mp4repair-explain-$package.json" || true
+          done
+          node - <<'NODE'
+          const fs=require('fs');
+          for(const name of ['shell-quote','undici','body-parser','launch-editor','compression','joi','zod']){
+            let x=JSON.parse(fs.readFileSync(process.env.RUNNER_TEMP+'/mp4repair-explain-'+name+'.json','utf8'));
+            let entries=Array.isArray(x)?x:[x];
+            let paths=entries.flatMap(v=>v.dependents||[]).slice(0,10).map(d=>({name:d.name,location:d.location,edge:d.edge?.name}));
+            console.log('DEPENDENCY_ROOT',JSON.stringify({package:name,version:entries.map(v=>v.version),locations:entries.map(v=>v.location),dependents:paths}));
+          }
+          NODE
       - name: Remove private checkout
         if: always()
         run: rm -rf app
