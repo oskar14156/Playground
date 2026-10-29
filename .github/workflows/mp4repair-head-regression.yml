@@ -75,3 +75,5 @@ jobs:
       - name: Delete private checkout and compiler zip
         if: always()
         run: rm -rf app /tmp/mp4repair-kotlin.zip
+
+# Final 2026-10-29 user-requested release QA rerun: mp4repair-head-regression.yml; test only, no publication.
