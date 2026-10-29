@@ -1,5 +1,5 @@
 name: Full TRUE Animated 3D Fox Vacuum Preview V2
-# Retry after strict TypeScript premium composition cleanup
+# Full-length 3D preview rerender; not a visually approved release
 on:
   push:
     branches: [vacuum-v2-3d]
@@ -47,12 +47,19 @@ jobs:
       - name: Render complete true animated 3D low-quality preview
         run: |
           mkdir -p out/active-full
-          npx remotion render vacuum-active-full out/active-full/fox-vacuum-real-3d.mp4 --scale=0.3 --crf=31 --gl=swangle --concurrency=3 --log=error
+          npx remotion render vacuum-active-full out/active-full/fox-vacuum-real-3d.mp4 --scale=0.4 --crf=30 --gl=swangle --concurrency=3 --log=error
       - name: QA actual MP4 contact and metadata
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq ffmpeg >/dev/null
           ffprobe -v error -show_entries stream=width,height,nb_frames -show_entries format=duration,size -of json out/active-full/fox-vacuum-real-3d.mp4 >out/active-full/probe.json
+          python3 - <<'PY'
+          import json
+          p=json.load(open("out/active-full/probe.json"))
+          assert float(p["format"]["duration"])>65, "Preview duration is too short"
+          assert int(p["format"]["size"])>100000, "Preview MP4 unexpectedly small"
+          print("VIDEO_QA",p)
+          PY
           ffmpeg -v error -y -i out/active-full/fox-vacuum-real-3d.mp4 -vf "fps=1/8,scale=90:-1,tile=6x2" -frames:v 1 out/active-full/contact.jpg
       - uses: actions/upload-artifact@v4
         if: always()
