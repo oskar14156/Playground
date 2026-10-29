@@ -32,6 +32,9 @@ jobs:
       - name: Expo compatibility
         working-directory: private-app
         run: CI=1 npx expo install --check
+      - name: Validate generated public Expo config without logging private values
+        working-directory: private-app
+        run: CI=1 npx expo config --type public --json >/dev/null
       - name: TypeScript
         working-directory: private-app
         run: npm run typecheck
