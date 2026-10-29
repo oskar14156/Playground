@@ -66,6 +66,15 @@ jobs:
           test -s "$SOFA"; test -s "$FOX"; test -s "$TABLE"; test -s "$CHAIR"
           ~/blender/blender -b -t 4 -P blender/fox_pbr_living_room_hero.py -- --sofa "$SOFA" --fox "$FOX" --table "$TABLE" --chair "$CHAIR" --motion 1 --res 35 --samples 12 --out out/pbr-frames 2>&1 | tee out/pbr.log | tail -100
           for shot in wide sofa close; do test -s "out/pbr-frames/$shot.png"; done
+      - name: Assemble real rendered camera-animation proof and contact sheet
+        run: |
+          set -euo pipefail
+          test "$(find out/pbr-frames -maxdepth 1 -name 'motion_*.png' | wc -l)" -eq 12
+          ffmpeg -hide_banner -loglevel error -y -framerate 4 -pattern_type glob -i 'out/pbr-frames/motion_*.png' -c:v libx264 -crf 22 -pix_fmt yuv420p -movflags +faststart out/pbr-frames/pbr-moving-camera.mp4
+          ffmpeg -hide_banner -loglevel error -y -framerate 4 -pattern_type glob -i 'out/pbr-frames/motion_*.png' -vf 'scale=270:-1,tile=4x3' -frames:v 1 out/pbr-frames/contact-sheet.jpg
+          ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1 out/pbr-frames/pbr-moving-camera.mp4
+          test -s out/pbr-frames/pbr-moving-camera.mp4
+          test -s out/pbr-frames/contact-sheet.jpg
       - uses: actions/upload-artifact@v4
         if: always()
         with:
