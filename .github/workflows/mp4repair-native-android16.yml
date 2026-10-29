@@ -69,3 +69,5 @@ jobs:
 # Final test branch: aspect-ratio regression, eight Android instrumentation tests.
 
 # 2026-10-29 final fix branch QA repeat after 14.txt metadata sync.
+
+# Final 2026-10-29 user-requested release QA rerun: mp4repair-native-android16.yml; test only, no publication.
