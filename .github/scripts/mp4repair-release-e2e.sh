@@ -237,6 +237,11 @@ check('real-native-sample-repair',repair)
 def free_result_export_requires_pro():
     # Exercise BOTH paid actions without tapping Unlock now or charging Google Play.
     # A successful native repair must remain available after the sheet closes.
+    # The first repair legitimately auto-opens Pro after a short delay.
+    # Dismiss it before testing manually requested Save and Share gates.
+    first=ui()
+    if 'Unlock MP4 Repair Pro' in first or 'Restore purchases' in first:
+        assert tap('Close'),'Cannot dismiss legitimate automatic post-repair upsell'
     result=expect_any(['Frames recovered','Your video is back'],20)[1]
     assert 'Frames recovered' in result, 'Repair result vanished before Pro gate test'
     for action in ('Save in full quality to Gallery','Share'):
