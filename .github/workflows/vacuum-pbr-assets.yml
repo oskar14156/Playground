@@ -31,7 +31,7 @@ jobs:
           python3 - <<'PY'
           import json
           from pathlib import Path
-          data=json.loads(Path("out/pbr-assets/*/LICENSE_AND_ASSET.json").read_text())
+          data=json.loads(Path("out/pbr-assets/sofa_02/LICENSE_AND_ASSET.json").read_text())
           Path("out/sofa-path.txt").write_text(data["main"])
           for asset in ("coffee_table_round_01", "modern_arm_chair_01"):
               src=json.loads(Path(f"out/pbr-assets/{asset}/LICENSE_AND_ASSET.json").read_text())
