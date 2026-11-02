@@ -1,0 +1,88 @@
+name: motionshorts voice (Chatterbox, CPU)
+# Voices videos/<slug>/script.txt of github.com/oskar14156/motionshorts with Chatterbox on CPU runners, so the Mac stays cool.
+# Block 1 goes first (it sets the pitch reference), then every other block in parallel, then one job joins them and
+# times the words with Whisper. Manual only:
+#   gh workflow run motionshorts-voice.yml -R oskar14156/playground -f slug=area-51 -f args="--gap 0.12 --beat-gap 0.22 --speed 1.06 --seed 7"
+# Result: artifact "voice" with public/<slug>/vo.mp3 + words.json and the log.
+on:
+  workflow_dispatch:
+    inputs:
+      slug: { description: "video slug", required: true }
+      args: { description: "extra voice.py args", default: "" }
+      ref: { description: "branch with scripts/voice.py and videos/<slug>/script.txt", default: "motionshorts-voice" }
+permissions:
+  contents: read
+defaults:
+  run: { shell: bash }  # = bash -eo pipefail, so a failing voice.py fails the step despite the grep
+env:
+  SLUG: ${{ inputs.slug }}
+  ARGS: ${{ inputs.args }}
+jobs:
+  first:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    outputs:
+      rest: ${{ steps.plan.outputs.rest }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: "${{ inputs.ref }}", persist-credentials: false }
+      - id: plan
+        run: python3 -c "import sys,json; sys.path.insert(0,'scripts'); import voice; n=len(voice.chunk_beats(voice.read_beats('$SLUG'))); print('rest='+json.dumps(list(range(2,n+1))))" >> "$GITHUB_OUTPUT"
+      - name: Install Chatterbox (CPU torch)
+        run: |
+          sudo apt-get install -y -qq ffmpeg >/dev/null
+          pip install -q uv
+          uv venv -q /tmp/v --python 3.11
+          uv pip install -q --python /tmp/v/bin/python --extra-index-url https://download.pytorch.org/whl/cpu --index-strategy unsafe-best-match chatterbox-tts "setuptools<81" openai-whisper librosa
+      - name: Voice block 1
+        run: VOICE_BLOCKS_ONLY=1 /tmp/v/bin/python scripts/voice.py "$SLUG" --engine chatterbox $ARGS 2>&1 | grep -v "it/s\]"
+      - uses: actions/upload-artifact@v4
+        with: { name: blk-1, path: out/voices/_blocks, retention-days: 3 }
+
+  blocks:
+    needs: first
+    if: needs.first.outputs.rest != '[]'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      max-parallel: 20
+      matrix:
+        block: ${{ fromJSON(needs.first.outputs.rest) }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: "${{ inputs.ref }}", persist-credentials: false }
+      - name: Install Chatterbox (CPU torch)
+        run: |
+          sudo apt-get install -y -qq ffmpeg >/dev/null
+          pip install -q uv
+          uv venv -q /tmp/v --python 3.11
+          uv pip install -q --python /tmp/v/bin/python --extra-index-url https://download.pytorch.org/whl/cpu --index-strategy unsafe-best-match chatterbox-tts "setuptools<81" openai-whisper librosa
+      - uses: actions/download-artifact@v4
+        with: { name: blk-1, path: out/voices/_blocks }
+      - name: Voice block ${{ matrix.block }}
+        run: VOICE_BLOCKS_ONLY=${{ matrix.block }} /tmp/v/bin/python scripts/voice.py "$SLUG" --engine chatterbox $ARGS 2>&1 | grep -v "it/s\]"
+      - uses: actions/upload-artifact@v4
+        with: { name: "blk-${{ matrix.block }}", path: out/voices/_blocks, retention-days: 3 }
+
+  join:
+    needs: [first, blocks]
+    if: ${{ !cancelled() && needs.first.result == 'success' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: "${{ inputs.ref }}", persist-credentials: false }
+      - name: Install Chatterbox (CPU torch)
+        run: |
+          sudo apt-get install -y -qq ffmpeg >/dev/null
+          pip install -q uv
+          uv venv -q /tmp/v --python 3.11
+          uv pip install -q --python /tmp/v/bin/python --extra-index-url https://download.pytorch.org/whl/cpu --index-strategy unsafe-best-match chatterbox-tts "setuptools<81" openai-whisper librosa
+      - uses: actions/download-artifact@v4
+        with: { pattern: "blk-*", merge-multiple: true, path: out/voices/_blocks }
+      - name: Join blocks + Whisper word timing (voices any block a failed job left out)
+        run: /tmp/v/bin/python scripts/voice.py "$SLUG" --engine chatterbox $ARGS 2>&1 | grep -v "it/s\]" | tee voice.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: voice, path: "public/${{ inputs.slug }}\nvoice.log\nout/voices/_blocks", retention-days: 7 }
