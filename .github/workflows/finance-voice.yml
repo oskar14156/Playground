@@ -1,0 +1,80 @@
+name: finance-channel draft voice (Kokoro, CPU)
+# Draft voice + word timing for an episode of the private repo oskar14156/finance-channel, on a free runner.
+# Kokoro-82M (Apache 2.0) + NVIDIA Parakeet word timing (sherpa-onnx), both on CPU, models from GitHub releases.
+# The result (vo.mp3 + words.json + a short log) is committed back to the given branch of the PRIVATE repo;
+# nothing from the script is printed to this public log and nothing is uploaded here unless the push fails.
+#   gh workflow run finance-voice.yml -R oskar14156/playground -f slug=hidden-raise -f ref=claude/nifty-johnson-t8mh22 -f speed=1.1
+on:
+  workflow_dispatch:
+    inputs:
+      slug: { description: "episode slug", required: true, default: "hidden-raise" }
+      ref: { description: "finance-channel branch with episodes/<slug>/script.txt", required: true }
+      voice: { description: "Kokoro voice", default: "am_fenrir" }
+      speed: { description: "tempo factor after synthesis (1.0 ≈ 165 wpm)", default: "1.1" }
+      extra: { description: "extra voice.py args", default: "--gap 0.22 --beat-gap 0.55" }
+permissions:
+  contents: read
+concurrency:
+  group: finance-voice-${{ inputs.slug }}
+  cancel-in-progress: false
+jobs:
+  voice:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      SLUG: ${{ inputs.slug }}
+      REF: ${{ inputs.ref }}
+    steps:
+      - name: Validate token
+        env:
+          PRIVATE_TOKEN: ${{ secrets.PRIVATE_REPO_TOKEN || secrets.GH_TOKEN || secrets.GH_RELEASE_TOKEN }}
+        run: test -n "$PRIVATE_TOKEN"
+      - uses: actions/checkout@v4
+        with:
+          repository: oskar14156/finance-channel
+          ref: ${{ inputs.ref }}
+          token: ${{ secrets.PRIVATE_REPO_TOKEN || secrets.GH_TOKEN || secrets.GH_RELEASE_TOKEN }}
+          path: fc
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - name: Install Kokoro + sherpa-onnx
+        run: |
+          sudo apt-get install -y -qq ffmpeg >/dev/null
+          python -m pip install -q numpy soundfile sherpa-onnx kokoro-onnx
+      - name: Voice (output kept out of this public log)
+        working-directory: fc
+        run: |
+          set -o pipefail
+          mkdir -p "episodes/$SLUG/voice"
+          python scripts/voice.py "$SLUG" --engine kokoro --voice "${{ inputs.voice }}" --speed "${{ inputs.speed }}" ${{ inputs.extra }} \
+            > "episodes/$SLUG/voice/draft_voice.log" 2>&1 || { echo "voice.py failed (log is committed/uploaded, not printed)"; echo FAILED > /tmp/failed; }
+          if [ -f "public/episodes/$SLUG/vo.mp3" ]; then
+            dur=$(ffprobe -v error -show_entries format=duration -of csv=p=0 "public/episodes/$SLUG/vo.mp3")
+            words=$(wc -w < "episodes/$SLUG/script.txt")
+            echo "duration_s=$dur script_words~$words"
+            python3 -c "import json;d=json.load(open('public/episodes/$SLUG/words.json'));print('timed words:',len(d if isinstance(d,list) else d.get('words',[])))"
+            grep -c "POSSIBLY MISSPOKEN" "episodes/$SLUG/voice/draft_voice.log" | sed 's/^/mismatch lines: /' || true
+          fi
+      - name: Commit result back to the private branch
+        id: push
+        working-directory: fc
+        continue-on-error: true
+        run: |
+          git config user.name "finance-voice bot"
+          git config user.email "finance-voice-bot@users.noreply.github.com"
+          git add "public/episodes/$SLUG/vo.mp3" "public/episodes/$SLUG/words.json" "episodes/$SLUG/voice/draft_voice.log"
+          git commit -q -m "$SLUG: draft voice (Kokoro ${{ inputs.voice }}, speed ${{ inputs.speed }}) from playground runner"
+          for i in 1 2 3; do git pull -q --rebase origin "$REF" && git push -q origin "HEAD:$REF" && exit 0; sleep $((i*5)); done
+          exit 1
+      - name: Fallback artifact (only if the push failed; 1 day)
+        if: ${{ steps.push.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: finance-voice
+          retention-days: 1
+          path: |
+            fc/public/episodes/${{ inputs.slug }}/vo.mp3
+            fc/public/episodes/${{ inputs.slug }}/words.json
+            fc/episodes/${{ inputs.slug }}/voice/draft_voice.log
+      - name: Fail if voicing failed
+        run: test ! -f /tmp/failed
