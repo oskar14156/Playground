@@ -1,0 +1,106 @@
+# Builds Video Background Remover's Play bundle from the private repository, unsigned.
+#
+# The bundle is signed on the developer's Mac (scripts/ci-bundle.sh in
+# oskar14156/ai-video-background-remover). Besides the bridge read token, the
+# only secret here is the RevenueCat Android SDK key, which ships inside every
+# build anyway. What leaves the runner is encrypted to a public key passed in
+# at dispatch, so the artifact is useless to anyone else.
+name: Video BG Remover Android bundle
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Commit or branch of oskar14156/ai-video-background-remover
+        required: true
+        default: main
+      public_key:
+        description: Base64 of the PEM public key the artifact is encrypted to
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: videbg-android-bundle
+  cancel-in-progress: false
+
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Check out the private repository
+        uses: actions/checkout@v4
+        with:
+          repository: oskar14156/ai-video-background-remover
+          ref: ${{ inputs.ref }}
+          token: ${{ secrets.CI_BRIDGE_READ_TOKEN }}
+          path: app
+          persist-credentials: false
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Android SDK pieces the build pins
+        run: |
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "ndk;27.1.12297006" "platforms;android-36" "build-tools;36.0.0" > /dev/null
+
+      - name: Install dependencies
+        working-directory: app
+        run: npm ci --include=dev --no-audit --no-fund
+
+      - name: Generate the native project
+        working-directory: app
+        env:
+          APP_RELEASE_BUILD: '1'
+          NODE_ENV: production
+        run: npx expo prebuild --platform android --no-install
+
+      - name: Build the unsigned bundle
+        working-directory: app/android
+        env:
+          APP_RELEASE_BUILD: '1'
+          NODE_ENV: production
+          SENTRY_DISABLE_AUTO_UPLOAD: 'true'
+          EXPO_PUBLIC_REVENUECAT_ANDROID_KEY: ${{ secrets.VIDEBG_REVENUECAT_ANDROID_KEY }}
+        run: |
+          # A store build without the purchase key would sell nothing.
+          [ -n "$EXPO_PUBLIC_REVENUECAT_ANDROID_KEY" ] || { echo "VIDEBG_REVENUECAT_ANDROID_KEY is not set" >&2; exit 1; }
+          ./gradlew bundleRelease -PreactNativeArchitectures=armeabi-v7a,arm64-v8a -PvidebgUnsignedBundle=true --no-daemon
+
+      - name: Encrypt the bundle
+        env:
+          PUBLIC_KEY_B64: ${{ inputs.public_key }}
+        run: |
+          set -euo pipefail
+          printf '%s' "$PUBLIC_KEY_B64" | base64 -d > public.pem
+          tar -czf payload.tgz -C app/android/app/build/outputs/bundle/release app-release.aab
+          openssl rand -out session.key 32
+          openssl enc -aes-256-cbc -pbkdf2 -salt -in payload.tgz -out payload.enc -pass file:session.key
+          openssl pkeyutl -encrypt -pubin -inkey public.pem -pkeyopt rsa_padding_mode:oaep -in session.key -out session.key.enc
+          rm -f session.key payload.tgz
+          ls -la payload.enc session.key.enc
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: videbg-bundle
+          path: |
+            payload.enc
+            session.key.enc
+          retention-days: 2
+
+      - name: Remove the private checkout
+        if: always()
+        run: rm -rf app public.pem session.key payload.tgz
