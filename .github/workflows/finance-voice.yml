@@ -3,7 +3,13 @@ name: finance-channel draft voice (Kokoro, CPU)
 # Kokoro-82M (Apache 2.0) + NVIDIA Parakeet word timing (sherpa-onnx), both on CPU, models from GitHub releases.
 # The result (vo.mp3 + words.json + a short log) is committed back to the given branch of the PRIVATE repo;
 # nothing from the script is printed to this public log and nothing is uploaded here unless the push fails.
-#   gh workflow run finance-voice.yml -R oskar14156/playground -f slug=hidden-raise -f ref=claude/nifty-johnson-t8mh22 -f speed=1.1
+# Two modes:
+#  A) secret PRIVATE_REPO_TOKEN set (fine-grained PAT, contents read/write on finance-channel): checks out the private
+#     branch `ref` and commits the result back there — nothing private ends up in this PUBLIC repo.
+#  B) no token: set `playground_ref` to a branch of THIS repo that contains a finance-channel checkout (like the
+#     motionshorts-voice branch). WARNING: this repo is public — the script on that branch is visible to everyone.
+#     The result is then uploaded as a 1-day artifact.
+#   gh workflow run finance-voice.yml -R oskar14156/Playground -f slug=hidden-raise -f ref=claude/nifty-johnson-t8mh22 -f speed=1.1
 on:
   workflow_dispatch:
     inputs:
@@ -12,6 +18,7 @@ on:
       voice: { description: "Kokoro voice", default: "am_fenrir" }
       speed: { description: "tempo factor after synthesis (1.0 ≈ 165 wpm)", default: "1.1" }
       extra: { description: "extra voice.py args", default: "--gap 0.22 --beat-gap 0.55" }
+      playground_ref: { description: "mode B only: branch of this public repo with the finance-channel files (empty = mode A)", default: "" }
 permissions:
   contents: read
 concurrency:
@@ -25,11 +32,19 @@ jobs:
       SLUG: ${{ inputs.slug }}
       REF: ${{ inputs.ref }}
     steps:
-      - name: Validate token
+      - name: Validate token (mode A)
+        if: ${{ inputs.playground_ref == '' }}
         env:
           PRIVATE_TOKEN: ${{ secrets.PRIVATE_REPO_TOKEN || secrets.GH_TOKEN || secrets.GH_RELEASE_TOKEN }}
-        run: test -n "$PRIVATE_TOKEN"
-      - uses: actions/checkout@v4
+        run: |
+          test -n "$PRIVATE_TOKEN" || { echo "No PRIVATE_REPO_TOKEN secret - add one, or use playground_ref (mode B)"; exit 1; }
+      - name: Checkout this repo's branch (mode B)
+        if: ${{ inputs.playground_ref != '' }}
+        uses: actions/checkout@v4
+        with: { ref: "${{ inputs.playground_ref }}", path: fc, persist-credentials: false }
+      - name: Checkout private branch (mode A)
+        if: ${{ inputs.playground_ref == '' }}
+        uses: actions/checkout@v4
         with:
           repository: oskar14156/finance-channel
           ref: ${{ inputs.ref }}
@@ -56,6 +71,7 @@ jobs:
             grep -c "POSSIBLY MISSPOKEN" "episodes/$SLUG/voice/draft_voice.log" | sed 's/^/mismatch lines: /' || true
           fi
       - name: Commit result back to the private branch
+        if: ${{ inputs.playground_ref == '' }}
         id: push
         working-directory: fc
         continue-on-error: true
@@ -67,7 +83,7 @@ jobs:
           for i in 1 2 3; do git pull -q --rebase origin "$REF" && git push -q origin "HEAD:$REF" && exit 0; sleep $((i*5)); done
           exit 1
       - name: Fallback artifact (only if the push failed; 1 day)
-        if: ${{ steps.push.outcome == 'failure' }}
+        if: ${{ inputs.playground_ref != '' || steps.push.outcome == 'failure' }}
         uses: actions/upload-artifact@v4
         with:
           name: finance-voice
