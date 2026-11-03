@@ -1,0 +1,364 @@
+# COLDOPEN
+It's a cold Friday in December, and Hank's biggest client hands him an envelope.
+Hank is 60, he's a freelance bookkeeper, and inside the envelope is a 2,000 dollar bonus.
+Hank says thank you.
+He shouldn't.
+That bonus is going to cost him 8,700 dollars.
+Not because of income tax.
+Because of his health insurance.
+That sounds like a math error.
+It isn't.
+The system isn't broken.
+It's working exactly as designed.
+And the same system takes money from you every single month, even if you've never heard of it.
+
+# HOOK
+Quick question.
+Who pays for your health insurance?
+If you have a job, you probably said, my employer, and it sounds right.
+The average family plan at work now costs 28,303 dollars a year, and employers pay about 20,800 of it.
+For a full-time worker, that's 10 dollars for every hour on the job.
+That's more than the federal minimum wage.
+But the answer is wrong.
+And the reason it's wrong explains why your raises feel small, and why next year's jump is the biggest since 2003.
+By the end of this video, you'll know who really pays, who keeps the money, and why one state plays by completely different rules.
+
+# INTRO
+I'm Dex.
+I do the math they don't show you on your pay stub.
+And to see the math, meet an old friend.
+This is Leo.
+Leo is 27, he works in an office, and he makes 52,000 dollars a year.
+You might remember Leo from the car dealership.
+He's still paying for that car.
+Every November, Leo gets the same email from HR.
+Open enrollment is here.
+And this year, there's a friendly line at the bottom.
+Your employer contributes 8,132 dollars toward your coverage.
+Leo is touched.
+That's 678 dollars a month.
+Which, funny enough, is about what Leo pays for his car.
+Leo thinks his boss is being generous.
+And his own share looks small: 139 dollars a month, 1,672 dollars a year.
+So that's Leo's health bill, right?
+Let's do the math properly, and keep a running total.
+
+# SUSPECTS
+The usual suspects.
+Suspect number 1: Americans just go to the doctor too much.
+Nope.
+America spends about 14,775 dollars per person on health care, almost twice the 7,860 that other rich countries average.
+But Americans don't see the doctor twice as often.
+The gap is mostly prices, not visits.
+Suspect number 2: greedy insurance companies.
+Their own trade group says profit is about 2 point 5 cents of every premium dollar.
+That number is real, but hold on to it, because it's not the whole story.
+And then there's the strange part nobody questions.
+Leo's car insurance has nothing to do with his job.
+But his doctor, his hospital and his prescriptions are all picked by the company he works for.
+Why?
+To answer that, we need to know what insurance actually is.
+
+# POOL
+Picture Leo's office.
+100 people.
+In a normal year, most of them barely cost anything.
+A checkup, a prescription, maybe a sprained ankle.
+But a few people have a terrible year.
+A cancer diagnosis, a baby born too early, a car crash.
+Across America, the top 5 percent of people account for about half of all health spending.
+The bottom half of people account for about 3 percent.
+So insurance is a bet nobody wants to win.
+Everyone chips in a little, so the few people having the worst year of their lives don't go broke.
+And that only works if lots of healthy people stay in the pool.
+Remember that, because it's going to matter.
+
+# BAYLOR
+Now, the first plan like this in America wasn't invented by an insurance company.
+It was invented by a hospital.
+In 1929, Baylor University Hospital in Dallas had a problem.
+Too many unpaid bills, a lot of them from local schoolteachers.
+So an administrator named Justin Ford Kimball offered the teachers a deal.
+Pay 50 cents a month, and if you get sick, you get up to 21 days in the hospital.
+Today, 50 cents won't even cover the hospital parking.
+But that little plan grew into Blue Cross.
+Notice who it was built to protect.
+The teachers, sure.
+But first of all, the hospital's bills.
+Keep that in mind too.
+
+# WAR
+Then came the war.
+In 1942, America was fighting World War 2.
+The government wanted to stop prices from spiraling, so it froze wages.
+Factories wanted workers, and the only way to get them was to pay more.
+So both sides got what they wanted, through a back door.
+Instead of a raise, factories offered benefits, like health insurance.
+In 1943, the War Labor Board ruled that paying for insurance didn't count as wages.
+The tax office decided not to tax it either.
+And in 1954, Congress wrote that into the tax code.
+Today, almost 157 million people under 65 get their insurance through a job.
+Historians argue about how much the war caused, but that 1943 ruling is still the rule.
+In plain English, health insurance became the raise you get instead of a raise.
+And that's why Leo's HR department, not Leo, picks his doctor.
+It's like a school that bans phones, so every kid shows up with a smartwatch.
+And 80 years later, the smartwatch runs the entire school.
+
+# BOX
+So, who really pays?
+Here's how your boss actually sees you.
+Not as a salary.
+As a box.
+The box is your total cost.
+Leo's box is 60,132 dollars.
+52,000 for his salary, and 8,132 for his health insurance.
+When insurance gets more expensive, the box doesn't magically grow.
+The insurance side just pushes into the salary side.
+So the raise gets smaller, or it quietly doesn't happen.
+Economists have a word for this.
+Incidence.
+It means the person who writes the check isn't always the person who pays.
+Same with the half of your Social Security tax your employer pays on paper: most economists think it mostly comes out of your wages.
+But how would you even prove it?
+You'd need premiums to go up for a reason that has nothing to do with the workers.
+Two economists found one: a wave of medical malpractice costs that hit some states much harder than others.
+When premiums went up 10 percent that way, wages for covered workers went down about 2 point 3 percent.
+But my favorite proof is even more direct.
+Researchers at RAND looked at what happened after hospitals merged.
+After a merger, a hospital can charge insurers more.
+Prices went up, spending went up, and then wages for local workers went down.
+By almost the same amount, about 638 dollars.
+Those workers never set foot in the merger meeting.
+They still paid for it.
+None of this is secret, by the way.
+It's printed on Leo's W-2.
+Box 12, code DD.
+That's the total cost of his health coverage, and big employers have to print it there every year.
+Almost nobody looks at it.
+So let's update Leo's running total.
+He thought his health bill was 1,672 dollars.
+It's 9,804.
+The rest just never reaches his bank account.
+
+# TAXBREAK
+To be fair, the hidden raise comes with a perk: that 8,132 dollars is never taxed.
+If Leo got it as salary instead, about 1,600 dollars of it would go to taxes.
+But nationally, that tax break costs the government about 296 billion dollars this year.
+It's the biggest health care tax break there is, and it's worth the most to people with the highest incomes.
+Which means Leo also pays for it a second time, through everybody's taxes.
+In plain English, your boss doesn't pay for your health insurance.
+Your boss passes it along.
+
+# CLIPBOARD
+Leo's insurance card has an insurance company logo on it, so he assumes they pay his bills.
+Quick guess.
+Out of every 100 workers with job-based coverage, how many have a plan where the employer pays the medical bills straight out of its own money?
+Got your number?
+It's 71.
+They're in what's called a self-funded plan.
+The insurance company runs the paperwork and the network, for a fee.
+It's holding the clipboard, not the wallet.
+So remember the 100 people in Leo's office?
+Every MRI, every ER visit, every prescription comes out of one pot.
+The same pot their raises come from.
+When a coworker has a bad year, the whole office feels it in January.
+Leo didn't just get insurance from his job.
+In a way, Leo's job is the insurance.
+So that's who pays.
+Which leaves a bigger question.
+Why is the bill so big in the first place?
+
+# HOSPITALS
+Where do Leo's 9,804 dollars actually go?
+Mostly into medical care, so let's follow the money into the hospital.
+A RAND study looked at prices at more than 4,000 hospitals.
+Employers and private insurers paid, on average, 254 percent of what Medicare pays for the same care.
+So for a hospital visit Medicare pays 1,000 dollars for, Leo's plan pays about 2,540.
+Hospitals say that's because Medicare pays them about 17 percent less than their costs, so private patients make up the difference.
+Researchers who checked find some of that, but nowhere near enough to explain prices like these.
+The bigger factor is market power.
+Over the years, hospitals have merged into big regional systems.
+And if your town has one big hospital system, every insurer in town needs it in the network.
+So the hospital names the price.
+There is one state that does it differently.
+In Maryland, a state commission sets hospital rates, and everyone pays the same price, private insurance and Medicare alike.
+One analysis found private insurers there pay about 11 to 15 percent less than the national average.
+It isn't perfect, but it shows the price isn't a law of nature.
+It's a choice.
+
+# TIP
+Now here's the part that's genuinely weird.
+Remember those 2 point 5 cents of profit?
+A rule is supposed to keep insurers honest: plans an insurer runs must spend at least 80 to 85 percent of premiums on care.
+But look at what it actually limits.
+It limits the share, not the dollars.
+If premiums are 10,000 dollars, a 15 percent slice is 1,500 dollars.
+If premiums are 12,000, the same slice is 1,800.
+It's like a waiter who gets 15 percent in tips.
+He's not going to talk you out of the lobster.
+In plain English, almost nobody in the middle makes more money when Leo's care gets cheaper.
+
+# PRICETAGS
+And the prices themselves?
+They're kind of made up.
+Researchers looked at the prices more than 2,000 hospitals now have to publish.
+The cash price, what you pay with no insurance at all, was lower than the typical insurance price 47 percent of the time.
+Almost half the time, Leo could pay less by not using the insurance he pays for.
+Drugs are even wilder.
+The list price of the weight loss drug Wegovy is about 1,349 dollars a month.
+The company also sells it directly, for cash, for 199 to 349 dollars.
+And it has announced it will cut the list price in half in January.
+Same drug.
+In plain English, the price on the tag is just the opening offer.
+The only person who sometimes pays something close to that tag is the patient at the pharmacy counter who hasn't hit their deductible yet.
+
+# LEASH
+So Leo does the math and decides he's had enough.
+He wants to quit and go freelance.
+His badge has his photo, his name and, apparently, his doctor.
+His job is his health insurance.
+If he walks out the door, his coverage walks out with him.
+Economists call this job lock.
+One famous study found that people with job-based insurance changed jobs about a quarter less often.
+So Leo checks the marketplace.
+
+# MARKETPLACE
+The marketplace is where you buy insurance on your own, and right now, it's having a rough time.
+For 2027, benchmark plans there are up 13 percent on average.
+Since 2025, they're up about 42 percent.
+Why?
+Remember the pool?
+This is where it breaks.
+Extra subsidies from the pandemic era ran out at the end of 2025.
+Without them, a lot of people left.
+And the first people to leave are usually the healthy ones.
+Picture a pizza night where the bill gets split evenly.
+The people who ate one slice leave early.
+Now everybody still at the table splits the same bill, so every share goes up.
+So a few more people leave.
+Insurance people call this a death spiral.
+The health research group KFF estimates the sicker pool alone added about 4 percentage points to premiums.
+And the Congressional Budget Office expects marketplace enrollment to fall from 22 point 4 million people in 2025 to 13 point 1 million in 2027.
+For Leo at 27, a plan is pricey, but doable.
+Then he meets Hank.
+
+# TRAPDOOR
+Remember Hank, and the bonus that's going to cost him money?
+Hank buys his own insurance, and Hank has learned to fear one number.
+400 percent of the poverty line.
+For one person, that's about 63,840 dollars a year.
+Below that line, what you pay for a benchmark plan is capped at a share of your income, at most about 10 percent.
+Above it, by even one dollar, the help just stops.
+Full price.
+Health policy people call it the subsidy cliff.
+I call it a staircase with a trapdoor.
+KFF ran the numbers for a 60-year-old.
+Earn 62,000 dollars, and you pay about 6,200 dollars a year for that plan.
+Earn 64,000, and you pay about 14,900.
+That's a 2,000 dollar raise that costs 8,700 dollars.
+And that's what's waiting for Hank.
+He's been getting help all year.
+The bonus pushes him over the line, so he'll have to pay every dollar of that help back at tax time.
+And since 2026, even people who stay under the line pay back every dollar if they guessed their income too low.
+So right now, Hank is doing something deeply American.
+He's trying very hard not to make money.
+
+# NEXTYEAR
+Meanwhile, at Leo's office, employers expect health costs to jump about 8 to 9 percent in 2027.
+That's the biggest increase since 2003.
+One big driver is the new weight loss drugs.
+Now do Leo's math.
+9 percent on a 9,804 dollar plan is about 900 dollars.
+Wages grew about 3 point 7 percent this year.
+On Leo's salary, that's about 1,900 dollars.
+So next year's health bill could quietly eat about half of a normal raise.
+And what does Leo get for it?
+The average deductible is now 1,955 dollars.
+That's what Leo pays himself before the insurance really kicks in.
+So, Leo's running total.
+He sees 1,672 dollars.
+His coverage really costs 9,804.
+Add the deductible in a year he actually needs care, and it's 11,759 dollars.
+That's more than a fifth of his salary.
+For a plan he thinks costs him 139 dollars a month.
+
+# NOFIX
+So if this is all on paper, why doesn't anyone fix it?
+Listen to this.
+We face a massive crisis in this area.
+Sounds like this year's news.
+It's President Richard Nixon, in July 1969, talking about health care.
+And one time, someone actually went after the hidden raise.
+The Affordable Care Act included a tax on the most expensive job-based plans.
+40 percent on every dollar above a limit.
+People called it the Cadillac tax, and almost everyone hated it.
+Unions hated it, employers hated it, and members of both parties voted to kill it.
+It was delayed, then delayed again.
+In December 2019, Congress repealed it.
+It never collected a single dollar.
+Here's the punchline.
+When the law was written, the line for a family plan was 27,500 dollars.
+That was supposed to catch only the fanciest plans.
+Today, the average family plan costs more than that.
+In plain English, the hidden raise is popular precisely because it's hidden.
+Nobody misses a paycheck they never saw.
+
+# DEBATE
+Now, to be fair, economists still argue about parts of this.
+The wage trade-off isn't dollar for dollar for everyone.
+For workers near the minimum wage, pay can't really go down, so employers cut hours or stop offering coverage instead.
+The job lock studies are mixed.
+What almost nobody disputes is the direction.
+When health care gets more expensive, workers end up paying for it, one way or another.
+
+# WINNERS
+Who wins?
+Hospitals with market power get higher prices.
+In a way, that plan from 1929 worked perfectly.
+The hospital's bills get paid.
+Insurers get a capped slice of a pie that keeps growing.
+Employers get a tax-free benefit that makes it harder for workers to leave.
+And the government hands out a huge subsidy that never shows up as spending.
+And who pays?
+Leo.
+Through a raise he never sees.
+Through his taxes.
+Through his deductible.
+And through a job he can't easily leave.
+There's no single villain here.
+It's a system where almost everyone's incentive points the same way.
+Up.
+
+# ADVICE
+So what can Leo actually do this open enrollment?
+First, find your real pay.
+Look at box 12, code DD on your W-2, and add it to your salary.
+That's what you really cost.
+Second, don't pick a plan by the monthly price.
+Sound familiar?
+The question isn't, what monthly payment are you looking for.
+It's, what's the most this could cost me in a bad year?
+Add up 12 months of premiums, plus the deductible, and check the out-of-pocket maximum.
+In 2027, that maximum can go as high as 12,000 dollars for one person.
+Third, with a high deductible plan, use the health savings account: up to 4,500 dollars in 2027, tax-free in, and tax-free out for medical bills.
+And if you buy your own plan, like Hank, estimate your income carefully.
+If you're close to the cliff, putting money into a traditional IRA or a health savings account can lower the income that counts.
+In most states, sign up by December 15 for coverage on January 1, and January 15 is the last day.
+This isn't financial advice.
+It's just math.
+
+# CALLBACK
+So, back to that friendly email.
+Your employer contributes 8,132 dollars toward your coverage.
+Technically true.
+Incidence, remember?
+The employer writes the check.
+Leo pays it.
+It's the biggest raise Leo gets every year.
+He just never gets to see it.
+And Hank?
+He gave the envelope back and asked for it in January.
+That's next year's problem.
+The money is real.
+The raise is hidden.
+And the email still says employer.
