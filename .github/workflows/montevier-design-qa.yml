@@ -30,7 +30,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: oskar14156/cloudflare-web
-          ref: deb5720b1ede0446295a326847e553ad947e7cc9
+          ref: e68ac932fe50db6e341146d5910943bcfbff583e
           token: ${{ secrets.CI_BRIDGE_READ_TOKEN }}
           persist-credentials: false
           path: private-website
