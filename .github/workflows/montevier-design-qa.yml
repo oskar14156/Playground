@@ -1,0 +1,75 @@
+name: MONTEVIER design QA (public Playground runner)
+
+on:
+  push:
+    branches:
+      - website/montevier-qa-20261106
+
+permissions:
+  contents: read
+
+concurrency:
+  group: montevier-design-qa
+  cancel-in-progress: true
+
+jobs:
+  test-private-website:
+    name: Build, browser and reverse-scroll regression
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - name: Verify ephemeral private read permission
+        shell: bash
+        env:
+          PRIVATE_TOKEN: ${{ secrets.CI_BRIDGE_READ_TOKEN }}
+        run: |
+          test -n "$PRIVATE_TOKEN" || { echo "Missing existing CI bridge read token"; exit 1; }
+          echo "::add-mask::$PRIVATE_TOKEN"
+
+      - name: Checkout private website (ephemeral, never published)
+        uses: actions/checkout@v4
+        with:
+          repository: oskar14156/cloudflare-web
+          ref: design/bright-company-scroll-fix-20261106
+          token: ${{ secrets.CI_BRIDGE_READ_TOKEN }}
+          persist-credentials: false
+          path: private-website
+
+      - name: Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install website dependencies
+        shell: bash
+        working-directory: private-website
+        run: npm install --ignore-scripts --no-audit --no-fund
+
+      - name: Check Astro + TypeScript
+        shell: bash
+        working-directory: private-website
+        run: npm run check
+
+      - name: Build static website
+        shell: bash
+        working-directory: private-website
+        run: npm run build
+
+      - name: Run site integrity and content tests
+        shell: bash
+        working-directory: private-website
+        run: npm run test:site
+
+      - name: Install Chromium for responsive browser QA
+        shell: bash
+        working-directory: private-website
+        run: |
+          npm install --no-save --ignore-scripts --no-audit --no-fund playwright@1.56.1
+          npx playwright install --with-deps chromium
+
+      - name: Capture ephemeral visual review and test scroll restoration
+        shell: bash
+        working-directory: private-website
+        run: node scripts/visual-review.mjs
+
+      # Screenshots and private code are never uploaded to public artifacts.
