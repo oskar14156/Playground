@@ -3,7 +3,7 @@ name: MONTEVIER design QA (public Playground runner)
 on:
   push:
     branches:
-      - website/montevier-qa-20261106
+      - website/montevier-ux-qa-20261106
 
 permissions:
   contents: read
@@ -30,7 +30,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: oskar14156/cloudflare-web
-          ref: design/colorful-product-gallery-20261106
+          ref: design/ux-polish-20261106
           token: ${{ secrets.CI_BRIDGE_READ_TOKEN }}
           persist-credentials: false
           path: private-website
