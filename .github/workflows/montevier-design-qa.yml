@@ -30,7 +30,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: oskar14156/cloudflare-web
-          ref: design/bright-company-scroll-fix-20261106
+          ref: design/colorful-product-gallery-20261106
           token: ${{ secrets.CI_BRIDGE_READ_TOKEN }}
           persist-credentials: false
           path: private-website
