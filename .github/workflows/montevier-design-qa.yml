@@ -30,7 +30,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: oskar14156/cloudflare-web
-          ref: design/ux-polish-20261106
+          ref: 273b9832e5a7d8847f99a70ba51051f579ebe55c
           token: ${{ secrets.CI_BRIDGE_READ_TOKEN }}
           persist-credentials: false
           path: private-website
