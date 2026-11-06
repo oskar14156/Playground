@@ -3,13 +3,13 @@ name: MONTEVIER design QA (public Playground runner)
 on:
   push:
     branches:
-      - website/montevier-ux-qa-20261106
+      - website/montevier-software-qa-20261106
 
 permissions:
   contents: read
 
 concurrency:
-  group: montevier-design-qa
+  group: montevier-software-qa
   cancel-in-progress: true
 
 jobs:
@@ -30,7 +30,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: oskar14156/cloudflare-web
-          ref: 273b9832e5a7d8847f99a70ba51051f579ebe55c
+          ref: deaae0a30788ef16577f674960bd3dc3ab31397d
           token: ${{ secrets.CI_BRIDGE_READ_TOKEN }}
           persist-credentials: false
           path: private-website
