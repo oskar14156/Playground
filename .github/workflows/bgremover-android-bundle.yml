@@ -1,0 +1,164 @@
+# Builds Cutout's Play bundle (unsigned) or a test APK from the private repository oskar14156/bgremover.
+#
+# Source of truth: tools/ci/bgremover-android-bundle.yml in oskar14156/bgremover; this copy lives in
+# oskar14156/Playground because public runners are free and keep the build off the developer's Mac.
+# scripts/ci-bundle.sh dispatches it, downloads the artifact and signs the bundle with the upload key on the Mac.
+# No secret of the app is needed here: the RevenueCat Android key is public (it ships in app.json), the
+# upload key never leaves the Mac, and what leaves the runner is encrypted to a public key passed in at dispatch.
+name: Cutout Android bundle
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Commit or branch of oskar14156/bgremover
+        required: true
+        default: android/port
+      public_key:
+        description: Base64 of the PEM public key the artifact is encrypted to
+        required: true
+      variant:
+        description: bundle (Play, unsigned) or test (debug-signed, debuggable arm64 APK with the RevenueCat Test Store)
+        required: false
+        default: bundle
+
+permissions:
+  contents: read
+
+concurrency:
+  group: bgremover-android-bundle
+  cancel-in-progress: false
+
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Check out the private repository
+        uses: actions/checkout@v4
+        with:
+          repository: oskar14156/bgremover
+          ref: ${{ inputs.ref }}
+          token: ${{ secrets.CI_BRIDGE_READ_TOKEN }}
+          path: app
+          persist-credentials: false
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Android SDK pieces the build pins
+        run: |
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "ndk;27.1.12297006" "platforms;android-36" "build-tools;36.0.0" > /dev/null
+
+      # BiRefNet Lite (public MIT weights, pinned revision + SHA-256 in pins.json) exported to ONNX.
+      # Cached by the export code, so it is only rebuilt when the conversion changes.
+      - name: Restore the ONNX model
+        id: model
+        uses: actions/cache@v4
+        with:
+          path: model/BiRefNetLite1024.onnx
+          key: bgremover-onnx-${{ hashFiles('app/tools/model-conversion/export_onnx.py', 'app/tools/model-conversion/convert_birefnet_lite.py', 'app/tools/model-conversion/pins.json', 'app/tools/model-conversion/requirements-onnx.txt') }}
+
+      - uses: actions/setup-python@v5
+        if: steps.model.outputs.cache-hit != 'true'
+        with:
+          python-version: '3.12'
+
+      - name: Export the ONNX model
+        if: steps.model.outputs.cache-hit != 'true'
+        working-directory: app/tools/model-conversion
+        run: |
+          python -m pip install --quiet --extra-index-url https://download.pytorch.org/whl/cpu -r requirements-onnx.txt
+          python export_onnx.py --out "$GITHUB_WORKSPACE/model" --check
+          rm -rf upstream/BiRefNet_lite
+
+      - name: Install the model asset
+        run: |
+          mkdir -p app/modules/bg-engine/android/src/main/assets
+          cp model/BiRefNetLite1024.onnx app/modules/bg-engine/android/src/main/assets/
+          ls -la app/modules/bg-engine/android/src/main/assets
+
+      - name: Install dependencies
+        working-directory: app
+        run: npm ci --legacy-peer-deps --include=dev --no-audit --no-fund
+
+      - name: Generate the native project
+        working-directory: app
+        env:
+          NODE_ENV: production
+          EXPO_PUBLIC_REVENUECAT_FORCE_TEST_STORE: ${{ inputs.variant == 'test' && '1' || '' }}
+        run: |
+          npx expo prebuild --platform android --no-install
+          # As scripts/build-android.sh: no release lint (no Android Studio; the opt-ins are intentional).
+          printf '\nandroid {\n    lint {\n        checkReleaseBuilds false\n        abortOnError false\n    }\n}\n' >> android/app/build.gradle
+
+      - name: Build
+        working-directory: app/android
+        env:
+          NODE_ENV: production
+          EXPO_PUBLIC_REVENUECAT_FORCE_TEST_STORE: ${{ inputs.variant == 'test' && '1' || '' }}
+          VARIANT: ${{ inputs.variant }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$GITHUB_WORKSPACE/output"
+          if [ "$VARIANT" = test ]; then
+            # Debug key of the React Native template (the same as a local test build), debuggable:
+            # RevenueCat closes a non-debuggable app that uses its Test Store key.
+            cat > "$RUNNER_TEMP/signing.gradle" <<'GRADLE'
+          allprojects {
+            plugins.withId("com.android.application") {
+              android.buildTypes.release.signingConfig = android.signingConfigs.debug
+              android.buildTypes.release.debuggable = true
+            }
+          }
+          GRADLE
+            ./gradlew assembleRelease -PreactNativeArchitectures=arm64-v8a -I "$RUNNER_TEMP/signing.gradle" --no-daemon
+            cp app/build/outputs/apk/release/app-release.apk "$GITHUB_WORKSPACE/output/"
+          else
+            # Unsigned: the upload key signs it on the Mac.
+            cat > "$RUNNER_TEMP/signing.gradle" <<'GRADLE'
+          allprojects {
+            plugins.withId("com.android.application") {
+              android.buildTypes.release.signingConfig = null
+            }
+          }
+          GRADLE
+            ./gradlew bundleRelease -PreactNativeArchitectures=armeabi-v7a,arm64-v8a -I "$RUNNER_TEMP/signing.gradle" --no-daemon
+            cp app/build/outputs/bundle/release/app-release.aab "$GITHUB_WORKSPACE/output/"
+          fi
+
+      - name: Encrypt the output
+        env:
+          PUBLIC_KEY_B64: ${{ inputs.public_key }}
+        run: |
+          set -euo pipefail
+          printf '%s' "$PUBLIC_KEY_B64" | base64 -d > public.pem
+          tar -czf payload.tgz -C output .
+          openssl rand -out session.key 32
+          openssl enc -aes-256-cbc -pbkdf2 -salt -in payload.tgz -out payload.enc -pass file:session.key
+          openssl pkeyutl -encrypt -pubin -inkey public.pem -pkeyopt rsa_padding_mode:oaep -in session.key -out session.key.enc
+          rm -f session.key payload.tgz
+          ls -la payload.enc session.key.enc
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bgremover-bundle
+          path: |
+            payload.enc
+            session.key.enc
+          retention-days: 2
+
+      - name: Remove the private checkout
+        if: always()
+        run: rm -rf app output public.pem session.key payload.tgz
