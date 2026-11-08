@@ -113,12 +113,11 @@ jobs:
           set -euo pipefail
           mkdir -p "$GITHUB_WORKSPACE/output"
           if [ "$VARIANT" = test ]; then
-            # Debug key of the React Native template (the same as a local test build), debuggable:
+            # Signed with the template's debug key (the release default without an upload key), debuggable:
             # RevenueCat closes a non-debuggable app that uses its Test Store key.
             cat > "$RUNNER_TEMP/signing.gradle" <<'GRADLE'
           allprojects {
             plugins.withId("com.android.application") {
-              android.buildTypes.release.signingConfig = android.signingConfigs.debug
               android.buildTypes.release.debuggable = true
             }
           }
@@ -126,15 +125,8 @@ jobs:
             ./gradlew assembleRelease -PreactNativeArchitectures=arm64-v8a -I "$RUNNER_TEMP/signing.gradle" --no-daemon
             cp app/build/outputs/apk/release/app-release.apk "$GITHUB_WORKSPACE/output/"
           else
-            # Unsigned: the upload key signs it on the Mac.
-            cat > "$RUNNER_TEMP/signing.gradle" <<'GRADLE'
-          allprojects {
-            plugins.withId("com.android.application") {
-              android.buildTypes.release.signingConfig = null
-            }
-          }
-          GRADLE
-            ./gradlew bundleRelease -PreactNativeArchitectures=armeabi-v7a,arm64-v8a -I "$RUNNER_TEMP/signing.gradle" --no-daemon
+            # Unsigned (plugins/withAndroidCutout.js): the upload key signs it on the Mac.
+            ./gradlew bundleRelease -PreactNativeArchitectures=armeabi-v7a,arm64-v8a -PcutoutUnsigned=true --no-daemon
             cp app/build/outputs/bundle/release/app-release.aab "$GITHUB_WORKSPACE/output/"
           fi
 
