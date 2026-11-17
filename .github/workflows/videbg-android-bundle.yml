@@ -19,7 +19,7 @@ on:
         description: Base64 of the PEM public key the artifact is encrypted to
         required: true
       variant:
-        description: bundle (Play, unsigned) or test (debug-signed arm64 APK, package ….test, Pro unlocked, for emulator and device tests)
+        description: bundle (Play, unsigned), test (debug-signed arm64 APK, package ….test, Pro unlocked, for emulator and device tests) or free (as test, without the Pro unlock, to test the free tier)
         required: false
         default: bundle
 
@@ -87,7 +87,7 @@ jobs:
           # A store build without the purchase key would sell nothing.
           [ -n "$EXPO_PUBLIC_REVENUECAT_ANDROID_KEY" ] || { echo "VIDEBG_REVENUECAT_ANDROID_KEY is not set" >&2; exit 1; }
           mkdir -p "$GITHUB_WORKSPACE/output"
-          if [ "$VARIANT" = test ]; then
+          if [ "$VARIANT" = test ] || [ "$VARIANT" = free ]; then
             ./gradlew assembleRelease -PreactNativeArchitectures=arm64-v8a -PvidebgTestBuild=true -PallowDebugSignedRelease=true --no-daemon
             cp app/build/outputs/apk/release/app-release.apk "$GITHUB_WORKSPACE/output/"
           else
