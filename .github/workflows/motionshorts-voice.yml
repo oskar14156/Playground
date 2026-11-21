@@ -3,7 +3,7 @@ name: motionshorts render (Remotion, CPU chunks)
 # then joins them. Manual only:
 #   gh workflow run motionshorts-voice.yml -R oskar14156/playground --ref motionshorts-render -f slug=sewer -f args=2600
 # (args = "durationInFrames" for video, "durationInFrames audio" for 20 WAV chunks joined sample-exact).
-# Result: artifact "video" with <slug>.mp4 or "audio" with audio.wav.
+# "parts=5,6,7" renders only those chunks (no join; fetch the part-N artifacts). Result: artifact "video" with <slug>.mp4 or "audio" with audio.wav.
 on:
   workflow_dispatch:
     inputs:
@@ -19,14 +19,26 @@ env:
   ARGS: ${{ inputs.args }}
   N: 20
 jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    outputs:
+      parts: ${{ steps.p.outputs.parts }}
+    steps:
+      - id: p
+        run: |
+          L=$(echo "$ARGS" | grep -o 'parts=[0-9,]*' | cut -d= -f2 || true)
+          [ -n "$L" ] || L=$(seq -s, 0 $((N - 1)))
+          echo "parts=[$L]" >> "$GITHUB_OUTPUT"; echo "parts=[$L]"
+
   part:
+    needs: plan
     runs-on: ubuntu-24.04
     timeout-minutes: 90
     strategy:
       fail-fast: false
       max-parallel: 21
       matrix:
-        part: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+        part: ${{ fromJSON(needs.plan.outputs.parts) }}
     steps:
       - uses: actions/checkout@v4
         with: { ref: "${{ inputs.ref }}", persist-credentials: false }
@@ -57,6 +69,7 @@ jobs:
 
   join:
     needs: part
+    if: ${{ !contains(inputs.args, 'parts=') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:

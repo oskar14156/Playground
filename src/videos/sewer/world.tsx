@@ -328,7 +328,8 @@ export const Section: React.FC<{ t: number; era: "1850" | "1860" | "modern"; riv
       {era === "1850" ? (
         <MudBank x0={river0} y0={0} y1={bedY} w={3.4} depth={depthZ} />
       ) : (
-        <RB p={[river0 - 0.6, (0 + bedY) / 2, -depthZ / 2]} s={[1.6, -bedY + 0.3, depthZ]} r={0.05} color="#9a958a" rough={0.9} map={brickTex([depthZ / 2, 4], "#9a958a")} />
+        // front face 3 cm behind the cut face (z = 0): coplanar faces z-fought and blinked in single frames
+        <RB p={[river0 - 0.6, (0 + bedY) / 2, -depthZ / 2]} s={[1.6, -bedY + 0.3, depthZ - 0.06]} r={0.05} color="#9a958a" rough={0.9} map={brickTex([depthZ / 2, 4], "#9a958a")} />
       )}
       {/* water: cut face + surface */}
       {river > 0.01 ? (
