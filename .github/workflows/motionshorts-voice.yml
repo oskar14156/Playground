@@ -1,0 +1,74 @@
+name: motionshorts render (Remotion, CPU chunks)
+# Branch motionshorts-render only. Renders one Remotion composition in 20 frame chunks on CPU runners (swangle),
+# the audio in its own job, then joins them. Manual only:
+#   gh workflow run motionshorts-voice.yml -R oskar14156/playground --ref motionshorts-render -f slug=sewer -f args=2600
+# (args = durationInFrames). Result: artifact "video" with <slug>.mp4.
+on:
+  workflow_dispatch:
+    inputs:
+      slug: { description: "composition id", required: true }
+      args: { description: "durationInFrames", default: "" }
+      ref: { description: "branch", default: "motionshorts-render" }
+permissions:
+  contents: read
+defaults:
+  run: { shell: bash }
+env:
+  SLUG: ${{ inputs.slug }}
+  FRAMES: ${{ inputs.args }}
+  N: 20
+jobs:
+  part:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      max-parallel: 21
+      matrix:
+        part: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, audio]
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: "${{ inputs.ref }}", persist-credentials: false }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - name: Install
+        run: |
+          sudo apt-get update -qq >/dev/null && sudo apt-get install -y -qq fonts-noto-color-emoji >/dev/null || true
+          npm ci --no-audit --no-fund --loglevel=error
+          npx remotion browser ensure 2>&1 | tail -1
+          nproc; free -g | head -2
+      - name: Render ${{ matrix.part }}
+        run: |
+          mkdir -p parts
+          T0=$(date +%s)
+          if [ "${{ matrix.part }}" = audio ]; then
+            npx remotion render "$SLUG" parts/audio.wav --codec=wav --gl=swangle --timeout=240000 --log=error
+          else
+            P=${{ matrix.part }}; A=$(( FRAMES * P / N )); B=$(( FRAMES * (P + 1) / N - 1 ))
+            echo "frames $A-$B"
+            npx remotion render "$SLUG" "parts/part_$(printf %02d $P).mp4" --frames=$A-$B --muted --crf=16 \
+              --gl=swangle --concurrency=4 --timeout=240000 --log=error
+          fi
+          echo "took $(( $(date +%s) - T0 )) s"; ls -la parts
+      - uses: actions/upload-artifact@v4
+        with: { name: "part-${{ matrix.part }}", path: parts, retention-days: 2, compression-level: 0 }
+
+  join:
+    needs: part
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/download-artifact@v4
+        with: { pattern: "part-*", merge-multiple: true, path: parts }
+      - name: Join
+        run: |
+          sudo apt-get update -qq >/dev/null && sudo apt-get install -y -qq ffmpeg >/dev/null
+          ls parts
+          test $(ls parts/part_*.mp4 | wc -l) -eq $N
+          for f in parts/part_*.mp4; do echo "file '$PWD/$f'"; done > list.txt
+          ffmpeg -v error -f concat -safe 0 -i list.txt -i parts/audio.wav -map 0:v -map 1:a -c:v copy \
+            -c:a aac -b:a 320k -movflags +faststart "$SLUG.mp4"
+          ffprobe -v error -count_frames -select_streams v -show_entries stream=nb_read_frames -of csv=p=0 "$SLUG.mp4"
+          ls -la "$SLUG.mp4"
+      - uses: actions/upload-artifact@v4
+        with: { name: video, path: "${{ inputs.slug }}.mp4", retention-days: 7, compression-level: 0 }

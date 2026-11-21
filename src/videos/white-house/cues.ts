@@ -1,0 +1,58 @@
+import words from "../../../public/white-house/words.json";
+import { makeCues } from "../../lib/timing";
+
+export { words };
+export const cue = makeCues(words, 30);
+export const DURATION = cue.voiceEnd + 80; // your friend dances in his mask on the South Lawn, then the loop dissolve
+
+// Every storyboard cue, resolved from the spoken words (videos/white-house/storyboard.md).
+export const c = {
+  nice: cue.at("So you put it"),
+  walkIn: cue.at("But the robbers just walk"),
+  dumb: cue.at("Sounds dumb"),
+  y2014: cue.at("In 2014"),
+  famous: cue.at("at a very famous house"),
+  lock: cue.at("So you lock the door"),
+  guards: cue.at("and put guards"),
+  climb: cue.at("But the robbers climb"),
+  newFence: cue.at("So you build a new fence"),
+  metres: cue.at("4 metres"),
+  spikes: cue.at("with spikes on top"),
+  truck: cue.at("But they drive a truck"),
+  street: cue.at("So you close the whole street"),
+  anyway: cue.at("But one robber"),
+  dogs: cue.at("So you add dogs"),
+  seconds: cue.at("in 4 seconds"),
+  steps: cue.at("He makes it"),
+  snipers: cue.at("Then you put snipers"),
+  pairs: cue.at("always in pairs"),
+  shoot: cue.at("But the robbers shoot"),
+  glass: cue.at("So every window"),
+  sky: cue.at("But they come from the sky"),
+  y1994: cue.at("In 1994"),
+  crashed: cue.at("crashed a small plane"),
+  ban: cue.at("So you ban every plane"),
+  missiles: cue.at("And just in case"),
+  joke: cue.at("Sounds like a joke"),
+  isnt: cue.at("It isn't"),
+  real: cue.at("Real missiles"),
+  y2005: cue.at("since 2005"),
+  drone: cue.at("Still, in 2015"),
+  drunk: cue.at("a drunk guy"),
+  bunker: cue.at("And if everything fails"),
+  ww2: cue.at("The first one was"),
+  forever: cue.at("has to live here forever"),
+  bowling: cue.at("So you add a bowling alley"),
+  baths: cue.at("And 35 bathrooms"),
+  codename: cue.at("And the guards give it"),
+  obama: cue.at("Obama was Renegade"),
+  fluff: cue.at("The pocket puh is"),
+  fluffball: cue.at("Fluffball"),
+  congrats: cue.at("Congratulations"),
+  built: cue.at("built a fortress"),
+  rooms: cue.at("132 rooms"),
+  paint: cue.at("570 gallons"),
+  callIt: cue.at("You call it"),
+  wh: cue.at("the White House"),
+  end: DURATION,
+};

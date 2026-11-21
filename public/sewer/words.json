@@ -1,0 +1,1542 @@
+[
+ {
+  "word": "Your",
+  "start": 0.0,
+  "end": 0.12
+ },
+ {
+  "word": "friend",
+  "start": 0.12,
+  "end": 0.44
+ },
+ {
+  "word": "just",
+  "start": 0.44,
+  "end": 0.74
+ },
+ {
+  "word": "flushed",
+  "start": 0.74,
+  "end": 1.16
+ },
+ {
+  "word": "his",
+  "start": 1.16,
+  "end": 1.28
+ },
+ {
+  "word": "giant",
+  "start": 1.28,
+  "end": 1.6
+ },
+ {
+  "word": "pocket",
+  "start": 1.6,
+  "end": 1.9
+ },
+ {
+  "word": "puh",
+  "start": 1.9,
+  "end": 2.34
+ },
+ {
+  "word": "down",
+  "start": 2.34,
+  "end": 2.54
+ },
+ {
+  "word": "the",
+  "start": 2.54,
+  "end": 2.68
+ },
+ {
+  "word": "toilet.",
+  "start": 2.68,
+  "end": 2.96
+ },
+ {
+  "word": "And",
+  "start": 3.38,
+  "end": 3.487
+ },
+ {
+  "word": "now",
+  "start": 3.487,
+  "end": 3.687
+ },
+ {
+  "word": "you",
+  "start": 3.687,
+  "end": 3.867
+ },
+ {
+  "word": "have",
+  "start": 3.867,
+  "end": 4.007
+ },
+ {
+  "word": "to",
+  "start": 4.007,
+  "end": 4.107
+ },
+ {
+  "word": "build",
+  "start": 4.107,
+  "end": 4.287
+ },
+ {
+  "word": "the",
+  "start": 4.287,
+  "end": 4.427
+ },
+ {
+  "word": "place",
+  "start": 4.427,
+  "end": 4.647
+ },
+ {
+  "word": "it",
+  "start": 4.647,
+  "end": 4.787
+ },
+ {
+  "word": "goes.",
+  "start": 4.787,
+  "end": 5.027
+ },
+ {
+  "word": "So",
+  "start": 5.447,
+  "end": 5.596
+ },
+ {
+  "word": "you",
+  "start": 5.596,
+  "end": 5.756
+ },
+ {
+  "word": "build",
+  "start": 5.756,
+  "end": 5.916
+ },
+ {
+  "word": "a",
+  "start": 5.916,
+  "end": 6.016
+ },
+ {
+  "word": "pipe,",
+  "start": 6.016,
+  "end": 6.216
+ },
+ {
+  "word": "straight",
+  "start": 6.416,
+  "end": 6.576
+ },
+ {
+  "word": "into",
+  "start": 6.576,
+  "end": 6.736
+ },
+ {
+  "word": "the",
+  "start": 6.736,
+  "end": 6.856
+ },
+ {
+  "word": "river.",
+  "start": 6.856,
+  "end": 7.016
+ },
+ {
+  "word": "Done.",
+  "start": 7.376,
+  "end": 7.576
+ },
+ {
+  "word": "But",
+  "start": 7.916,
+  "end": 8.016
+ },
+ {
+  "word": "that's",
+  "start": 8.016,
+  "end": 8.236
+ },
+ {
+  "word": "the",
+  "start": 8.236,
+  "end": 8.336
+ },
+ {
+  "word": "river",
+  "start": 8.336,
+  "end": 8.456
+ },
+ {
+  "word": "everybody",
+  "start": 8.456,
+  "end": 8.836
+ },
+ {
+  "word": "drinks",
+  "start": 8.836,
+  "end": 9.096
+ },
+ {
+  "word": "from.",
+  "start": 9.096,
+  "end": 9.356
+ },
+ {
+  "word": "In",
+  "start": 9.773,
+  "end": 9.836
+ },
+ {
+  "word": "1854,",
+  "start": 9.836,
+  "end": 10.456
+ },
+ {
+  "word": "a",
+  "start": 10.756,
+  "end": 10.836
+ },
+ {
+  "word": "doctor",
+  "start": 10.836,
+  "end": 11.016
+ },
+ {
+  "word": "shows",
+  "start": 11.016,
+  "end": 11.296
+ },
+ {
+  "word": "dirty",
+  "start": 11.296,
+  "end": 11.536
+ },
+ {
+  "word": "water",
+  "start": 11.536,
+  "end": 11.756
+ },
+ {
+  "word": "spreads",
+  "start": 11.756,
+  "end": 12.056
+ },
+ {
+  "word": "cholera,",
+  "start": 12.056,
+  "end": 12.436
+ },
+ {
+  "word": "and",
+  "start": 12.805,
+  "end": 12.856
+ },
+ {
+  "word": "gets",
+  "start": 12.856,
+  "end": 12.956
+ },
+ {
+  "word": "a",
+  "start": 12.956,
+  "end": 13.096
+ },
+ {
+  "word": "pump's",
+  "start": 13.096,
+  "end": 13.356
+ },
+ {
+  "word": "handle",
+  "start": 13.356,
+  "end": 13.516
+ },
+ {
+  "word": "removed.",
+  "start": 13.516,
+  "end": 13.896
+ },
+ {
+  "word": "Then",
+  "start": 14.361,
+  "end": 14.496
+ },
+ {
+  "word": "in",
+  "start": 14.496,
+  "end": 14.656
+ },
+ {
+  "word": "1858,",
+  "start": 14.656,
+  "end": 15.296
+ },
+ {
+  "word": "the",
+  "start": 15.736,
+  "end": 15.796
+ },
+ {
+  "word": "whole",
+  "start": 15.796,
+  "end": 15.956
+ },
+ {
+  "word": "river",
+  "start": 15.956,
+  "end": 16.156
+ },
+ {
+  "word": "starts",
+  "start": 16.156,
+  "end": 16.476
+ },
+ {
+  "word": "to",
+  "start": 16.476,
+  "end": 16.656
+ },
+ {
+  "word": "stink.",
+  "start": 16.656,
+  "end": 16.896
+ },
+ {
+  "word": "It",
+  "start": 17.324,
+  "end": 17.396
+ },
+ {
+  "word": "smells",
+  "start": 17.396,
+  "end": 17.516
+ },
+ {
+  "word": "so",
+  "start": 17.516,
+  "end": 17.776
+ },
+ {
+  "word": "bad,",
+  "start": 17.776,
+  "end": 18.056
+ },
+ {
+  "word": "Parliament",
+  "start": 18.216,
+  "end": 18.456
+ },
+ {
+  "word": "soaks",
+  "start": 18.456,
+  "end": 18.796
+ },
+ {
+  "word": "its",
+  "start": 18.796,
+  "end": 18.896
+ },
+ {
+  "word": "curtains",
+  "start": 18.896,
+  "end": 19.136
+ },
+ {
+  "word": "in",
+  "start": 19.136,
+  "end": 19.316
+ },
+ {
+  "word": "bleach.",
+  "start": 19.316,
+  "end": 19.536
+ },
+ {
+  "word": "It",
+  "start": 20.442,
+  "end": 20.516
+ },
+ {
+  "word": "doesn't",
+  "start": 20.516,
+  "end": 20.676
+ },
+ {
+  "word": "work.",
+  "start": 20.676,
+  "end": 20.936
+ },
+ {
+  "word": "So",
+  "start": 21.368,
+  "end": 21.436
+ },
+ {
+  "word": "they",
+  "start": 21.436,
+  "end": 21.536
+ },
+ {
+  "word": "pass",
+  "start": 21.536,
+  "end": 21.716
+ },
+ {
+  "word": "a",
+  "start": 21.716,
+  "end": 21.856
+ },
+ {
+  "word": "law",
+  "start": 21.856,
+  "end": 22.016
+ },
+ {
+  "word": "in",
+  "start": 22.016,
+  "end": 22.176
+ },
+ {
+  "word": "just",
+  "start": 22.176,
+  "end": 22.296
+ },
+ {
+  "word": "18",
+  "start": 22.296,
+  "end": 22.596
+ },
+ {
+  "word": "days.",
+  "start": 22.596,
+  "end": 22.976
+ },
+ {
+  "word": "Nothing",
+  "start": 23.296,
+  "end": 23.436
+ },
+ {
+  "word": "moves",
+  "start": 23.436,
+  "end": 23.736
+ },
+ {
+  "word": "politicians",
+  "start": 23.736,
+  "end": 24.136
+ },
+ {
+  "word": "faster",
+  "start": 24.136,
+  "end": 24.556
+ },
+ {
+  "word": "than",
+  "start": 24.556,
+  "end": 24.716
+ },
+ {
+  "word": "a",
+  "start": 24.716,
+  "end": 24.836
+ },
+ {
+  "word": "bad",
+  "start": 24.836,
+  "end": 24.996
+ },
+ {
+  "word": "smell.",
+  "start": 24.996,
+  "end": 25.216
+ },
+ {
+  "word": "So",
+  "start": 25.75,
+  "end": 25.916
+ },
+ {
+  "word": "you",
+  "start": 25.916,
+  "end": 26.136
+ },
+ {
+  "word": "build",
+  "start": 26.136,
+  "end": 26.316
+ },
+ {
+  "word": "tunnels.",
+  "start": 26.316,
+  "end": 26.676
+ },
+ {
+  "word": "1,100",
+  "start": 26.676,
+  "end": 26.882
+ },
+ {
+  "word": "miles",
+  "start": 27.336,
+  "end": 27.956
+ },
+ {
+  "word": "of",
+  "start": 27.956,
+  "end": 28.176
+ },
+ {
+  "word": "them,",
+  "start": 28.176,
+  "end": 28.316
+ },
+ {
+  "word": "out",
+  "start": 28.316,
+  "end": 28.516
+ },
+ {
+  "word": "of",
+  "start": 28.516,
+  "end": 28.616
+ },
+ {
+  "word": "318",
+  "start": 28.616,
+  "end": 29.236
+ },
+ {
+  "word": "million",
+  "start": 29.236,
+  "end": 29.496
+ },
+ {
+  "word": "bricks.",
+  "start": 29.496,
+  "end": 29.816
+ },
+ {
+  "word": "And",
+  "start": 30.096,
+  "end": 30.316
+ },
+ {
+  "word": "you",
+  "start": 30.316,
+  "end": 30.436
+ },
+ {
+  "word": "make",
+  "start": 30.436,
+  "end": 30.556
+ },
+ {
+  "word": "every",
+  "start": 30.556,
+  "end": 30.816
+ },
+ {
+  "word": "pipe",
+  "start": 30.816,
+  "end": 31.076
+ },
+ {
+  "word": "twice",
+  "start": 31.076,
+  "end": 31.276
+ },
+ {
+  "word": "as",
+  "start": 31.276,
+  "end": 31.496
+ },
+ {
+  "word": "wide,",
+  "start": 31.496,
+  "end": 31.736
+ },
+ {
+  "word": "because",
+  "start": 31.816,
+  "end": 32.036
+ },
+ {
+  "word": "you",
+  "start": 32.036,
+  "end": 32.176
+ },
+ {
+  "word": "only",
+  "start": 32.176,
+  "end": 32.376
+ },
+ {
+  "word": "get",
+  "start": 32.376,
+  "end": 32.516
+ },
+ {
+  "word": "to",
+  "start": 32.516,
+  "end": 32.656
+ },
+ {
+  "word": "do",
+  "start": 32.656,
+  "end": 32.756
+ },
+ {
+  "word": "this",
+  "start": 32.756,
+  "end": 32.916
+ },
+ {
+  "word": "once.",
+  "start": 32.916,
+  "end": 33.156
+ },
+ {
+  "word": "That's",
+  "start": 33.476,
+  "end": 33.736
+ },
+ {
+  "word": "4",
+  "start": 33.736,
+  "end": 33.856
+ },
+ {
+  "word": "times",
+  "start": 33.856,
+  "end": 34.116
+ },
+ {
+  "word": "the",
+  "start": 34.116,
+  "end": 34.276
+ },
+ {
+  "word": "space,",
+  "start": 34.276,
+  "end": 34.496
+ },
+ {
+  "word": "and",
+  "start": 34.656,
+  "end": 34.756
+ },
+ {
+  "word": "London",
+  "start": 34.756,
+  "end": 34.956
+ },
+ {
+  "word": "still",
+  "start": 34.956,
+  "end": 35.256
+ },
+ {
+  "word": "uses",
+  "start": 35.256,
+  "end": 35.516
+ },
+ {
+  "word": "them",
+  "start": 35.516,
+  "end": 35.696
+ },
+ {
+  "word": "today.",
+  "start": 35.696,
+  "end": 35.976
+ },
+ {
+  "word": "But",
+  "start": 36.434,
+  "end": 36.536
+ },
+ {
+  "word": "when",
+  "start": 36.536,
+  "end": 36.656
+ },
+ {
+  "word": "it",
+  "start": 36.656,
+  "end": 36.796
+ },
+ {
+  "word": "rains",
+  "start": 36.796,
+  "end": 36.936
+ },
+ {
+  "word": "just",
+  "start": 36.936,
+  "end": 37.156
+ },
+ {
+  "word": "2",
+  "start": 37.156,
+  "end": 37.576
+ },
+ {
+  "word": "millimetres,",
+  "start": 37.576,
+  "end": 37.996
+ },
+ {
+  "word": "the",
+  "start": 37.996,
+  "end": 38.056
+ },
+ {
+  "word": "tunnels",
+  "start": 38.056,
+  "end": 38.236
+ },
+ {
+  "word": "overflow,",
+  "start": 38.236,
+  "end": 38.696
+ },
+ {
+  "word": "right",
+  "start": 38.696,
+  "end": 39.076
+ },
+ {
+  "word": "back",
+  "start": 39.076,
+  "end": 39.276
+ },
+ {
+  "word": "into",
+  "start": 39.276,
+  "end": 39.436
+ },
+ {
+  "word": "the",
+  "start": 39.436,
+  "end": 39.556
+ },
+ {
+  "word": "river.",
+  "start": 39.556,
+  "end": 39.716
+ },
+ {
+  "word": "Pocket",
+  "start": 40.106,
+  "end": 40.296
+ },
+ {
+  "word": "puh",
+  "start": 40.296,
+  "end": 40.556
+ },
+ {
+  "word": "included.",
+  "start": 40.556,
+  "end": 40.836
+ },
+ {
+  "word": "About",
+  "start": 41.353,
+  "end": 41.456
+ },
+ {
+  "word": "39",
+  "start": 41.456,
+  "end": 41.896
+ },
+ {
+  "word": "million",
+  "start": 41.896,
+  "end": 42.156
+ },
+ {
+  "word": "tonnes",
+  "start": 42.156,
+  "end": 42.396
+ },
+ {
+  "word": "a",
+  "start": 42.396,
+  "end": 42.556
+ },
+ {
+  "word": "year.",
+  "start": 42.556,
+  "end": 42.776
+ },
+ {
+  "word": "So",
+  "start": 42.976,
+  "end": 43.056
+ },
+ {
+  "word": "in",
+  "start": 43.056,
+  "end": 43.196
+ },
+ {
+  "word": "2025,",
+  "start": 43.196,
+  "end": 43.576
+ },
+ {
+  "word": "you",
+  "start": 43.916,
+  "end": 43.966
+ },
+ {
+  "word": "finish",
+  "start": 43.956,
+  "end": 44.156
+ },
+ {
+  "word": "a",
+  "start": 44.156,
+  "end": 44.296
+ },
+ {
+  "word": "super",
+  "start": 44.296,
+  "end": 44.456
+ },
+ {
+  "word": "sewer.",
+  "start": 44.456,
+  "end": 44.696
+ },
+ {
+  "word": "25",
+  "start": 44.936,
+  "end": 45.256
+ },
+ {
+  "word": "kilometres",
+  "start": 45.256,
+  "end": 45.576
+ },
+ {
+  "word": "long,",
+  "start": 45.576,
+  "end": 45.936
+ },
+ {
+  "word": "down",
+  "start": 46.036,
+  "end": 46.176
+ },
+ {
+  "word": "to",
+  "start": 46.176,
+  "end": 46.316
+ },
+ {
+  "word": "70",
+  "start": 46.316,
+  "end": 46.536
+ },
+ {
+  "word": "metres",
+  "start": 46.536,
+  "end": 46.836
+ },
+ {
+  "word": "deep.",
+  "start": 46.836,
+  "end": 47.056
+ },
+ {
+  "word": "But",
+  "start": 47.507,
+  "end": 47.616
+ },
+ {
+  "word": "then",
+  "start": 47.616,
+  "end": 47.876
+ },
+ {
+  "word": "people",
+  "start": 47.996,
+  "end": 48.136
+ },
+ {
+  "word": "start",
+  "start": 48.136,
+  "end": 48.376
+ },
+ {
+  "word": "flushing",
+  "start": 48.376,
+  "end": 48.676
+ },
+ {
+  "word": "wet",
+  "start": 48.676,
+  "end": 48.916
+ },
+ {
+  "word": "wipes.",
+  "start": 48.916,
+  "end": 49.156
+ },
+ {
+  "word": "They",
+  "start": 49.592,
+  "end": 49.656
+ },
+ {
+  "word": "mix",
+  "start": 49.656,
+  "end": 49.836
+ },
+ {
+  "word": "with",
+  "start": 49.836,
+  "end": 49.976
+ },
+ {
+  "word": "cooking",
+  "start": 49.976,
+  "end": 50.176
+ },
+ {
+  "word": "fat,",
+  "start": 50.176,
+  "end": 50.476
+ },
+ {
+  "word": "and",
+  "start": 50.636,
+  "end": 50.736
+ },
+ {
+  "word": "turn",
+  "start": 50.736,
+  "end": 50.856
+ },
+ {
+  "word": "into",
+  "start": 50.856,
+  "end": 51.016
+ },
+ {
+  "word": "a",
+  "start": 51.016,
+  "end": 51.156
+ },
+ {
+  "word": "fatberg.",
+  "start": 51.156,
+  "end": 51.516
+ },
+ {
+  "word": "The",
+  "start": 51.978,
+  "end": 52.036
+ },
+ {
+  "word": "one",
+  "start": 52.036,
+  "end": 52.176
+ },
+ {
+  "word": "under",
+  "start": 52.176,
+  "end": 52.356
+ },
+ {
+  "word": "Whitechapel",
+  "start": 52.356,
+  "end": 52.856
+ },
+ {
+  "word": "weighed",
+  "start": 52.856,
+  "end": 52.996
+ },
+ {
+  "word": "130",
+  "start": 52.996,
+  "end": 53.496
+ },
+ {
+  "word": "tonnes.",
+  "start": 53.496,
+  "end": 54.476
+ },
+ {
+  "word": "That's",
+  "start": 54.476,
+  "end": 54.736
+ },
+ {
+  "word": "11",
+  "start": 54.736,
+  "end": 54.936
+ },
+ {
+  "word": "double",
+  "start": 54.936,
+  "end": 55.156
+ },
+ {
+  "word": "decker",
+  "start": 55.156,
+  "end": 55.396
+ },
+ {
+  "word": "buses.",
+  "start": 55.396,
+  "end": 55.716
+ },
+ {
+  "word": "A",
+  "start": 56.264,
+  "end": 56.314
+ },
+ {
+  "word": "museum",
+  "start": 56.276,
+  "end": 56.596
+ },
+ {
+  "word": "put",
+  "start": 56.596,
+  "end": 56.856
+ },
+ {
+  "word": "a",
+  "start": 56.856,
+  "end": 56.956
+ },
+ {
+  "word": "piece",
+  "start": 56.956,
+  "end": 57.116
+ },
+ {
+  "word": "of",
+  "start": 57.116,
+  "end": 57.256
+ },
+ {
+  "word": "it",
+  "start": 57.256,
+  "end": 57.316
+ },
+ {
+  "word": "on",
+  "start": 57.316,
+  "end": 57.436
+ },
+ {
+  "word": "display.",
+  "start": 57.436,
+  "end": 57.696
+ },
+ {
+  "word": "It",
+  "start": 58.116,
+  "end": 58.176
+ },
+ {
+  "word": "hatched",
+  "start": 58.176,
+  "end": 58.456
+ },
+ {
+  "word": "flies,",
+  "start": 58.456,
+  "end": 58.676
+ },
+ {
+  "word": "and",
+  "start": 58.676,
+  "end": 59.016
+ },
+ {
+  "word": "grew",
+  "start": 59.016,
+  "end": 59.156
+ },
+ {
+  "word": "yellow",
+  "start": 59.156,
+  "end": 59.396
+ },
+ {
+  "word": "mould.",
+  "start": 59.396,
+  "end": 59.976
+ },
+ {
+  "word": "Now",
+  "start": 59.976,
+  "end": 60.096
+ },
+ {
+  "word": "it",
+  "start": 60.096,
+  "end": 60.236
+ },
+ {
+  "word": "has",
+  "start": 60.236,
+  "end": 60.356
+ },
+ {
+  "word": "its",
+  "start": 60.356,
+  "end": 60.476
+ },
+ {
+  "word": "own",
+  "start": 60.476,
+  "end": 60.576
+ },
+ {
+  "word": "live",
+  "start": 60.576,
+  "end": 60.796
+ },
+ {
+  "word": "stream.",
+  "start": 60.796,
+  "end": 61.076
+ },
+ {
+  "word": "Sounds",
+  "start": 61.846,
+  "end": 61.986
+ },
+ {
+  "word": "like",
+  "start": 61.986,
+  "end": 62.166
+ },
+ {
+  "word": "a",
+  "start": 62.166,
+  "end": 62.226
+ },
+ {
+  "word": "joke.",
+  "start": 62.226,
+  "end": 62.466
+ },
+ {
+  "word": "It",
+  "start": 62.746,
+  "end": 62.886
+ },
+ {
+  "word": "isn't.",
+  "start": 62.886,
+  "end": 63.246
+ },
+ {
+  "word": "And",
+  "start": 63.601,
+  "end": 63.726
+ },
+ {
+  "word": "in",
+  "start": 63.726,
+  "end": 63.826
+ },
+ {
+  "word": "New",
+  "start": 63.826,
+  "end": 63.966
+ },
+ {
+  "word": "York,",
+  "start": 63.966,
+  "end": 64.226
+ },
+ {
+  "word": "in",
+  "start": 64.426,
+  "end": 64.476
+ },
+ {
+  "word": "1935,",
+  "start": 64.466,
+  "end": 65.126
+ },
+ {
+  "word": "some",
+  "start": 65.626,
+  "end": 65.766
+ },
+ {
+  "word": "teenagers",
+  "start": 65.766,
+  "end": 66.106
+ },
+ {
+  "word": "pulled",
+  "start": 66.106,
+  "end": 66.406
+ },
+ {
+  "word": "a",
+  "start": 66.406,
+  "end": 66.526
+ },
+ {
+  "word": "real",
+  "start": 66.526,
+  "end": 66.726
+ },
+ {
+  "word": "alligator",
+  "start": 66.726,
+  "end": 67.106
+ },
+ {
+  "word": "out",
+  "start": 67.106,
+  "end": 67.386
+ },
+ {
+  "word": "of",
+  "start": 67.386,
+  "end": 67.466
+ },
+ {
+  "word": "a",
+  "start": 67.466,
+  "end": 67.526
+ },
+ {
+  "word": "sewer.",
+  "start": 67.526,
+  "end": 67.726
+ },
+ {
+  "word": "So",
+  "start": 68.186,
+  "end": 68.366
+ },
+ {
+  "word": "at",
+  "start": 68.366,
+  "end": 68.586
+ },
+ {
+  "word": "the",
+  "start": 68.586,
+  "end": 68.686
+ },
+ {
+  "word": "very",
+  "start": 68.686,
+  "end": 68.866
+ },
+ {
+  "word": "end,",
+  "start": 68.866,
+  "end": 69.186
+ },
+ {
+  "word": "you",
+  "start": 69.366,
+  "end": 69.416
+ },
+ {
+  "word": "build",
+  "start": 69.406,
+  "end": 69.546
+ },
+ {
+  "word": "giant",
+  "start": 69.546,
+  "end": 69.806
+ },
+ {
+  "word": "screens,",
+  "start": 69.806,
+  "end": 70.186
+ },
+ {
+  "word": "to",
+  "start": 70.186,
+  "end": 70.406
+ },
+ {
+  "word": "catch",
+  "start": 70.406,
+  "end": 70.526
+ },
+ {
+  "word": "everything",
+  "start": 70.526,
+  "end": 70.846
+ },
+ {
+  "word": "that",
+  "start": 70.846,
+  "end": 71.046
+ },
+ {
+  "word": "shouldn't",
+  "start": 71.046,
+  "end": 71.226
+ },
+ {
+  "word": "be",
+  "start": 71.226,
+  "end": 71.346
+ },
+ {
+  "word": "down",
+  "start": 71.346,
+  "end": 71.506
+ },
+ {
+  "word": "there.",
+  "start": 71.506,
+  "end": 71.746
+ },
+ {
+  "word": "Wipes.",
+  "start": 71.946,
+  "end": 72.206
+ },
+ {
+  "word": "Fat.",
+  "start": 72.466,
+  "end": 72.666
+ },
+ {
+  "word": "Alligators.",
+  "start": 72.966,
+  "end": 73.346
+ },
+ {
+  "word": "And,",
+  "start": 74.066,
+  "end": 74.286
+ },
+ {
+  "word": "your",
+  "start": 74.286,
+  "end": 74.486
+ },
+ {
+  "word": "pocket",
+  "start": 74.486,
+  "end": 74.666
+ },
+ {
+  "word": "puh.",
+  "start": 74.666,
+  "end": 74.926
+ },
+ {
+  "word": "Congratulations.",
+  "start": 75.254,
+  "end": 75.526
+ },
+ {
+  "word": "You've",
+  "start": 75.946,
+  "end": 76.07
+ },
+ {
+  "word": "built",
+  "start": 76.07,
+  "end": 76.19
+ },
+ {
+  "word": "1,100",
+  "start": 76.19,
+  "end": 76.49
+ },
+ {
+  "word": "miles",
+  "start": 76.49,
+  "end": 76.83
+ },
+ {
+  "word": "of",
+  "start": 76.83,
+  "end": 77.05
+ },
+ {
+  "word": "tunnels,",
+  "start": 77.05,
+  "end": 77.29
+ },
+ {
+  "word": "a",
+  "start": 77.59,
+  "end": 77.65
+ },
+ {
+  "word": "super",
+  "start": 77.65,
+  "end": 77.83
+ },
+ {
+  "word": "sewer,",
+  "start": 77.83,
+  "end": 78.09
+ },
+ {
+  "word": "and",
+  "start": 78.31,
+  "end": 78.41
+ },
+ {
+  "word": "a",
+  "start": 78.41,
+  "end": 78.53
+ },
+ {
+  "word": "live",
+  "start": 78.53,
+  "end": 78.65
+ },
+ {
+  "word": "stream",
+  "start": 78.65,
+  "end": 78.89
+ },
+ {
+  "word": "for",
+  "start": 78.89,
+  "end": 79.03
+ },
+ {
+  "word": "a",
+  "start": 79.03,
+  "end": 79.13
+ },
+ {
+  "word": "fatberg.",
+  "start": 79.13,
+  "end": 79.47
+ },
+ {
+  "word": "All",
+  "start": 79.63,
+  "end": 79.75
+ },
+ {
+  "word": "for",
+  "start": 79.75,
+  "end": 79.91
+ },
+ {
+  "word": "one",
+  "start": 79.91,
+  "end": 80.05
+ },
+ {
+  "word": "giant",
+  "start": 80.05,
+  "end": 80.25
+ },
+ {
+  "word": "pocket",
+  "start": 80.25,
+  "end": 80.53
+ },
+ {
+  "word": "puh.",
+  "start": 80.53,
+  "end": 80.83
+ },
+ {
+  "word": "You",
+  "start": 80.97,
+  "end": 81.03
+ },
+ {
+  "word": "call",
+  "start": 81.03,
+  "end": 81.25
+ },
+ {
+  "word": "it,",
+  "start": 81.25,
+  "end": 81.39
+ },
+ {
+  "word": "the",
+  "start": 81.39,
+  "end": 81.55
+ },
+ {
+  "word": "sewer.",
+  "start": 81.55,
+  "end": 81.73
+ },
+ {
+  "word": "Follow,",
+  "start": 82.265,
+  "end": 82.47
+ },
+ {
+  "word": "or",
+  "start": 82.75,
+  "end": 82.89
+ },
+ {
+  "word": "I'll",
+  "start": 82.89,
+  "end": 83.13
+ },
+ {
+  "word": "steal",
+  "start": 83.13,
+  "end": 83.29
+ },
+ {
+  "word": "your",
+  "start": 83.29,
+  "end": 83.47
+ },
+ {
+  "word": "pocket",
+  "start": 83.47,
+  "end": 83.67
+ },
+ {
+  "word": "puh,",
+  "start": 83.67,
+  "end": 84.13
+ },
+ {
+  "word": "and",
+  "start": 84.13,
+  "end": 84.35
+ },
+ {
+  "word": "flush",
+  "start": 84.35,
+  "end": 84.63
+ },
+ {
+  "word": "it.",
+  "start": 84.63,
+  "end": 84.85
+ }
+]

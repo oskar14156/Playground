@@ -1,0 +1,557 @@
+[
+ {
+  "word": "Roller",
+  "start": 0.0,
+  "end": 0.28
+ },
+ {
+  "word": "coaster",
+  "start": 0.28,
+  "end": 0.5
+ },
+ {
+  "word": "loops",
+  "start": 0.5,
+  "end": 0.78
+ },
+ {
+  "word": "aren't",
+  "start": 0.78,
+  "end": 1.1
+ },
+ {
+  "word": "circles.",
+  "start": 1.1,
+  "end": 1.38
+ },
+ {
+  "word": "In",
+  "start": 1.74,
+  "end": 1.86
+ },
+ {
+  "word": "1895,",
+  "start": 1.86,
+  "end": 2.52
+ },
+ {
+  "word": "Coney",
+  "start": 2.8,
+  "end": 2.98
+ },
+ {
+  "word": "Island",
+  "start": 2.98,
+  "end": 3.28
+ },
+ {
+  "word": "built",
+  "start": 3.28,
+  "end": 3.54
+ },
+ {
+  "word": "a",
+  "start": 3.54,
+  "end": 3.68
+ },
+ {
+  "word": "round",
+  "start": 3.68,
+  "end": 3.82
+ },
+ {
+  "word": "one.",
+  "start": 3.82,
+  "end": 4.12
+ },
+ {
+  "word": "Riders",
+  "start": 4.56,
+  "end": 4.82
+ },
+ {
+  "word": "came",
+  "start": 4.82,
+  "end": 5.02
+ },
+ {
+  "word": "off",
+  "start": 5.02,
+  "end": 5.22
+ },
+ {
+  "word": "with",
+  "start": 5.22,
+  "end": 5.4
+ },
+ {
+  "word": "neck",
+  "start": 5.4,
+  "end": 5.58
+ },
+ {
+  "word": "and",
+  "start": 5.58,
+  "end": 5.74
+ },
+ {
+  "word": "back",
+  "start": 5.74,
+  "end": 5.92
+ },
+ {
+  "word": "injuries.",
+  "start": 5.92,
+  "end": 6.24
+ },
+ {
+  "word": "Here's",
+  "start": 7.098,
+  "end": 7.4
+ },
+ {
+  "word": "why.",
+  "start": 7.4,
+  "end": 7.62
+ },
+ {
+  "word": "At",
+  "start": 8.1,
+  "end": 8.22
+ },
+ {
+  "word": "the",
+  "start": 8.22,
+  "end": 8.34
+ },
+ {
+  "word": "top,",
+  "start": 8.34,
+  "end": 8.6
+ },
+ {
+  "word": "you",
+  "start": 8.78,
+  "end": 8.88
+ },
+ {
+  "word": "only",
+  "start": 8.88,
+  "end": 9.14
+ },
+ {
+  "word": "need",
+  "start": 9.14,
+  "end": 9.42
+ },
+ {
+  "word": "just",
+  "start": 9.42,
+  "end": 9.7
+ },
+ {
+  "word": "enough",
+  "start": 9.7,
+  "end": 9.96
+ },
+ {
+  "word": "speed",
+  "start": 9.96,
+  "end": 10.26
+ },
+ {
+  "word": "not",
+  "start": 10.26,
+  "end": 10.54
+ },
+ {
+  "word": "to",
+  "start": 10.54,
+  "end": 10.74
+ },
+ {
+  "word": "fall.",
+  "start": 10.74,
+  "end": 11.02
+ },
+ {
+  "word": "But",
+  "start": 11.34,
+  "end": 11.54
+ },
+ {
+  "word": "by",
+  "start": 11.54,
+  "end": 11.68
+ },
+ {
+  "word": "the",
+  "start": 11.68,
+  "end": 11.82
+ },
+ {
+  "word": "bottom,",
+  "start": 11.82,
+  "end": 12.12
+ },
+ {
+  "word": "you've",
+  "start": 12.36,
+  "end": 12.5
+ },
+ {
+  "word": "picked",
+  "start": 12.5,
+  "end": 12.64
+ },
+ {
+  "word": "up",
+  "start": 12.64,
+  "end": 12.82
+ },
+ {
+  "word": "a",
+  "start": 12.82,
+  "end": 12.96
+ },
+ {
+  "word": "lot",
+  "start": 12.96,
+  "end": 13.16
+ },
+ {
+  "word": "more.",
+  "start": 13.16,
+  "end": 13.44
+ },
+ {
+  "word": "In",
+  "start": 14.198,
+  "end": 14.28
+ },
+ {
+  "word": "a",
+  "start": 14.28,
+  "end": 14.42
+ },
+ {
+  "word": "circle,",
+  "start": 14.42,
+  "end": 14.68
+ },
+ {
+  "word": "that",
+  "start": 15.1,
+  "end": 15.3
+ },
+ {
+  "word": "always",
+  "start": 15.3,
+  "end": 15.66
+ },
+ {
+  "word": "adds",
+  "start": 15.66,
+  "end": 15.94
+ },
+ {
+  "word": "up",
+  "start": 15.94,
+  "end": 16.18
+ },
+ {
+  "word": "to",
+  "start": 16.18,
+  "end": 16.32
+ },
+ {
+  "word": "at",
+  "start": 16.32,
+  "end": 16.46
+ },
+ {
+  "word": "least",
+  "start": 16.46,
+  "end": 16.7
+ },
+ {
+  "word": "6",
+  "start": 16.7,
+  "end": 17.1
+ },
+ {
+  "word": "g.",
+  "start": 17.1,
+  "end": 17.34
+ },
+ {
+  "word": "Six",
+  "start": 17.76,
+  "end": 17.98
+ },
+ {
+  "word": "times",
+  "start": 17.98,
+  "end": 18.36
+ },
+ {
+  "word": "your",
+  "start": 18.36,
+  "end": 18.48
+ },
+ {
+  "word": "body",
+  "start": 18.48,
+  "end": 18.7
+ },
+ {
+  "word": "weight.",
+  "start": 18.7,
+  "end": 19.0
+ },
+ {
+  "word": "No",
+  "start": 19.2,
+  "end": 19.32
+ },
+ {
+  "word": "matter",
+  "start": 19.32,
+  "end": 19.5
+ },
+ {
+  "word": "how",
+  "start": 19.5,
+  "end": 19.76
+ },
+ {
+  "word": "big",
+  "start": 19.76,
+  "end": 19.96
+ },
+ {
+  "word": "the",
+  "start": 19.96,
+  "end": 20.14
+ },
+ {
+  "word": "loop.",
+  "start": 20.14,
+  "end": 20.36
+ },
+ {
+  "word": "So",
+  "start": 21.021,
+  "end": 21.2
+ },
+ {
+  "word": "engineers",
+  "start": 21.2,
+  "end": 21.62
+ },
+ {
+  "word": "bent",
+  "start": 21.62,
+  "end": 22.08
+ },
+ {
+  "word": "it",
+  "start": 22.08,
+  "end": 22.24
+ },
+ {
+  "word": "into",
+  "start": 22.24,
+  "end": 22.48
+ },
+ {
+  "word": "a",
+  "start": 22.48,
+  "end": 22.66
+ },
+ {
+  "word": "teardrop.",
+  "start": 22.66,
+  "end": 23.02
+ },
+ {
+  "word": "Wide",
+  "start": 23.46,
+  "end": 23.7
+ },
+ {
+  "word": "at",
+  "start": 23.7,
+  "end": 23.84
+ },
+ {
+  "word": "the",
+  "start": 23.84,
+  "end": 23.92
+ },
+ {
+  "word": "bottom,",
+  "start": 23.92,
+  "end": 24.24
+ },
+ {
+  "word": "where",
+  "start": 24.42,
+  "end": 24.52
+ },
+ {
+  "word": "you're",
+  "start": 24.52,
+  "end": 24.68
+ },
+ {
+  "word": "fast.",
+  "start": 24.68,
+  "end": 24.94
+ },
+ {
+  "word": "Tight",
+  "start": 25.34,
+  "end": 25.46
+ },
+ {
+  "word": "at",
+  "start": 25.46,
+  "end": 25.58
+ },
+ {
+  "word": "the",
+  "start": 25.58,
+  "end": 25.68
+ },
+ {
+  "word": "top,",
+  "start": 25.68,
+  "end": 25.92
+ },
+ {
+  "word": "where",
+  "start": 26.16,
+  "end": 26.24
+ },
+ {
+  "word": "you're",
+  "start": 26.24,
+  "end": 26.38
+ },
+ {
+  "word": "slow.",
+  "start": 26.38,
+  "end": 26.62
+ },
+ {
+  "word": "In",
+  "start": 27.289,
+  "end": 27.36
+ },
+ {
+  "word": "1976,",
+  "start": 27.36,
+  "end": 28.0
+ },
+ {
+  "word": "the",
+  "start": 28.42,
+  "end": 28.47
+ },
+ {
+  "word": "Revolution",
+  "start": 28.44,
+  "end": 28.78
+ },
+ {
+  "word": "in",
+  "start": 28.78,
+  "end": 29.0
+ },
+ {
+  "word": "California",
+  "start": 29.0,
+  "end": 29.5
+ },
+ {
+  "word": "became",
+  "start": 29.5,
+  "end": 29.72
+ },
+ {
+  "word": "the",
+  "start": 29.72,
+  "end": 29.94
+ },
+ {
+  "word": "first",
+  "start": 29.94,
+  "end": 30.14
+ },
+ {
+  "word": "modern",
+  "start": 30.14,
+  "end": 30.48
+ },
+ {
+  "word": "looping",
+  "start": 30.48,
+  "end": 30.78
+ },
+ {
+  "word": "coaster,",
+  "start": 30.78,
+  "end": 31.08
+ },
+ {
+  "word": "built",
+  "start": 31.42,
+  "end": 31.54
+ },
+ {
+  "word": "for",
+  "start": 31.54,
+  "end": 31.72
+ },
+ {
+  "word": "under",
+  "start": 31.72,
+  "end": 31.88
+ },
+ {
+  "word": "5",
+  "start": 31.88,
+  "end": 32.16
+ },
+ {
+  "word": "g.",
+  "start": 32.16,
+  "end": 32.36
+ },
+ {
+  "word": "So",
+  "start": 32.78,
+  "end": 32.88
+ },
+ {
+  "word": "look",
+  "start": 32.88,
+  "end": 33.04
+ },
+ {
+  "word": "closely",
+  "start": 33.04,
+  "end": 33.36
+ },
+ {
+  "word": "next",
+  "start": 33.36,
+  "end": 33.58
+ },
+ {
+  "word": "time.",
+  "start": 33.58,
+  "end": 33.84
+ }
+]

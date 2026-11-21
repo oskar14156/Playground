@@ -1,0 +1,617 @@
+[
+ {
+  "word": "For",
+  "start": 0.0,
+  "end": 0.12
+ },
+ {
+  "word": "73",
+  "start": 0.12,
+  "end": 0.5
+ },
+ {
+  "word": "years,",
+  "start": 0.5,
+  "end": 1.0
+ },
+ {
+  "word": "everyone",
+  "start": 1.22,
+  "end": 1.44
+ },
+ {
+  "word": "thought",
+  "start": 1.44,
+  "end": 1.76
+ },
+ {
+  "word": "Titanic",
+  "start": 1.76,
+  "end": 2.12
+ },
+ {
+  "word": "sank",
+  "start": 2.12,
+  "end": 2.44
+ },
+ {
+  "word": "in",
+  "start": 2.44,
+  "end": 2.62
+ },
+ {
+  "word": "one",
+  "start": 2.62,
+  "end": 2.82
+ },
+ {
+  "word": "piece.",
+  "start": 2.82,
+  "end": 3.16
+ },
+ {
+  "word": "Then",
+  "start": 3.62,
+  "end": 3.82
+ },
+ {
+  "word": "in",
+  "start": 3.82,
+  "end": 4.02
+ },
+ {
+  "word": "1985,",
+  "start": 4.02,
+  "end": 4.46
+ },
+ {
+  "word": "they",
+  "start": 4.98,
+  "end": 5.1
+ },
+ {
+  "word": "found",
+  "start": 5.1,
+  "end": 5.36
+ },
+ {
+  "word": "her.",
+  "start": 5.36,
+  "end": 5.56
+ },
+ {
+  "word": "3,800",
+  "start": 6.0,
+  "end": 6.102
+ },
+ {
+  "word": "meters",
+  "start": 6.7,
+  "end": 7.04
+ },
+ {
+  "word": "down,",
+  "start": 7.04,
+  "end": 7.42
+ },
+ {
+  "word": "in",
+  "start": 7.7,
+  "end": 7.78
+ },
+ {
+  "word": "two",
+  "start": 7.78,
+  "end": 7.96
+ },
+ {
+  "word": "pieces,",
+  "start": 7.96,
+  "end": 8.3
+ },
+ {
+  "word": "600",
+  "start": 8.6,
+  "end": 8.8
+ },
+ {
+  "word": "meters",
+  "start": 8.8,
+  "end": 9.18
+ },
+ {
+  "word": "apart.",
+  "start": 9.18,
+  "end": 9.46
+ },
+ {
+  "word": "So",
+  "start": 9.92,
+  "end": 10.04
+ },
+ {
+  "word": "what",
+  "start": 10.04,
+  "end": 10.28
+ },
+ {
+  "word": "tears",
+  "start": 10.28,
+  "end": 10.54
+ },
+ {
+  "word": "a",
+  "start": 10.54,
+  "end": 10.76
+ },
+ {
+  "word": "steel",
+  "start": 10.76,
+  "end": 10.94
+ },
+ {
+  "word": "ship",
+  "start": 10.94,
+  "end": 11.2
+ },
+ {
+  "word": "in",
+  "start": 11.2,
+  "end": 11.32
+ },
+ {
+  "word": "half?",
+  "start": 11.32,
+  "end": 11.58
+ },
+ {
+  "word": "The",
+  "start": 12.325,
+  "end": 12.38
+ },
+ {
+  "word": "iceberg",
+  "start": 12.38,
+  "end": 12.62
+ },
+ {
+  "word": "opened",
+  "start": 12.62,
+  "end": 12.94
+ },
+ {
+  "word": "5",
+  "start": 12.94,
+  "end": 13.2
+ },
+ {
+  "word": "of",
+  "start": 13.2,
+  "end": 13.36
+ },
+ {
+  "word": "her",
+  "start": 13.36,
+  "end": 13.46
+ },
+ {
+  "word": "16",
+  "start": 13.46,
+  "end": 13.72
+ },
+ {
+  "word": "compartments.",
+  "start": 13.72,
+  "end": 14.24
+ },
+ {
+  "word": "She",
+  "start": 14.68,
+  "end": 14.8
+ },
+ {
+  "word": "was",
+  "start": 14.8,
+  "end": 14.92
+ },
+ {
+  "word": "built",
+  "start": 14.92,
+  "end": 15.06
+ },
+ {
+  "word": "to",
+  "start": 15.06,
+  "end": 15.22
+ },
+ {
+  "word": "survive",
+  "start": 15.22,
+  "end": 15.38
+ },
+ {
+  "word": "4.",
+  "start": 15.38,
+  "end": 15.76
+ },
+ {
+  "word": "As",
+  "start": 16.254,
+  "end": 16.44
+ },
+ {
+  "word": "the",
+  "start": 16.44,
+  "end": 16.56
+ },
+ {
+  "word": "bow",
+  "start": 16.56,
+  "end": 16.66
+ },
+ {
+  "word": "sank,",
+  "start": 16.66,
+  "end": 16.94
+ },
+ {
+  "word": "water",
+  "start": 17.34,
+  "end": 17.48
+ },
+ {
+  "word": "spilled",
+  "start": 17.48,
+  "end": 17.66
+ },
+ {
+  "word": "over",
+  "start": 17.66,
+  "end": 17.96
+ },
+ {
+  "word": "each",
+  "start": 17.96,
+  "end": 18.16
+ },
+ {
+  "word": "wall",
+  "start": 18.16,
+  "end": 18.38
+ },
+ {
+  "word": "into",
+  "start": 18.38,
+  "end": 18.6
+ },
+ {
+  "word": "the",
+  "start": 18.6,
+  "end": 18.72
+ },
+ {
+  "word": "next.",
+  "start": 18.72,
+  "end": 18.96
+ },
+ {
+  "word": "The",
+  "start": 19.683,
+  "end": 19.76
+ },
+ {
+  "word": "stern",
+  "start": 19.76,
+  "end": 19.96
+ },
+ {
+  "word": "rose",
+  "start": 19.96,
+  "end": 20.2
+ },
+ {
+  "word": "out",
+  "start": 20.2,
+  "end": 20.4
+ },
+ {
+  "word": "of",
+  "start": 20.4,
+  "end": 20.5
+ },
+ {
+  "word": "the",
+  "start": 20.5,
+  "end": 20.58
+ },
+ {
+  "word": "sea.",
+  "start": 20.58,
+  "end": 20.78
+ },
+ {
+  "word": "Thousands",
+  "start": 21.14,
+  "end": 21.4
+ },
+ {
+  "word": "of",
+  "start": 21.4,
+  "end": 21.62
+ },
+ {
+  "word": "tons",
+  "start": 21.62,
+  "end": 21.76
+ },
+ {
+  "word": "of",
+  "start": 21.76,
+  "end": 21.94
+ },
+ {
+  "word": "steel,",
+  "start": 21.94,
+  "end": 22.14
+ },
+ {
+  "word": "hanging",
+  "start": 22.24,
+  "end": 22.48
+ },
+ {
+  "word": "in",
+  "start": 22.48,
+  "end": 22.68
+ },
+ {
+  "word": "the",
+  "start": 22.68,
+  "end": 22.78
+ },
+ {
+  "word": "air.",
+  "start": 22.78,
+  "end": 22.96
+ },
+ {
+  "word": "The",
+  "start": 23.4,
+  "end": 23.46
+ },
+ {
+  "word": "hull",
+  "start": 23.46,
+  "end": 23.68
+ },
+ {
+  "word": "bent",
+  "start": 23.68,
+  "end": 23.92
+ },
+ {
+  "word": "like",
+  "start": 23.92,
+  "end": 24.1
+ },
+ {
+  "word": "a",
+  "start": 24.1,
+  "end": 24.2
+ },
+ {
+  "word": "ruler",
+  "start": 24.2,
+  "end": 24.4
+ },
+ {
+  "word": "over",
+  "start": 24.4,
+  "end": 24.66
+ },
+ {
+  "word": "a",
+  "start": 24.66,
+  "end": 24.82
+ },
+ {
+  "word": "table",
+  "start": 24.82,
+  "end": 25.02
+ },
+ {
+  "word": "edge,",
+  "start": 25.02,
+  "end": 25.28
+ },
+ {
+  "word": "until",
+  "start": 25.32,
+  "end": 25.48
+ },
+ {
+  "word": "it",
+  "start": 25.48,
+  "end": 25.64
+ },
+ {
+  "word": "snapped.",
+  "start": 25.64,
+  "end": 25.86
+ },
+ {
+  "word": "Not",
+  "start": 26.419,
+  "end": 26.52
+ },
+ {
+  "word": "at",
+  "start": 26.52,
+  "end": 26.7
+ },
+ {
+  "word": "the",
+  "start": 26.7,
+  "end": 26.8
+ },
+ {
+  "word": "steep",
+  "start": 26.8,
+  "end": 26.98
+ },
+ {
+  "word": "45",
+  "start": 26.98,
+  "end": 27.38
+ },
+ {
+  "word": "degrees",
+  "start": 27.38,
+  "end": 27.62
+ },
+ {
+  "word": "from",
+  "start": 27.62,
+  "end": 27.86
+ },
+ {
+  "word": "the",
+  "start": 27.86,
+  "end": 27.94
+ },
+ {
+  "word": "movie.",
+  "start": 27.94,
+  "end": 28.18
+ },
+ {
+  "word": "Wreck",
+  "start": 28.604,
+  "end": 28.74
+ },
+ {
+  "word": "studies",
+  "start": 28.74,
+  "end": 28.92
+ },
+ {
+  "word": "say",
+  "start": 28.92,
+  "end": 29.22
+ },
+ {
+  "word": "about",
+  "start": 29.22,
+  "end": 29.42
+ },
+ {
+  "word": "15.",
+  "start": 29.42,
+  "end": 29.92
+ },
+ {
+  "word": "Survivors",
+  "start": 30.72,
+  "end": 31.16
+ },
+ {
+  "word": "said",
+  "start": 31.16,
+  "end": 31.28
+ },
+ {
+  "word": "they",
+  "start": 31.28,
+  "end": 31.42
+ },
+ {
+  "word": "saw",
+  "start": 31.42,
+  "end": 31.56
+ },
+ {
+  "word": "her",
+  "start": 31.56,
+  "end": 31.68
+ },
+ {
+  "word": "break.",
+  "start": 31.68,
+  "end": 31.9
+ },
+ {
+  "word": "The",
+  "start": 32.354,
+  "end": 32.404
+ },
+ {
+  "word": "official",
+  "start": 32.4,
+  "end": 32.62
+ },
+ {
+  "word": "inquiries",
+  "start": 32.62,
+  "end": 33.1
+ },
+ {
+  "word": "didn't",
+  "start": 33.1,
+  "end": 33.34
+ },
+ {
+  "word": "believe",
+  "start": 33.34,
+  "end": 33.52
+ },
+ {
+  "word": "them.",
+  "start": 33.52,
+  "end": 33.76
+ },
+ {
+  "word": "So",
+  "start": 34.1,
+  "end": 34.2
+ },
+ {
+  "word": "the",
+  "start": 34.2,
+  "end": 34.3
+ },
+ {
+  "word": "truth",
+  "start": 34.3,
+  "end": 34.58
+ },
+ {
+  "word": "sank",
+  "start": 34.58,
+  "end": 34.94
+ },
+ {
+  "word": "with",
+  "start": 34.94,
+  "end": 35.16
+ },
+ {
+  "word": "her.",
+  "start": 35.16,
+  "end": 35.34
+ },
+ {
+  "word": "Which",
+  "start": 35.685,
+  "end": 35.8
+ },
+ {
+  "word": "is",
+  "start": 35.8,
+  "end": 35.92
+ },
+ {
+  "word": "why\u2026",
+  "start": 35.92,
+  "end": 36.4
+ }
+]

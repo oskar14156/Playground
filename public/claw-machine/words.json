@@ -1,0 +1,1642 @@
+[
+ {
+  "word": "Your",
+  "start": 0.0,
+  "end": 0.12
+ },
+ {
+  "word": "friend",
+  "start": 0.12,
+  "end": 0.28
+ },
+ {
+  "word": "is",
+  "start": 0.28,
+  "end": 0.42
+ },
+ {
+  "word": "broke.",
+  "start": 0.42,
+  "end": 0.62
+ },
+ {
+  "word": "All",
+  "start": 1.112,
+  "end": 1.22
+ },
+ {
+  "word": "he",
+  "start": 1.22,
+  "end": 1.34
+ },
+ {
+  "word": "has",
+  "start": 1.34,
+  "end": 1.54
+ },
+ {
+  "word": "is",
+  "start": 1.54,
+  "end": 1.66
+ },
+ {
+  "word": "a",
+  "start": 1.66,
+  "end": 1.76
+ },
+ {
+  "word": "giant",
+  "start": 1.76,
+  "end": 1.96
+ },
+ {
+  "word": "pocket",
+  "start": 1.96,
+  "end": 2.18
+ },
+ {
+  "word": "puh,",
+  "start": 2.18,
+  "end": 2.502
+ },
+ {
+  "word": "and",
+  "start": 2.703,
+  "end": 2.8
+ },
+ {
+  "word": "500",
+  "start": 2.8,
+  "end": 3.24
+ },
+ {
+  "word": "cheap",
+  "start": 3.24,
+  "end": 3.46
+ },
+ {
+  "word": "plushies.",
+  "start": 3.46,
+  "end": 3.9
+ },
+ {
+  "word": "So",
+  "start": 4.16,
+  "end": 4.32
+ },
+ {
+  "word": "you",
+  "start": 4.32,
+  "end": 4.42
+ },
+ {
+  "word": "put",
+  "start": 4.42,
+  "end": 4.56
+ },
+ {
+  "word": "them",
+  "start": 4.56,
+  "end": 4.66
+ },
+ {
+  "word": "in",
+  "start": 4.66,
+  "end": 4.74
+ },
+ {
+  "word": "a",
+  "start": 4.74,
+  "end": 4.8
+ },
+ {
+  "word": "glass",
+  "start": 4.8,
+  "end": 4.96
+ },
+ {
+  "word": "box.",
+  "start": 4.96,
+  "end": 5.28
+ },
+ {
+  "word": "1",
+  "start": 5.7,
+  "end": 5.9
+ },
+ {
+  "word": "dollar",
+  "start": 5.9,
+  "end": 5.95
+ },
+ {
+  "word": "a",
+  "start": 5.9,
+  "end": 6.2
+ },
+ {
+  "word": "grab.",
+  "start": 6.2,
+  "end": 6.38
+ },
+ {
+  "word": "But",
+  "start": 6.861,
+  "end": 6.92
+ },
+ {
+  "word": "the",
+  "start": 6.92,
+  "end": 7.04
+ },
+ {
+  "word": "claw",
+  "start": 7.04,
+  "end": 7.2
+ },
+ {
+  "word": "grabs",
+  "start": 7.2,
+  "end": 7.52
+ },
+ {
+  "word": "one",
+  "start": 7.52,
+  "end": 7.68
+ },
+ {
+  "word": "every",
+  "start": 7.68,
+  "end": 7.92
+ },
+ {
+  "word": "time.",
+  "start": 7.92,
+  "end": 8.2
+ },
+ {
+  "word": "You're",
+  "start": 8.51,
+  "end": 8.6
+ },
+ {
+  "word": "broke",
+  "start": 8.6,
+  "end": 8.76
+ },
+ {
+  "word": "by",
+  "start": 8.76,
+  "end": 8.94
+ },
+ {
+  "word": "lunch.",
+  "start": 8.94,
+  "end": 9.18
+ },
+ {
+  "word": "So",
+  "start": 9.708,
+  "end": 9.84
+ },
+ {
+  "word": "you",
+  "start": 9.84,
+  "end": 9.98
+ },
+ {
+  "word": "turn",
+  "start": 9.98,
+  "end": 10.12
+ },
+ {
+  "word": "the",
+  "start": 10.12,
+  "end": 10.26
+ },
+ {
+  "word": "claw",
+  "start": 10.26,
+  "end": 10.42
+ },
+ {
+  "word": "down.",
+  "start": 10.42,
+  "end": 10.66
+ },
+ {
+  "word": "Now",
+  "start": 11.06,
+  "end": 11.2
+ },
+ {
+  "word": "it",
+  "start": 11.2,
+  "end": 11.3
+ },
+ {
+  "word": "closes,",
+  "start": 11.3,
+  "end": 11.6
+ },
+ {
+  "word": "touches",
+  "start": 11.9,
+  "end": 12.06
+ },
+ {
+  "word": "the",
+  "start": 12.06,
+  "end": 12.26
+ },
+ {
+  "word": "plushie,",
+  "start": 12.26,
+  "end": 12.6
+ },
+ {
+  "word": "and",
+  "start": 12.72,
+  "end": 12.77
+ },
+ {
+  "word": "gives",
+  "start": 12.76,
+  "end": 12.92
+ },
+ {
+  "word": "it",
+  "start": 12.92,
+  "end": 13.02
+ },
+ {
+  "word": "a",
+  "start": 13.02,
+  "end": 13.1
+ },
+ {
+  "word": "little",
+  "start": 13.1,
+  "end": 13.2
+ },
+ {
+  "word": "hug.",
+  "start": 13.2,
+  "end": 13.48
+ },
+ {
+  "word": "But",
+  "start": 13.934,
+  "end": 14.02
+ },
+ {
+  "word": "now",
+  "start": 14.02,
+  "end": 14.28
+ },
+ {
+  "word": "nobody",
+  "start": 14.62,
+  "end": 14.67
+ },
+ {
+  "word": "wins.",
+  "start": 14.62,
+  "end": 14.92
+ },
+ {
+  "word": "And",
+  "start": 15.24,
+  "end": 15.4
+ },
+ {
+  "word": "nobody",
+  "start": 15.4,
+  "end": 15.62
+ },
+ {
+  "word": "plays.",
+  "start": 15.62,
+  "end": 15.9
+ },
+ {
+  "word": "So",
+  "start": 16.42,
+  "end": 16.56
+ },
+ {
+  "word": "you",
+  "start": 16.56,
+  "end": 16.66
+ },
+ {
+  "word": "add",
+  "start": 16.66,
+  "end": 16.82
+ },
+ {
+  "word": "a",
+  "start": 16.82,
+  "end": 16.92
+ },
+ {
+  "word": "chip.",
+  "start": 16.92,
+  "end": 17.08
+ },
+ {
+  "word": "You",
+  "start": 17.34,
+  "end": 17.4
+ },
+ {
+  "word": "type",
+  "start": 17.4,
+  "end": 17.6
+ },
+ {
+  "word": "in",
+  "start": 17.6,
+  "end": 17.76
+ },
+ {
+  "word": "what",
+  "start": 17.76,
+  "end": 17.94
+ },
+ {
+  "word": "a",
+  "start": 17.94,
+  "end": 18.04
+ },
+ {
+  "word": "game",
+  "start": 18.04,
+  "end": 18.14
+ },
+ {
+  "word": "costs,",
+  "start": 18.14,
+  "end": 18.54
+ },
+ {
+  "word": "what",
+  "start": 18.82,
+  "end": 18.96
+ },
+ {
+  "word": "the",
+  "start": 18.96,
+  "end": 19.08
+ },
+ {
+  "word": "prize",
+  "start": 19.08,
+  "end": 19.26
+ },
+ {
+  "word": "costs,",
+  "start": 19.26,
+  "end": 19.64
+ },
+ {
+  "word": "and",
+  "start": 19.8,
+  "end": 19.88
+ },
+ {
+  "word": "how",
+  "start": 19.88,
+  "end": 20.0
+ },
+ {
+  "word": "much",
+  "start": 20.0,
+  "end": 20.12
+ },
+ {
+  "word": "profit",
+  "start": 20.12,
+  "end": 20.34
+ },
+ {
+  "word": "you",
+  "start": 20.34,
+  "end": 20.5
+ },
+ {
+  "word": "want.",
+  "start": 20.5,
+  "end": 20.7
+ },
+ {
+  "word": "And",
+  "start": 20.88,
+  "end": 20.98
+ },
+ {
+  "word": "the",
+  "start": 20.98,
+  "end": 21.06
+ },
+ {
+  "word": "chip",
+  "start": 21.06,
+  "end": 21.2
+ },
+ {
+  "word": "decides",
+  "start": 21.2,
+  "end": 21.48
+ },
+ {
+  "word": "when",
+  "start": 21.48,
+  "end": 21.68
+ },
+ {
+  "word": "the",
+  "start": 21.68,
+  "end": 21.76
+ },
+ {
+  "word": "claw",
+  "start": 21.76,
+  "end": 21.94
+ },
+ {
+  "word": "gets",
+  "start": 21.94,
+  "end": 22.1
+ },
+ {
+  "word": "full",
+  "start": 22.1,
+  "end": 22.28
+ },
+ {
+  "word": "power.",
+  "start": 22.28,
+  "end": 22.54
+ },
+ {
+  "word": "That's",
+  "start": 22.76,
+  "end": 22.98
+ },
+ {
+  "word": "real.",
+  "start": 22.98,
+  "end": 23.16
+ },
+ {
+  "word": "It's",
+  "start": 23.36,
+  "end": 23.42
+ },
+ {
+  "word": "in",
+  "start": 23.42,
+  "end": 23.5
+ },
+ {
+  "word": "the",
+  "start": 23.5,
+  "end": 23.56
+ },
+ {
+  "word": "manuals.",
+  "start": 23.56,
+  "end": 24.08
+ },
+ {
+  "word": "One",
+  "start": 24.493,
+  "end": 24.58
+ },
+ {
+  "word": "example.",
+  "start": 24.58,
+  "end": 24.82
+ },
+ {
+  "word": "The",
+  "start": 25.363,
+  "end": 25.42
+ },
+ {
+  "word": "game",
+  "start": 25.42,
+  "end": 25.58
+ },
+ {
+  "word": "costs",
+  "start": 25.58,
+  "end": 25.8
+ },
+ {
+  "word": "50",
+  "start": 25.8,
+  "end": 26.02
+ },
+ {
+  "word": "cents,",
+  "start": 26.02,
+  "end": 26.28
+ },
+ {
+  "word": "the",
+  "start": 26.48,
+  "end": 26.53
+ },
+ {
+  "word": "prize",
+  "start": 26.52,
+  "end": 26.68
+ },
+ {
+  "word": "costs",
+  "start": 26.68,
+  "end": 26.9
+ },
+ {
+  "word": "7",
+  "start": 26.9,
+  "end": 27.14
+ },
+ {
+  "word": "dollars.",
+  "start": 27.14,
+  "end": 27.6
+ },
+ {
+  "word": "Full",
+  "start": 27.956,
+  "end": 28.006
+ },
+ {
+  "word": "power,",
+  "start": 28.0,
+  "end": 28.3
+ },
+ {
+  "word": "about",
+  "start": 28.48,
+  "end": 28.6
+ },
+ {
+  "word": "once",
+  "start": 28.6,
+  "end": 28.84
+ },
+ {
+  "word": "every",
+  "start": 28.84,
+  "end": 29.04
+ },
+ {
+  "word": "21",
+  "start": 29.04,
+  "end": 29.3
+ },
+ {
+  "word": "tries.",
+  "start": 29.3,
+  "end": 29.6
+ },
+ {
+  "word": "Basically,",
+  "start": 30.136,
+  "end": 30.4
+ },
+ {
+  "word": "a",
+  "start": 30.54,
+  "end": 30.62
+ },
+ {
+  "word": "pity",
+  "start": 30.62,
+  "end": 30.7
+ },
+ {
+  "word": "system.",
+  "start": 30.7,
+  "end": 31.04
+ },
+ {
+  "word": "Everyone",
+  "start": 31.3,
+  "end": 31.54
+ },
+ {
+  "word": "else",
+  "start": 31.54,
+  "end": 31.72
+ },
+ {
+  "word": "gets",
+  "start": 31.72,
+  "end": 31.86
+ },
+ {
+  "word": "the",
+  "start": 31.86,
+  "end": 32.0
+ },
+ {
+  "word": "hug.",
+  "start": 32.0,
+  "end": 32.16
+ },
+ {
+  "word": "Let's",
+  "start": 32.4,
+  "end": 32.56
+ },
+ {
+  "word": "go",
+  "start": 32.56,
+  "end": 32.64
+ },
+ {
+  "word": "gambling.",
+  "start": 32.64,
+  "end": 32.84
+ },
+ {
+  "word": "Aw,",
+  "start": 32.84,
+  "end": 33.46
+ },
+ {
+  "word": "dang",
+  "start": 33.46,
+  "end": 33.56
+ },
+ {
+  "word": "it.",
+  "start": 33.56,
+  "end": 33.74
+ },
+ {
+  "word": "Aw,",
+  "start": 33.933,
+  "end": 34.28
+ },
+ {
+  "word": "dang",
+  "start": 34.28,
+  "end": 34.44
+ },
+ {
+  "word": "it.",
+  "start": 34.44,
+  "end": 34.649
+ },
+ {
+  "word": "So",
+  "start": 34.96,
+  "end": 35.18
+ },
+ {
+  "word": "you",
+  "start": 35.18,
+  "end": 35.38
+ },
+ {
+  "word": "give",
+  "start": 35.38,
+  "end": 35.54
+ },
+ {
+  "word": "the",
+  "start": 35.54,
+  "end": 35.7
+ },
+ {
+  "word": "claw",
+  "start": 35.7,
+  "end": 35.9
+ },
+ {
+  "word": "two",
+  "start": 35.9,
+  "end": 36.3
+ },
+ {
+  "word": "settings.",
+  "start": 36.3,
+  "end": 36.7
+ },
+ {
+  "word": "Strong",
+  "start": 37.162,
+  "end": 37.42
+ },
+ {
+  "word": "while",
+  "start": 37.42,
+  "end": 37.64
+ },
+ {
+  "word": "it",
+  "start": 37.64,
+  "end": 37.76
+ },
+ {
+  "word": "lifts,",
+  "start": 37.76,
+  "end": 38.0
+ },
+ {
+  "word": "weak",
+  "start": 38.28,
+  "end": 38.42
+ },
+ {
+  "word": "on",
+  "start": 38.42,
+  "end": 38.6
+ },
+ {
+  "word": "the",
+  "start": 38.6,
+  "end": 38.68
+ },
+ {
+  "word": "way",
+  "start": 38.68,
+  "end": 38.8
+ },
+ {
+  "word": "to",
+  "start": 38.8,
+  "end": 38.92
+ },
+ {
+  "word": "the",
+  "start": 38.92,
+  "end": 39.02
+ },
+ {
+  "word": "hole.",
+  "start": 39.02,
+  "end": 39.24
+ },
+ {
+  "word": "It",
+  "start": 39.66,
+  "end": 39.78
+ },
+ {
+  "word": "drops",
+  "start": 39.78,
+  "end": 39.98
+ },
+ {
+  "word": "the",
+  "start": 39.98,
+  "end": 40.18
+ },
+ {
+  "word": "prize",
+  "start": 40.18,
+  "end": 40.52
+ },
+ {
+  "word": "right",
+  "start": 40.52,
+  "end": 40.78
+ },
+ {
+  "word": "at",
+  "start": 40.78,
+  "end": 40.94
+ },
+ {
+  "word": "the",
+  "start": 40.94,
+  "end": 41.06
+ },
+ {
+  "word": "edge.",
+  "start": 41.06,
+  "end": 41.36
+ },
+ {
+  "word": "So",
+  "start": 41.58,
+  "end": 41.74
+ },
+ {
+  "word": "close.",
+  "start": 41.74,
+  "end": 42.0
+ },
+ {
+  "word": "That's",
+  "start": 42.32,
+  "end": 42.52
+ },
+ {
+  "word": "on",
+  "start": 42.52,
+  "end": 42.62
+ },
+ {
+  "word": "purpose.",
+  "start": 42.62,
+  "end": 42.9
+ },
+ {
+  "word": "The",
+  "start": 43.42,
+  "end": 43.52
+ },
+ {
+  "word": "claw",
+  "start": 43.52,
+  "end": 43.74
+ },
+ {
+  "word": "chooses",
+  "start": 43.74,
+  "end": 44.04
+ },
+ {
+  "word": "who",
+  "start": 44.04,
+  "end": 44.34
+ },
+ {
+  "word": "will",
+  "start": 44.34,
+  "end": 44.46
+ },
+ {
+  "word": "go,",
+  "start": 44.46,
+  "end": 44.66
+ },
+ {
+  "word": "and",
+  "start": 44.66,
+  "end": 44.94
+ },
+ {
+  "word": "who",
+  "start": 44.94,
+  "end": 45.08
+ },
+ {
+  "word": "will",
+  "start": 45.08,
+  "end": 45.2
+ },
+ {
+  "word": "stay.",
+  "start": 45.2,
+  "end": 45.46
+ },
+ {
+  "word": "But",
+  "start": 45.912,
+  "end": 46.0
+ },
+ {
+  "word": "wait.",
+  "start": 46.0,
+  "end": 46.16
+ },
+ {
+  "word": "Isn't",
+  "start": 46.4,
+  "end": 46.62
+ },
+ {
+  "word": "that",
+  "start": 46.62,
+  "end": 46.76
+ },
+ {
+  "word": "gambling?",
+  "start": 46.76,
+  "end": 46.96
+ },
+ {
+  "word": "In",
+  "start": 47.35,
+  "end": 47.44
+ },
+ {
+  "word": "1951,",
+  "start": 47.44,
+  "end": 48.18
+ },
+ {
+  "word": "a",
+  "start": 48.32,
+  "end": 48.42
+ },
+ {
+  "word": "US",
+  "start": 48.42,
+  "end": 48.6
+ },
+ {
+  "word": "law",
+  "start": 48.6,
+  "end": 48.84
+ },
+ {
+  "word": "treated",
+  "start": 48.84,
+  "end": 49.06
+ },
+ {
+  "word": "machines",
+  "start": 49.06,
+  "end": 49.5
+ },
+ {
+  "word": "like",
+  "start": 49.5,
+  "end": 49.76
+ },
+ {
+  "word": "this",
+  "start": 49.76,
+  "end": 49.96
+ },
+ {
+  "word": "as",
+  "start": 49.96,
+  "end": 50.08
+ },
+ {
+  "word": "gambling",
+  "start": 50.08,
+  "end": 50.32
+ },
+ {
+  "word": "devices.",
+  "start": 50.32,
+  "end": 50.76
+ },
+ {
+  "word": "So",
+  "start": 51.04,
+  "end": 51.24
+ },
+ {
+  "word": "you",
+  "start": 51.24,
+  "end": 51.34
+ },
+ {
+  "word": "add",
+  "start": 51.34,
+  "end": 51.46
+ },
+ {
+  "word": "a",
+  "start": 51.46,
+  "end": 51.56
+ },
+ {
+  "word": "joystick",
+  "start": 51.56,
+  "end": 51.8
+ },
+ {
+  "word": "and",
+  "start": 51.8,
+  "end": 52.1
+ },
+ {
+  "word": "a",
+  "start": 52.1,
+  "end": 52.18
+ },
+ {
+  "word": "timer.",
+  "start": 52.18,
+  "end": 52.38
+ },
+ {
+  "word": "Now",
+  "start": 52.64,
+  "end": 52.82
+ },
+ {
+  "word": "it's",
+  "start": 52.82,
+  "end": 53.02
+ },
+ {
+  "word": "a",
+  "start": 53.02,
+  "end": 53.08
+ },
+ {
+  "word": "game",
+  "start": 53.08,
+  "end": 53.18
+ },
+ {
+  "word": "of",
+  "start": 53.18,
+  "end": 53.3
+ },
+ {
+  "word": "skill.",
+  "start": 53.3,
+  "end": 53.48
+ },
+ {
+  "word": "Officially.",
+  "start": 53.72,
+  "end": 54.08
+ },
+ {
+  "word": "So",
+  "start": 54.44,
+  "end": 54.54
+ },
+ {
+  "word": "if",
+  "start": 54.54,
+  "end": 54.66
+ },
+ {
+  "word": "you",
+  "start": 54.66,
+  "end": 54.76
+ },
+ {
+  "word": "lose,",
+  "start": 54.76,
+  "end": 54.96
+ },
+ {
+  "word": "that's",
+  "start": 55.18,
+  "end": 55.36
+ },
+ {
+  "word": "a",
+  "start": 55.36,
+  "end": 55.42
+ },
+ {
+  "word": "skill",
+  "start": 55.42,
+  "end": 55.56
+ },
+ {
+  "word": "issue.",
+  "start": 55.56,
+  "end": 55.82
+ },
+ {
+  "word": "On",
+  "start": 55.82,
+  "end": 56.046
+ },
+ {
+  "word": "top,",
+  "start": 56.44,
+  "end": 56.68
+ },
+ {
+  "word": "you",
+  "start": 56.88,
+  "end": 56.93
+ },
+ {
+  "word": "put",
+  "start": 56.9,
+  "end": 57.04
+ },
+ {
+  "word": "your",
+  "start": 57.04,
+  "end": 57.18
+ },
+ {
+  "word": "friend's",
+  "start": 57.18,
+  "end": 57.54
+ },
+ {
+  "word": "giant",
+  "start": 57.54,
+  "end": 57.74
+ },
+ {
+  "word": "pocket",
+  "start": 57.74,
+  "end": 58.04
+ },
+ {
+  "word": "puh,",
+  "start": 58.04,
+  "end": 58.34
+ },
+ {
+  "word": "as",
+  "start": 58.34,
+  "end": 58.64
+ },
+ {
+  "word": "the",
+  "start": 58.64,
+  "end": 58.76
+ },
+ {
+  "word": "grand",
+  "start": 58.76,
+  "end": 59.04
+ },
+ {
+  "word": "prize.",
+  "start": 59.04,
+  "end": 59.46
+ },
+ {
+  "word": "Nobody",
+  "start": 59.78,
+  "end": 60.06
+ },
+ {
+  "word": "has",
+  "start": 60.06,
+  "end": 60.32
+ },
+ {
+  "word": "ever",
+  "start": 60.32,
+  "end": 60.52
+ },
+ {
+  "word": "won",
+  "start": 60.52,
+  "end": 60.74
+ },
+ {
+  "word": "it.",
+  "start": 60.74,
+  "end": 60.92
+ },
+ {
+  "word": "It",
+  "start": 61.08,
+  "end": 61.2
+ },
+ {
+  "word": "doesn't",
+  "start": 61.2,
+  "end": 61.4
+ },
+ {
+  "word": "even",
+  "start": 61.4,
+  "end": 61.54
+ },
+ {
+  "word": "fit",
+  "start": 61.54,
+  "end": 61.72
+ },
+ {
+  "word": "through",
+  "start": 61.72,
+  "end": 61.94
+ },
+ {
+  "word": "the",
+  "start": 61.94,
+  "end": 62.04
+ },
+ {
+  "word": "hole.",
+  "start": 62.04,
+  "end": 62.3
+ },
+ {
+  "word": "And",
+  "start": 62.62,
+  "end": 62.86
+ },
+ {
+  "word": "next",
+  "start": 62.86,
+  "end": 63.1
+ },
+ {
+  "word": "to",
+  "start": 63.1,
+  "end": 63.28
+ },
+ {
+  "word": "it,",
+  "start": 63.28,
+  "end": 63.44
+ },
+ {
+  "word": "for",
+  "start": 63.56,
+  "end": 63.62
+ },
+ {
+  "word": "some",
+  "start": 63.62,
+  "end": 63.82
+ },
+ {
+  "word": "reason,",
+  "start": 63.82,
+  "end": 64.12
+ },
+ {
+  "word": "a",
+  "start": 64.5,
+  "end": 64.58
+ },
+ {
+  "word": "steel",
+  "start": 64.58,
+  "end": 64.8
+ },
+ {
+  "word": "ball.",
+  "start": 64.8,
+  "end": 65.14
+ },
+ {
+  "word": "But",
+  "start": 65.56,
+  "end": 65.668
+ },
+ {
+  "word": "you",
+  "start": 65.668,
+  "end": 65.848
+ },
+ {
+  "word": "run",
+  "start": 65.848,
+  "end": 65.968
+ },
+ {
+  "word": "out",
+  "start": 65.968,
+  "end": 66.088
+ },
+ {
+  "word": "of",
+  "start": 66.088,
+  "end": 66.168
+ },
+ {
+  "word": "plushies.",
+  "start": 66.168,
+  "end": 66.548
+ },
+ {
+  "word": "So",
+  "start": 66.848,
+  "end": 67.028
+ },
+ {
+  "word": "you",
+  "start": 67.028,
+  "end": 67.188
+ },
+ {
+  "word": "fill",
+  "start": 67.188,
+  "end": 67.288
+ },
+ {
+  "word": "the",
+  "start": 67.288,
+  "end": 67.408
+ },
+ {
+  "word": "box",
+  "start": 67.408,
+  "end": 67.628
+ },
+ {
+  "word": "with",
+  "start": 67.628,
+  "end": 67.768
+ },
+ {
+  "word": "live",
+  "start": 67.768,
+  "end": 67.948
+ },
+ {
+  "word": "lobsters.",
+  "start": 67.948,
+  "end": 68.368
+ },
+ {
+  "word": "That's",
+  "start": 68.668,
+  "end": 68.848
+ },
+ {
+  "word": "a",
+  "start": 68.848,
+  "end": 68.908
+ },
+ {
+  "word": "joke.",
+  "start": 68.908,
+  "end": 69.108
+ },
+ {
+  "word": "Except,",
+  "start": 69.368,
+  "end": 69.728
+ },
+ {
+  "word": "about",
+  "start": 69.728,
+  "end": 70.108
+ },
+ {
+  "word": "300",
+  "start": 70.108,
+  "end": 70.388
+ },
+ {
+  "word": "restaurants",
+  "start": 70.388,
+  "end": 70.768
+ },
+ {
+  "word": "really",
+  "start": 70.768,
+  "end": 71.048
+ },
+ {
+  "word": "did",
+  "start": 71.048,
+  "end": 71.208
+ },
+ {
+  "word": "it.",
+  "start": 71.208,
+  "end": 71.348
+ },
+ {
+  "word": "You",
+  "start": 71.664,
+  "end": 71.768
+ },
+ {
+  "word": "win",
+  "start": 71.768,
+  "end": 71.948
+ },
+ {
+  "word": "one,",
+  "start": 71.948,
+  "end": 72.168
+ },
+ {
+  "word": "and",
+  "start": 72.328,
+  "end": 72.428
+ },
+ {
+  "word": "the",
+  "start": 72.428,
+  "end": 72.528
+ },
+ {
+  "word": "kitchen",
+  "start": 72.528,
+  "end": 72.688
+ },
+ {
+  "word": "cooks",
+  "start": 72.688,
+  "end": 72.948
+ },
+ {
+  "word": "it.",
+  "start": 72.948,
+  "end": 73.618
+ },
+ {
+  "word": "Let",
+  "start": 73.838,
+  "end": 73.978
+ },
+ {
+  "word": "him",
+  "start": 73.978,
+  "end": 74.098
+ },
+ {
+  "word": "cook.",
+  "start": 74.098,
+  "end": 74.298
+ },
+ {
+  "word": "Then",
+  "start": 74.792,
+  "end": 74.918
+ },
+ {
+  "word": "kids",
+  "start": 74.918,
+  "end": 75.078
+ },
+ {
+  "word": "find",
+  "start": 75.078,
+  "end": 75.318
+ },
+ {
+  "word": "a",
+  "start": 75.318,
+  "end": 75.438
+ },
+ {
+  "word": "glitch.",
+  "start": 75.438,
+  "end": 75.598
+ },
+ {
+  "word": "They",
+  "start": 76.018,
+  "end": 76.08
+ },
+ {
+  "word": "climb",
+  "start": 76.08,
+  "end": 76.32
+ },
+ {
+  "word": "in",
+  "start": 76.32,
+  "end": 76.48
+ },
+ {
+  "word": "through",
+  "start": 76.48,
+  "end": 76.6
+ },
+ {
+  "word": "the",
+  "start": 76.6,
+  "end": 76.7
+ },
+ {
+  "word": "prize",
+  "start": 76.7,
+  "end": 76.9
+ },
+ {
+  "word": "door.",
+  "start": 76.9,
+  "end": 77.16
+ },
+ {
+  "word": "Firefighters",
+  "start": 77.6,
+  "end": 78.0
+ },
+ {
+  "word": "keep",
+  "start": 78.0,
+  "end": 78.16
+ },
+ {
+  "word": "getting",
+  "start": 78.16,
+  "end": 78.38
+ },
+ {
+  "word": "called,",
+  "start": 78.38,
+  "end": 78.72
+ },
+ {
+  "word": "to",
+  "start": 78.72,
+  "end": 78.96
+ },
+ {
+  "word": "patch",
+  "start": 78.96,
+  "end": 79.22
+ },
+ {
+  "word": "it.",
+  "start": 79.22,
+  "end": 79.37
+ },
+ {
+  "word": "Congratulations.",
+  "start": 79.685,
+  "end": 80.04
+ },
+ {
+  "word": "You've",
+  "start": 80.46,
+  "end": 80.7
+ },
+ {
+  "word": "built",
+  "start": 80.7,
+  "end": 80.86
+ },
+ {
+  "word": "a",
+  "start": 80.86,
+  "end": 81.0
+ },
+ {
+  "word": "glass",
+  "start": 81.0,
+  "end": 81.16
+ },
+ {
+  "word": "box",
+  "start": 81.16,
+  "end": 81.52
+ },
+ {
+  "word": "that",
+  "start": 81.52,
+  "end": 81.72
+ },
+ {
+  "word": "hugs",
+  "start": 81.72,
+  "end": 81.9
+ },
+ {
+  "word": "plushies,",
+  "start": 81.9,
+  "end": 82.4
+ },
+ {
+  "word": "and",
+  "start": 82.4,
+  "end": 82.58
+ },
+ {
+  "word": "keeps",
+  "start": 82.58,
+  "end": 82.76
+ },
+ {
+  "word": "your",
+  "start": 82.76,
+  "end": 82.92
+ },
+ {
+  "word": "money.",
+  "start": 82.92,
+  "end": 83.1
+ },
+ {
+  "word": "You",
+  "start": 84.125,
+  "end": 84.23
+ },
+ {
+  "word": "call",
+  "start": 84.23,
+  "end": 84.45
+ },
+ {
+  "word": "it,",
+  "start": 84.45,
+  "end": 84.65
+ },
+ {
+  "word": "the",
+  "start": 84.65,
+  "end": 84.87
+ },
+ {
+  "word": "claw",
+  "start": 84.87,
+  "end": 85.01
+ },
+ {
+  "word": "machine.",
+  "start": 85.01,
+  "end": 85.31
+ }
+]

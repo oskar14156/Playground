@@ -1,0 +1,2737 @@
+[
+ {
+  "word": "Could",
+  "start": 0.0,
+  "end": 0.18
+ },
+ {
+  "word": "Michael",
+  "start": 0.18,
+  "end": 0.44
+ },
+ {
+  "word": "Scofield's",
+  "start": 0.44,
+  "end": 1.04
+ },
+ {
+  "word": "escape",
+  "start": 1.04,
+  "end": 1.26
+ },
+ {
+  "word": "plan",
+  "start": 1.26,
+  "end": 1.5
+ },
+ {
+  "word": "actually",
+  "start": 1.5,
+  "end": 1.88
+ },
+ {
+  "word": "beat",
+  "start": 1.88,
+  "end": 2.24
+ },
+ {
+  "word": "a",
+  "start": 2.24,
+  "end": 2.4
+ },
+ {
+  "word": "real",
+  "start": 2.4,
+  "end": 2.62
+ },
+ {
+  "word": "prison?",
+  "start": 2.62,
+  "end": 2.92
+ },
+ {
+  "word": "Michael",
+  "start": 3.422,
+  "end": 3.6
+ },
+ {
+  "word": "never",
+  "start": 3.6,
+  "end": 3.9
+ },
+ {
+  "word": "smuggles",
+  "start": 3.9,
+  "end": 4.26
+ },
+ {
+  "word": "a",
+  "start": 4.26,
+  "end": 4.4
+ },
+ {
+  "word": "map",
+  "start": 4.4,
+  "end": 4.52
+ },
+ {
+  "word": "into",
+  "start": 4.52,
+  "end": 4.66
+ },
+ {
+  "word": "Fox",
+  "start": 4.66,
+  "end": 4.88
+ },
+ {
+  "word": "River.",
+  "start": 4.88,
+  "end": 5.12
+ },
+ {
+  "word": "He",
+  "start": 5.48,
+  "end": 5.6
+ },
+ {
+  "word": "wears",
+  "start": 5.6,
+  "end": 5.8
+ },
+ {
+  "word": "it,",
+  "start": 5.8,
+  "end": 6.02
+ },
+ {
+  "word": "as",
+  "start": 6.02,
+  "end": 6.18
+ },
+ {
+  "word": "a",
+  "start": 6.18,
+  "end": 6.28
+ },
+ {
+  "word": "tattoo",
+  "start": 6.28,
+  "end": 6.52
+ },
+ {
+  "word": "across",
+  "start": 6.52,
+  "end": 6.76
+ },
+ {
+  "word": "his",
+  "start": 6.76,
+  "end": 6.98
+ },
+ {
+  "word": "whole",
+  "start": 6.98,
+  "end": 7.18
+ },
+ {
+  "word": "upper",
+  "start": 7.18,
+  "end": 7.38
+ },
+ {
+  "word": "body.",
+  "start": 7.38,
+  "end": 7.68
+ },
+ {
+  "word": "But",
+  "start": 8.151,
+  "end": 8.26
+ },
+ {
+  "word": "a",
+  "start": 8.26,
+  "end": 8.36
+ },
+ {
+  "word": "tattoo",
+  "start": 8.36,
+  "end": 8.6
+ },
+ {
+  "word": "that",
+  "start": 8.6,
+  "end": 8.82
+ },
+ {
+  "word": "big",
+  "start": 8.82,
+  "end": 9.04
+ },
+ {
+  "word": "takes",
+  "start": 9.04,
+  "end": 9.26
+ },
+ {
+  "word": "dozens",
+  "start": 9.26,
+  "end": 9.52
+ },
+ {
+  "word": "of",
+  "start": 9.52,
+  "end": 9.66
+ },
+ {
+  "word": "hours,",
+  "start": 9.66,
+  "end": 9.94
+ },
+ {
+  "word": "over",
+  "start": 10.12,
+  "end": 10.26
+ },
+ {
+  "word": "months,",
+  "start": 10.26,
+  "end": 10.52
+ },
+ {
+  "word": "and",
+  "start": 10.64,
+  "end": 10.72
+ },
+ {
+  "word": "it",
+  "start": 10.72,
+  "end": 10.82
+ },
+ {
+  "word": "has",
+  "start": 10.82,
+  "end": 10.98
+ },
+ {
+  "word": "to",
+  "start": 10.98,
+  "end": 11.1
+ },
+ {
+  "word": "heal",
+  "start": 11.1,
+  "end": 11.36
+ },
+ {
+  "word": "before",
+  "start": 11.36,
+  "end": 11.58
+ },
+ {
+  "word": "he",
+  "start": 11.58,
+  "end": 11.78
+ },
+ {
+  "word": "goes",
+  "start": 11.78,
+  "end": 11.98
+ },
+ {
+  "word": "in.",
+  "start": 11.98,
+  "end": 12.16
+ },
+ {
+  "word": "And",
+  "start": 12.46,
+  "end": 12.66
+ },
+ {
+  "word": "on",
+  "start": 12.66,
+  "end": 12.76
+ },
+ {
+  "word": "day",
+  "start": 12.76,
+  "end": 12.94
+ },
+ {
+  "word": "1,",
+  "start": 12.94,
+  "end": 13.18
+ },
+ {
+  "word": "a",
+  "start": 13.36,
+  "end": 13.46
+ },
+ {
+  "word": "real",
+  "start": 13.46,
+  "end": 13.64
+ },
+ {
+  "word": "prison",
+  "start": 13.64,
+  "end": 13.94
+ },
+ {
+  "word": "photographs",
+  "start": 13.94,
+  "end": 14.26
+ },
+ {
+  "word": "every",
+  "start": 14.26,
+  "end": 14.72
+ },
+ {
+  "word": "single",
+  "start": 14.72,
+  "end": 14.98
+ },
+ {
+  "word": "tattoo",
+  "start": 14.98,
+  "end": 15.26
+ },
+ {
+  "word": "you",
+  "start": 15.26,
+  "end": 15.52
+ },
+ {
+  "word": "have,",
+  "start": 15.52,
+  "end": 15.82
+ },
+ {
+  "word": "like",
+  "start": 15.96,
+  "end": 16.06
+ },
+ {
+  "word": "a",
+  "start": 16.06,
+  "end": 16.14
+ },
+ {
+  "word": "fingerprint.",
+  "start": 16.14,
+  "end": 16.38
+ },
+ {
+  "word": "Remember",
+  "start": 16.8,
+  "end": 16.945
+ },
+ {
+  "word": "that",
+  "start": 16.945,
+  "end": 17.145
+ },
+ {
+  "word": "photo.",
+  "start": 17.145,
+  "end": 17.365
+ },
+ {
+  "word": "So",
+  "start": 17.868,
+  "end": 17.965
+ },
+ {
+  "word": "he",
+  "start": 17.965,
+  "end": 18.085
+ },
+ {
+  "word": "robs",
+  "start": 18.085,
+  "end": 18.365
+ },
+ {
+  "word": "a",
+  "start": 18.365,
+  "end": 18.465
+ },
+ {
+  "word": "bank,",
+  "start": 18.465,
+  "end": 18.725
+ },
+ {
+  "word": "and",
+  "start": 18.905,
+  "end": 19.025
+ },
+ {
+  "word": "asks",
+  "start": 19.025,
+  "end": 19.325
+ },
+ {
+  "word": "the",
+  "start": 19.325,
+  "end": 19.525
+ },
+ {
+  "word": "judge",
+  "start": 19.525,
+  "end": 19.745
+ },
+ {
+  "word": "for",
+  "start": 19.745,
+  "end": 19.885
+ },
+ {
+  "word": "the",
+  "start": 19.885,
+  "end": 19.965
+ },
+ {
+  "word": "prison",
+  "start": 19.965,
+  "end": 20.205
+ },
+ {
+  "word": "closest",
+  "start": 20.205,
+  "end": 20.605
+ },
+ {
+  "word": "to",
+  "start": 20.605,
+  "end": 20.825
+ },
+ {
+  "word": "home.",
+  "start": 20.825,
+  "end": 21.145
+ },
+ {
+  "word": "But",
+  "start": 21.505,
+  "end": 21.685
+ },
+ {
+  "word": "robbing",
+  "start": 21.685,
+  "end": 22.005
+ },
+ {
+  "word": "a",
+  "start": 22.005,
+  "end": 22.105
+ },
+ {
+  "word": "bank",
+  "start": 22.105,
+  "end": 22.285
+ },
+ {
+  "word": "is",
+  "start": 22.285,
+  "end": 22.445
+ },
+ {
+  "word": "a",
+  "start": 22.445,
+  "end": 22.565
+ },
+ {
+  "word": "federal",
+  "start": 22.565,
+  "end": 22.765
+ },
+ {
+  "word": "crime,",
+  "start": 22.765,
+  "end": 23.285
+ },
+ {
+  "word": "so",
+  "start": 23.285,
+  "end": 23.505
+ },
+ {
+  "word": "he'd",
+  "start": 23.505,
+  "end": 23.745
+ },
+ {
+  "word": "usually",
+  "start": 23.745,
+  "end": 24.025
+ },
+ {
+  "word": "end",
+  "start": 24.025,
+  "end": 24.305
+ },
+ {
+  "word": "up",
+  "start": 24.305,
+  "end": 24.425
+ },
+ {
+  "word": "in",
+  "start": 24.425,
+  "end": 24.565
+ },
+ {
+  "word": "a",
+  "start": 24.565,
+  "end": 24.645
+ },
+ {
+  "word": "federal",
+  "start": 24.645,
+  "end": 24.885
+ },
+ {
+  "word": "prison,",
+  "start": 24.885,
+  "end": 25.305
+ },
+ {
+  "word": "not",
+  "start": 25.425,
+  "end": 25.565
+ },
+ {
+  "word": "Fox",
+  "start": 25.565,
+  "end": 25.825
+ },
+ {
+  "word": "River.",
+  "start": 25.825,
+  "end": 26.145
+ },
+ {
+  "word": "And",
+  "start": 26.145,
+  "end": 26.725
+ },
+ {
+  "word": "in",
+  "start": 26.725,
+  "end": 26.985
+ },
+ {
+  "word": "Illinois,",
+  "start": 26.985,
+  "end": 27.285
+ },
+ {
+  "word": "you",
+  "start": 27.565,
+  "end": 27.665
+ },
+ {
+  "word": "don't",
+  "start": 27.665,
+  "end": 27.845
+ },
+ {
+  "word": "pick",
+  "start": 27.845,
+  "end": 28.005
+ },
+ {
+  "word": "your",
+  "start": 28.005,
+  "end": 28.165
+ },
+ {
+  "word": "prison.",
+  "start": 28.165,
+  "end": 28.445
+ },
+ {
+  "word": "A",
+  "start": 28.705,
+  "end": 28.825
+ },
+ {
+  "word": "classification",
+  "start": 28.825,
+  "end": 29.205
+ },
+ {
+  "word": "center",
+  "start": 29.205,
+  "end": 29.765
+ },
+ {
+  "word": "does,",
+  "start": 29.765,
+  "end": 30.025
+ },
+ {
+  "word": "with",
+  "start": 30.025,
+  "end": 30.265
+ },
+ {
+  "word": "a",
+  "start": 30.265,
+  "end": 30.405
+ },
+ {
+  "word": "points",
+  "start": 30.405,
+  "end": 30.585
+ },
+ {
+  "word": "score.",
+  "start": 30.585,
+  "end": 30.905
+ },
+ {
+  "word": "To",
+  "start": 31.411,
+  "end": 31.591
+ },
+ {
+  "word": "get",
+  "start": 31.591,
+  "end": 31.671
+ },
+ {
+  "word": "out",
+  "start": 31.671,
+  "end": 31.831
+ },
+ {
+  "word": "of",
+  "start": 31.831,
+  "end": 31.931
+ },
+ {
+  "word": "his",
+  "start": 31.931,
+  "end": 32.031
+ },
+ {
+  "word": "cell,",
+  "start": 32.031,
+  "end": 32.291
+ },
+ {
+  "word": "Michael",
+  "start": 32.471,
+  "end": 32.591
+ },
+ {
+  "word": "needs",
+  "start": 32.591,
+  "end": 32.811
+ },
+ {
+  "word": "one",
+  "start": 32.811,
+  "end": 33.011
+ },
+ {
+  "word": "tool,",
+  "start": 33.011,
+  "end": 33.211
+ },
+ {
+  "word": "a",
+  "start": 33.611,
+  "end": 33.711
+ },
+ {
+  "word": "homemade",
+  "start": 33.711,
+  "end": 33.911
+ },
+ {
+  "word": "Allen",
+  "start": 33.911,
+  "end": 34.271
+ },
+ {
+  "word": "key,",
+  "start": 34.271,
+  "end": 34.511
+ },
+ {
+  "word": "to",
+  "start": 34.611,
+  "end": 34.671
+ },
+ {
+  "word": "open",
+  "start": 34.671,
+  "end": 34.851
+ },
+ {
+  "word": "the",
+  "start": 34.851,
+  "end": 34.991
+ },
+ {
+  "word": "steel",
+  "start": 34.991,
+  "end": 35.171
+ },
+ {
+  "word": "toilet.",
+  "start": 35.171,
+  "end": 35.451
+ },
+ {
+  "word": "But",
+  "start": 35.871,
+  "end": 36.071
+ },
+ {
+  "word": "in",
+  "start": 36.071,
+  "end": 36.211
+ },
+ {
+  "word": "a",
+  "start": 36.211,
+  "end": 36.331
+ },
+ {
+  "word": "real",
+  "start": 36.331,
+  "end": 36.451
+ },
+ {
+  "word": "prison,",
+  "start": 36.451,
+  "end": 36.731
+ },
+ {
+  "word": "every",
+  "start": 36.951,
+  "end": 37.131
+ },
+ {
+  "word": "tool",
+  "start": 37.131,
+  "end": 37.311
+ },
+ {
+  "word": "hangs",
+  "start": 37.311,
+  "end": 37.571
+ },
+ {
+  "word": "on",
+  "start": 37.571,
+  "end": 37.751
+ },
+ {
+  "word": "a",
+  "start": 37.751,
+  "end": 37.831
+ },
+ {
+  "word": "shadow",
+  "start": 37.831,
+  "end": 37.991
+ },
+ {
+  "word": "board,",
+  "start": 37.991,
+  "end": 38.271
+ },
+ {
+  "word": "and",
+  "start": 38.471,
+  "end": 38.651
+ },
+ {
+  "word": "gets",
+  "start": 38.651,
+  "end": 38.791
+ },
+ {
+  "word": "counted",
+  "start": 38.791,
+  "end": 39.071
+ },
+ {
+  "word": "every",
+  "start": 39.071,
+  "end": 39.331
+ },
+ {
+  "word": "time",
+  "start": 39.331,
+  "end": 39.511
+ },
+ {
+  "word": "the",
+  "start": 39.511,
+  "end": 39.671
+ },
+ {
+  "word": "cabinet",
+  "start": 39.671,
+  "end": 39.831
+ },
+ {
+  "word": "opens.",
+  "start": 39.831,
+  "end": 40.111
+ },
+ {
+  "word": "Behind",
+  "start": 40.531,
+  "end": 40.771
+ },
+ {
+  "word": "the",
+  "start": 40.771,
+  "end": 40.951
+ },
+ {
+  "word": "toilet",
+  "start": 40.951,
+  "end": 41.171
+ },
+ {
+  "word": "is",
+  "start": 41.171,
+  "end": 41.331
+ },
+ {
+  "word": "the",
+  "start": 41.331,
+  "end": 41.471
+ },
+ {
+  "word": "pipe",
+  "start": 41.471,
+  "end": 41.611
+ },
+ {
+  "word": "chase,",
+  "start": 41.611,
+  "end": 41.811
+ },
+ {
+  "word": "a",
+  "start": 41.811,
+  "end": 42.091
+ },
+ {
+  "word": "hidden",
+  "start": 42.091,
+  "end": 42.271
+ },
+ {
+  "word": "corridor",
+  "start": 42.271,
+  "end": 42.691
+ },
+ {
+  "word": "behind",
+  "start": 42.691,
+  "end": 42.911
+ },
+ {
+  "word": "the",
+  "start": 42.911,
+  "end": 43.051
+ },
+ {
+  "word": "cells.",
+  "start": 43.051,
+  "end": 43.291
+ },
+ {
+  "word": "And",
+  "start": 43.651,
+  "end": 43.791
+ },
+ {
+  "word": "this",
+  "start": 43.791,
+  "end": 43.951
+ },
+ {
+  "word": "part,",
+  "start": 43.951,
+  "end": 44.171
+ },
+ {
+  "word": "is",
+  "start": 44.171,
+  "end": 44.391
+ },
+ {
+  "word": "real.",
+  "start": 44.391,
+  "end": 44.611
+ },
+ {
+  "word": "In",
+  "start": 45.531,
+  "end": 45.631
+ },
+ {
+  "word": "2015,",
+  "start": 45.631,
+  "end": 46.091
+ },
+ {
+  "word": "2",
+  "start": 46.091,
+  "end": 46.651
+ },
+ {
+  "word": "inmates",
+  "start": 46.651,
+  "end": 46.891
+ },
+ {
+  "word": "in",
+  "start": 46.891,
+  "end": 47.151
+ },
+ {
+  "word": "New",
+  "start": 47.151,
+  "end": 47.271
+ },
+ {
+  "word": "York",
+  "start": 47.271,
+  "end": 47.471
+ },
+ {
+  "word": "cut",
+  "start": 47.471,
+  "end": 47.711
+ },
+ {
+  "word": "through",
+  "start": 47.711,
+  "end": 47.851
+ },
+ {
+  "word": "the",
+  "start": 47.851,
+  "end": 47.931
+ },
+ {
+  "word": "backs",
+  "start": 47.931,
+  "end": 48.111
+ },
+ {
+  "word": "of",
+  "start": 48.111,
+  "end": 48.231
+ },
+ {
+  "word": "their",
+  "start": 48.231,
+  "end": 48.351
+ },
+ {
+  "word": "cells,",
+  "start": 48.351,
+  "end": 48.651
+ },
+ {
+  "word": "crawled",
+  "start": 48.951,
+  "end": 49.191
+ },
+ {
+  "word": "along",
+  "start": 49.191,
+  "end": 49.351
+ },
+ {
+  "word": "the",
+  "start": 49.351,
+  "end": 49.511
+ },
+ {
+  "word": "pipes,",
+  "start": 49.511,
+  "end": 49.751
+ },
+ {
+  "word": "and",
+  "start": 50.031,
+  "end": 50.131
+ },
+ {
+  "word": "came",
+  "start": 50.131,
+  "end": 50.271
+ },
+ {
+  "word": "out",
+  "start": 50.271,
+  "end": 50.451
+ },
+ {
+  "word": "of",
+  "start": 50.451,
+  "end": 50.531
+ },
+ {
+  "word": "a",
+  "start": 50.531,
+  "end": 50.611
+ },
+ {
+  "word": "manhole",
+  "start": 50.611,
+  "end": 50.931
+ },
+ {
+  "word": "outside",
+  "start": 50.931,
+  "end": 51.251
+ },
+ {
+  "word": "the",
+  "start": 51.251,
+  "end": 51.451
+ },
+ {
+  "word": "walls.",
+  "start": 51.451,
+  "end": 51.711
+ },
+ {
+  "word": "But",
+  "start": 52.131,
+  "end": 52.271
+ },
+ {
+  "word": "it",
+  "start": 52.271,
+  "end": 52.371
+ },
+ {
+  "word": "took",
+  "start": 52.371,
+  "end": 52.471
+ },
+ {
+  "word": "them",
+  "start": 52.471,
+  "end": 52.671
+ },
+ {
+  "word": "more",
+  "start": 52.671,
+  "end": 52.831
+ },
+ {
+  "word": "than",
+  "start": 52.831,
+  "end": 52.971
+ },
+ {
+  "word": "4",
+  "start": 52.971,
+  "end": 53.151
+ },
+ {
+  "word": "weeks",
+  "start": 53.151,
+  "end": 53.371
+ },
+ {
+  "word": "with",
+  "start": 53.371,
+  "end": 53.571
+ },
+ {
+  "word": "hacksaw",
+  "start": 53.571,
+  "end": 53.871
+ },
+ {
+  "word": "blades,",
+  "start": 53.871,
+  "end": 54.131
+ },
+ {
+  "word": "smuggled",
+  "start": 54.131,
+  "end": 54.611
+ },
+ {
+  "word": "in,",
+  "start": 54.611,
+  "end": 54.811
+ },
+ {
+  "word": "inside",
+  "start": 55.071,
+  "end": 55.371
+ },
+ {
+  "word": "frozen",
+  "start": 55.371,
+  "end": 55.631
+ },
+ {
+  "word": "hamburger",
+  "start": 55.631,
+  "end": 55.991
+ },
+ {
+  "word": "meat.",
+  "start": 55.991,
+  "end": 56.291
+ },
+ {
+  "word": "Michael's",
+  "start": 56.731,
+  "end": 57.071
+ },
+ {
+  "word": "route",
+  "start": 57.071,
+  "end": 57.211
+ },
+ {
+  "word": "runs",
+  "start": 57.211,
+  "end": 57.431
+ },
+ {
+  "word": "through",
+  "start": 57.431,
+  "end": 57.611
+ },
+ {
+  "word": "the",
+  "start": 57.611,
+  "end": 57.731
+ },
+ {
+  "word": "infirmary,",
+  "start": 57.731,
+  "end": 58.211
+ },
+ {
+  "word": "so",
+  "start": 58.531,
+  "end": 58.671
+ },
+ {
+  "word": "he",
+  "start": 58.671,
+  "end": 58.811
+ },
+ {
+  "word": "fakes",
+  "start": 58.811,
+  "end": 59.051
+ },
+ {
+  "word": "type",
+  "start": 59.051,
+  "end": 59.251
+ },
+ {
+  "word": "1",
+  "start": 59.251,
+  "end": 59.451
+ },
+ {
+  "word": "diabetes,",
+  "start": 59.451,
+  "end": 59.751
+ },
+ {
+  "word": "with",
+  "start": 60.131,
+  "end": 60.251
+ },
+ {
+  "word": "pills",
+  "start": 60.251,
+  "end": 60.471
+ },
+ {
+  "word": "called",
+  "start": 60.471,
+  "end": 60.711
+ },
+ {
+  "word": "Pugnac.",
+  "start": 60.711,
+  "end": 61.221
+ },
+ {
+  "word": "Pugnac",
+  "start": 61.221,
+  "end": 61.731
+ },
+ {
+  "word": "is",
+  "start": 61.731,
+  "end": 61.851
+ },
+ {
+  "word": "real.",
+  "start": 61.851,
+  "end": 62.131
+ },
+ {
+  "word": "In",
+  "start": 62.557,
+  "end": 62.631
+ },
+ {
+  "word": "the",
+  "start": 62.631,
+  "end": 62.771
+ },
+ {
+  "word": "lab,",
+  "start": 62.771,
+  "end": 62.991
+ },
+ {
+  "word": "it",
+  "start": 63.111,
+  "end": 63.191
+ },
+ {
+  "word": "makes",
+  "start": 63.191,
+  "end": 63.351
+ },
+ {
+  "word": "fat",
+  "start": 63.351,
+  "end": 63.611
+ },
+ {
+  "word": "cells",
+  "start": 63.611,
+  "end": 63.871
+ },
+ {
+  "word": "ignore",
+  "start": 63.871,
+  "end": 64.191
+ },
+ {
+  "word": "insulin.",
+  "start": 64.191,
+  "end": 64.651
+ },
+ {
+  "word": "But",
+  "start": 64.871,
+  "end": 65.031
+ },
+ {
+  "word": "that",
+  "start": 65.031,
+  "end": 65.151
+ },
+ {
+  "word": "looks",
+  "start": 65.151,
+  "end": 65.351
+ },
+ {
+  "word": "like",
+  "start": 65.351,
+  "end": 65.511
+ },
+ {
+  "word": "type",
+  "start": 65.511,
+  "end": 65.651
+ },
+ {
+  "word": "2,",
+  "start": 65.651,
+  "end": 65.891
+ },
+ {
+  "word": "not",
+  "start": 66.091,
+  "end": 66.151
+ },
+ {
+  "word": "type",
+  "start": 66.151,
+  "end": 66.391
+ },
+ {
+  "word": "1.",
+  "start": 66.391,
+  "end": 66.651
+ },
+ {
+  "word": "A",
+  "start": 66.988,
+  "end": 67.071
+ },
+ {
+  "word": "blood",
+  "start": 67.071,
+  "end": 67.211
+ },
+ {
+  "word": "test",
+  "start": 67.211,
+  "end": 67.471
+ },
+ {
+  "word": "looks",
+  "start": 67.471,
+  "end": 67.631
+ },
+ {
+  "word": "for",
+  "start": 67.631,
+  "end": 67.791
+ },
+ {
+  "word": "type",
+  "start": 67.791,
+  "end": 67.991
+ },
+ {
+  "word": "1",
+  "start": 67.991,
+  "end": 68.171
+ },
+ {
+  "word": "antibodies,",
+  "start": 68.171,
+  "end": 68.571
+ },
+ {
+  "word": "and",
+  "start": 68.571,
+  "end": 68.891
+ },
+ {
+  "word": "his",
+  "start": 68.891,
+  "end": 69.071
+ },
+ {
+  "word": "would",
+  "start": 69.071,
+  "end": 69.251
+ },
+ {
+  "word": "come",
+  "start": 69.251,
+  "end": 69.371
+ },
+ {
+  "word": "back",
+  "start": 69.371,
+  "end": 69.531
+ },
+ {
+  "word": "clean.",
+  "start": 69.531,
+  "end": 69.791
+ },
+ {
+  "word": "Then",
+  "start": 70.291,
+  "end": 70.451
+ },
+ {
+  "word": "he",
+  "start": 70.451,
+  "end": 70.571
+ },
+ {
+  "word": "mixes",
+  "start": 70.571,
+  "end": 70.811
+ },
+ {
+  "word": "copper",
+  "start": 70.811,
+  "end": 71.091
+ },
+ {
+  "word": "sulfate",
+  "start": 71.091,
+  "end": 71.511
+ },
+ {
+  "word": "and",
+  "start": 71.511,
+  "end": 71.731
+ },
+ {
+  "word": "phosphoric",
+  "start": 71.731,
+  "end": 72.131
+ },
+ {
+  "word": "acid,",
+  "start": 72.131,
+  "end": 72.471
+ },
+ {
+  "word": "to",
+  "start": 72.471,
+  "end": 72.831
+ },
+ {
+  "word": "eat",
+  "start": 72.831,
+  "end": 72.991
+ },
+ {
+  "word": "through",
+  "start": 72.991,
+  "end": 73.131
+ },
+ {
+  "word": "an",
+  "start": 73.131,
+  "end": 73.251
+ },
+ {
+  "word": "iron",
+  "start": 73.251,
+  "end": 73.411
+ },
+ {
+  "word": "pipe.",
+  "start": 73.411,
+  "end": 73.731
+ },
+ {
+  "word": "He",
+  "start": 74.031,
+  "end": 74.131
+ },
+ {
+  "word": "calls",
+  "start": 74.131,
+  "end": 74.331
+ },
+ {
+  "word": "it,",
+  "start": 74.331,
+  "end": 74.531
+ },
+ {
+  "word": "Cute",
+  "start": 74.531,
+  "end": 74.851
+ },
+ {
+  "word": "Poison.",
+  "start": 74.851,
+  "end": 75.231
+ },
+ {
+  "word": "But",
+  "start": 75.679,
+  "end": 75.811
+ },
+ {
+  "word": "there's",
+  "start": 75.811,
+  "end": 76.031
+ },
+ {
+  "word": "no",
+  "start": 76.031,
+  "end": 76.151
+ },
+ {
+  "word": "proof",
+  "start": 76.151,
+  "end": 76.371
+ },
+ {
+  "word": "that",
+  "start": 76.371,
+  "end": 76.511
+ },
+ {
+  "word": "mix",
+  "start": 76.511,
+  "end": 76.691
+ },
+ {
+  "word": "eats",
+  "start": 76.691,
+  "end": 76.931
+ },
+ {
+  "word": "through",
+  "start": 76.931,
+  "end": 77.131
+ },
+ {
+  "word": "iron.",
+  "start": 77.131,
+  "end": 77.451
+ },
+ {
+  "word": "Phosphoric",
+  "start": 77.891,
+  "end": 78.251
+ },
+ {
+  "word": "acid",
+  "start": 78.251,
+  "end": 78.591
+ },
+ {
+  "word": "is",
+  "start": 78.591,
+  "end": 78.771
+ },
+ {
+  "word": "literally",
+  "start": 78.771,
+  "end": 79.071
+ },
+ {
+  "word": "sold",
+  "start": 79.071,
+  "end": 79.371
+ },
+ {
+  "word": "to",
+  "start": 79.371,
+  "end": 79.531
+ },
+ {
+  "word": "remove",
+  "start": 79.531,
+  "end": 79.771
+ },
+ {
+  "word": "rust.",
+  "start": 79.771,
+  "end": 80.111
+ },
+ {
+  "word": "His",
+  "start": 80.571,
+  "end": 80.671
+ },
+ {
+  "word": "crew",
+  "start": 80.671,
+  "end": 80.931
+ },
+ {
+  "word": "even",
+  "start": 80.931,
+  "end": 81.151
+ },
+ {
+  "word": "includes",
+  "start": 81.151,
+  "end": 81.491
+ },
+ {
+  "word": "an",
+  "start": 81.491,
+  "end": 81.651
+ },
+ {
+  "word": "old",
+  "start": 81.651,
+  "end": 81.851
+ },
+ {
+  "word": "man",
+  "start": 81.851,
+  "end": 82.071
+ },
+ {
+  "word": "who",
+  "start": 82.071,
+  "end": 82.271
+ },
+ {
+  "word": "might",
+  "start": 82.271,
+  "end": 82.451
+ },
+ {
+  "word": "be",
+  "start": 82.451,
+  "end": 82.611
+ },
+ {
+  "word": "D.B.",
+  "start": 82.611,
+  "end": 82.971
+ },
+ {
+  "word": "Cooper.",
+  "start": 82.971,
+  "end": 83.111
+ },
+ {
+  "word": "On",
+  "start": 83.451,
+  "end": 83.591
+ },
+ {
+  "word": "the",
+  "start": 83.591,
+  "end": 83.711
+ },
+ {
+  "word": "night,",
+  "start": 83.711,
+  "end": 83.931
+ },
+ {
+  "word": "8",
+  "start": 84.25,
+  "end": 84.371
+ },
+ {
+  "word": "men",
+  "start": 84.371,
+  "end": 84.571
+ },
+ {
+  "word": "get",
+  "start": 84.571,
+  "end": 84.791
+ },
+ {
+  "word": "out.",
+  "start": 84.791,
+  "end": 85.051
+ },
+ {
+  "word": "But",
+  "start": 85.46,
+  "end": 85.571
+ },
+ {
+  "word": "real",
+  "start": 85.571,
+  "end": 85.771
+ },
+ {
+  "word": "prisons",
+  "start": 85.771,
+  "end": 86.071
+ },
+ {
+  "word": "count",
+  "start": 86.071,
+  "end": 86.351
+ },
+ {
+  "word": "you",
+  "start": 86.351,
+  "end": 86.511
+ },
+ {
+  "word": "at",
+  "start": 86.511,
+  "end": 86.611
+ },
+ {
+  "word": "night.",
+  "start": 86.611,
+  "end": 86.811
+ },
+ {
+  "word": "One",
+  "start": 87.28,
+  "end": 87.411
+ },
+ {
+  "word": "federal",
+  "start": 87.411,
+  "end": 87.631
+ },
+ {
+  "word": "handbook",
+  "start": 87.631,
+  "end": 88.091
+ },
+ {
+  "word": "lists",
+  "start": 88.091,
+  "end": 88.391
+ },
+ {
+  "word": "midnight,",
+  "start": 88.391,
+  "end": 88.751
+ },
+ {
+  "word": "3,",
+  "start": 88.751,
+  "end": 89.013
+ },
+ {
+  "word": "and",
+  "start": 89.431,
+  "end": 89.691
+ },
+ {
+  "word": "5",
+  "start": 89.691,
+  "end": 90.091
+ },
+ {
+  "word": "AM.",
+  "start": 90.091,
+  "end": 90.424
+ },
+ {
+  "word": "Every",
+  "start": 90.691,
+  "end": 90.851
+ },
+ {
+  "word": "man",
+  "start": 90.851,
+  "end": 91.051
+ },
+ {
+  "word": "at",
+  "start": 91.051,
+  "end": 91.191
+ },
+ {
+  "word": "his",
+  "start": 91.191,
+  "end": 91.311
+ },
+ {
+  "word": "bunk.",
+  "start": 91.311,
+  "end": 91.551
+ },
+ {
+  "word": "And",
+  "start": 91.927,
+  "end": 92.011
+ },
+ {
+  "word": "every",
+  "start": 92.011,
+  "end": 92.211
+ },
+ {
+  "word": "phone",
+  "start": 92.211,
+  "end": 92.431
+ },
+ {
+  "word": "call",
+  "start": 92.431,
+  "end": 92.631
+ },
+ {
+  "word": "Michael",
+  "start": 92.631,
+  "end": 92.891
+ },
+ {
+  "word": "made",
+  "start": 92.891,
+  "end": 93.111
+ },
+ {
+  "word": "to",
+  "start": 93.111,
+  "end": 93.251
+ },
+ {
+  "word": "plan",
+  "start": 93.251,
+  "end": 93.371
+ },
+ {
+  "word": "it,",
+  "start": 93.371,
+  "end": 93.491
+ },
+ {
+  "word": "was",
+  "start": 93.491,
+  "end": 93.831
+ },
+ {
+  "word": "recorded.",
+  "start": 93.831,
+  "end": 94.211
+ },
+ {
+  "word": "The",
+  "start": 94.711,
+  "end": 94.811
+ },
+ {
+  "word": "last",
+  "start": 94.811,
+  "end": 95.111
+ },
+ {
+  "word": "step",
+  "start": 95.111,
+  "end": 95.351
+ },
+ {
+  "word": "is",
+  "start": 95.351,
+  "end": 95.571
+ },
+ {
+  "word": "the",
+  "start": 95.571,
+  "end": 95.711
+ },
+ {
+  "word": "wall.",
+  "start": 95.711,
+  "end": 96.011
+ },
+ {
+  "word": "The",
+  "start": 96.471,
+  "end": 96.531
+ },
+ {
+  "word": "crew",
+  "start": 96.531,
+  "end": 96.751
+ },
+ {
+  "word": "climbs",
+  "start": 96.751,
+  "end": 96.991
+ },
+ {
+  "word": "out",
+  "start": 96.991,
+  "end": 97.251
+ },
+ {
+  "word": "of",
+  "start": 97.251,
+  "end": 97.351
+ },
+ {
+  "word": "the",
+  "start": 97.351,
+  "end": 97.431
+ },
+ {
+  "word": "infirmary",
+  "start": 97.431,
+  "end": 97.911
+ },
+ {
+  "word": "window,",
+  "start": 97.911,
+  "end": 98.271
+ },
+ {
+  "word": "along",
+  "start": 98.271,
+  "end": 98.611
+ },
+ {
+  "word": "a",
+  "start": 98.611,
+  "end": 98.811
+ },
+ {
+  "word": "cable,",
+  "start": 98.811,
+  "end": 99.091
+ },
+ {
+  "word": "and",
+  "start": 99.091,
+  "end": 99.331
+ },
+ {
+  "word": "over",
+  "start": 99.331,
+  "end": 99.551
+ },
+ {
+  "word": "the",
+  "start": 99.551,
+  "end": 99.691
+ },
+ {
+  "word": "top.",
+  "start": 99.691,
+  "end": 99.951
+ },
+ {
+  "word": "But",
+  "start": 100.569,
+  "end": 100.689
+ },
+ {
+  "word": "a",
+  "start": 100.689,
+  "end": 100.749
+ },
+ {
+  "word": "real",
+  "start": 100.749,
+  "end": 100.929
+ },
+ {
+  "word": "perimeter",
+  "start": 100.929,
+  "end": 101.249
+ },
+ {
+  "word": "is",
+  "start": 101.249,
+  "end": 101.589
+ },
+ {
+  "word": "more",
+  "start": 101.589,
+  "end": 101.769
+ },
+ {
+  "word": "than",
+  "start": 101.769,
+  "end": 101.909
+ },
+ {
+  "word": "a",
+  "start": 101.909,
+  "end": 102.009
+ },
+ {
+  "word": "wall.",
+  "start": 102.009,
+  "end": 102.269
+ },
+ {
+  "word": "Razor",
+  "start": 102.509,
+  "end": 102.789
+ },
+ {
+  "word": "wire,",
+  "start": 102.789,
+  "end": 103.069
+ },
+ {
+  "word": "cameras,",
+  "start": 103.269,
+  "end": 103.549
+ },
+ {
+  "word": "armed",
+  "start": 103.789,
+  "end": 103.909
+ },
+ {
+  "word": "towers,",
+  "start": 103.909,
+  "end": 104.189
+ },
+ {
+  "word": "and",
+  "start": 104.409,
+  "end": 104.449
+ },
+ {
+  "word": "sensors",
+  "start": 104.449,
+  "end": 104.729
+ },
+ {
+  "word": "that",
+  "start": 104.729,
+  "end": 105.009
+ },
+ {
+  "word": "feel",
+  "start": 105.009,
+  "end": 105.169
+ },
+ {
+  "word": "the",
+  "start": 105.169,
+  "end": 105.289
+ },
+ {
+  "word": "fence",
+  "start": 105.289,
+  "end": 105.429
+ },
+ {
+  "word": "move.",
+  "start": 105.429,
+  "end": 105.749
+ },
+ {
+  "word": "Some",
+  "start": 106.347,
+  "end": 106.555
+ },
+ {
+  "word": "California",
+  "start": 106.555,
+  "end": 106.951
+ },
+ {
+  "word": "prisons",
+  "start": 106.951,
+  "end": 107.31
+ },
+ {
+  "word": "even",
+  "start": 107.31,
+  "end": 107.593
+ },
+ {
+  "word": "run",
+  "start": 107.593,
+  "end": 107.781
+ },
+ {
+  "word": "5,000",
+  "start": 107.781,
+  "end": 108.291
+ },
+ {
+  "word": "volts",
+  "start": 108.291,
+  "end": 108.536
+ },
+ {
+  "word": "between",
+  "start": 108.536,
+  "end": 108.857
+ },
+ {
+  "word": "2",
+  "start": 108.857,
+  "end": 109.027
+ },
+ {
+  "word": "fences.",
+  "start": 109.027,
+  "end": 109.291
+ },
+ {
+  "word": "The",
+  "start": 109.725,
+  "end": 109.838
+ },
+ {
+  "word": "2",
+  "start": 109.838,
+  "end": 109.97
+ },
+ {
+  "word": "men",
+  "start": 109.97,
+  "end": 110.121
+ },
+ {
+  "word": "in",
+  "start": 110.121,
+  "end": 110.234
+ },
+ {
+  "word": "New",
+  "start": 110.234,
+  "end": 110.366
+ },
+ {
+  "word": "York",
+  "start": 110.366,
+  "end": 110.593
+ },
+ {
+  "word": "never",
+  "start": 110.593,
+  "end": 110.819
+ },
+ {
+  "word": "touched",
+  "start": 110.819,
+  "end": 111.064
+ },
+ {
+  "word": "the",
+  "start": 111.064,
+  "end": 111.215
+ },
+ {
+  "word": "wall.",
+  "start": 111.215,
+  "end": 111.423
+ },
+ {
+  "word": "They",
+  "start": 111.649,
+  "end": 111.725
+ },
+ {
+  "word": "went",
+  "start": 111.725,
+  "end": 111.857
+ },
+ {
+  "word": "under",
+  "start": 111.857,
+  "end": 112.083
+ },
+ {
+  "word": "it.",
+  "start": 112.083,
+  "end": 112.272
+ },
+ {
+  "word": "And",
+  "start": 112.837,
+  "end": 112.937
+ },
+ {
+  "word": "in",
+  "start": 112.937,
+  "end": 113.037
+ },
+ {
+  "word": "2012,",
+  "start": 113.037,
+  "end": 113.657
+ },
+ {
+  "word": "2",
+  "start": 114.057,
+  "end": 114.157
+ },
+ {
+  "word": "bank",
+  "start": 114.157,
+  "end": 114.377
+ },
+ {
+  "word": "robbers",
+  "start": 114.377,
+  "end": 114.697
+ },
+ {
+  "word": "climbed",
+  "start": 114.697,
+  "end": 114.857
+ },
+ {
+  "word": "down",
+  "start": 114.857,
+  "end": 115.057
+ },
+ {
+  "word": "17",
+  "start": 115.057,
+  "end": 115.437
+ },
+ {
+  "word": "floors",
+  "start": 115.437,
+  "end": 115.797
+ },
+ {
+  "word": "of",
+  "start": 115.797,
+  "end": 116.037
+ },
+ {
+  "word": "a",
+  "start": 116.037,
+  "end": 116.117
+ },
+ {
+  "word": "federal",
+  "start": 116.117,
+  "end": 116.317
+ },
+ {
+  "word": "jail",
+  "start": 116.317,
+  "end": 116.577
+ },
+ {
+  "word": "in",
+  "start": 116.577,
+  "end": 116.737
+ },
+ {
+  "word": "Chicago,",
+  "start": 116.737,
+  "end": 117.057
+ },
+ {
+  "word": "on",
+  "start": 117.057,
+  "end": 117.517
+ },
+ {
+  "word": "bedsheets",
+  "start": 117.517,
+  "end": 117.977
+ },
+ {
+  "word": "and",
+  "start": 117.977,
+  "end": 118.077
+ },
+ {
+  "word": "dental",
+  "start": 118.077,
+  "end": 118.337
+ },
+ {
+  "word": "floss.",
+  "start": 118.337,
+  "end": 118.617
+ },
+ {
+  "word": "Both",
+  "start": 119.017,
+  "end": 119.217
+ },
+ {
+  "word": "were",
+  "start": 119.217,
+  "end": 119.397
+ },
+ {
+  "word": "caught",
+  "start": 119.397,
+  "end": 119.577
+ },
+ {
+  "word": "within",
+  "start": 119.577,
+  "end": 119.777
+ },
+ {
+  "word": "3",
+  "start": 119.777,
+  "end": 120.057
+ },
+ {
+  "word": "weeks.",
+  "start": 120.057,
+  "end": 120.297
+ },
+ {
+  "word": "Then",
+  "start": 121.091,
+  "end": 121.305
+ },
+ {
+  "word": "comes",
+  "start": 121.305,
+  "end": 121.565
+ },
+ {
+  "word": "the",
+  "start": 121.565,
+  "end": 121.765
+ },
+ {
+  "word": "manhunt.",
+  "start": 121.765,
+  "end": 122.205
+ },
+ {
+  "word": "In",
+  "start": 122.572,
+  "end": 122.645
+ },
+ {
+  "word": "a",
+  "start": 122.645,
+  "end": 122.745
+ },
+ {
+  "word": "study",
+  "start": 122.745,
+  "end": 122.905
+ },
+ {
+  "word": "of",
+  "start": 122.905,
+  "end": 123.065
+ },
+ {
+  "word": "610",
+  "start": 123.065,
+  "end": 123.465
+ },
+ {
+  "word": "escapes,",
+  "start": 123.465,
+  "end": 124.005
+ },
+ {
+  "word": "more",
+  "start": 124.205,
+  "end": 124.285
+ },
+ {
+  "word": "than",
+  "start": 124.285,
+  "end": 124.425
+ },
+ {
+  "word": "91",
+  "start": 124.425,
+  "end": 124.765
+ },
+ {
+  "word": "percent",
+  "start": 124.765,
+  "end": 125.105
+ },
+ {
+  "word": "were",
+  "start": 125.105,
+  "end": 125.285
+ },
+ {
+  "word": "caught",
+  "start": 125.285,
+  "end": 125.465
+ },
+ {
+  "word": "within",
+  "start": 125.465,
+  "end": 125.685
+ },
+ {
+  "word": "a",
+  "start": 125.685,
+  "end": 125.805
+ },
+ {
+  "word": "year.",
+  "start": 125.805,
+  "end": 126.045
+ },
+ {
+  "word": "The",
+  "start": 126.445,
+  "end": 126.495
+ },
+ {
+  "word": "2",
+  "start": 126.465,
+  "end": 126.645
+ },
+ {
+  "word": "men",
+  "start": 126.645,
+  "end": 126.825
+ },
+ {
+  "word": "in",
+  "start": 126.825,
+  "end": 126.905
+ },
+ {
+  "word": "New",
+  "start": 126.905,
+  "end": 127.025
+ },
+ {
+  "word": "York",
+  "start": 127.025,
+  "end": 127.205
+ },
+ {
+  "word": "lasted",
+  "start": 127.205,
+  "end": 127.525
+ },
+ {
+  "word": "22",
+  "start": 127.525,
+  "end": 127.885
+ },
+ {
+  "word": "days.",
+  "start": 127.885,
+  "end": 128.265
+ },
+ {
+  "word": "One",
+  "start": 128.705,
+  "end": 128.805
+ },
+ {
+  "word": "was",
+  "start": 128.805,
+  "end": 128.945
+ },
+ {
+  "word": "shot",
+  "start": 128.945,
+  "end": 129.145
+ },
+ {
+  "word": "dead.",
+  "start": 129.145,
+  "end": 129.405
+ },
+ {
+  "word": "The",
+  "start": 129.665,
+  "end": 129.745
+ },
+ {
+  "word": "other",
+  "start": 129.745,
+  "end": 129.965
+ },
+ {
+  "word": "was",
+  "start": 129.965,
+  "end": 130.165
+ },
+ {
+  "word": "shot,",
+  "start": 130.165,
+  "end": 130.425
+ },
+ {
+  "word": "and",
+  "start": 130.425,
+  "end": 130.625
+ },
+ {
+  "word": "caught.",
+  "start": 130.625,
+  "end": 130.885
+ },
+ {
+  "word": "And",
+  "start": 131.357,
+  "end": 131.425
+ },
+ {
+  "word": "the",
+  "start": 131.425,
+  "end": 131.525
+ },
+ {
+  "word": "police",
+  "start": 131.525,
+  "end": 131.685
+ },
+ {
+  "word": "don't",
+  "start": 131.685,
+  "end": 131.925
+ },
+ {
+  "word": "even",
+  "start": 131.925,
+  "end": 132.065
+ },
+ {
+  "word": "have",
+  "start": 132.065,
+  "end": 132.245
+ },
+ {
+  "word": "to",
+  "start": 132.245,
+  "end": 132.365
+ },
+ {
+  "word": "guess",
+  "start": 132.365,
+  "end": 132.505
+ },
+ {
+  "word": "where",
+  "start": 132.505,
+  "end": 132.685
+ },
+ {
+  "word": "Michael",
+  "start": 132.685,
+  "end": 132.885
+ },
+ {
+  "word": "went.",
+  "start": 132.885,
+  "end": 133.205
+ },
+ {
+  "word": "Remember",
+  "start": 133.545,
+  "end": 133.785
+ },
+ {
+  "word": "that",
+  "start": 133.785,
+  "end": 134.065
+ },
+ {
+  "word": "photo",
+  "start": 134.065,
+  "end": 134.305
+ },
+ {
+  "word": "from",
+  "start": 134.305,
+  "end": 134.525
+ },
+ {
+  "word": "day",
+  "start": 134.525,
+  "end": 134.705
+ },
+ {
+  "word": "1?",
+  "start": 134.705,
+  "end": 135.137
+ },
+ {
+  "word": "His",
+  "start": 135.386,
+  "end": 135.465
+ },
+ {
+  "word": "whole",
+  "start": 135.465,
+  "end": 135.625
+ },
+ {
+  "word": "plan",
+  "start": 135.625,
+  "end": 135.925
+ },
+ {
+  "word": "is",
+  "start": 135.925,
+  "end": 136.125
+ },
+ {
+  "word": "already",
+  "start": 136.125,
+  "end": 136.445
+ },
+ {
+  "word": "in",
+  "start": 136.445,
+  "end": 136.625
+ },
+ {
+  "word": "the",
+  "start": 136.625,
+  "end": 136.705
+ },
+ {
+  "word": "file.",
+  "start": 136.705,
+  "end": 136.985
+ },
+ {
+  "word": "Every",
+  "start": 137.371,
+  "end": 137.585
+ },
+ {
+  "word": "pipe,",
+  "start": 137.585,
+  "end": 137.865
+ },
+ {
+  "word": "every",
+  "start": 138.145,
+  "end": 138.325
+ },
+ {
+  "word": "door,",
+  "start": 138.325,
+  "end": 138.605
+ },
+ {
+  "word": "every",
+  "start": 138.805,
+  "end": 139.005
+ },
+ {
+  "word": "clue.",
+  "start": 139.005,
+  "end": 139.325
+ },
+ {
+  "word": "In",
+  "start": 139.765,
+  "end": 139.865
+ },
+ {
+  "word": "the",
+  "start": 139.865,
+  "end": 139.945
+ },
+ {
+  "word": "show",
+  "start": 139.945,
+  "end": 140.125
+ },
+ {
+  "word": "itself,",
+  "start": 140.125,
+  "end": 140.445
+ },
+ {
+  "word": "an",
+  "start": 140.565,
+  "end": 140.645
+ },
+ {
+  "word": "FBI",
+  "start": 140.645,
+  "end": 140.925
+ },
+ {
+  "word": "agent",
+  "start": 140.925,
+  "end": 141.325
+ },
+ {
+  "word": "reads",
+  "start": 141.325,
+  "end": 141.525
+ },
+ {
+  "word": "his",
+  "start": 141.525,
+  "end": 141.665
+ },
+ {
+  "word": "tattoos",
+  "start": 141.665,
+  "end": 142.025
+ },
+ {
+  "word": "like",
+  "start": 142.025,
+  "end": 142.285
+ },
+ {
+  "word": "a",
+  "start": 142.285,
+  "end": 142.385
+ },
+ {
+  "word": "map,",
+  "start": 142.385,
+  "end": 142.625
+ },
+ {
+  "word": "and",
+  "start": 142.625,
+  "end": 142.865
+ },
+ {
+  "word": "follows",
+  "start": 142.865,
+  "end": 143.185
+ },
+ {
+  "word": "him.",
+  "start": 143.185,
+  "end": 143.465
+ },
+ {
+  "word": "Congratulations,",
+  "start": 143.865,
+  "end": 144.245
+ },
+ {
+  "word": "Michael.",
+  "start": 144.565,
+  "end": 144.745
+ },
+ {
+  "word": "Your",
+  "start": 145.045,
+  "end": 145.065
+ },
+ {
+  "word": "plan",
+  "start": 145.065,
+  "end": 145.285
+ },
+ {
+  "word": "works",
+  "start": 145.285,
+  "end": 145.505
+ },
+ {
+  "word": "perfectly,",
+  "start": 145.505,
+  "end": 145.865
+ },
+ {
+  "word": "on",
+  "start": 146.365,
+  "end": 146.645
+ },
+ {
+  "word": "Fox.",
+  "start": 146.645,
+  "end": 146.845
+ },
+ {
+  "word": "So,",
+  "start": 147.585,
+  "end": 147.825
+ },
+ {
+  "word": "be",
+  "start": 147.985,
+  "end": 148.085
+ },
+ {
+  "word": "honest.",
+  "start": 148.085,
+  "end": 148.285
+ }
+]

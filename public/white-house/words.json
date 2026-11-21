@@ -1,0 +1,1382 @@
+[
+ {
+  "word": "Robbers",
+  "start": 0.0,
+  "end": 0.38
+ },
+ {
+  "word": "want",
+  "start": 0.38,
+  "end": 0.54
+ },
+ {
+  "word": "to",
+  "start": 0.54,
+  "end": 0.68
+ },
+ {
+  "word": "steal",
+  "start": 0.68,
+  "end": 0.86
+ },
+ {
+  "word": "your",
+  "start": 0.86,
+  "end": 1.04
+ },
+ {
+  "word": "friend's",
+  "start": 1.04,
+  "end": 1.38
+ },
+ {
+  "word": "giant",
+  "start": 1.38,
+  "end": 1.64
+ },
+ {
+  "word": "pocket",
+  "start": 1.64,
+  "end": 1.96
+ },
+ {
+  "word": "puh.",
+  "start": 1.96,
+  "end": 2.44
+ },
+ {
+  "word": "So",
+  "start": 2.673,
+  "end": 2.76
+ },
+ {
+  "word": "you",
+  "start": 2.76,
+  "end": 2.9
+ },
+ {
+  "word": "put",
+  "start": 2.9,
+  "end": 3.04
+ },
+ {
+  "word": "it",
+  "start": 3.04,
+  "end": 3.16
+ },
+ {
+  "word": "in",
+  "start": 3.16,
+  "end": 3.28
+ },
+ {
+  "word": "a",
+  "start": 3.28,
+  "end": 3.38
+ },
+ {
+  "word": "nice",
+  "start": 3.38,
+  "end": 3.52
+ },
+ {
+  "word": "little",
+  "start": 3.52,
+  "end": 3.72
+ },
+ {
+  "word": "house.",
+  "start": 3.72,
+  "end": 4.06
+ },
+ {
+  "word": "But",
+  "start": 4.55,
+  "end": 4.68
+ },
+ {
+  "word": "the",
+  "start": 4.68,
+  "end": 4.78
+ },
+ {
+  "word": "robbers",
+  "start": 4.78,
+  "end": 5.12
+ },
+ {
+  "word": "just",
+  "start": 5.12,
+  "end": 5.3
+ },
+ {
+  "word": "walk",
+  "start": 5.3,
+  "end": 5.54
+ },
+ {
+  "word": "in",
+  "start": 5.54,
+  "end": 5.7
+ },
+ {
+  "word": "through",
+  "start": 5.7,
+  "end": 5.84
+ },
+ {
+  "word": "the",
+  "start": 5.84,
+  "end": 5.94
+ },
+ {
+  "word": "front",
+  "start": 5.94,
+  "end": 6.12
+ },
+ {
+  "word": "door.",
+  "start": 6.12,
+  "end": 6.42
+ },
+ {
+  "word": "Sounds",
+  "start": 6.68,
+  "end": 6.94
+ },
+ {
+  "word": "dumb?",
+  "start": 6.94,
+  "end": 7.26
+ },
+ {
+  "word": "In",
+  "start": 7.68,
+  "end": 7.773
+ },
+ {
+  "word": "2014,",
+  "start": 7.773,
+  "end": 8.413
+ },
+ {
+  "word": "that",
+  "start": 8.633,
+  "end": 8.773
+ },
+ {
+  "word": "really",
+  "start": 8.773,
+  "end": 8.973
+ },
+ {
+  "word": "happened,",
+  "start": 8.973,
+  "end": 9.333
+ },
+ {
+  "word": "at",
+  "start": 9.333,
+  "end": 9.633
+ },
+ {
+  "word": "a",
+  "start": 9.633,
+  "end": 9.713
+ },
+ {
+  "word": "very",
+  "start": 9.713,
+  "end": 9.913
+ },
+ {
+  "word": "famous",
+  "start": 9.913,
+  "end": 10.193
+ },
+ {
+  "word": "house.",
+  "start": 10.193,
+  "end": 10.553
+ },
+ {
+  "word": "So",
+  "start": 10.941,
+  "end": 11.053
+ },
+ {
+  "word": "you",
+  "start": 11.053,
+  "end": 11.193
+ },
+ {
+  "word": "lock",
+  "start": 11.193,
+  "end": 11.393
+ },
+ {
+  "word": "the",
+  "start": 11.393,
+  "end": 11.513
+ },
+ {
+  "word": "door,",
+  "start": 11.513,
+  "end": 11.733
+ },
+ {
+  "word": "and",
+  "start": 11.733,
+  "end": 11.973
+ },
+ {
+  "word": "put",
+  "start": 11.973,
+  "end": 12.113
+ },
+ {
+  "word": "guards",
+  "start": 12.113,
+  "end": 12.353
+ },
+ {
+  "word": "behind",
+  "start": 12.353,
+  "end": 12.613
+ },
+ {
+  "word": "it.",
+  "start": 12.613,
+  "end": 12.869
+ },
+ {
+  "word": "But",
+  "start": 13.175,
+  "end": 13.273
+ },
+ {
+  "word": "the",
+  "start": 13.273,
+  "end": 13.393
+ },
+ {
+  "word": "robbers",
+  "start": 13.393,
+  "end": 13.753
+ },
+ {
+  "word": "climb",
+  "start": 13.753,
+  "end": 13.973
+ },
+ {
+  "word": "the",
+  "start": 13.973,
+  "end": 14.193
+ },
+ {
+  "word": "fence.",
+  "start": 14.193,
+  "end": 14.473
+ },
+ {
+  "word": "So",
+  "start": 14.936,
+  "end": 15.113
+ },
+ {
+  "word": "you",
+  "start": 15.113,
+  "end": 15.313
+ },
+ {
+  "word": "build",
+  "start": 15.313,
+  "end": 15.513
+ },
+ {
+  "word": "a",
+  "start": 15.513,
+  "end": 15.653
+ },
+ {
+  "word": "new",
+  "start": 15.653,
+  "end": 15.773
+ },
+ {
+  "word": "fence,",
+  "start": 15.773,
+  "end": 16.113
+ },
+ {
+  "word": "4",
+  "start": 16.333,
+  "end": 16.493
+ },
+ {
+  "word": "metres",
+  "start": 16.493,
+  "end": 16.673
+ },
+ {
+  "word": "tall,",
+  "start": 16.673,
+  "end": 17.073
+ },
+ {
+  "word": "with",
+  "start": 17.253,
+  "end": 17.353
+ },
+ {
+  "word": "spikes",
+  "start": 17.353,
+  "end": 17.653
+ },
+ {
+  "word": "on",
+  "start": 17.653,
+  "end": 17.953
+ },
+ {
+  "word": "top.",
+  "start": 17.953,
+  "end": 18.213
+ },
+ {
+  "word": "But",
+  "start": 18.535,
+  "end": 18.633
+ },
+ {
+  "word": "they",
+  "start": 18.633,
+  "end": 18.793
+ },
+ {
+  "word": "drive",
+  "start": 18.793,
+  "end": 19.013
+ },
+ {
+  "word": "a",
+  "start": 19.013,
+  "end": 19.153
+ },
+ {
+  "word": "truck",
+  "start": 19.153,
+  "end": 19.313
+ },
+ {
+  "word": "into",
+  "start": 19.313,
+  "end": 19.553
+ },
+ {
+  "word": "it.",
+  "start": 19.553,
+  "end": 19.793
+ },
+ {
+  "word": "So",
+  "start": 19.853,
+  "end": 20.053
+ },
+ {
+  "word": "you",
+  "start": 20.053,
+  "end": 20.213
+ },
+ {
+  "word": "close",
+  "start": 20.213,
+  "end": 20.453
+ },
+ {
+  "word": "the",
+  "start": 20.453,
+  "end": 20.693
+ },
+ {
+  "word": "whole",
+  "start": 20.693,
+  "end": 20.893
+ },
+ {
+  "word": "street",
+  "start": 20.893,
+  "end": 21.193
+ },
+ {
+  "word": "to",
+  "start": 21.193,
+  "end": 21.433
+ },
+ {
+  "word": "cars.",
+  "start": 21.433,
+  "end": 21.733
+ },
+ {
+  "word": "But",
+  "start": 22.271,
+  "end": 22.353
+ },
+ {
+  "word": "one",
+  "start": 22.353,
+  "end": 22.553
+ },
+ {
+  "word": "robber",
+  "start": 22.553,
+  "end": 22.853
+ },
+ {
+  "word": "climbs",
+  "start": 22.853,
+  "end": 23.053
+ },
+ {
+  "word": "over",
+  "start": 23.053,
+  "end": 23.313
+ },
+ {
+  "word": "anyway.",
+  "start": 23.313,
+  "end": 23.593
+ },
+ {
+  "word": "So",
+  "start": 24.06,
+  "end": 24.273
+ },
+ {
+  "word": "you",
+  "start": 24.273,
+  "end": 24.553
+ },
+ {
+  "word": "add",
+  "start": 24.553,
+  "end": 24.773
+ },
+ {
+  "word": "dogs.",
+  "start": 24.773,
+  "end": 25.093
+ },
+ {
+  "word": "They're",
+  "start": 25.506,
+  "end": 25.613
+ },
+ {
+  "word": "trained",
+  "start": 25.613,
+  "end": 25.793
+ },
+ {
+  "word": "to",
+  "start": 25.793,
+  "end": 25.953
+ },
+ {
+  "word": "go",
+  "start": 25.953,
+  "end": 26.013
+ },
+ {
+  "word": "after",
+  "start": 26.013,
+  "end": 26.233
+ },
+ {
+  "word": "him",
+  "start": 26.233,
+  "end": 26.433
+ },
+ {
+  "word": "in",
+  "start": 26.433,
+  "end": 26.553
+ },
+ {
+  "word": "4",
+  "start": 26.553,
+  "end": 26.753
+ },
+ {
+  "word": "seconds.",
+  "start": 26.753,
+  "end": 27.033
+ },
+ {
+  "word": "He",
+  "start": 27.213,
+  "end": 27.313
+ },
+ {
+  "word": "makes",
+  "start": 27.313,
+  "end": 27.453
+ },
+ {
+  "word": "it",
+  "start": 27.453,
+  "end": 27.573
+ },
+ {
+  "word": "about",
+  "start": 27.573,
+  "end": 27.733
+ },
+ {
+  "word": "3",
+  "start": 27.733,
+  "end": 27.993
+ },
+ {
+  "word": "steps.",
+  "start": 27.993,
+  "end": 28.273
+ },
+ {
+  "word": "Then",
+  "start": 28.712,
+  "end": 28.793
+ },
+ {
+  "word": "you",
+  "start": 28.793,
+  "end": 28.913
+ },
+ {
+  "word": "put",
+  "start": 28.913,
+  "end": 29.093
+ },
+ {
+  "word": "snipers",
+  "start": 29.093,
+  "end": 29.453
+ },
+ {
+  "word": "on",
+  "start": 29.453,
+  "end": 29.573
+ },
+ {
+  "word": "the",
+  "start": 29.573,
+  "end": 29.693
+ },
+ {
+  "word": "roof,",
+  "start": 29.693,
+  "end": 29.833
+ },
+ {
+  "word": "always",
+  "start": 29.993,
+  "end": 30.193
+ },
+ {
+  "word": "in",
+  "start": 30.193,
+  "end": 30.393
+ },
+ {
+  "word": "pairs.",
+  "start": 30.393,
+  "end": 30.593
+ },
+ {
+  "word": "But",
+  "start": 31.009,
+  "end": 31.093
+ },
+ {
+  "word": "the",
+  "start": 31.093,
+  "end": 31.213
+ },
+ {
+  "word": "robbers",
+  "start": 31.213,
+  "end": 31.573
+ },
+ {
+  "word": "shoot",
+  "start": 31.573,
+  "end": 31.753
+ },
+ {
+  "word": "at",
+  "start": 31.753,
+  "end": 31.893
+ },
+ {
+  "word": "the",
+  "start": 31.893,
+  "end": 31.993
+ },
+ {
+  "word": "windows.",
+  "start": 31.993,
+  "end": 32.253
+ },
+ {
+  "word": "So",
+  "start": 32.593,
+  "end": 32.773
+ },
+ {
+  "word": "every",
+  "start": 32.773,
+  "end": 33.053
+ },
+ {
+  "word": "window",
+  "start": 33.053,
+  "end": 33.333
+ },
+ {
+  "word": "becomes",
+  "start": 33.333,
+  "end": 33.673
+ },
+ {
+  "word": "bulletproof",
+  "start": 33.673,
+  "end": 34.153
+ },
+ {
+  "word": "glass.",
+  "start": 34.153,
+  "end": 34.493
+ },
+ {
+  "word": "But",
+  "start": 35.041,
+  "end": 35.113
+ },
+ {
+  "word": "they",
+  "start": 35.113,
+  "end": 35.213
+ },
+ {
+  "word": "come",
+  "start": 35.213,
+  "end": 35.333
+ },
+ {
+  "word": "from",
+  "start": 35.333,
+  "end": 35.493
+ },
+ {
+  "word": "the",
+  "start": 35.493,
+  "end": 35.633
+ },
+ {
+  "word": "sky.",
+  "start": 35.633,
+  "end": 35.753
+ },
+ {
+  "word": "In",
+  "start": 36.233,
+  "end": 36.353
+ },
+ {
+  "word": "1994,",
+  "start": 36.353,
+  "end": 36.833
+ },
+ {
+  "word": "a",
+  "start": 37.293,
+  "end": 37.373
+ },
+ {
+  "word": "man",
+  "start": 37.373,
+  "end": 37.513
+ },
+ {
+  "word": "really",
+  "start": 37.513,
+  "end": 37.793
+ },
+ {
+  "word": "crashed",
+  "start": 37.793,
+  "end": 38.133
+ },
+ {
+  "word": "a",
+  "start": 38.133,
+  "end": 38.293
+ },
+ {
+  "word": "small",
+  "start": 38.293,
+  "end": 38.473
+ },
+ {
+  "word": "plane",
+  "start": 38.473,
+  "end": 38.753
+ },
+ {
+  "word": "onto",
+  "start": 38.753,
+  "end": 38.993
+ },
+ {
+  "word": "that",
+  "start": 38.993,
+  "end": 39.173
+ },
+ {
+  "word": "famous",
+  "start": 39.173,
+  "end": 39.413
+ },
+ {
+  "word": "lawn.",
+  "start": 39.413,
+  "end": 39.733
+ },
+ {
+  "word": "So",
+  "start": 40.053,
+  "end": 40.213
+ },
+ {
+  "word": "you",
+  "start": 40.213,
+  "end": 40.313
+ },
+ {
+  "word": "ban",
+  "start": 40.313,
+  "end": 40.493
+ },
+ {
+  "word": "every",
+  "start": 40.493,
+  "end": 40.753
+ },
+ {
+  "word": "plane",
+  "start": 40.753,
+  "end": 41.013
+ },
+ {
+  "word": "from",
+  "start": 41.013,
+  "end": 41.193
+ },
+ {
+  "word": "flying",
+  "start": 41.193,
+  "end": 41.433
+ },
+ {
+  "word": "over",
+  "start": 41.433,
+  "end": 41.613
+ },
+ {
+  "word": "the",
+  "start": 41.613,
+  "end": 41.733
+ },
+ {
+  "word": "house.",
+  "start": 41.733,
+  "end": 42.033
+ },
+ {
+  "word": "And",
+  "start": 42.293,
+  "end": 42.473
+ },
+ {
+  "word": "just",
+  "start": 42.473,
+  "end": 42.633
+ },
+ {
+  "word": "in",
+  "start": 42.633,
+  "end": 42.753
+ },
+ {
+  "word": "case,",
+  "start": 42.753,
+  "end": 42.973
+ },
+ {
+  "word": "you",
+  "start": 43.193,
+  "end": 43.273
+ },
+ {
+  "word": "add",
+  "start": 43.273,
+  "end": 43.493
+ },
+ {
+  "word": "missiles.",
+  "start": 43.493,
+  "end": 43.693
+ },
+ {
+  "word": "Sounds",
+  "start": 44.133,
+  "end": 44.273
+ },
+ {
+  "word": "like",
+  "start": 44.273,
+  "end": 44.413
+ },
+ {
+  "word": "a",
+  "start": 44.413,
+  "end": 44.513
+ },
+ {
+  "word": "joke.",
+  "start": 44.513,
+  "end": 44.693
+ },
+ {
+  "word": "It",
+  "start": 45.443,
+  "end": 45.543
+ },
+ {
+  "word": "isn't.",
+  "start": 45.543,
+  "end": 45.923
+ },
+ {
+  "word": "Real",
+  "start": 46.123,
+  "end": 46.283
+ },
+ {
+  "word": "missiles",
+  "start": 46.283,
+  "end": 46.543
+ },
+ {
+  "word": "guard",
+  "start": 46.543,
+  "end": 46.823
+ },
+ {
+  "word": "this",
+  "start": 46.823,
+  "end": 47.043
+ },
+ {
+  "word": "sky,",
+  "start": 47.043,
+  "end": 47.263
+ },
+ {
+  "word": "since",
+  "start": 47.263,
+  "end": 47.523
+ },
+ {
+  "word": "2005.",
+  "start": 47.523,
+  "end": 48.123
+ },
+ {
+  "word": "Still,",
+  "start": 48.503,
+  "end": 48.743
+ },
+ {
+  "word": "in",
+  "start": 48.923,
+  "end": 49.003
+ },
+ {
+  "word": "2015,",
+  "start": 49.003,
+  "end": 49.623
+ },
+ {
+  "word": "a",
+  "start": 50.023,
+  "end": 50.103
+ },
+ {
+  "word": "drunk",
+  "start": 50.103,
+  "end": 50.283
+ },
+ {
+  "word": "guy",
+  "start": 50.283,
+  "end": 50.503
+ },
+ {
+  "word": "crashed",
+  "start": 50.503,
+  "end": 50.783
+ },
+ {
+  "word": "his",
+  "start": 50.783,
+  "end": 50.943
+ },
+ {
+  "word": "drone",
+  "start": 50.943,
+  "end": 51.183
+ },
+ {
+  "word": "into",
+  "start": 51.183,
+  "end": 51.443
+ },
+ {
+  "word": "a",
+  "start": 51.443,
+  "end": 51.603
+ },
+ {
+  "word": "tree",
+  "start": 51.603,
+  "end": 51.803
+ },
+ {
+  "word": "on",
+  "start": 51.803,
+  "end": 51.963
+ },
+ {
+  "word": "the",
+  "start": 51.963,
+  "end": 52.063
+ },
+ {
+  "word": "lawn.",
+  "start": 52.063,
+  "end": 52.283
+ },
+ {
+  "word": "And",
+  "start": 52.774,
+  "end": 52.863
+ },
+ {
+  "word": "if",
+  "start": 52.863,
+  "end": 52.963
+ },
+ {
+  "word": "everything",
+  "start": 52.963,
+  "end": 53.203
+ },
+ {
+  "word": "fails,",
+  "start": 53.203,
+  "end": 53.623
+ },
+ {
+  "word": "you",
+  "start": 53.903,
+  "end": 54.003
+ },
+ {
+  "word": "dig",
+  "start": 54.003,
+  "end": 54.143
+ },
+ {
+  "word": "a",
+  "start": 54.143,
+  "end": 54.263
+ },
+ {
+  "word": "bunker",
+  "start": 54.263,
+  "end": 54.443
+ },
+ {
+  "word": "underneath.",
+  "start": 54.443,
+  "end": 54.883
+ },
+ {
+  "word": "The",
+  "start": 55.407,
+  "end": 55.483
+ },
+ {
+  "word": "first",
+  "start": 55.483,
+  "end": 55.683
+ },
+ {
+  "word": "one",
+  "start": 55.683,
+  "end": 55.923
+ },
+ {
+  "word": "was",
+  "start": 55.923,
+  "end": 56.083
+ },
+ {
+  "word": "dug",
+  "start": 56.083,
+  "end": 56.263
+ },
+ {
+  "word": "during",
+  "start": 56.263,
+  "end": 56.523
+ },
+ {
+  "word": "World",
+  "start": 56.523,
+  "end": 56.723
+ },
+ {
+  "word": "War",
+  "start": 56.723,
+  "end": 56.883
+ },
+ {
+  "word": "2.",
+  "start": 56.883,
+  "end": 57.123
+ },
+ {
+  "word": "Your",
+  "start": 57.544,
+  "end": 57.594
+ },
+ {
+  "word": "friend's",
+  "start": 57.583,
+  "end": 57.903
+ },
+ {
+  "word": "pocket",
+  "start": 57.903,
+  "end": 58.123
+ },
+ {
+  "word": "puh",
+  "start": 58.123,
+  "end": 58.423
+ },
+ {
+  "word": "has",
+  "start": 58.423,
+  "end": 58.603
+ },
+ {
+  "word": "to",
+  "start": 58.603,
+  "end": 58.743
+ },
+ {
+  "word": "live",
+  "start": 58.743,
+  "end": 58.843
+ },
+ {
+  "word": "here",
+  "start": 58.843,
+  "end": 58.943
+ },
+ {
+  "word": "forever",
+  "start": 58.943,
+  "end": 59.183
+ },
+ {
+  "word": "now.",
+  "start": 59.183,
+  "end": 59.463
+ },
+ {
+  "word": "So",
+  "start": 59.843,
+  "end": 59.943
+ },
+ {
+  "word": "you",
+  "start": 59.943,
+  "end": 60.043
+ },
+ {
+  "word": "add",
+  "start": 60.043,
+  "end": 60.203
+ },
+ {
+  "word": "a",
+  "start": 60.203,
+  "end": 60.283
+ },
+ {
+  "word": "bowling",
+  "start": 60.283,
+  "end": 60.403
+ },
+ {
+  "word": "alley",
+  "start": 60.403,
+  "end": 60.663
+ },
+ {
+  "word": "in",
+  "start": 60.663,
+  "end": 60.783
+ },
+ {
+  "word": "the",
+  "start": 60.783,
+  "end": 60.863
+ },
+ {
+  "word": "basement.",
+  "start": 60.863,
+  "end": 61.143
+ },
+ {
+  "word": "And",
+  "start": 61.608,
+  "end": 61.683
+ },
+ {
+  "word": "35",
+  "start": 61.683,
+  "end": 61.943
+ },
+ {
+  "word": "bathrooms.",
+  "start": 61.943,
+  "end": 62.403
+ },
+ {
+  "word": "And",
+  "start": 62.883,
+  "end": 62.983
+ },
+ {
+  "word": "the",
+  "start": 62.983,
+  "end": 63.083
+ },
+ {
+  "word": "guards",
+  "start": 63.083,
+  "end": 63.283
+ },
+ {
+  "word": "give",
+  "start": 63.283,
+  "end": 63.503
+ },
+ {
+  "word": "it",
+  "start": 63.503,
+  "end": 63.583
+ },
+ {
+  "word": "a",
+  "start": 63.583,
+  "end": 63.663
+ },
+ {
+  "word": "secret",
+  "start": 63.663,
+  "end": 63.843
+ },
+ {
+  "word": "codename,",
+  "start": 63.843,
+  "end": 64.463
+ },
+ {
+  "word": "like",
+  "start": 64.463,
+  "end": 64.583
+ },
+ {
+  "word": "the",
+  "start": 64.583,
+  "end": 64.683
+ },
+ {
+  "word": "presidents",
+  "start": 64.683,
+  "end": 64.923
+ },
+ {
+  "word": "get.",
+  "start": 64.923,
+  "end": 65.243
+ },
+ {
+  "word": "Obama",
+  "start": 65.563,
+  "end": 65.823
+ },
+ {
+  "word": "was",
+  "start": 65.823,
+  "end": 66.043
+ },
+ {
+  "word": "Renegade.",
+  "start": 66.043,
+  "end": 66.443
+ },
+ {
+  "word": "The",
+  "start": 66.723,
+  "end": 66.783
+ },
+ {
+  "word": "pocket",
+  "start": 66.783,
+  "end": 67.023
+ },
+ {
+  "word": "puh",
+  "start": 67.023,
+  "end": 67.323
+ },
+ {
+  "word": "is",
+  "start": 67.323,
+  "end": 67.483
+ },
+ {
+  "word": "Fluffball.",
+  "start": 67.483,
+  "end": 67.903
+ },
+ {
+  "word": "Congratulations.",
+  "start": 68.345,
+  "end": 68.643
+ },
+ {
+  "word": "You've",
+  "start": 68.643,
+  "end": 69.218
+ },
+ {
+  "word": "built",
+  "start": 69.523,
+  "end": 69.763
+ },
+ {
+  "word": "a",
+  "start": 69.763,
+  "end": 69.843
+ },
+ {
+  "word": "fortress",
+  "start": 69.843,
+  "end": 70.123
+ },
+ {
+  "word": "with",
+  "start": 70.123,
+  "end": 70.383
+ },
+ {
+  "word": "132",
+  "start": 70.383,
+  "end": 71.323
+ },
+ {
+  "word": "rooms,",
+  "start": 71.323,
+  "end": 71.683
+ },
+ {
+  "word": "and",
+  "start": 71.683,
+  "end": 72.003
+ },
+ {
+  "word": "570",
+  "start": 72.003,
+  "end": 72.823
+ },
+ {
+  "word": "gallons",
+  "start": 72.823,
+  "end": 73.163
+ },
+ {
+  "word": "of",
+  "start": 73.163,
+  "end": 73.383
+ },
+ {
+  "word": "white",
+  "start": 73.383,
+  "end": 73.563
+ },
+ {
+  "word": "paint.",
+  "start": 73.563,
+  "end": 73.863
+ },
+ {
+  "word": "You",
+  "start": 74.083,
+  "end": 74.183
+ },
+ {
+  "word": "call",
+  "start": 74.183,
+  "end": 74.403
+ },
+ {
+  "word": "it,",
+  "start": 74.403,
+  "end": 74.583
+ },
+ {
+  "word": "the",
+  "start": 74.583,
+  "end": 74.633
+ },
+ {
+  "word": "White",
+  "start": 74.843,
+  "end": 75.043
+ },
+ {
+  "word": "House.",
+  "start": 75.043,
+  "end": 75.243
+ }
+]

@@ -1,0 +1,762 @@
+[
+ {
+  "word": "This",
+  "start": 0.0,
+  "end": 0.14
+ },
+ {
+  "word": "wall",
+  "start": 0.14,
+  "end": 0.42
+ },
+ {
+  "word": "of",
+  "start": 0.42,
+  "end": 0.54
+ },
+ {
+  "word": "lava",
+  "start": 0.54,
+  "end": 0.72
+ },
+ {
+  "word": "lamps",
+  "start": 0.72,
+  "end": 0.98
+ },
+ {
+  "word": "helps",
+  "start": 0.98,
+  "end": 1.18
+ },
+ {
+  "word": "encrypt",
+  "start": 1.18,
+  "end": 1.54
+ },
+ {
+  "word": "the",
+  "start": 1.54,
+  "end": 1.66
+ },
+ {
+  "word": "internet.",
+  "start": 1.66,
+  "end": 1.94
+ },
+ {
+  "word": "It's",
+  "start": 2.364,
+  "end": 2.52
+ },
+ {
+  "word": "in",
+  "start": 2.52,
+  "end": 2.6
+ },
+ {
+  "word": "Cloudflare's",
+  "start": 2.6,
+  "end": 3.1
+ },
+ {
+  "word": "lobby",
+  "start": 3.1,
+  "end": 3.26
+ },
+ {
+  "word": "in",
+  "start": 3.26,
+  "end": 3.44
+ },
+ {
+  "word": "San",
+  "start": 3.44,
+  "end": 3.58
+ },
+ {
+  "word": "Francisco,",
+  "start": 3.58,
+  "end": 3.98
+ },
+ {
+  "word": "and",
+  "start": 4.22,
+  "end": 4.34
+ },
+ {
+  "word": "a",
+  "start": 4.34,
+  "end": 4.44
+ },
+ {
+  "word": "camera",
+  "start": 4.44,
+  "end": 4.66
+ },
+ {
+  "word": "films",
+  "start": 4.66,
+  "end": 4.92
+ },
+ {
+  "word": "it",
+  "start": 4.92,
+  "end": 5.1
+ },
+ {
+  "word": "all",
+  "start": 5.1,
+  "end": 5.22
+ },
+ {
+  "word": "day.",
+  "start": 5.22,
+  "end": 5.46
+ },
+ {
+  "word": "Every",
+  "start": 5.956,
+  "end": 6.12
+ },
+ {
+  "word": "blob",
+  "start": 6.12,
+  "end": 6.36
+ },
+ {
+  "word": "moves",
+  "start": 6.36,
+  "end": 6.6
+ },
+ {
+  "word": "differently,",
+  "start": 6.6,
+  "end": 6.94
+ },
+ {
+  "word": "so",
+  "start": 7.18,
+  "end": 7.3
+ },
+ {
+  "word": "the",
+  "start": 7.3,
+  "end": 7.4
+ },
+ {
+  "word": "video",
+  "start": 7.4,
+  "end": 7.62
+ },
+ {
+  "word": "becomes",
+  "start": 7.62,
+  "end": 7.92
+ },
+ {
+  "word": "random",
+  "start": 7.92,
+  "end": 8.16
+ },
+ {
+  "word": "numbers.",
+  "start": 8.16,
+  "end": 8.54
+ },
+ {
+  "word": "And",
+  "start": 8.92,
+  "end": 9.08
+ },
+ {
+  "word": "random",
+  "start": 9.08,
+  "end": 9.3
+ },
+ {
+  "word": "numbers",
+  "start": 9.3,
+  "end": 9.64
+ },
+ {
+  "word": "make",
+  "start": 9.64,
+  "end": 9.82
+ },
+ {
+  "word": "encryption",
+  "start": 9.82,
+  "end": 10.18
+ },
+ {
+  "word": "keys",
+  "start": 10.18,
+  "end": 10.48
+ },
+ {
+  "word": "impossible",
+  "start": 10.48,
+  "end": 10.88
+ },
+ {
+  "word": "to",
+  "start": 10.88,
+  "end": 11.14
+ },
+ {
+  "word": "guess.",
+  "start": 11.14,
+  "end": 11.32
+ },
+ {
+  "word": "But",
+  "start": 12.085,
+  "end": 12.24
+ },
+ {
+  "word": "why",
+  "start": 12.24,
+  "end": 12.54
+ },
+ {
+  "word": "does",
+  "start": 12.54,
+  "end": 12.78
+ },
+ {
+  "word": "the",
+  "start": 12.78,
+  "end": 12.98
+ },
+ {
+  "word": "wax",
+  "start": 12.98,
+  "end": 13.26
+ },
+ {
+  "word": "move",
+  "start": 13.26,
+  "end": 13.58
+ },
+ {
+  "word": "at",
+  "start": 13.58,
+  "end": 13.76
+ },
+ {
+  "word": "all?",
+  "start": 13.76,
+  "end": 14.0
+ },
+ {
+  "word": "Inside",
+  "start": 14.739,
+  "end": 15.04
+ },
+ {
+  "word": "is",
+  "start": 15.04,
+  "end": 15.34
+ },
+ {
+  "word": "wax",
+  "start": 15.34,
+  "end": 15.6
+ },
+ {
+  "word": "and",
+  "start": 15.6,
+  "end": 15.86
+ },
+ {
+  "word": "a",
+  "start": 15.86,
+  "end": 15.96
+ },
+ {
+  "word": "liquid",
+  "start": 15.96,
+  "end": 16.16
+ },
+ {
+  "word": "that",
+  "start": 16.16,
+  "end": 16.38
+ },
+ {
+  "word": "weigh",
+  "start": 16.38,
+  "end": 16.5
+ },
+ {
+  "word": "almost",
+  "start": 16.5,
+  "end": 16.74
+ },
+ {
+  "word": "exactly",
+  "start": 16.74,
+  "end": 17.14
+ },
+ {
+  "word": "the",
+  "start": 17.14,
+  "end": 17.34
+ },
+ {
+  "word": "same.",
+  "start": 17.34,
+  "end": 17.62
+ },
+ {
+  "word": "A",
+  "start": 18.14,
+  "end": 18.3
+ },
+ {
+  "word": "bulb",
+  "start": 18.3,
+  "end": 18.48
+ },
+ {
+  "word": "at",
+  "start": 18.48,
+  "end": 18.64
+ },
+ {
+  "word": "the",
+  "start": 18.64,
+  "end": 18.72
+ },
+ {
+  "word": "bottom",
+  "start": 18.72,
+  "end": 18.96
+ },
+ {
+  "word": "heats",
+  "start": 18.96,
+  "end": 19.22
+ },
+ {
+  "word": "the",
+  "start": 19.22,
+  "end": 19.42
+ },
+ {
+  "word": "wax.",
+  "start": 19.42,
+  "end": 19.7
+ },
+ {
+  "word": "It",
+  "start": 20.06,
+  "end": 20.16
+ },
+ {
+  "word": "expands,",
+  "start": 20.16,
+  "end": 20.44
+ },
+ {
+  "word": "gets",
+  "start": 20.96,
+  "end": 21.12
+ },
+ {
+  "word": "lighter",
+  "start": 21.12,
+  "end": 21.36
+ },
+ {
+  "word": "than",
+  "start": 21.36,
+  "end": 21.56
+ },
+ {
+  "word": "the",
+  "start": 21.56,
+  "end": 21.66
+ },
+ {
+  "word": "liquid,",
+  "start": 21.66,
+  "end": 21.88
+ },
+ {
+  "word": "and",
+  "start": 22.16,
+  "end": 22.24
+ },
+ {
+  "word": "rises.",
+  "start": 22.24,
+  "end": 22.5
+ },
+ {
+  "word": "At",
+  "start": 23.094,
+  "end": 23.16
+ },
+ {
+  "word": "the",
+  "start": 23.16,
+  "end": 23.26
+ },
+ {
+  "word": "top",
+  "start": 23.26,
+  "end": 23.46
+ },
+ {
+  "word": "it",
+  "start": 23.46,
+  "end": 23.62
+ },
+ {
+  "word": "cools,",
+  "start": 23.62,
+  "end": 23.86
+ },
+ {
+  "word": "shrinks,",
+  "start": 24.18,
+  "end": 24.4
+ },
+ {
+  "word": "and",
+  "start": 24.62,
+  "end": 24.68
+ },
+ {
+  "word": "sinks",
+  "start": 24.68,
+  "end": 24.84
+ },
+ {
+  "word": "again.",
+  "start": 24.84,
+  "end": 25.16
+ },
+ {
+  "word": "Here's",
+  "start": 25.878,
+  "end": 26.06
+ },
+ {
+  "word": "the",
+  "start": 26.06,
+  "end": 26.18
+ },
+ {
+  "word": "trick:",
+  "start": 26.18,
+  "end": 26.36
+ },
+ {
+  "word": "plain",
+  "start": 26.64,
+  "end": 26.82
+ },
+ {
+  "word": "wax",
+  "start": 26.82,
+  "end": 27.12
+ },
+ {
+  "word": "floats",
+  "start": 27.12,
+  "end": 27.38
+ },
+ {
+  "word": "on",
+  "start": 27.38,
+  "end": 27.66
+ },
+ {
+  "word": "water.",
+  "start": 27.66,
+  "end": 27.98
+ },
+ {
+  "word": "So",
+  "start": 28.4,
+  "end": 28.48
+ },
+ {
+  "word": "the",
+  "start": 28.48,
+  "end": 28.64
+ },
+ {
+  "word": "first",
+  "start": 28.64,
+  "end": 28.8
+ },
+ {
+  "word": "recipe,",
+  "start": 28.8,
+  "end": 29.24
+ },
+ {
+  "word": "in",
+  "start": 29.52,
+  "end": 29.62
+ },
+ {
+  "word": "the",
+  "start": 29.62,
+  "end": 29.72
+ },
+ {
+  "word": "sixties,",
+  "start": 29.72,
+  "end": 30.14
+ },
+ {
+  "word": "made",
+  "start": 30.26,
+  "end": 30.36
+ },
+ {
+  "word": "the",
+  "start": 30.36,
+  "end": 30.5
+ },
+ {
+  "word": "wax",
+  "start": 30.5,
+  "end": 30.7
+ },
+ {
+  "word": "heavier",
+  "start": 30.7,
+  "end": 31.1
+ },
+ {
+  "word": "on",
+  "start": 31.1,
+  "end": 31.36
+ },
+ {
+  "word": "purpose.",
+  "start": 31.36,
+  "end": 31.7
+ },
+ {
+  "word": "And",
+  "start": 32.1,
+  "end": 32.26
+ },
+ {
+  "word": "a",
+  "start": 32.26,
+  "end": 32.38
+ },
+ {
+  "word": "metal",
+  "start": 32.38,
+  "end": 32.54
+ },
+ {
+  "word": "coil",
+  "start": 32.54,
+  "end": 32.82
+ },
+ {
+  "word": "at",
+  "start": 32.82,
+  "end": 33.06
+ },
+ {
+  "word": "the",
+  "start": 33.06,
+  "end": 33.16
+ },
+ {
+  "word": "bottom",
+  "start": 33.16,
+  "end": 33.42
+ },
+ {
+  "word": "lets",
+  "start": 33.42,
+  "end": 33.64
+ },
+ {
+  "word": "the",
+  "start": 33.64,
+  "end": 33.82
+ },
+ {
+  "word": "blobs",
+  "start": 33.82,
+  "end": 34.12
+ },
+ {
+  "word": "melt",
+  "start": 34.12,
+  "end": 34.3
+ },
+ {
+  "word": "back",
+  "start": 34.3,
+  "end": 34.52
+ },
+ {
+  "word": "together.",
+  "start": 34.52,
+  "end": 34.92
+ },
+ {
+  "word": "Want",
+  "start": 35.746,
+  "end": 35.9
+ },
+ {
+  "word": "one?",
+  "start": 35.9,
+  "end": 36.16
+ },
+ {
+  "word": "The",
+  "start": 36.587,
+  "end": 36.66
+ },
+ {
+  "word": "one",
+  "start": 36.66,
+  "end": 36.84
+ },
+ {
+  "word": "I",
+  "start": 36.84,
+  "end": 36.96
+ },
+ {
+  "word": "picked",
+  "start": 36.96,
+  "end": 37.16
+ },
+ {
+  "word": "is",
+  "start": 37.16,
+  "end": 37.38
+ },
+ {
+  "word": "linked",
+  "start": 37.38,
+  "end": 37.56
+ },
+ {
+  "word": "below.",
+  "start": 37.56,
+  "end": 37.94
+ },
+ {
+  "word": "Give",
+  "start": 38.28,
+  "end": 38.38
+ },
+ {
+  "word": "it",
+  "start": 38.38,
+  "end": 38.54
+ },
+ {
+  "word": "an",
+  "start": 38.54,
+  "end": 38.68
+ },
+ {
+  "word": "hour",
+  "start": 38.68,
+  "end": 38.92
+ },
+ {
+  "word": "or",
+  "start": 38.92,
+  "end": 39.18
+ },
+ {
+  "word": "more",
+  "start": 39.18,
+  "end": 39.42
+ },
+ {
+  "word": "to",
+  "start": 39.42,
+  "end": 39.58
+ },
+ {
+  "word": "warm",
+  "start": 39.58,
+  "end": 39.84
+ },
+ {
+  "word": "up.",
+  "start": 39.84,
+  "end": 40.12
+ },
+ {
+  "word": "Because",
+  "start": 40.403,
+  "end": 40.62
+ },
+ {
+  "word": "no",
+  "start": 40.62,
+  "end": 40.9
+ },
+ {
+  "word": "two",
+  "start": 40.9,
+  "end": 41.12
+ },
+ {
+  "word": "blobs",
+  "start": 41.12,
+  "end": 41.6
+ },
+ {
+  "word": "ever",
+  "start": 41.6,
+  "end": 41.84
+ },
+ {
+  "word": "move",
+  "start": 41.84,
+  "end": 42.12
+ },
+ {
+  "word": "the",
+  "start": 42.12,
+  "end": 42.28
+ },
+ {
+  "word": "same",
+  "start": 42.28,
+  "end": 42.56
+ },
+ {
+  "word": "way.",
+  "start": 42.56,
+  "end": 42.86
+ },
+ {
+  "word": "Which",
+  "start": 43.1,
+  "end": 43.3
+ },
+ {
+  "word": "is",
+  "start": 43.3,
+  "end": 43.48
+ },
+ {
+  "word": "why",
+  "start": 43.48,
+  "end": 43.74
+ }
+]
