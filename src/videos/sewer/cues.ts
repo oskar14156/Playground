@@ -3,13 +3,15 @@ import { makeCues } from "../../lib/timing";
 
 export { words };
 export const cue = makeCues(words, 30);
-export const DURATION = cue.voiceEnd + 54; // the friend keeps dancing under the FOLLOW pill, then the loop dissolve
+export const DURATION = cue.voiceEnd + 48; // < 90 s with the longer mom hook; the friend keeps dancing under the FOLLOW pill, then the loop dissolve
 
 // Every storyboard cue, resolved from the spoken words (videos/sewer/storyboard.md).
 export const c = {
-  flushed: cue.at("just flushed"),
-  giant: cue.at("giant pocket puh down"),
-  down: cue.at("down the toilet"),
+  mom: cue.at("Your mom almost"),
+  catches: cue.at("catches you wearing"),
+  flushed: cue.at("So you hide it"), // cut: the puh is in the bowl, you press the flush
+  giant: cue.at("fast"),
+  down: cue.at("Down the toilet"),
   andNow: cue.at("And now you have"),
   place: cue.at("the place it goes"),
   pipe: cue.at("So you build a pipe"),

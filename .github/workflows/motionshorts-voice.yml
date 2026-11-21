@@ -1,14 +1,15 @@
 name: motionshorts render (Remotion, CPU chunks)
-# Branch motionshorts-render only. Renders one Remotion composition in 20 frame chunks on CPU runners (swangle),
-# then joins them. Manual only:
-#   gh workflow run motionshorts-voice.yml -R oskar14156/playground --ref motionshorts-render -f slug=sewer -f args=2600
-# (args = "durationInFrames" for video, "durationInFrames audio" for 20 WAV chunks joined sample-exact).
-# "parts=5,6,7" renders only those chunks (no join; fetch the part-N artifacts). Result: artifact "video" with <slug>.mp4 or "audio" with audio.wav.
+# Branch motionshorts-render only (see AGENTS.md §4b). Renders one Remotion composition in N frame chunks on CPU
+# runners (swangle) — video and audio chunks in parallel — then joins them into the final mp4. Manual only:
+#   gh workflow run motionshorts-voice.yml -R oskar14156/playground --ref motionshorts-render -f slug=sewer -f args=2700
+# args = "<durationInFrames>"            → video + audio chunks, joined + muxed: artifact "result" (<slug>.mp4,
+#                                           hook.jpg = contact sheet of the first 8 s, end.jpg = last 4 s)
+#        "<durationInFrames> parts=5,6"  → only those video chunks, no join (fetch the part-v5 … artifacts)
 on:
   workflow_dispatch:
     inputs:
       slug: { description: "composition id", required: true }
-      args: { description: "durationInFrames", default: "" }
+      args: { description: "durationInFrames [parts=…]", default: "" }
       ref: { description: "branch", default: "motionshorts-render" }
 permissions:
   contents: read
@@ -27,8 +28,9 @@ jobs:
       - id: p
         run: |
           L=$(echo "$ARGS" | grep -o 'parts=[0-9,]*' | cut -d= -f2 || true)
-          [ -n "$L" ] || L=$(seq -s, 0 $((N - 1)))
-          echo "parts=[$L]" >> "$GITHUB_OUTPUT"; echo "parts=[$L]"
+          if [ -n "$L" ]; then J=$(echo "$L" | tr ',' '\n' | sed 's/.*/"v&"/' | paste -sd, -)
+          else J=$( (seq 0 $((N - 1)) | sed 's/.*/"v&"/'; seq 0 $((N - 1)) | sed 's/.*/"a&"/') | paste -sd, -); fi
+          echo "parts=[$J]" >> "$GITHUB_OUTPUT"; echo "parts=[$J]"
 
   part:
     needs: plan
@@ -36,7 +38,7 @@ jobs:
     timeout-minutes: 90
     strategy:
       fail-fast: false
-      max-parallel: 21
+      max-parallel: 20
       matrix:
         part: ${{ fromJSON(needs.plan.outputs.parts) }}
     steps:
@@ -49,14 +51,13 @@ jobs:
           sudo apt-get update -qq >/dev/null && sudo apt-get install -y -qq fonts-noto-color-emoji >/dev/null || true
           npm ci --no-audit --no-fund --loglevel=error
           npx remotion browser ensure 2>&1 | tail -1
-          nproc; free -g | head -2
       - name: Render ${{ matrix.part }}
         run: |
           mkdir -p parts
           T0=$(date +%s)
-          FRAMES=${ARGS%% *}; P=${{ matrix.part }}; A=$(( FRAMES * P / N )); B=$(( FRAMES * (P + 1) / N - 1 ))
+          FRAMES=${ARGS%% *}; K=${{ matrix.part }}; P=${K:1}; A=$(( FRAMES * P / N )); B=$(( FRAMES * (P + 1) / N - 1 ))
           echo "frames $A-$B"
-          if [[ "$ARGS" == *audio* ]]; then
+          if [ "${K:0:1}" = a ]; then
             npx remotion render "$SLUG" "parts/aud_$(printf %02d $P).wav" --codec=wav --frames=$A-$B \
               --gl=swangle --concurrency=4 --timeout=240000 --log=error
           else
@@ -75,20 +76,21 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with: { pattern: "part-*", merge-multiple: true, path: parts }
-      - name: Join
+      - name: Join + mux
         run: |
           sudo apt-get update -qq >/dev/null && sudo apt-get install -y -qq ffmpeg >/dev/null
-          ls parts
-          if [[ "$ARGS" == *audio* ]]; then
-            test $(ls parts/aud_*.wav | wc -l) -eq $N
-            for f in parts/aud_*.wav; do echo "file '$PWD/$f'"; done > list.txt
-            ffmpeg -v error -f concat -safe 0 -i list.txt -c:a pcm_s16le out.wav
-            mkdir -p res && mv out.wav res/audio.wav
-          else
-            test $(ls parts/part_*.mp4 | wc -l) -eq $N
-            for f in parts/part_*.mp4; do echo "file '$PWD/$f'"; done > list.txt
-            mkdir -p res && ffmpeg -v error -f concat -safe 0 -i list.txt -c:v copy -movflags +faststart "res/$SLUG.mp4"
-          fi
-          ffprobe -v error -show_entries format=duration -of csv=p=0 res/*; ls -la res
+          test $(ls parts/part_*.mp4 | wc -l) -eq $N
+          test $(ls parts/aud_*.wav | wc -l) -eq $N
+          for f in parts/part_*.mp4; do echo "file '$PWD/$f'"; done > v.txt
+          for f in parts/aud_*.wav; do echo "file '$PWD/$f'"; done > a.txt
+          ffmpeg -v error -f concat -safe 0 -i v.txt -c:v copy video.mp4
+          ffmpeg -v error -f concat -safe 0 -i a.txt -c:a pcm_s16le audio.wav
+          mkdir -p res
+          ffmpeg -v error -i video.mp4 -i audio.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 320k -shortest \
+            -movflags +faststart "res/$SLUG.mp4"
+          ffmpeg -v error -i video.mp4 -vf "select='lt(n\,240)*not(mod(n\,10))',scale=180:-1,tile=8x3" -fps_mode passthrough -frames:v 1 res/hook.jpg
+          D=$(ffprobe -v error -show_entries format=duration -of csv=p=0 video.mp4)
+          ffmpeg -v error -sseof -4 -i video.mp4 -vf "fps=2,scale=180:-1,tile=8x1" -frames:v 1 res/end.jpg
+          ffprobe -v error -show_entries format=duration -of csv=p=0 "res/$SLUG.mp4"; echo "video $D"; ls -la res
       - uses: actions/upload-artifact@v4
         with: { name: result, path: res, retention-days: 7, compression-level: 0 }

@@ -39,6 +39,9 @@ export const Sound: React.FC = () => (
   <>
     <Audio src={staticFile("sewer/vo.mp3")} volume={1.25} />
     <MusicBed name="wonder" words={words} volume={0.18} cuts={[[c.joke + 2, c.isnt + 6]]} />
+    <Sfx at={c.catches - 4} name="creak" volume={0.5} />
+    <Sfx at={c.catches + 6} name="impact" volume={0.4} />
+    <Sfx at={c.flushed} name="whoosh_fast" volume={0.35} />
     <Sfx at={c.flushed + 4} name="whoosh" volume={0.45} />
     <Sfx at={c.flushed + 8} name="splash" volume={0.4} />
     <Sfx at={c.down + 6} name="scratch" volume={0.35} />

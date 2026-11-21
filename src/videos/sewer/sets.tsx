@@ -63,7 +63,19 @@ export const SetHook: React.FC<SetProps> = ({ f }) => {
   const under = f >= c.andNow;
   const dropK = ramp(f, c.andNow + 2, c.place + 8, easeInOut);
   const press = f > c.flushed + 2 && f < c.flushed + 10 ? 1 : 0;
-  const cam: Cam = under
+  // new opening: you dance in the bathroom wearing the puh → mom (door creak, "MOM?!") → cut: it's in the bowl
+  const worn = f < c.flushed;
+  const cam: Cam = worn
+    ? {
+        pos: keys3(f, [
+          [0, [0.1, 1.6, 2.6]],
+          [c.catches, [0.25, 1.62, 2.0]],
+          [c.flushed, [0.3, 1.6, 1.85]],
+        ]),
+        look: [0.55, 1.25, -0.45],
+        fov: 40,
+      }
+    : under
     ? {
         pos: keys3(f, [
           [c.andNow, [1.9, 0.4, 4.4]],
@@ -99,7 +111,7 @@ export const SetHook: React.FC<SetProps> = ({ f }) => {
     <AbsoluteFill>
       <SewerCanvas cam={cam} t={t} look="interior" shadow={6} key2={[2.5, 5, 4]}>
         <Bathroom t={t} swirl={spin} press={press} xray={under ? 1 : 0}>
-          {f < c.andNow ? (
+          {worn ? null : f < c.andNow ? (
             <group position={[BOWL[0], BOWL[1] - 0.12 * slurp, BOWL[2]]} rotation={[0, spin * 16 + slurp * 10, 0]} scale={[1 + slurp * 0.3, 1 - slurp * 0.9, 1 + slurp * 0.3]}>
               <FursuitHead s={puhS} t={t} blink={f > c.giant + 6 && f < c.giant + 10 ? 1 : 0} />
             </group>
@@ -108,9 +120,24 @@ export const SetHook: React.FC<SetProps> = ({ f }) => {
               <FursuitHead s={0.3} t={t} />
             </group>
           ) : null}
-          <Model file="man_a.glb" anims={LIB1} clip={f < c.flushed + 30 ? "Interact" : f < c.down + 10 ? "Idle_Loop" : "Idle_Talking_Loop"} t={f < c.flushed + 30 ? Math.max(0, (f - c.flushed + 14) / 30) : t} p={[0.62, 0, -0.42]} ry={-2.2} outfit={FRIEND} tint={{ Hair: "#3a2a1c" }} />
+          {worn ? (
+            <Model
+              file="man_a.glb"
+              anims={LIB1}
+              clip={f < c.catches ? "Dance_Loop" : "Idle_Loop"}
+              t={t}
+              p={[0.55, 0, -0.35]}
+              ry={-0.35}
+              outfit={FRIEND}
+              tint={{ Hair: "#3a2a1c" }}
+              attach={[{ bone: "Head", node: <FursuitHead s={MASK_S} p={WORN} t={t} dance={f < c.catches ? 1 : 0} /> }]}
+            />
+          ) : (
+            <Model file="man_a.glb" anims={LIB1} clip={f < c.flushed + 30 ? "Interact" : f < c.down + 10 ? "Idle_Loop" : "Idle_Talking_Loop"} t={f < c.flushed + 30 ? Math.max(0, (f - c.flushed + 14) / 30) : t} p={[0.62, 0, -0.42]} ry={-2.2} outfit={FRIEND} tint={{ Hair: "#3a2a1c" }} />
+          )}
         </Bathroom>
       </SewerCanvas>
+      {f >= c.catches && f < c.flushed ? <Big x={540} y={330} text="MOM?!" o={pop(f, c.catches)} color="#ff5a5a" size={130} /> : null}
       {f >= c.flushed + 8 && f < c.andNow ? <Big x={540} y={330} text="FLUSHED" o={pop(f, c.flushed + 8)} color="#5ff2ff" size={110} /> : null}
       <Question f={f} at={c.place} until={c.pipe} text="WHERE DOES IT GO?" top={1250} />
     </AbsoluteFill>
