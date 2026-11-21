@@ -1,8 +1,9 @@
 name: motionshorts render (Remotion, CPU chunks)
 # Branch motionshorts-render only. Renders one Remotion composition in 20 frame chunks on CPU runners (swangle),
-# the audio in its own job, then joins them. Manual only:
+# then joins them. Manual only:
 #   gh workflow run motionshorts-voice.yml -R oskar14156/playground --ref motionshorts-render -f slug=sewer -f args=2600
-# (args = durationInFrames). Result: artifact "video" with <slug>.mp4.
+# (args = "durationInFrames" for video, "durationInFrames audio" for 20 WAV chunks joined sample-exact).
+# Result: artifact "video" with <slug>.mp4 or "audio" with audio.wav.
 on:
   workflow_dispatch:
     inputs:
@@ -15,7 +16,7 @@ defaults:
   run: { shell: bash }
 env:
   SLUG: ${{ inputs.slug }}
-  FRAMES: ${{ inputs.args }}
+  ARGS: ${{ inputs.args }}
   N: 20
 jobs:
   part:
@@ -25,7 +26,7 @@ jobs:
       fail-fast: false
       max-parallel: 21
       matrix:
-        part: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, audio]
+        part: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
     steps:
       - uses: actions/checkout@v4
         with: { ref: "${{ inputs.ref }}", persist-credentials: false }
@@ -41,11 +42,12 @@ jobs:
         run: |
           mkdir -p parts
           T0=$(date +%s)
-          if [ "${{ matrix.part }}" = audio ]; then
-            npx remotion render "$SLUG" parts/audio.wav --codec=wav --gl=swangle --timeout=240000 --log=error
+          FRAMES=${ARGS%% *}; P=${{ matrix.part }}; A=$(( FRAMES * P / N )); B=$(( FRAMES * (P + 1) / N - 1 ))
+          echo "frames $A-$B"
+          if [[ "$ARGS" == *audio* ]]; then
+            npx remotion render "$SLUG" "parts/aud_$(printf %02d $P).wav" --codec=wav --frames=$A-$B \
+              --gl=swangle --concurrency=4 --timeout=240000 --log=error
           else
-            P=${{ matrix.part }}; A=$(( FRAMES * P / N )); B=$(( FRAMES * (P + 1) / N - 1 ))
-            echo "frames $A-$B"
             npx remotion render "$SLUG" "parts/part_$(printf %02d $P).mp4" --frames=$A-$B --muted --crf=16 \
               --gl=swangle --concurrency=4 --timeout=240000 --log=error
           fi
@@ -64,11 +66,16 @@ jobs:
         run: |
           sudo apt-get update -qq >/dev/null && sudo apt-get install -y -qq ffmpeg >/dev/null
           ls parts
-          test $(ls parts/part_*.mp4 | wc -l) -eq $N
-          for f in parts/part_*.mp4; do echo "file '$PWD/$f'"; done > list.txt
-          ffmpeg -v error -f concat -safe 0 -i list.txt -i parts/audio.wav -map 0:v -map 1:a -c:v copy \
-            -c:a aac -b:a 320k -movflags +faststart "$SLUG.mp4"
-          ffprobe -v error -count_frames -select_streams v -show_entries stream=nb_read_frames -of csv=p=0 "$SLUG.mp4"
-          ls -la "$SLUG.mp4"
+          if [[ "$ARGS" == *audio* ]]; then
+            test $(ls parts/aud_*.wav | wc -l) -eq $N
+            for f in parts/aud_*.wav; do echo "file '$PWD/$f'"; done > list.txt
+            ffmpeg -v error -f concat -safe 0 -i list.txt -c:a pcm_s16le out.wav
+            mkdir -p res && mv out.wav res/audio.wav
+          else
+            test $(ls parts/part_*.mp4 | wc -l) -eq $N
+            for f in parts/part_*.mp4; do echo "file '$PWD/$f'"; done > list.txt
+            mkdir -p res && ffmpeg -v error -f concat -safe 0 -i list.txt -c:v copy -movflags +faststart "res/$SLUG.mp4"
+          fi
+          ffprobe -v error -show_entries format=duration -of csv=p=0 res/*; ls -la res
       - uses: actions/upload-artifact@v4
-        with: { name: video, path: "${{ inputs.slug }}.mp4", retention-days: 7, compression-level: 0 }
+        with: { name: result, path: res, retention-days: 7, compression-level: 0 }
