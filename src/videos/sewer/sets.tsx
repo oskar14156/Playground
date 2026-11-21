@@ -68,11 +68,11 @@ export const SetHook: React.FC<SetProps> = ({ f }) => {
   const cam: Cam = worn
     ? {
         pos: keys3(f, [
-          [0, [0.1, 1.6, 2.6]],
-          [c.catches, [0.25, 1.62, 2.0]],
-          [c.flushed, [0.3, 1.6, 1.85]],
+          [0, [0.15, 1.55, 3.5]],
+          [c.catches, [0.3, 1.5, 3.0]],
+          [c.flushed, [0.35, 1.5, 2.85]],
         ]),
-        look: [0.55, 1.25, -0.45],
+        look: [0.55, 1.2, -0.45],
         fov: 40,
       }
     : under
@@ -137,8 +137,8 @@ export const SetHook: React.FC<SetProps> = ({ f }) => {
           )}
         </Bathroom>
       </SewerCanvas>
-      {f >= c.catches && f < c.flushed ? <Big x={540} y={330} text="MOM?!" o={pop(f, c.catches)} color="#ff5a5a" size={130} /> : null}
-      {f >= c.flushed + 8 && f < c.andNow ? <Big x={540} y={330} text="FLUSHED" o={pop(f, c.flushed + 8)} color="#5ff2ff" size={110} /> : null}
+      {f >= c.catches && f < c.flushed ? <Big x={540} y={190} text="MOM?!" o={pop(f, c.catches)} color="#ff5a5a" size={130} /> : null}
+      {f >= c.down && f < c.andNow ? <Big x={540} y={330} text="FLUSHED" o={pop(f, c.down)} color="#5ff2ff" size={110} /> : null}
       <Question f={f} at={c.place} until={c.pipe} text="WHERE DOES IT GO?" top={1250} />
     </AbsoluteFill>
   );
