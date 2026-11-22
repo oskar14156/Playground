@@ -1,0 +1,1472 @@
+[
+ {
+  "word": "Your",
+  "start": 0.0,
+  "end": 0.14
+ },
+ {
+  "word": "friend",
+  "start": 0.14,
+  "end": 0.38
+ },
+ {
+  "word": "wants",
+  "start": 0.38,
+  "end": 0.6
+ },
+ {
+  "word": "to",
+  "start": 0.6,
+  "end": 0.8
+ },
+ {
+  "word": "buy",
+  "start": 0.8,
+  "end": 0.94
+ },
+ {
+  "word": "your",
+  "start": 0.94,
+  "end": 1.1
+ },
+ {
+  "word": "used",
+  "start": 1.1,
+  "end": 1.36
+ },
+ {
+  "word": "pocket",
+  "start": 1.36,
+  "end": 1.64
+ },
+ {
+  "word": "puh.",
+  "start": 1.64,
+  "end": 2.078
+ },
+ {
+  "word": "You",
+  "start": 2.38,
+  "end": 2.5
+ },
+ {
+  "word": "say,",
+  "start": 2.5,
+  "end": 2.78
+ },
+ {
+  "word": "100",
+  "start": 3.02,
+  "end": 3.36
+ },
+ {
+  "word": "dollars.",
+  "start": 3.36,
+  "end": 4.04
+ },
+ {
+  "word": "He's",
+  "start": 4.04,
+  "end": 4.26
+ },
+ {
+  "word": "broke,",
+  "start": 4.26,
+  "end": 4.5
+ },
+ {
+  "word": "so",
+  "start": 4.64,
+  "end": 4.74
+ },
+ {
+  "word": "he",
+  "start": 4.74,
+  "end": 4.88
+ },
+ {
+  "word": "prints",
+  "start": 4.88,
+  "end": 5.1
+ },
+ {
+  "word": "one",
+  "start": 5.1,
+  "end": 5.28
+ },
+ {
+  "word": "at",
+  "start": 5.28,
+  "end": 5.4
+ },
+ {
+  "word": "home.",
+  "start": 5.4,
+  "end": 5.64
+ },
+ {
+  "word": "Now",
+  "start": 6.06,
+  "end": 6.2
+ },
+ {
+  "word": "you",
+  "start": 6.2,
+  "end": 6.36
+ },
+ {
+  "word": "have",
+  "start": 6.36,
+  "end": 6.5
+ },
+ {
+  "word": "to",
+  "start": 6.5,
+  "end": 6.62
+ },
+ {
+  "word": "build",
+  "start": 6.62,
+  "end": 6.78
+ },
+ {
+  "word": "a",
+  "start": 6.78,
+  "end": 6.94
+ },
+ {
+  "word": "bill",
+  "start": 6.94,
+  "end": 7.12
+ },
+ {
+  "word": "he",
+  "start": 7.12,
+  "end": 7.32
+ },
+ {
+  "word": "can't",
+  "start": 7.32,
+  "end": 7.66
+ },
+ {
+  "word": "fake.",
+  "start": 7.66,
+  "end": 7.82
+ },
+ {
+  "word": "Paper",
+  "start": 8.24,
+  "end": 8.381
+ },
+ {
+  "word": "turns",
+  "start": 8.381,
+  "end": 8.681
+ },
+ {
+  "word": "to",
+  "start": 8.681,
+  "end": 8.881
+ },
+ {
+  "word": "mush",
+  "start": 8.881,
+  "end": 9.021
+ },
+ {
+  "word": "in",
+  "start": 9.021,
+  "end": 9.141
+ },
+ {
+  "word": "the",
+  "start": 9.141,
+  "end": 9.201
+ },
+ {
+  "word": "wash.",
+  "start": 9.201,
+  "end": 9.521
+ },
+ {
+  "word": "So",
+  "start": 9.701,
+  "end": 9.781
+ },
+ {
+  "word": "you",
+  "start": 9.781,
+  "end": 9.921
+ },
+ {
+  "word": "use",
+  "start": 9.921,
+  "end": 10.061
+ },
+ {
+  "word": "75",
+  "start": 10.061,
+  "end": 10.401
+ },
+ {
+  "word": "percent",
+  "start": 10.401,
+  "end": 10.761
+ },
+ {
+  "word": "cotton,",
+  "start": 10.761,
+  "end": 11.081
+ },
+ {
+  "word": "25",
+  "start": 11.321,
+  "end": 11.581
+ },
+ {
+  "word": "percent",
+  "start": 11.581,
+  "end": 12.001
+ },
+ {
+  "word": "linen.",
+  "start": 12.001,
+  "end": 12.181
+ },
+ {
+  "word": "Basically,",
+  "start": 12.543,
+  "end": 12.841
+ },
+ {
+  "word": "jeans.",
+  "start": 13.081,
+  "end": 13.241
+ },
+ {
+  "word": "4,000",
+  "start": 13.241,
+  "end": 14.061
+ },
+ {
+  "word": "double",
+  "start": 14.061,
+  "end": 14.221
+ },
+ {
+  "word": "folds",
+  "start": 14.221,
+  "end": 14.481
+ },
+ {
+  "word": "to",
+  "start": 14.481,
+  "end": 14.661
+ },
+ {
+  "word": "tear.",
+  "start": 14.661,
+  "end": 14.821
+ },
+ {
+  "word": "Cashiers",
+  "start": 15.221,
+  "end": 15.581
+ },
+ {
+  "word": "test",
+  "start": 15.581,
+  "end": 15.821
+ },
+ {
+  "word": "it",
+  "start": 15.821,
+  "end": 15.961
+ },
+ {
+  "word": "with",
+  "start": 15.961,
+  "end": 16.101
+ },
+ {
+  "word": "an",
+  "start": 16.101,
+  "end": 16.221
+ },
+ {
+  "word": "iodine",
+  "start": 16.221,
+  "end": 16.561
+ },
+ {
+  "word": "pen.",
+  "start": 16.561,
+  "end": 16.841
+ },
+ {
+  "word": "Fake",
+  "start": 17.301,
+  "end": 17.521
+ },
+ {
+  "word": "paper",
+  "start": 17.521,
+  "end": 17.701
+ },
+ {
+  "word": "turns",
+  "start": 17.701,
+  "end": 18.001
+ },
+ {
+  "word": "black.",
+  "start": 18.001,
+  "end": 18.301
+ },
+ {
+  "word": "Cotton",
+  "start": 18.721,
+  "end": 18.881
+ },
+ {
+  "word": "stays",
+  "start": 18.881,
+  "end": 19.101
+ },
+ {
+  "word": "yellow.",
+  "start": 19.101,
+  "end": 19.401
+ },
+ {
+  "word": "So",
+  "start": 19.882,
+  "end": 20.001
+ },
+ {
+  "word": "your",
+  "start": 20.001,
+  "end": 20.141
+ },
+ {
+  "word": "friend",
+  "start": 20.141,
+  "end": 20.301
+ },
+ {
+  "word": "bleaches",
+  "start": 20.301,
+  "end": 20.581
+ },
+ {
+  "word": "a",
+  "start": 20.581,
+  "end": 20.781
+ },
+ {
+  "word": "real",
+  "start": 20.781,
+  "end": 20.941
+ },
+ {
+  "word": "5",
+  "start": 20.941,
+  "end": 21.181
+ },
+ {
+  "word": "dollar",
+  "start": 21.181,
+  "end": 21.231
+ },
+ {
+  "word": "bill,",
+  "start": 21.181,
+  "end": 21.621
+ },
+ {
+  "word": "and",
+  "start": 21.781,
+  "end": 21.831
+ },
+ {
+  "word": "prints",
+  "start": 21.821,
+  "end": 22.001
+ },
+ {
+  "word": "100",
+  "start": 22.001,
+  "end": 22.421
+ },
+ {
+  "word": "on",
+  "start": 22.421,
+  "end": 22.601
+ },
+ {
+  "word": "top.",
+  "start": 22.601,
+  "end": 22.881
+ },
+ {
+  "word": "It",
+  "start": 23.121,
+  "end": 23.241
+ },
+ {
+  "word": "passes.",
+  "start": 23.241,
+  "end": 23.481
+ },
+ {
+  "word": "So",
+  "start": 23.901,
+  "end": 24.146
+ },
+ {
+  "word": "you",
+  "start": 24.146,
+  "end": 24.406
+ },
+ {
+  "word": "hide",
+  "start": 24.406,
+  "end": 24.606
+ },
+ {
+  "word": "a",
+  "start": 24.606,
+  "end": 24.706
+ },
+ {
+  "word": "thread",
+  "start": 24.706,
+  "end": 24.826
+ },
+ {
+  "word": "inside,",
+  "start": 24.826,
+  "end": 25.186
+ },
+ {
+  "word": "and",
+  "start": 25.366,
+  "end": 25.466
+ },
+ {
+  "word": "a",
+  "start": 25.466,
+  "end": 25.546
+ },
+ {
+  "word": "watermark.",
+  "start": 25.546,
+  "end": 25.906
+ },
+ {
+  "word": "Under",
+  "start": 26.224,
+  "end": 26.426
+ },
+ {
+  "word": "UV",
+  "start": 26.426,
+  "end": 26.626
+ },
+ {
+  "word": "light,",
+  "start": 26.626,
+  "end": 26.946
+ },
+ {
+  "word": "a",
+  "start": 27.126,
+  "end": 27.186
+ },
+ {
+  "word": "real",
+  "start": 27.186,
+  "end": 27.306
+ },
+ {
+  "word": "100",
+  "start": 27.306,
+  "end": 27.706
+ },
+ {
+  "word": "glows",
+  "start": 27.706,
+  "end": 28.026
+ },
+ {
+  "word": "pink.",
+  "start": 28.026,
+  "end": 28.286
+ },
+ {
+  "word": "His",
+  "start": 28.286,
+  "end": 28.586
+ },
+ {
+  "word": "bleached",
+  "start": 28.586,
+  "end": 28.886
+ },
+ {
+  "word": "5",
+  "start": 28.886,
+  "end": 29.146
+ },
+ {
+  "word": "glows",
+  "start": 29.146,
+  "end": 29.406
+ },
+ {
+  "word": "blue.",
+  "start": 29.406,
+  "end": 29.666
+ },
+ {
+  "word": "Busted.",
+  "start": 30.044,
+  "end": 30.286
+ },
+ {
+  "word": "So",
+  "start": 30.801,
+  "end": 30.906
+ },
+ {
+  "word": "he",
+  "start": 30.906,
+  "end": 31.026
+ },
+ {
+  "word": "scans",
+  "start": 31.026,
+  "end": 31.246
+ },
+ {
+  "word": "one",
+  "start": 31.246,
+  "end": 31.486
+ },
+ {
+  "word": "into",
+  "start": 31.486,
+  "end": 31.686
+ },
+ {
+  "word": "Photoshop.",
+  "start": 31.686,
+  "end": 31.926
+ },
+ {
+  "word": "Blocked.",
+  "start": 32.466,
+  "end": 32.866
+ },
+ {
+  "word": "Real",
+  "start": 33.046,
+  "end": 33.246
+ },
+ {
+  "word": "bills",
+  "start": 33.246,
+  "end": 33.486
+ },
+ {
+  "word": "hide",
+  "start": 33.486,
+  "end": 33.726
+ },
+ {
+  "word": "secret",
+  "start": 33.726,
+  "end": 33.946
+ },
+ {
+  "word": "dots,",
+  "start": 33.946,
+  "end": 34.246
+ },
+ {
+  "word": "and",
+  "start": 34.246,
+  "end": 34.446
+ },
+ {
+  "word": "digital",
+  "start": 34.446,
+  "end": 34.666
+ },
+ {
+  "word": "code.",
+  "start": 34.666,
+  "end": 35.006
+ },
+ {
+  "word": "Copiers",
+  "start": 35.186,
+  "end": 35.526
+ },
+ {
+  "word": "and",
+  "start": 35.526,
+  "end": 35.706
+ },
+ {
+  "word": "Photoshop",
+  "start": 35.706,
+  "end": 35.926
+ },
+ {
+  "word": "refuse",
+  "start": 35.926,
+  "end": 36.286
+ },
+ {
+  "word": "to",
+  "start": 36.286,
+  "end": 36.486
+ },
+ {
+  "word": "copy",
+  "start": 36.486,
+  "end": 36.666
+ },
+ {
+  "word": "them.",
+  "start": 36.666,
+  "end": 36.866
+ },
+ {
+  "word": "Infinite",
+  "start": 37.066,
+  "end": 37.326
+ },
+ {
+  "word": "money",
+  "start": 37.326,
+  "end": 37.546
+ },
+ {
+  "word": "glitch,",
+  "start": 37.546,
+  "end": 37.806
+ },
+ {
+  "word": "patched.",
+  "start": 37.966,
+  "end": 38.361
+ },
+ {
+  "word": "So",
+  "start": 38.693,
+  "end": 38.886
+ },
+ {
+  "word": "he",
+  "start": 38.886,
+  "end": 39.086
+ },
+ {
+  "word": "buys",
+  "start": 39.086,
+  "end": 39.246
+ },
+ {
+  "word": "a",
+  "start": 39.246,
+  "end": 39.406
+ },
+ {
+  "word": "real",
+  "start": 39.406,
+  "end": 39.526
+ },
+ {
+  "word": "press.",
+  "start": 39.526,
+  "end": 39.786
+ },
+ {
+  "word": "You",
+  "start": 40.266,
+  "end": 40.346
+ },
+ {
+  "word": "add",
+  "start": 40.346,
+  "end": 40.526
+ },
+ {
+  "word": "raised",
+  "start": 40.526,
+  "end": 40.786
+ },
+ {
+  "word": "ink,",
+  "start": 40.786,
+  "end": 41.046
+ },
+ {
+  "word": "color",
+  "start": 41.226,
+  "end": 41.386
+ },
+ {
+  "word": "shifting",
+  "start": 41.386,
+  "end": 41.606
+ },
+ {
+  "word": "ink,",
+  "start": 41.606,
+  "end": 41.986
+ },
+ {
+  "word": "and",
+  "start": 42.086,
+  "end": 42.166
+ },
+ {
+  "word": "microprinting",
+  "start": 42.166,
+  "end": 42.666
+ },
+ {
+  "word": "on",
+  "start": 42.666,
+  "end": 42.846
+ },
+ {
+  "word": "the",
+  "start": 42.846,
+  "end": 42.946
+ },
+ {
+  "word": "collar.",
+  "start": 42.946,
+  "end": 43.146
+ },
+ {
+  "word": "Ours",
+  "start": 43.566,
+  "end": 43.806
+ },
+ {
+  "word": "says,",
+  "start": 43.806,
+  "end": 44.066
+ },
+ {
+  "word": "The",
+  "start": 44.346,
+  "end": 44.396
+ },
+ {
+  "word": "United",
+  "start": 44.346,
+  "end": 44.526
+ },
+ {
+  "word": "States",
+  "start": 44.526,
+  "end": 44.866
+ },
+ {
+  "word": "of",
+  "start": 44.866,
+  "end": 45.066
+ },
+ {
+  "word": "Pocket",
+  "start": 45.066,
+  "end": 45.326
+ },
+ {
+  "word": "Puh.",
+  "start": 45.326,
+  "end": 45.783
+ },
+ {
+  "word": "Ben",
+  "start": 45.976,
+  "end": 46.106
+ },
+ {
+  "word": "Franklin",
+  "start": 46.106,
+  "end": 46.386
+ },
+ {
+  "word": "even",
+  "start": 46.386,
+  "end": 46.666
+ },
+ {
+  "word": "hid",
+  "start": 46.666,
+  "end": 46.866
+ },
+ {
+  "word": "typos",
+  "start": 46.866,
+  "end": 47.286
+ },
+ {
+  "word": "on",
+  "start": 47.286,
+  "end": 47.406
+ },
+ {
+  "word": "early",
+  "start": 47.406,
+  "end": 47.626
+ },
+ {
+  "word": "money.",
+  "start": 47.626,
+  "end": 47.886
+ },
+ {
+  "word": "Fakers",
+  "start": 48.314,
+  "end": 48.526
+ },
+ {
+  "word": "fixed",
+  "start": 48.526,
+  "end": 48.806
+ },
+ {
+  "word": "them,",
+  "start": 48.806,
+  "end": 49.086
+ },
+ {
+  "word": "and",
+  "start": 49.086,
+  "end": 49.306
+ },
+ {
+  "word": "caught",
+  "start": 49.306,
+  "end": 49.506
+ },
+ {
+  "word": "themselves.",
+  "start": 49.506,
+  "end": 49.726
+ },
+ {
+  "word": "Then",
+  "start": 50.146,
+  "end": 50.426
+ },
+ {
+  "word": "you",
+  "start": 50.426,
+  "end": 50.686
+ },
+ {
+  "word": "weave",
+  "start": 50.686,
+  "end": 50.886
+ },
+ {
+  "word": "in",
+  "start": 50.886,
+  "end": 51.046
+ },
+ {
+  "word": "a",
+  "start": 51.046,
+  "end": 51.206
+ },
+ {
+  "word": "blue",
+  "start": 51.206,
+  "end": 51.366
+ },
+ {
+  "word": "3D",
+  "start": 51.366,
+  "end": 51.706
+ },
+ {
+  "word": "ribbon,",
+  "start": 51.706,
+  "end": 51.986
+ },
+ {
+  "word": "packed",
+  "start": 52.206,
+  "end": 52.346
+ },
+ {
+  "word": "with",
+  "start": 52.346,
+  "end": 52.546
+ },
+ {
+  "word": "hundreds",
+  "start": 52.546,
+  "end": 52.826
+ },
+ {
+  "word": "of",
+  "start": 52.826,
+  "end": 53.066
+ },
+ {
+  "word": "thousands",
+  "start": 53.066,
+  "end": 53.346
+ },
+ {
+  "word": "of",
+  "start": 53.346,
+  "end": 53.566
+ },
+ {
+  "word": "lenses.",
+  "start": 53.566,
+  "end": 53.826
+ },
+ {
+  "word": "Tilt",
+  "start": 54.337,
+  "end": 54.486
+ },
+ {
+  "word": "it,",
+  "start": 54.486,
+  "end": 54.706
+ },
+ {
+  "word": "and",
+  "start": 54.866,
+  "end": 54.926
+ },
+ {
+  "word": "the",
+  "start": 54.926,
+  "end": 55.006
+ },
+ {
+  "word": "bells",
+  "start": 55.006,
+  "end": 55.186
+ },
+ {
+  "word": "turn",
+  "start": 55.186,
+  "end": 55.426
+ },
+ {
+  "word": "into",
+  "start": 55.426,
+  "end": 55.606
+ },
+ {
+  "word": "hundreds.",
+  "start": 55.606,
+  "end": 55.886
+ },
+ {
+  "word": "He",
+  "start": 56.306,
+  "end": 56.356
+ },
+ {
+  "word": "still",
+  "start": 56.33,
+  "end": 56.55
+ },
+ {
+  "word": "won't",
+  "start": 56.55,
+  "end": 56.77
+ },
+ {
+  "word": "stop.",
+  "start": 56.77,
+  "end": 57.07
+ },
+ {
+  "word": "So",
+  "start": 57.37,
+  "end": 57.42
+ },
+ {
+  "word": "you",
+  "start": 57.41,
+  "end": 57.55
+ },
+ {
+  "word": "start",
+  "start": 57.55,
+  "end": 57.71
+ },
+ {
+  "word": "a",
+  "start": 57.71,
+  "end": 57.83
+ },
+ {
+  "word": "secret",
+  "start": 57.83,
+  "end": 57.99
+ },
+ {
+  "word": "police",
+  "start": 57.99,
+  "end": 58.27
+ },
+ {
+  "word": "force,",
+  "start": 58.27,
+  "end": 58.55
+ },
+ {
+  "word": "just",
+  "start": 58.55,
+  "end": 58.91
+ },
+ {
+  "word": "for",
+  "start": 58.91,
+  "end": 59.05
+ },
+ {
+  "word": "fake",
+  "start": 59.05,
+  "end": 59.19
+ },
+ {
+  "word": "money.",
+  "start": 59.19,
+  "end": 59.45
+ },
+ {
+  "word": "Sounds",
+  "start": 59.77,
+  "end": 59.91
+ },
+ {
+  "word": "like",
+  "start": 59.91,
+  "end": 60.07
+ },
+ {
+  "word": "a",
+  "start": 60.07,
+  "end": 60.15
+ },
+ {
+  "word": "joke.",
+  "start": 60.15,
+  "end": 60.35
+ },
+ {
+  "word": "It",
+  "start": 60.91,
+  "end": 61.01
+ },
+ {
+  "word": "isn't.",
+  "start": 61.01,
+  "end": 61.37
+ },
+ {
+  "word": "In",
+  "start": 61.73,
+  "end": 61.79
+ },
+ {
+  "word": "1865,",
+  "start": 61.79,
+  "end": 62.43
+ },
+ {
+  "word": "a",
+  "start": 62.75,
+  "end": 62.83
+ },
+ {
+  "word": "third",
+  "start": 62.83,
+  "end": 63.03
+ },
+ {
+  "word": "of",
+  "start": 63.03,
+  "end": 63.15
+ },
+ {
+  "word": "US",
+  "start": 63.15,
+  "end": 63.33
+ },
+ {
+  "word": "cash",
+  "start": 63.33,
+  "end": 63.61
+ },
+ {
+  "word": "was",
+  "start": 63.61,
+  "end": 63.81
+ },
+ {
+  "word": "fake.",
+  "start": 63.81,
+  "end": 64.01
+ },
+ {
+  "word": "Lincoln",
+  "start": 64.35,
+  "end": 64.47
+ },
+ {
+  "word": "approved",
+  "start": 64.47,
+  "end": 64.75
+ },
+ {
+  "word": "the",
+  "start": 64.75,
+  "end": 64.95
+ },
+ {
+  "word": "Secret",
+  "start": 64.95,
+  "end": 65.13
+ },
+ {
+  "word": "Service",
+  "start": 65.13,
+  "end": 65.47
+ },
+ {
+  "word": "the",
+  "start": 65.47,
+  "end": 65.63
+ },
+ {
+  "word": "day",
+  "start": 65.63,
+  "end": 65.79
+ },
+ {
+  "word": "he",
+  "start": 65.79,
+  "end": 65.89
+ },
+ {
+  "word": "was",
+  "start": 65.89,
+  "end": 66.01
+ },
+ {
+  "word": "shot.",
+  "start": 66.01,
+  "end": 66.25
+ },
+ {
+  "word": "They",
+  "start": 66.45,
+  "end": 66.51
+ },
+ {
+  "word": "didn't",
+  "start": 66.51,
+  "end": 66.71
+ },
+ {
+  "word": "guard",
+  "start": 66.71,
+  "end": 66.89
+ },
+ {
+  "word": "presidents",
+  "start": 66.89,
+  "end": 67.27
+ },
+ {
+  "word": "until",
+  "start": 67.27,
+  "end": 67.55
+ },
+ {
+  "word": "1901.",
+  "start": 67.55,
+  "end": 68.21
+ },
+ {
+  "word": "Costs",
+  "start": 68.66,
+  "end": 68.79
+ },
+ {
+  "word": "11",
+  "start": 68.79,
+  "end": 69.09
+ },
+ {
+  "word": "cents",
+  "start": 69.09,
+  "end": 69.29
+ },
+ {
+  "word": "to",
+  "start": 69.29,
+  "end": 69.47
+ },
+ {
+  "word": "print.",
+  "start": 69.47,
+  "end": 69.69
+ },
+ {
+  "word": "Lasts",
+  "start": 69.69,
+  "end": 70.13
+ },
+ {
+  "word": "24",
+  "start": 70.13,
+  "end": 70.61
+ },
+ {
+  "word": "years.",
+  "start": 70.61,
+  "end": 70.95
+ },
+ {
+  "word": "And",
+  "start": 71.31,
+  "end": 71.41
+ },
+ {
+  "word": "80",
+  "start": 71.41,
+  "end": 71.61
+ },
+ {
+  "word": "percent",
+  "start": 71.61,
+  "end": 71.91
+ },
+ {
+  "word": "live",
+  "start": 71.91,
+  "end": 72.13
+ },
+ {
+  "word": "outside",
+  "start": 72.13,
+  "end": 72.45
+ },
+ {
+  "word": "America.",
+  "start": 72.45,
+  "end": 72.77
+ },
+ {
+  "word": "He",
+  "start": 73.19,
+  "end": 73.259
+ },
+ {
+  "word": "finally",
+  "start": 73.259,
+  "end": 73.459
+ },
+ {
+  "word": "borrows",
+  "start": 73.459,
+  "end": 73.819
+ },
+ {
+  "word": "a",
+  "start": 73.819,
+  "end": 73.919
+ },
+ {
+  "word": "real",
+  "start": 73.919,
+  "end": 74.039
+ },
+ {
+  "word": "one",
+  "start": 74.039,
+  "end": 74.219
+ },
+ {
+  "word": "from",
+  "start": 74.219,
+  "end": 74.339
+ },
+ {
+  "word": "grandma.",
+  "start": 74.339,
+  "end": 74.599
+ },
+ {
+  "word": "Congratulations.",
+  "start": 75.131,
+  "end": 75.459
+ },
+ {
+  "word": "You've",
+  "start": 75.879,
+  "end": 76.036
+ },
+ {
+  "word": "built",
+  "start": 76.036,
+  "end": 76.156
+ },
+ {
+  "word": "cotton",
+  "start": 76.156,
+  "end": 76.416
+ },
+ {
+  "word": "nobody",
+  "start": 76.416,
+  "end": 76.596
+ },
+ {
+  "word": "can",
+  "start": 76.596,
+  "end": 76.836
+ },
+ {
+  "word": "copy,",
+  "start": 76.836,
+  "end": 77.096
+ },
+ {
+  "word": "with",
+  "start": 77.336,
+  "end": 77.436
+ },
+ {
+  "word": "its",
+  "start": 77.436,
+  "end": 77.576
+ },
+ {
+  "word": "own",
+  "start": 77.576,
+  "end": 77.736
+ },
+ {
+  "word": "police",
+  "start": 77.736,
+  "end": 77.996
+ },
+ {
+  "word": "force.",
+  "start": 77.996,
+  "end": 78.256
+ },
+ {
+  "word": "You",
+  "start": 78.736,
+  "end": 78.796
+ },
+ {
+  "word": "call",
+  "start": 78.796,
+  "end": 78.996
+ },
+ {
+  "word": "it,",
+  "start": 78.996,
+  "end": 79.196
+ },
+ {
+  "word": "the",
+  "start": 79.196,
+  "end": 79.396
+ },
+ {
+  "word": "hundred",
+  "start": 79.396,
+  "end": 79.556
+ },
+ {
+  "word": "dollar",
+  "start": 79.556,
+  "end": 79.716
+ },
+ {
+  "word": "bill.",
+  "start": 79.716,
+  "end": 80.016
+ },
+ {
+  "word": "Follow,",
+  "start": 80.55,
+  "end": 80.816
+ },
+ {
+  "word": "or",
+  "start": 81.096,
+  "end": 81.236
+ },
+ {
+  "word": "I'll",
+  "start": 81.236,
+  "end": 81.436
+ },
+ {
+  "word": "report",
+  "start": 81.436,
+  "end": 81.676
+ },
+ {
+  "word": "your",
+  "start": 81.676,
+  "end": 81.796
+ },
+ {
+  "word": "pocket",
+  "start": 81.796,
+  "end": 82.056
+ },
+ {
+  "word": "puh",
+  "start": 82.056,
+  "end": 82.476
+ },
+ {
+  "word": "to",
+  "start": 82.476,
+  "end": 82.636
+ },
+ {
+  "word": "the",
+  "start": 82.636,
+  "end": 82.756
+ },
+ {
+  "word": "Secret",
+  "start": 82.756,
+  "end": 82.936
+ },
+ {
+  "word": "Service.",
+  "start": 82.936,
+  "end": 83.256
+ }
+]
