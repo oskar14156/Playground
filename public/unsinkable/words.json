@@ -1,0 +1,1492 @@
+[
+ {
+  "word": "Grandma",
+  "start": 0.0,
+  "end": 0.28
+ },
+ {
+  "word": "won",
+  "start": 0.28,
+  "end": 0.6
+ },
+ {
+  "word": "your",
+  "start": 0.6,
+  "end": 0.7
+ },
+ {
+  "word": "giant",
+  "start": 0.7,
+  "end": 0.94
+ },
+ {
+  "word": "pocket",
+  "start": 0.94,
+  "end": 1.18
+ },
+ {
+  "word": "puh",
+  "start": 1.18,
+  "end": 1.56
+ },
+ {
+  "word": "at",
+  "start": 1.56,
+  "end": 1.72
+ },
+ {
+  "word": "the",
+  "start": 1.72,
+  "end": 1.8
+ },
+ {
+  "word": "casino,",
+  "start": 1.8,
+  "end": 2.12
+ },
+ {
+  "word": "and",
+  "start": 2.4,
+  "end": 2.52
+ },
+ {
+  "word": "sailed",
+  "start": 2.52,
+  "end": 2.76
+ },
+ {
+  "word": "off",
+  "start": 2.76,
+  "end": 2.96
+ },
+ {
+  "word": "to",
+  "start": 2.96,
+  "end": 3.16
+ },
+ {
+  "word": "New",
+  "start": 3.16,
+  "end": 3.26
+ },
+ {
+  "word": "York.",
+  "start": 3.26,
+  "end": 3.52
+ },
+ {
+  "word": "So",
+  "start": 3.944,
+  "end": 4.04
+ },
+ {
+  "word": "you",
+  "start": 4.04,
+  "end": 4.16
+ },
+ {
+  "word": "build",
+  "start": 4.16,
+  "end": 4.36
+ },
+ {
+  "word": "an",
+  "start": 4.36,
+  "end": 4.52
+ },
+ {
+  "word": "unsinkable",
+  "start": 4.52,
+  "end": 5.06
+ },
+ {
+  "word": "ship",
+  "start": 5.06,
+  "end": 5.32
+ },
+ {
+  "word": "to",
+  "start": 5.32,
+  "end": 5.48
+ },
+ {
+  "word": "chase",
+  "start": 5.48,
+  "end": 5.68
+ },
+ {
+  "word": "her",
+  "start": 5.68,
+  "end": 5.84
+ },
+ {
+  "word": "down.",
+  "start": 5.84,
+  "end": 6.02
+ },
+ {
+  "word": "You",
+  "start": 6.431,
+  "end": 6.5
+ },
+ {
+  "word": "start",
+  "start": 6.5,
+  "end": 6.7
+ },
+ {
+  "word": "with",
+  "start": 6.7,
+  "end": 6.88
+ },
+ {
+  "word": "a",
+  "start": 6.88,
+  "end": 6.96
+ },
+ {
+  "word": "269",
+  "start": 6.96,
+  "end": 7.5
+ },
+ {
+  "word": "meter",
+  "start": 7.5,
+  "end": 7.7
+ },
+ {
+  "word": "steel",
+  "start": 7.7,
+  "end": 8.0
+ },
+ {
+  "word": "hull,",
+  "start": 8.0,
+  "end": 8.32
+ },
+ {
+  "word": "packed",
+  "start": 8.48,
+  "end": 8.66
+ },
+ {
+  "word": "with",
+  "start": 8.66,
+  "end": 8.82
+ },
+ {
+  "word": "3",
+  "start": 8.82,
+  "end": 9.04
+ },
+ {
+  "word": "million",
+  "start": 9.04,
+  "end": 9.28
+ },
+ {
+  "word": "rivets.",
+  "start": 9.28,
+  "end": 9.72
+ },
+ {
+  "word": "But",
+  "start": 10.26,
+  "end": 10.46
+ },
+ {
+  "word": "one",
+  "start": 10.46,
+  "end": 10.62
+ },
+ {
+  "word": "tiny",
+  "start": 10.62,
+  "end": 10.88
+ },
+ {
+  "word": "leak",
+  "start": 10.88,
+  "end": 11.16
+ },
+ {
+  "word": "can",
+  "start": 11.16,
+  "end": 11.38
+ },
+ {
+  "word": "sink",
+  "start": 11.38,
+  "end": 11.52
+ },
+ {
+  "word": "the",
+  "start": 11.52,
+  "end": 11.68
+ },
+ {
+  "word": "whole",
+  "start": 11.68,
+  "end": 11.8
+ },
+ {
+  "word": "boat.",
+  "start": 11.8,
+  "end": 12.1
+ },
+ {
+  "word": "So",
+  "start": 12.428,
+  "end": 12.56
+ },
+ {
+  "word": "you",
+  "start": 12.56,
+  "end": 12.64
+ },
+ {
+  "word": "slice",
+  "start": 12.64,
+  "end": 12.8
+ },
+ {
+  "word": "the",
+  "start": 12.8,
+  "end": 13.02
+ },
+ {
+  "word": "hull",
+  "start": 13.02,
+  "end": 13.2
+ },
+ {
+  "word": "into",
+  "start": 13.2,
+  "end": 13.36
+ },
+ {
+  "word": "16",
+  "start": 13.36,
+  "end": 13.7
+ },
+ {
+  "word": "watertight",
+  "start": 13.7,
+  "end": 14.18
+ },
+ {
+  "word": "compartments.",
+  "start": 14.18,
+  "end": 14.72
+ },
+ {
+  "word": "Even",
+  "start": 15.148,
+  "end": 15.28
+ },
+ {
+  "word": "if",
+  "start": 15.28,
+  "end": 15.44
+ },
+ {
+  "word": "4",
+  "start": 15.44,
+  "end": 15.62
+ },
+ {
+  "word": "flood,",
+  "start": 15.62,
+  "end": 15.88
+ },
+ {
+  "word": "she",
+  "start": 16.08,
+  "end": 16.16
+ },
+ {
+  "word": "still",
+  "start": 16.16,
+  "end": 16.32
+ },
+ {
+  "word": "floats.",
+  "start": 16.32,
+  "end": 16.58
+ },
+ {
+  "word": "But",
+  "start": 16.98,
+  "end": 17.064
+ },
+ {
+  "word": "here's",
+  "start": 17.064,
+  "end": 17.284
+ },
+ {
+  "word": "the",
+  "start": 17.284,
+  "end": 17.364
+ },
+ {
+  "word": "plot",
+  "start": 17.364,
+  "end": 17.524
+ },
+ {
+  "word": "twist.",
+  "start": 17.524,
+  "end": 17.764
+ },
+ {
+  "word": "You",
+  "start": 18.514,
+  "end": 18.614
+ },
+ {
+  "word": "don't",
+  "start": 18.614,
+  "end": 18.834
+ },
+ {
+  "word": "seal",
+  "start": 18.834,
+  "end": 19.014
+ },
+ {
+  "word": "the",
+  "start": 19.014,
+  "end": 19.134
+ },
+ {
+  "word": "tops.",
+  "start": 19.134,
+  "end": 19.394
+ },
+ {
+  "word": "The",
+  "start": 19.914,
+  "end": 19.994
+ },
+ {
+  "word": "walls",
+  "start": 19.994,
+  "end": 20.194
+ },
+ {
+  "word": "stop",
+  "start": 20.194,
+  "end": 20.454
+ },
+ {
+  "word": "just",
+  "start": 20.454,
+  "end": 20.654
+ },
+ {
+  "word": "3",
+  "start": 20.654,
+  "end": 20.874
+ },
+ {
+  "word": "meters",
+  "start": 20.874,
+  "end": 21.034
+ },
+ {
+  "word": "above",
+  "start": 21.034,
+  "end": 21.294
+ },
+ {
+  "word": "the",
+  "start": 21.294,
+  "end": 21.454
+ },
+ {
+  "word": "water,",
+  "start": 21.454,
+  "end": 21.674
+ },
+ {
+  "word": "like",
+  "start": 22.294,
+  "end": 22.394
+ },
+ {
+  "word": "a",
+  "start": 22.394,
+  "end": 22.494
+ },
+ {
+  "word": "giant",
+  "start": 22.494,
+  "end": 22.674
+ },
+ {
+  "word": "ice",
+  "start": 22.674,
+  "end": 22.854
+ },
+ {
+  "word": "cube",
+  "start": 22.854,
+  "end": 23.074
+ },
+ {
+  "word": "tray.",
+  "start": 23.074,
+  "end": 23.334
+ },
+ {
+  "word": "Flood",
+  "start": 23.878,
+  "end": 24.074
+ },
+ {
+  "word": "5,",
+  "start": 24.074,
+  "end": 24.334
+ },
+ {
+  "word": "and",
+  "start": 24.594,
+  "end": 24.674
+ },
+ {
+  "word": "water",
+  "start": 24.674,
+  "end": 24.894
+ },
+ {
+  "word": "spills",
+  "start": 24.894,
+  "end": 25.154
+ },
+ {
+  "word": "right",
+  "start": 25.154,
+  "end": 25.334
+ },
+ {
+  "word": "over",
+  "start": 25.334,
+  "end": 25.474
+ },
+ {
+  "word": "the",
+  "start": 25.474,
+  "end": 25.594
+ },
+ {
+  "word": "top",
+  "start": 25.594,
+  "end": 25.814
+ },
+ {
+  "word": "into",
+  "start": 25.814,
+  "end": 25.994
+ },
+ {
+  "word": "the",
+  "start": 25.994,
+  "end": 26.114
+ },
+ {
+  "word": "next.",
+  "start": 26.114,
+  "end": 26.394
+ },
+ {
+  "word": "Your",
+  "start": 26.87,
+  "end": 26.934
+ },
+ {
+  "word": "29",
+  "start": 26.934,
+  "end": 27.294
+ },
+ {
+  "word": "coal",
+  "start": 27.294,
+  "end": 27.534
+ },
+ {
+  "word": "boilers",
+  "start": 27.534,
+  "end": 27.874
+ },
+ {
+  "word": "only",
+  "start": 27.874,
+  "end": 28.074
+ },
+ {
+  "word": "need",
+  "start": 28.074,
+  "end": 28.294
+ },
+ {
+  "word": "3",
+  "start": 28.294,
+  "end": 28.434
+ },
+ {
+  "word": "smokestacks.",
+  "start": 28.434,
+  "end": 28.954
+ },
+ {
+  "word": "So",
+  "start": 29.234,
+  "end": 29.414
+ },
+ {
+  "word": "why",
+  "start": 29.414,
+  "end": 29.534
+ },
+ {
+  "word": "bolt",
+  "start": 29.534,
+  "end": 29.714
+ },
+ {
+  "word": "on",
+  "start": 29.714,
+  "end": 29.834
+ },
+ {
+  "word": "a",
+  "start": 29.834,
+  "end": 29.934
+ },
+ {
+  "word": "fourth?",
+  "start": 29.934,
+  "end": 30.246
+ },
+ {
+  "word": "Pure",
+  "start": 30.564,
+  "end": 30.734
+ },
+ {
+  "word": "aura",
+  "start": 30.734,
+  "end": 30.974
+ },
+ {
+  "word": "farming.",
+  "start": 30.974,
+  "end": 31.274
+ },
+ {
+  "word": "The",
+  "start": 32.124,
+  "end": 32.18
+ },
+ {
+  "word": "fourth",
+  "start": 32.18,
+  "end": 32.44
+ },
+ {
+  "word": "funnel",
+  "start": 32.44,
+  "end": 32.6
+ },
+ {
+  "word": "isn't",
+  "start": 32.6,
+  "end": 32.92
+ },
+ {
+  "word": "even",
+  "start": 32.92,
+  "end": 33.08
+ },
+ {
+  "word": "hooked",
+  "start": 33.08,
+  "end": 33.24
+ },
+ {
+  "word": "to",
+  "start": 33.24,
+  "end": 33.48
+ },
+ {
+  "word": "the",
+  "start": 33.48,
+  "end": 33.56
+ },
+ {
+  "word": "boilers.",
+  "start": 33.56,
+  "end": 33.92
+ },
+ {
+  "word": "It's",
+  "start": 34.12,
+  "end": 34.28
+ },
+ {
+  "word": "just",
+  "start": 34.28,
+  "end": 34.42
+ },
+ {
+  "word": "a",
+  "start": 34.42,
+  "end": 34.58
+ },
+ {
+  "word": "massive",
+  "start": 34.58,
+  "end": 34.8
+ },
+ {
+  "word": "air",
+  "start": 34.8,
+  "end": 35.04
+ },
+ {
+  "word": "vent,",
+  "start": 35.04,
+  "end": 35.22
+ },
+ {
+  "word": "so",
+  "start": 35.32,
+  "end": 35.5
+ },
+ {
+  "word": "the",
+  "start": 35.5,
+  "end": 35.6
+ },
+ {
+  "word": "ship",
+  "start": 35.6,
+  "end": 35.76
+ },
+ {
+  "word": "looks",
+  "start": 35.76,
+  "end": 35.92
+ },
+ {
+  "word": "cooler.",
+  "start": 35.92,
+  "end": 36.24
+ },
+ {
+  "word": "Wait.",
+  "start": 36.74,
+  "end": 36.92
+ },
+ {
+  "word": "Why",
+  "start": 37.375,
+  "end": 37.56
+ },
+ {
+  "word": "only",
+  "start": 37.56,
+  "end": 37.74
+ },
+ {
+  "word": "20",
+  "start": 37.74,
+  "end": 37.98
+ },
+ {
+  "word": "lifeboats",
+  "start": 37.98,
+  "end": 38.5
+ },
+ {
+  "word": "for",
+  "start": 38.5,
+  "end": 38.64
+ },
+ {
+  "word": "over",
+  "start": 38.64,
+  "end": 38.82
+ },
+ {
+  "word": "2,200",
+  "start": 38.82,
+  "end": 39.66
+ },
+ {
+  "word": "people?",
+  "start": 39.66,
+  "end": 39.98
+ },
+ {
+  "word": "British",
+  "start": 40.441,
+  "end": 40.58
+ },
+ {
+  "word": "law",
+  "start": 40.58,
+  "end": 40.86
+ },
+ {
+  "word": "from",
+  "start": 40.86,
+  "end": 41.04
+ },
+ {
+  "word": "1894",
+  "start": 41.04,
+  "end": 41.74
+ },
+ {
+  "word": "only",
+  "start": 41.74,
+  "end": 42.08
+ },
+ {
+  "word": "required",
+  "start": 42.08,
+  "end": 42.46
+ },
+ {
+  "word": "16.",
+  "start": 42.46,
+  "end": 42.9
+ },
+ {
+  "word": "You",
+  "start": 43.3,
+  "end": 43.387
+ },
+ {
+  "word": "actually",
+  "start": 43.387,
+  "end": 43.707
+ },
+ {
+  "word": "beat",
+  "start": 43.707,
+  "end": 43.967
+ },
+ {
+  "word": "the",
+  "start": 43.967,
+  "end": 44.087
+ },
+ {
+  "word": "legal",
+  "start": 44.087,
+  "end": 44.287
+ },
+ {
+  "word": "minimum,",
+  "start": 44.287,
+  "end": 44.547
+ },
+ {
+  "word": "and",
+  "start": 44.547,
+  "end": 44.887
+ },
+ {
+  "word": "cut",
+  "start": 44.887,
+  "end": 45.127
+ },
+ {
+  "word": "the",
+  "start": 45.127,
+  "end": 45.267
+ },
+ {
+  "word": "rest,",
+  "start": 45.267,
+  "end": 45.607
+ },
+ {
+  "word": "so",
+  "start": 45.647,
+  "end": 45.827
+ },
+ {
+  "word": "they",
+  "start": 45.827,
+  "end": 45.947
+ },
+ {
+  "word": "wouldn't",
+  "start": 45.947,
+  "end": 46.147
+ },
+ {
+  "word": "ruin",
+  "start": 46.147,
+  "end": 46.307
+ },
+ {
+  "word": "the",
+  "start": 46.307,
+  "end": 46.467
+ },
+ {
+  "word": "view.",
+  "start": 46.467,
+  "end": 46.687
+ },
+ {
+  "word": "You",
+  "start": 47.208,
+  "end": 47.307
+ },
+ {
+  "word": "cruise",
+  "start": 47.307,
+  "end": 47.527
+ },
+ {
+  "word": "at",
+  "start": 47.527,
+  "end": 47.707
+ },
+ {
+  "word": "22",
+  "start": 47.707,
+  "end": 47.987
+ },
+ {
+  "word": "knots",
+  "start": 47.987,
+  "end": 48.287
+ },
+ {
+  "word": "into",
+  "start": 48.287,
+  "end": 48.547
+ },
+ {
+  "word": "an",
+  "start": 48.547,
+  "end": 48.687
+ },
+ {
+  "word": "ice",
+  "start": 48.687,
+  "end": 48.847
+ },
+ {
+  "word": "field.",
+  "start": 48.847,
+  "end": 49.087
+ },
+ {
+  "word": "Your",
+  "start": 49.539,
+  "end": 49.627
+ },
+ {
+  "word": "lookouts",
+  "start": 49.627,
+  "end": 49.987
+ },
+ {
+  "word": "reach",
+  "start": 49.987,
+  "end": 50.207
+ },
+ {
+  "word": "for",
+  "start": 50.207,
+  "end": 50.367
+ },
+ {
+  "word": "the",
+  "start": 50.367,
+  "end": 50.427
+ },
+ {
+  "word": "binoculars,",
+  "start": 50.427,
+  "end": 50.927
+ },
+ {
+  "word": "except",
+  "start": 51.007,
+  "end": 51.267
+ },
+ {
+  "word": "the",
+  "start": 51.267,
+  "end": 51.467
+ },
+ {
+  "word": "locker",
+  "start": 51.467,
+  "end": 51.647
+ },
+ {
+  "word": "is",
+  "start": 51.647,
+  "end": 51.887
+ },
+ {
+  "word": "locked.",
+  "start": 51.887,
+  "end": 52.147
+ },
+ {
+  "word": "An",
+  "start": 52.592,
+  "end": 52.687
+ },
+ {
+  "word": "officer",
+  "start": 52.687,
+  "end": 52.927
+ },
+ {
+  "word": "got",
+  "start": 52.927,
+  "end": 53.187
+ },
+ {
+  "word": "reassigned",
+  "start": 53.187,
+  "end": 53.647
+ },
+ {
+  "word": "before",
+  "start": 53.647,
+  "end": 53.847
+ },
+ {
+  "word": "launch,",
+  "start": 53.847,
+  "end": 54.227
+ },
+ {
+  "word": "and",
+  "start": 54.227,
+  "end": 54.427
+ },
+ {
+  "word": "pocketed",
+  "start": 54.427,
+  "end": 54.807
+ },
+ {
+  "word": "the",
+  "start": 54.807,
+  "end": 54.887
+ },
+ {
+  "word": "key.",
+  "start": 54.887,
+  "end": 55.067
+ },
+ {
+  "word": "An",
+  "start": 55.595,
+  "end": 55.707
+ },
+ {
+  "word": "iceberg",
+  "start": 55.707,
+  "end": 55.987
+ },
+ {
+  "word": "appears",
+  "start": 55.987,
+  "end": 56.327
+ },
+ {
+  "word": "400",
+  "start": 56.327,
+  "end": 56.667
+ },
+ {
+  "word": "meters",
+  "start": 56.667,
+  "end": 56.987
+ },
+ {
+  "word": "ahead.",
+  "start": 56.987,
+  "end": 57.267
+ },
+ {
+  "word": "You",
+  "start": 57.772,
+  "end": 57.847
+ },
+ {
+  "word": "slam",
+  "start": 57.847,
+  "end": 58.087
+ },
+ {
+  "word": "full",
+  "start": 58.087,
+  "end": 58.347
+ },
+ {
+  "word": "reverse,",
+  "start": 58.347,
+  "end": 58.607
+ },
+ {
+  "word": "and",
+  "start": 58.607,
+  "end": 58.887
+ },
+ {
+  "word": "crank",
+  "start": 58.887,
+  "end": 59.047
+ },
+ {
+  "word": "the",
+  "start": 59.047,
+  "end": 59.187
+ },
+ {
+  "word": "wheel.",
+  "start": 59.187,
+  "end": 59.387
+ },
+ {
+  "word": "Huge",
+  "start": 59.387,
+  "end": 59.542
+ },
+ {
+  "word": "mistake.",
+  "start": 59.947,
+  "end": 60.347
+ },
+ {
+  "word": "Your",
+  "start": 61.237,
+  "end": 61.337
+ },
+ {
+  "word": "center",
+  "start": 61.337,
+  "end": 61.577
+ },
+ {
+  "word": "propeller",
+  "start": 61.577,
+  "end": 61.957
+ },
+ {
+  "word": "runs",
+  "start": 61.957,
+  "end": 62.197
+ },
+ {
+  "word": "on",
+  "start": 62.197,
+  "end": 62.377
+ },
+ {
+  "word": "a",
+  "start": 62.377,
+  "end": 62.477
+ },
+ {
+  "word": "steam",
+  "start": 62.477,
+  "end": 62.617
+ },
+ {
+  "word": "turbine",
+  "start": 62.617,
+  "end": 62.917
+ },
+ {
+  "word": "that",
+  "start": 62.917,
+  "end": 63.117
+ },
+ {
+  "word": "can't",
+  "start": 63.117,
+  "end": 63.377
+ },
+ {
+  "word": "reverse,",
+  "start": 63.377,
+  "end": 63.597
+ },
+ {
+  "word": "so",
+  "start": 63.897,
+  "end": 63.997
+ },
+ {
+  "word": "it",
+  "start": 63.997,
+  "end": 64.097
+ },
+ {
+  "word": "just",
+  "start": 64.097,
+  "end": 64.197
+ },
+ {
+  "word": "stops.",
+  "start": 64.197,
+  "end": 64.537
+ },
+ {
+  "word": "That",
+  "start": 64.997,
+  "end": 65.117
+ },
+ {
+  "word": "kills",
+  "start": 65.117,
+  "end": 65.337
+ },
+ {
+  "word": "water",
+  "start": 65.337,
+  "end": 65.597
+ },
+ {
+  "word": "flow",
+  "start": 65.597,
+  "end": 65.837
+ },
+ {
+  "word": "over",
+  "start": 65.837,
+  "end": 65.997
+ },
+ {
+  "word": "the",
+  "start": 65.997,
+  "end": 66.117
+ },
+ {
+  "word": "rudder,",
+  "start": 66.117,
+  "end": 66.397
+ },
+ {
+  "word": "wrecking",
+  "start": 66.497,
+  "end": 66.737
+ },
+ {
+  "word": "your",
+  "start": 66.737,
+  "end": 66.837
+ },
+ {
+  "word": "steering.",
+  "start": 66.837,
+  "end": 67.137
+ },
+ {
+  "word": "Ice",
+  "start": 67.669,
+  "end": 67.857
+ },
+ {
+  "word": "rips",
+  "start": 67.857,
+  "end": 68.077
+ },
+ {
+  "word": "open",
+  "start": 68.077,
+  "end": 68.357
+ },
+ {
+  "word": "6",
+  "start": 68.357,
+  "end": 68.617
+ },
+ {
+  "word": "compartments.",
+  "start": 68.617,
+  "end": 69.297
+ },
+ {
+  "word": "The",
+  "start": 69.634,
+  "end": 69.697
+ },
+ {
+  "word": "ice",
+  "start": 69.697,
+  "end": 69.957
+ },
+ {
+  "word": "cube",
+  "start": 69.957,
+  "end": 70.177
+ },
+ {
+  "word": "tray",
+  "start": 70.177,
+  "end": 70.437
+ },
+ {
+  "word": "spills",
+  "start": 70.437,
+  "end": 70.717
+ },
+ {
+  "word": "over,",
+  "start": 70.717,
+  "end": 71.017
+ },
+ {
+  "word": "and",
+  "start": 71.017,
+  "end": 71.297
+ },
+ {
+  "word": "she",
+  "start": 71.297,
+  "end": 71.457
+ },
+ {
+  "word": "sinks",
+  "start": 71.457,
+  "end": 71.657
+ },
+ {
+  "word": "3,800",
+  "start": 71.657,
+  "end": 72.217
+ },
+ {
+  "word": "meters",
+  "start": 72.217,
+  "end": 72.617
+ },
+ {
+  "word": "down.",
+  "start": 72.617,
+  "end": 73.017
+ },
+ {
+  "word": "At",
+  "start": 73.476,
+  "end": 73.557
+ },
+ {
+  "word": "least",
+  "start": 73.557,
+  "end": 73.737
+ },
+ {
+  "word": "you",
+  "start": 73.737,
+  "end": 73.897
+ },
+ {
+  "word": "built",
+  "start": 73.897,
+  "end": 74.077
+ },
+ {
+  "word": "a",
+  "start": 74.077,
+  "end": 74.217
+ },
+ {
+  "word": "heated",
+  "start": 74.217,
+  "end": 74.437
+ },
+ {
+  "word": "indoor",
+  "start": 74.437,
+  "end": 74.817
+ },
+ {
+  "word": "swimming",
+  "start": 74.817,
+  "end": 75.137
+ },
+ {
+  "word": "pool.",
+  "start": 75.137,
+  "end": 75.437
+ },
+ {
+  "word": "Fun",
+  "start": 75.812,
+  "end": 75.897
+ },
+ {
+  "word": "fact,",
+  "start": 75.897,
+  "end": 76.157
+ },
+ {
+  "word": "it's",
+  "start": 76.537,
+  "end": 76.717
+ },
+ {
+  "word": "still",
+  "start": 76.717,
+  "end": 76.877
+ },
+ {
+  "word": "full",
+  "start": 76.877,
+  "end": 77.117
+ },
+ {
+  "word": "of",
+  "start": 77.117,
+  "end": 77.217
+ },
+ {
+  "word": "water.",
+  "start": 77.217,
+  "end": 77.457
+ },
+ {
+  "word": "Congratulations.",
+  "start": 77.934,
+  "end": 78.237
+ },
+ {
+  "word": "There's",
+  "start": 78.637,
+  "end": 78.837
+ },
+ {
+  "word": "clearly",
+  "start": 78.837,
+  "end": 79.057
+ },
+ {
+  "word": "room",
+  "start": 79.057,
+  "end": 79.337
+ },
+ {
+  "word": "for",
+  "start": 79.337,
+  "end": 79.477
+ },
+ {
+  "word": "two",
+  "start": 79.477,
+  "end": 79.677
+ },
+ {
+  "word": "on",
+  "start": 79.677,
+  "end": 79.857
+ },
+ {
+  "word": "that",
+  "start": 79.857,
+  "end": 79.977
+ },
+ {
+  "word": "floating",
+  "start": 79.977,
+  "end": 80.177
+ },
+ {
+  "word": "door.",
+  "start": 80.177,
+  "end": 80.457
+ },
+ {
+  "word": "You",
+  "start": 81.267,
+  "end": 81.367
+ },
+ {
+  "word": "call",
+  "start": 81.367,
+  "end": 81.587
+ },
+ {
+  "word": "it,",
+  "start": 81.587,
+  "end": 81.747
+ },
+ {
+  "word": "the",
+  "start": 81.747,
+  "end": 81.887
+ },
+ {
+  "word": "Titanic.",
+  "start": 81.887,
+  "end": 82.187
+ },
+ {
+  "word": "Follow,",
+  "start": 82.587,
+  "end": 82.807
+ },
+ {
+  "word": "and",
+  "start": 83.107,
+  "end": 83.157
+ },
+ {
+  "word": "next",
+  "start": 83.147,
+  "end": 83.347
+ },
+ {
+  "word": "time,",
+  "start": 83.347,
+  "end": 83.627
+ },
+ {
+  "word": "I'll",
+  "start": 83.627,
+  "end": 83.807
+ },
+ {
+  "word": "save",
+  "start": 83.807,
+  "end": 83.947
+ },
+ {
+  "word": "your",
+  "start": 83.947,
+  "end": 84.067
+ },
+ {
+  "word": "pocket",
+  "start": 84.067,
+  "end": 84.597
+ },
+ {
+  "word": "puh.",
+  "start": 84.997,
+  "end": 85.248
+ },
+ {
+  "word": "Because...",
+  "start": 85.248,
+  "end": 85.728
+ }
+]
