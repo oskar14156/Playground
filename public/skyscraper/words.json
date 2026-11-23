@@ -1,0 +1,1362 @@
+[
+ {
+  "word": "Grandma",
+  "start": 0.0,
+  "end": 0.26
+ },
+ {
+  "word": "survived",
+  "start": 0.26,
+  "end": 0.94
+ },
+ {
+  "word": "the",
+  "start": 0.94,
+  "end": 1.2
+ },
+ {
+  "word": "Titanic,",
+  "start": 1.2,
+  "end": 1.56
+ },
+ {
+  "word": "and",
+  "start": 2.0,
+  "end": 2.2
+ },
+ {
+  "word": "moved",
+  "start": 2.2,
+  "end": 2.38
+ },
+ {
+  "word": "into",
+  "start": 2.38,
+  "end": 2.6
+ },
+ {
+  "word": "a",
+  "start": 2.6,
+  "end": 2.76
+ },
+ {
+  "word": "penthouse",
+  "start": 2.76,
+  "end": 3.12
+ },
+ {
+  "word": "in",
+  "start": 3.12,
+  "end": 3.28
+ },
+ {
+  "word": "the",
+  "start": 3.28,
+  "end": 3.38
+ },
+ {
+  "word": "clouds",
+  "start": 3.38,
+  "end": 3.68
+ },
+ {
+  "word": "with",
+  "start": 3.68,
+  "end": 3.86
+ },
+ {
+  "word": "your",
+  "start": 3.86,
+  "end": 3.96
+ },
+ {
+  "word": "giant",
+  "start": 3.96,
+  "end": 4.3
+ },
+ {
+  "word": "pocket",
+  "start": 4.3,
+  "end": 4.58
+ },
+ {
+  "word": "puh.",
+  "start": 4.58,
+  "end": 5.22
+ },
+ {
+  "word": "So",
+  "start": 5.22,
+  "end": 5.38
+ },
+ {
+  "word": "you",
+  "start": 5.38,
+  "end": 5.48
+ },
+ {
+  "word": "build",
+  "start": 5.48,
+  "end": 5.62
+ },
+ {
+  "word": "an",
+  "start": 5.62,
+  "end": 5.74
+ },
+ {
+  "word": "even",
+  "start": 5.74,
+  "end": 5.92
+ },
+ {
+  "word": "taller",
+  "start": 5.92,
+  "end": 6.24
+ },
+ {
+  "word": "skyscraper",
+  "start": 6.24,
+  "end": 6.84
+ },
+ {
+  "word": "right",
+  "start": 6.84,
+  "end": 7.1
+ },
+ {
+  "word": "next",
+  "start": 7.1,
+  "end": 7.28
+ },
+ {
+  "word": "door",
+  "start": 7.28,
+  "end": 7.5
+ },
+ {
+  "word": "to",
+  "start": 7.5,
+  "end": 7.6
+ },
+ {
+  "word": "peek",
+  "start": 7.6,
+  "end": 7.76
+ },
+ {
+  "word": "in",
+  "start": 7.76,
+  "end": 7.88
+ },
+ {
+  "word": "her",
+  "start": 7.88,
+  "end": 8.0
+ },
+ {
+  "word": "window.",
+  "start": 8.0,
+  "end": 8.28
+ },
+ {
+  "word": "You",
+  "start": 8.82,
+  "end": 8.94
+ },
+ {
+  "word": "stack",
+  "start": 8.94,
+  "end": 9.16
+ },
+ {
+  "word": "163",
+  "start": 9.16,
+  "end": 10.1
+ },
+ {
+  "word": "floors,",
+  "start": 10.1,
+  "end": 10.38
+ },
+ {
+  "word": "weighing",
+  "start": 10.62,
+  "end": 10.76
+ },
+ {
+  "word": "450,000",
+  "start": 10.76,
+  "end": 11.8
+ },
+ {
+  "word": "tons,",
+  "start": 11.8,
+  "end": 12.02
+ },
+ {
+  "word": "straight",
+  "start": 12.24,
+  "end": 12.4
+ },
+ {
+  "word": "onto",
+  "start": 12.4,
+  "end": 12.62
+ },
+ {
+  "word": "desert",
+  "start": 12.62,
+  "end": 12.86
+ },
+ {
+  "word": "sand.",
+  "start": 12.86,
+  "end": 13.18
+ },
+ {
+  "word": "One",
+  "start": 13.5,
+  "end": 13.68
+ },
+ {
+  "word": "problem.",
+  "start": 13.68,
+  "end": 14.02
+ },
+ {
+  "word": "There",
+  "start": 14.26,
+  "end": 14.36
+ },
+ {
+  "word": "is",
+  "start": 14.36,
+  "end": 14.48
+ },
+ {
+  "word": "no",
+  "start": 14.48,
+  "end": 14.66
+ },
+ {
+  "word": "solid",
+  "start": 14.66,
+  "end": 14.9
+ },
+ {
+  "word": "bedrock",
+  "start": 14.9,
+  "end": 15.28
+ },
+ {
+  "word": "down",
+  "start": 15.28,
+  "end": 15.48
+ },
+ {
+  "word": "there.",
+  "start": 15.48,
+  "end": 15.76
+ },
+ {
+  "word": "So",
+  "start": 15.9,
+  "end": 16.08
+ },
+ {
+  "word": "you",
+  "start": 16.08,
+  "end": 16.18
+ },
+ {
+  "word": "drill",
+  "start": 16.18,
+  "end": 16.34
+ },
+ {
+  "word": "192",
+  "start": 16.34,
+  "end": 17.24
+ },
+ {
+  "word": "concrete",
+  "start": 17.24,
+  "end": 17.54
+ },
+ {
+  "word": "piles,",
+  "start": 17.54,
+  "end": 17.98
+ },
+ {
+  "word": "50",
+  "start": 18.2,
+  "end": 18.38
+ },
+ {
+  "word": "meters",
+  "start": 18.38,
+  "end": 18.62
+ },
+ {
+  "word": "deep,",
+  "start": 18.62,
+  "end": 18.9
+ },
+ {
+  "word": "tied",
+  "start": 19.14,
+  "end": 19.28
+ },
+ {
+  "word": "to",
+  "start": 19.28,
+  "end": 19.44
+ },
+ {
+  "word": "a",
+  "start": 19.44,
+  "end": 19.52
+ },
+ {
+  "word": "concrete",
+  "start": 19.52,
+  "end": 19.8
+ },
+ {
+  "word": "raft",
+  "start": 19.8,
+  "end": 20.1
+ },
+ {
+  "word": "nearly",
+  "start": 20.1,
+  "end": 20.38
+ },
+ {
+  "word": "4",
+  "start": 20.38,
+  "end": 20.68
+ },
+ {
+  "word": "meters",
+  "start": 20.68,
+  "end": 20.88
+ },
+ {
+  "word": "thick.",
+  "start": 20.88,
+  "end": 21.2
+ },
+ {
+  "word": "Your",
+  "start": 21.44,
+  "end": 21.52
+ },
+ {
+  "word": "entire",
+  "start": 21.52,
+  "end": 21.82
+ },
+ {
+  "word": "tower",
+  "start": 21.82,
+  "end": 22.16
+ },
+ {
+  "word": "literally",
+  "start": 22.16,
+  "end": 22.44
+ },
+ {
+  "word": "hangs",
+  "start": 22.44,
+  "end": 22.8
+ },
+ {
+  "word": "from",
+  "start": 22.8,
+  "end": 22.96
+ },
+ {
+  "word": "the",
+  "start": 22.96,
+  "end": 23.08
+ },
+ {
+  "word": "sand",
+  "start": 23.08,
+  "end": 23.32
+ },
+ {
+  "word": "by",
+  "start": 23.32,
+  "end": 23.48
+ },
+ {
+  "word": "friction.",
+  "start": 23.48,
+  "end": 23.74
+ },
+ {
+  "word": "Now",
+  "start": 24.16,
+  "end": 24.317
+ },
+ {
+  "word": "it's",
+  "start": 24.477,
+  "end": 24.597
+ },
+ {
+  "word": "50",
+  "start": 24.597,
+  "end": 24.797
+ },
+ {
+  "word": "degrees",
+  "start": 24.797,
+  "end": 25.037
+ },
+ {
+  "word": "outside",
+  "start": 25.037,
+  "end": 25.437
+ },
+ {
+  "word": "in",
+  "start": 25.437,
+  "end": 25.717
+ },
+ {
+  "word": "Dubai,",
+  "start": 25.717,
+  "end": 25.857
+ },
+ {
+  "word": "and",
+  "start": 26.257,
+  "end": 26.417
+ },
+ {
+  "word": "your",
+  "start": 26.417,
+  "end": 26.517
+ },
+ {
+  "word": "concrete",
+  "start": 26.517,
+  "end": 26.837
+ },
+ {
+  "word": "cooks",
+  "start": 26.837,
+  "end": 27.117
+ },
+ {
+  "word": "before",
+  "start": 27.117,
+  "end": 27.377
+ },
+ {
+  "word": "it",
+  "start": 27.377,
+  "end": 27.537
+ },
+ {
+  "word": "reaches",
+  "start": 27.537,
+  "end": 27.717
+ },
+ {
+  "word": "the",
+  "start": 27.717,
+  "end": 27.897
+ },
+ {
+  "word": "top.",
+  "start": 27.897,
+  "end": 28.119
+ },
+ {
+  "word": "So",
+  "start": 28.547,
+  "end": 28.677
+ },
+ {
+  "word": "you",
+  "start": 28.677,
+  "end": 28.877
+ },
+ {
+  "word": "ban",
+  "start": 28.877,
+  "end": 29.137
+ },
+ {
+  "word": "daytime",
+  "start": 29.137,
+  "end": 29.417
+ },
+ {
+  "word": "pours.",
+  "start": 29.417,
+  "end": 30.077
+ },
+ {
+  "word": "You",
+  "start": 30.317,
+  "end": 30.417
+ },
+ {
+  "word": "mix",
+  "start": 30.417,
+  "end": 30.617
+ },
+ {
+  "word": "tons",
+  "start": 30.617,
+  "end": 30.857
+ },
+ {
+  "word": "of",
+  "start": 30.857,
+  "end": 31.037
+ },
+ {
+  "word": "crushed",
+  "start": 31.037,
+  "end": 31.197
+ },
+ {
+  "word": "ice",
+  "start": 31.197,
+  "end": 31.537
+ },
+ {
+  "word": "right",
+  "start": 31.537,
+  "end": 31.797
+ },
+ {
+  "word": "into",
+  "start": 31.797,
+  "end": 31.997
+ },
+ {
+  "word": "the",
+  "start": 31.997,
+  "end": 32.137
+ },
+ {
+  "word": "wet",
+  "start": 32.137,
+  "end": 32.257
+ },
+ {
+  "word": "concrete,",
+  "start": 32.257,
+  "end": 32.597
+ },
+ {
+  "word": "and",
+  "start": 32.857,
+  "end": 32.917
+ },
+ {
+  "word": "only",
+  "start": 32.917,
+  "end": 33.177
+ },
+ {
+  "word": "pump",
+  "start": 33.177,
+  "end": 33.397
+ },
+ {
+  "word": "it",
+  "start": 33.397,
+  "end": 33.497
+ },
+ {
+  "word": "at",
+  "start": 33.497,
+  "end": 33.597
+ },
+ {
+  "word": "night.",
+  "start": 33.597,
+  "end": 33.817
+ },
+ {
+  "word": "At",
+  "start": 34.297,
+  "end": 34.397
+ },
+ {
+  "word": "828",
+  "start": 34.397,
+  "end": 34.797
+ },
+ {
+  "word": "meters,",
+  "start": 34.797,
+  "end": 35.237
+ },
+ {
+  "word": "steady",
+  "start": 35.537,
+  "end": 35.677
+ },
+ {
+  "word": "wind",
+  "start": 35.677,
+  "end": 35.937
+ },
+ {
+  "word": "creates",
+  "start": 35.937,
+  "end": 36.277
+ },
+ {
+  "word": "giant",
+  "start": 36.277,
+  "end": 36.677
+ },
+ {
+  "word": "swirling",
+  "start": 36.857,
+  "end": 37.177
+ },
+ {
+  "word": "whirlpools",
+  "start": 37.177,
+  "end": 37.677
+ },
+ {
+  "word": "called",
+  "start": 37.677,
+  "end": 37.837
+ },
+ {
+  "word": "vortex",
+  "start": 37.837,
+  "end": 38.197
+ },
+ {
+  "word": "shedding.",
+  "start": 38.197,
+  "end": 38.517
+ },
+ {
+  "word": "A",
+  "start": 38.937,
+  "end": 38.987
+ },
+ {
+  "word": "straight",
+  "start": 38.985,
+  "end": 39.145
+ },
+ {
+  "word": "tower",
+  "start": 39.145,
+  "end": 39.465
+ },
+ {
+  "word": "would",
+  "start": 39.465,
+  "end": 39.605
+ },
+ {
+  "word": "start",
+  "start": 39.605,
+  "end": 39.785
+ },
+ {
+  "word": "shaking",
+  "start": 39.785,
+  "end": 40.005
+ },
+ {
+  "word": "like",
+  "start": 40.005,
+  "end": 40.225
+ },
+ {
+  "word": "a",
+  "start": 40.225,
+  "end": 40.325
+ },
+ {
+  "word": "guitar",
+  "start": 40.325,
+  "end": 40.545
+ },
+ {
+  "word": "string",
+  "start": 40.545,
+  "end": 40.825
+ },
+ {
+  "word": "until",
+  "start": 40.825,
+  "end": 41.025
+ },
+ {
+  "word": "it",
+  "start": 41.025,
+  "end": 41.185
+ },
+ {
+  "word": "snaps.",
+  "start": 41.185,
+  "end": 41.425
+ },
+ {
+  "word": "So",
+  "start": 41.86,
+  "end": 41.965
+ },
+ {
+  "word": "you",
+  "start": 41.965,
+  "end": 42.085
+ },
+ {
+  "word": "literally",
+  "start": 42.085,
+  "end": 42.405
+ },
+ {
+  "word": "gaslight",
+  "start": 42.405,
+  "end": 42.885
+ },
+ {
+  "word": "the",
+  "start": 42.885,
+  "end": 43.025
+ },
+ {
+  "word": "wind.",
+  "start": 43.025,
+  "end": 43.225
+ },
+ {
+  "word": "You",
+  "start": 43.671,
+  "end": 43.745
+ },
+ {
+  "word": "shape",
+  "start": 43.745,
+  "end": 43.945
+ },
+ {
+  "word": "the",
+  "start": 43.945,
+  "end": 44.065
+ },
+ {
+  "word": "building",
+  "start": 44.065,
+  "end": 44.245
+ },
+ {
+  "word": "like",
+  "start": 44.245,
+  "end": 44.445
+ },
+ {
+  "word": "a",
+  "start": 44.445,
+  "end": 44.545
+ },
+ {
+  "word": "giant",
+  "start": 44.545,
+  "end": 44.745
+ },
+ {
+  "word": "Y,",
+  "start": 44.745,
+  "end": 44.985
+ },
+ {
+  "word": "with",
+  "start": 45.185,
+  "end": 45.285
+ },
+ {
+  "word": "27",
+  "start": 45.285,
+  "end": 45.745
+ },
+ {
+  "word": "spiraling",
+  "start": 45.745,
+  "end": 46.265
+ },
+ {
+  "word": "setbacks.",
+  "start": 46.265,
+  "end": 46.705
+ },
+ {
+  "word": "Every",
+  "start": 47.125,
+  "end": 47.385
+ },
+ {
+  "word": "few",
+  "start": 47.385,
+  "end": 47.605
+ },
+ {
+  "word": "floors",
+  "start": 47.605,
+  "end": 47.865
+ },
+ {
+  "word": "the",
+  "start": 48.045,
+  "end": 48.095
+ },
+ {
+  "word": "shape",
+  "start": 48.065,
+  "end": 48.225
+ },
+ {
+  "word": "changes,",
+  "start": 48.225,
+  "end": 48.545
+ },
+ {
+  "word": "so",
+  "start": 48.785,
+  "end": 48.905
+ },
+ {
+  "word": "the",
+  "start": 48.905,
+  "end": 49.025
+ },
+ {
+  "word": "wind",
+  "start": 49.025,
+  "end": 49.185
+ },
+ {
+  "word": "gets",
+  "start": 49.185,
+  "end": 49.365
+ },
+ {
+  "word": "confused",
+  "start": 49.365,
+  "end": 49.705
+ },
+ {
+  "word": "and",
+  "start": 49.705,
+  "end": 50.005
+ },
+ {
+  "word": "never",
+  "start": 50.005,
+  "end": 50.185
+ },
+ {
+  "word": "finds",
+  "start": 50.185,
+  "end": 50.425
+ },
+ {
+  "word": "a",
+  "start": 50.425,
+  "end": 50.505
+ },
+ {
+  "word": "rhythm.",
+  "start": 50.505,
+  "end": 50.705
+ },
+ {
+  "word": "Even",
+  "start": 51.229,
+  "end": 51.405
+ },
+ {
+  "word": "then,",
+  "start": 51.405,
+  "end": 51.645
+ },
+ {
+  "word": "the",
+  "start": 51.785,
+  "end": 51.835
+ },
+ {
+  "word": "tip",
+  "start": 51.825,
+  "end": 51.985
+ },
+ {
+  "word": "still",
+  "start": 51.985,
+  "end": 52.225
+ },
+ {
+  "word": "sways",
+  "start": 52.225,
+  "end": 52.445
+ },
+ {
+  "word": "nearly",
+  "start": 52.445,
+  "end": 52.685
+ },
+ {
+  "word": "2",
+  "start": 52.685,
+  "end": 52.925
+ },
+ {
+  "word": "meters",
+  "start": 52.925,
+  "end": 53.125
+ },
+ {
+  "word": "in",
+  "start": 53.125,
+  "end": 53.325
+ },
+ {
+  "word": "a",
+  "start": 53.325,
+  "end": 53.425
+ },
+ {
+  "word": "storm.",
+  "start": 53.425,
+  "end": 53.685
+ },
+ {
+  "word": "Stairs",
+  "start": 54.105,
+  "end": 54.365
+ },
+ {
+  "word": "would",
+  "start": 54.365,
+  "end": 54.525
+ },
+ {
+  "word": "take",
+  "start": 54.525,
+  "end": 54.685
+ },
+ {
+  "word": "an",
+  "start": 54.685,
+  "end": 54.825
+ },
+ {
+  "word": "hour,",
+  "start": 54.825,
+  "end": 55.045
+ },
+ {
+  "word": "so",
+  "start": 55.045,
+  "end": 55.345
+ },
+ {
+  "word": "you",
+  "start": 55.345,
+  "end": 55.405
+ },
+ {
+  "word": "install",
+  "start": 55.405,
+  "end": 55.685
+ },
+ {
+  "word": "double",
+  "start": 55.685,
+  "end": 55.905
+ },
+ {
+  "word": "deck",
+  "start": 55.905,
+  "end": 56.105
+ },
+ {
+  "word": "elevators",
+  "start": 56.105,
+  "end": 56.525
+ },
+ {
+  "word": "shooting",
+  "start": 56.525,
+  "end": 56.745
+ },
+ {
+  "word": "up",
+  "start": 56.745,
+  "end": 56.965
+ },
+ {
+  "word": "at",
+  "start": 56.965,
+  "end": 57.045
+ },
+ {
+  "word": "36",
+  "start": 57.045,
+  "end": 57.405
+ },
+ {
+  "word": "kilometers",
+  "start": 57.405,
+  "end": 57.725
+ },
+ {
+  "word": "per",
+  "start": 57.725,
+  "end": 58.085
+ },
+ {
+  "word": "hour.",
+  "start": 58.085,
+  "end": 58.285
+ },
+ {
+  "word": "Next,",
+  "start": 58.625,
+  "end": 58.885
+ },
+ {
+  "word": "you",
+  "start": 59.065,
+  "end": 59.115
+ },
+ {
+  "word": "bolt",
+  "start": 59.105,
+  "end": 59.245
+ },
+ {
+  "word": "on",
+  "start": 59.245,
+  "end": 59.385
+ },
+ {
+  "word": "24,000",
+  "start": 59.385,
+  "end": 60.105
+ },
+ {
+  "word": "glass",
+  "start": 60.105,
+  "end": 60.285
+ },
+ {
+  "word": "panels.",
+  "start": 60.285,
+  "end": 60.705
+ },
+ {
+  "word": "Washing",
+  "start": 61.125,
+  "end": 61.465
+ },
+ {
+  "word": "them",
+  "start": 61.465,
+  "end": 61.585
+ },
+ {
+  "word": "takes",
+  "start": 61.585,
+  "end": 61.785
+ },
+ {
+  "word": "a",
+  "start": 61.785,
+  "end": 61.945
+ },
+ {
+  "word": "crew",
+  "start": 61.945,
+  "end": 62.065
+ },
+ {
+  "word": "3",
+  "start": 62.065,
+  "end": 62.285
+ },
+ {
+  "word": "full",
+  "start": 62.285,
+  "end": 62.505
+ },
+ {
+  "word": "months",
+  "start": 62.505,
+  "end": 62.765
+ },
+ {
+  "word": "by",
+  "start": 62.765,
+  "end": 62.945
+ },
+ {
+  "word": "hand.",
+  "start": 62.945,
+  "end": 63.265
+ },
+ {
+  "word": "The",
+  "start": 63.665,
+  "end": 63.725
+ },
+ {
+  "word": "second",
+  "start": 63.725,
+  "end": 63.925
+ },
+ {
+  "word": "they",
+  "start": 63.925,
+  "end": 64.065
+ },
+ {
+  "word": "clean",
+  "start": 64.065,
+  "end": 64.245
+ },
+ {
+  "word": "the",
+  "start": 64.245,
+  "end": 64.365
+ },
+ {
+  "word": "bottom",
+  "start": 64.365,
+  "end": 64.545
+ },
+ {
+  "word": "window,",
+  "start": 64.545,
+  "end": 64.865
+ },
+ {
+  "word": "the",
+  "start": 65.045,
+  "end": 65.105
+ },
+ {
+  "word": "top",
+  "start": 65.105,
+  "end": 65.285
+ },
+ {
+  "word": "is",
+  "start": 65.285,
+  "end": 65.445
+ },
+ {
+  "word": "dirty",
+  "start": 65.445,
+  "end": 65.605
+ },
+ {
+  "word": "again,",
+  "start": 65.605,
+  "end": 65.925
+ },
+ {
+  "word": "so",
+  "start": 66.145,
+  "end": 66.205
+ },
+ {
+  "word": "they",
+  "start": 66.205,
+  "end": 66.305
+ },
+ {
+  "word": "start",
+  "start": 66.305,
+  "end": 66.525
+ },
+ {
+  "word": "right",
+  "start": 66.525,
+  "end": 66.705
+ },
+ {
+  "word": "over.",
+  "start": 66.705,
+  "end": 66.945
+ },
+ {
+  "word": "Congratulations.",
+  "start": 67.402,
+  "end": 67.685
+ },
+ {
+  "word": "You've",
+  "start": 68.105,
+  "end": 68.24
+ },
+ {
+  "word": "built",
+  "start": 68.24,
+  "end": 68.38
+ },
+ {
+  "word": "a",
+  "start": 68.38,
+  "end": 68.5
+ },
+ {
+  "word": "half",
+  "start": 68.5,
+  "end": 68.68
+ },
+ {
+  "word": "mile",
+  "start": 68.68,
+  "end": 68.86
+ },
+ {
+  "word": "tall",
+  "start": 68.86,
+  "end": 69.12
+ },
+ {
+  "word": "ice",
+  "start": 69.12,
+  "end": 69.36
+ },
+ {
+  "word": "concrete",
+  "start": 69.36,
+  "end": 69.7
+ },
+ {
+  "word": "skyscraper,",
+  "start": 69.7,
+  "end": 70.28
+ },
+ {
+  "word": "just",
+  "start": 70.28,
+  "end": 70.56
+ },
+ {
+  "word": "to",
+  "start": 70.56,
+  "end": 70.76
+ },
+ {
+  "word": "spy",
+  "start": 70.76,
+  "end": 70.9
+ },
+ {
+  "word": "on",
+  "start": 70.9,
+  "end": 71.1
+ },
+ {
+  "word": "grandma.",
+  "start": 71.1,
+  "end": 71.34
+ },
+ {
+  "word": "You",
+  "start": 71.76,
+  "end": 71.86
+ },
+ {
+  "word": "call",
+  "start": 71.86,
+  "end": 72.1
+ },
+ {
+  "word": "it,",
+  "start": 72.1,
+  "end": 72.28
+ },
+ {
+  "word": "the",
+  "start": 72.28,
+  "end": 72.46
+ },
+ {
+  "word": "Burj",
+  "start": 72.46,
+  "end": 72.72
+ },
+ {
+  "word": "Khalifa.",
+  "start": 72.72,
+  "end": 73.08
+ },
+ {
+  "word": "Follow,",
+  "start": 73.36,
+  "end": 73.56
+ },
+ {
+  "word": "and",
+  "start": 73.88,
+  "end": 74.02
+ },
+ {
+  "word": "next",
+  "start": 74.02,
+  "end": 74.24
+ },
+ {
+  "word": "time,",
+  "start": 74.24,
+  "end": 74.52
+ },
+ {
+  "word": "I'll",
+  "start": 74.68,
+  "end": 74.8
+ },
+ {
+  "word": "save",
+  "start": 74.8,
+  "end": 74.92
+ },
+ {
+  "word": "your",
+  "start": 74.92,
+  "end": 75.06
+ },
+ {
+  "word": "pocket",
+  "start": 75.06,
+  "end": 75.28
+ },
+ {
+  "word": "puh.",
+  "start": 75.28,
+  "end": 75.642
+ },
+ {
+  "word": "Because...",
+  "start": 76.062,
+  "end": 76.502
+ }
+]

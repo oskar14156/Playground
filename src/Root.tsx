@@ -25,6 +25,7 @@ import { SubLab, SUB_LAB_DURATION } from "./videos/_lab/SubLab";
 import { BillLab, BILL_LAB_DURATION } from "./videos/_lab/BillLab";
 import { CasinoLab, CASINO_LAB_DURATION } from "./videos/_lab/CasinoLab";
 import { UnsinkableLab, UNSINKABLE_LAB_DURATION } from "./videos/_lab/UnsinkableLab";
+import { SkyscraperLab, SKYSCRAPER_LAB_DURATION } from "./videos/_lab/SkyscraperLab";
 import { PocketLab, POCKET_LAB_DURATION } from "./videos/_lab/PocketLab";
 import { FursuitLab, FURSUIT_LAB_DURATION } from "./videos/_lab/FursuitLab";
 import { RocketLab, ROCKET_LAB_DURATION } from "./videos/_lab/RocketLab";
@@ -45,6 +46,7 @@ import { SewerReel, DURATION as SEWER_DURATION } from "./videos/sewer/SewerReel"
 import { DollarBillReel, DURATION as DB_DURATION } from "./videos/dollar-bill/DollarBillReel";
 import { CasinoReel, DURATION as CASINO_DURATION } from "./videos/casino/CasinoReel";
 import { UnsinkableReel, DURATION as UNSINKABLE_DURATION } from "./videos/unsinkable/UnsinkableReel";
+import { SkyscraperReel, DURATION as SKYSCRAPER_DURATION } from "./videos/skyscraper/SkyscraperReel";
 import { WhiteHouseReel, DURATION as WHR_DURATION } from "./videos/white-house/WhiteHouseReel";
 import { Submarine, DURATION as SU_DURATION } from "./videos/submarine/Submarine";
 
@@ -86,6 +88,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="dollar-bill" component={DollarBillReel} durationInFrames={DB_DURATION} {...VIDEO} />
     <Composition id="casino" component={CasinoReel} durationInFrames={CASINO_DURATION} {...VIDEO} />
     <Composition id="unsinkable" component={UnsinkableReel} durationInFrames={UNSINKABLE_DURATION} {...VIDEO} />
+    <Composition id="skyscraper" component={SkyscraperReel} durationInFrames={SKYSCRAPER_DURATION} {...VIDEO} />
     <Composition id="claw-machine" component={ClawMachineReel} durationInFrames={CLAW_DURATION} {...VIDEO} />
     <Composition id="prison-break" component={PrisonBreakReel} durationInFrames={PB_DURATION} {...VIDEO} />
     <Composition id="claw-lab" component={ClawLab} durationInFrames={CLAW_LAB_DURATION} {...VIDEO} />
@@ -97,5 +100,6 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="bill-lab" component={BillLab} durationInFrames={BILL_LAB_DURATION} {...VIDEO} />
     <Composition id="casino-lab" component={CasinoLab} durationInFrames={CASINO_LAB_DURATION} {...VIDEO} />
     <Composition id="unsinkable-lab" component={UnsinkableLab} durationInFrames={UNSINKABLE_LAB_DURATION} {...VIDEO} />
+    <Composition id="skyscraper-lab" component={SkyscraperLab} durationInFrames={SKYSCRAPER_LAB_DURATION} {...VIDEO} />
   </>
 );
