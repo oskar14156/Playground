@@ -1,0 +1,1272 @@
+[
+ {
+  "word": "You",
+  "start": 0.0,
+  "end": 0.12
+ },
+ {
+  "word": "finally",
+  "start": 0.12,
+  "end": 0.46
+ },
+ {
+  "word": "stole",
+  "start": 0.46,
+  "end": 0.8
+ },
+ {
+  "word": "your",
+  "start": 0.8,
+  "end": 0.98
+ },
+ {
+  "word": "giant",
+  "start": 0.98,
+  "end": 1.26
+ },
+ {
+  "word": "pocket",
+  "start": 1.26,
+  "end": 1.54
+ },
+ {
+  "word": "puh",
+  "start": 1.54,
+  "end": 1.84
+ },
+ {
+  "word": "back",
+  "start": 1.84,
+  "end": 2.02
+ },
+ {
+  "word": "from",
+  "start": 2.02,
+  "end": 2.22
+ },
+ {
+  "word": "Grandma's",
+  "start": 2.22,
+  "end": 2.64
+ },
+ {
+  "word": "penthouse.",
+  "start": 2.64,
+  "end": 3.04
+ },
+ {
+  "word": "Now",
+  "start": 3.555,
+  "end": 3.7
+ },
+ {
+  "word": "she",
+  "start": 3.7,
+  "end": 3.88
+ },
+ {
+  "word": "wants",
+  "start": 3.88,
+  "end": 4.08
+ },
+ {
+  "word": "revenge,",
+  "start": 4.08,
+  "end": 4.44
+ },
+ {
+  "word": "so",
+  "start": 4.6,
+  "end": 4.74
+ },
+ {
+  "word": "you",
+  "start": 4.74,
+  "end": 4.86
+ },
+ {
+  "word": "build",
+  "start": 4.86,
+  "end": 5.02
+ },
+ {
+  "word": "the",
+  "start": 5.02,
+  "end": 5.18
+ },
+ {
+  "word": "safest",
+  "start": 5.18,
+  "end": 5.42
+ },
+ {
+  "word": "vault",
+  "start": 5.42,
+  "end": 5.7
+ },
+ {
+  "word": "on",
+  "start": 5.7,
+  "end": 5.88
+ },
+ {
+  "word": "Earth",
+  "start": 5.88,
+  "end": 6.08
+ },
+ {
+  "word": "to",
+  "start": 6.08,
+  "end": 6.28
+ },
+ {
+  "word": "hide",
+  "start": 6.28,
+  "end": 6.44
+ },
+ {
+  "word": "it.",
+  "start": 6.44,
+  "end": 6.62
+ },
+ {
+  "word": "First,",
+  "start": 7.02,
+  "end": 7.28
+ },
+ {
+  "word": "you",
+  "start": 7.58,
+  "end": 7.66
+ },
+ {
+  "word": "pour",
+  "start": 7.66,
+  "end": 7.82
+ },
+ {
+  "word": "a",
+  "start": 7.82,
+  "end": 7.94
+ },
+ {
+  "word": "two",
+  "start": 7.94,
+  "end": 8.06
+ },
+ {
+  "word": "story",
+  "start": 8.06,
+  "end": 8.24
+ },
+ {
+  "word": "bunker",
+  "start": 8.24,
+  "end": 8.54
+ },
+ {
+  "word": "using",
+  "start": 8.54,
+  "end": 8.82
+ },
+ {
+  "word": "4,200",
+  "start": 8.82,
+  "end": 9.78
+ },
+ {
+  "word": "cubic",
+  "start": 9.78,
+  "end": 9.98
+ },
+ {
+  "word": "yards",
+  "start": 9.98,
+  "end": 10.28
+ },
+ {
+  "word": "of",
+  "start": 10.28,
+  "end": 10.38
+ },
+ {
+  "word": "concrete,",
+  "start": 10.38,
+  "end": 10.74
+ },
+ {
+  "word": "wrapped",
+  "start": 11.127,
+  "end": 11.26
+ },
+ {
+  "word": "in",
+  "start": 11.26,
+  "end": 11.46
+ },
+ {
+  "word": "solid",
+  "start": 11.46,
+  "end": 11.66
+ },
+ {
+  "word": "granite",
+  "start": 11.66,
+  "end": 12.06
+ },
+ {
+  "word": "and",
+  "start": 12.14,
+  "end": 12.2
+ },
+ {
+  "word": "750",
+  "start": 12.2,
+  "end": 12.68
+ },
+ {
+  "word": "tons",
+  "start": 12.68,
+  "end": 13.04
+ },
+ {
+  "word": "of",
+  "start": 13.04,
+  "end": 13.24
+ },
+ {
+  "word": "steel.",
+  "start": 13.24,
+  "end": 13.46
+ },
+ {
+  "word": "The",
+  "start": 13.99,
+  "end": 14.06
+ },
+ {
+  "word": "outer",
+  "start": 14.06,
+  "end": 14.26
+ },
+ {
+  "word": "walls",
+  "start": 14.26,
+  "end": 14.52
+ },
+ {
+  "word": "are",
+  "start": 14.52,
+  "end": 14.68
+ },
+ {
+  "word": "over",
+  "start": 14.68,
+  "end": 14.86
+ },
+ {
+  "word": "a",
+  "start": 14.86,
+  "end": 15.0
+ },
+ {
+  "word": "meter",
+  "start": 15.0,
+  "end": 15.14
+ },
+ {
+  "word": "thick,",
+  "start": 15.14,
+  "end": 15.42
+ },
+ {
+  "word": "designed",
+  "start": 15.62,
+  "end": 15.8
+ },
+ {
+  "word": "to",
+  "start": 15.8,
+  "end": 16.0
+ },
+ {
+  "word": "survive",
+  "start": 16.0,
+  "end": 16.22
+ },
+ {
+  "word": "bombs,",
+  "start": 16.22,
+  "end": 16.58
+ },
+ {
+  "word": "drills,",
+  "start": 16.88,
+  "end": 17.04
+ },
+ {
+  "word": "and",
+  "start": 17.32,
+  "end": 17.38
+ },
+ {
+  "word": "angry",
+  "start": 17.38,
+  "end": 17.66
+ },
+ {
+  "word": "grandmas.",
+  "start": 17.66,
+  "end": 18.08
+ },
+ {
+  "word": "Next,",
+  "start": 18.59,
+  "end": 18.88
+ },
+ {
+  "word": "you",
+  "start": 19.1,
+  "end": 19.2
+ },
+ {
+  "word": "bolt",
+  "start": 19.2,
+  "end": 19.4
+ },
+ {
+  "word": "on",
+  "start": 19.4,
+  "end": 19.54
+ },
+ {
+  "word": "a",
+  "start": 19.54,
+  "end": 19.64
+ },
+ {
+  "word": "blast",
+  "start": 19.64,
+  "end": 19.85
+ },
+ {
+  "word": "proof",
+  "start": 19.85,
+  "end": 20.06
+ },
+ {
+  "word": "steel",
+  "start": 20.06,
+  "end": 20.32
+ },
+ {
+  "word": "door",
+  "start": 20.32,
+  "end": 20.6
+ },
+ {
+  "word": "weighing",
+  "start": 20.6,
+  "end": 20.82
+ },
+ {
+  "word": "20",
+  "start": 20.82,
+  "end": 21.18
+ },
+ {
+  "word": "tons.",
+  "start": 21.18,
+  "end": 21.44
+ },
+ {
+  "word": "It",
+  "start": 21.88,
+  "end": 22.04
+ },
+ {
+  "word": "laughs",
+  "start": 22.04,
+  "end": 22.28
+ },
+ {
+  "word": "at",
+  "start": 22.28,
+  "end": 22.48
+ },
+ {
+  "word": "blowtorches",
+  "start": 22.48,
+  "end": 22.96
+ },
+ {
+  "word": "and",
+  "start": 22.96,
+  "end": 23.14
+ },
+ {
+  "word": "diamond",
+  "start": 23.14,
+  "end": 23.38
+ },
+ {
+  "word": "saws.",
+  "start": 23.38,
+  "end": 23.8
+ },
+ {
+  "word": "One",
+  "start": 23.96,
+  "end": 24.14
+ },
+ {
+  "word": "problem.",
+  "start": 24.14,
+  "end": 24.46
+ },
+ {
+  "word": "What",
+  "start": 24.901,
+  "end": 25.0
+ },
+ {
+  "word": "if",
+  "start": 25.0,
+  "end": 25.1
+ },
+ {
+  "word": "Grandma",
+  "start": 25.1,
+  "end": 25.32
+ },
+ {
+  "word": "kidnaps",
+  "start": 25.32,
+  "end": 25.76
+ },
+ {
+  "word": "you",
+  "start": 25.76,
+  "end": 25.96
+ },
+ {
+  "word": "and",
+  "start": 25.96,
+  "end": 26.06
+ },
+ {
+  "word": "forces",
+  "start": 26.06,
+  "end": 26.3
+ },
+ {
+  "word": "you",
+  "start": 26.3,
+  "end": 26.5
+ },
+ {
+  "word": "to",
+  "start": 26.5,
+  "end": 26.6
+ },
+ {
+  "word": "type",
+  "start": 26.6,
+  "end": 26.76
+ },
+ {
+  "word": "the",
+  "start": 26.76,
+  "end": 26.88
+ },
+ {
+  "word": "code?",
+  "start": 26.88,
+  "end": 27.18
+ },
+ {
+  "word": "So",
+  "start": 27.508,
+  "end": 27.6
+ },
+ {
+  "word": "you",
+  "start": 27.6,
+  "end": 27.74
+ },
+ {
+  "word": "split",
+  "start": 27.74,
+  "end": 27.9
+ },
+ {
+  "word": "the",
+  "start": 27.9,
+  "end": 28.04
+ },
+ {
+  "word": "combination",
+  "start": 28.04,
+  "end": 28.52
+ },
+ {
+  "word": "between",
+  "start": 28.52,
+  "end": 28.78
+ },
+ {
+  "word": "10",
+  "start": 28.78,
+  "end": 29.06
+ },
+ {
+  "word": "different",
+  "start": 29.06,
+  "end": 29.34
+ },
+ {
+  "word": "people.",
+  "start": 29.34,
+  "end": 29.62
+ },
+ {
+  "word": "No",
+  "start": 29.94,
+  "end": 30.14
+ },
+ {
+  "word": "single",
+  "start": 30.14,
+  "end": 30.4
+ },
+ {
+  "word": "human",
+  "start": 30.4,
+  "end": 30.72
+ },
+ {
+  "word": "on",
+  "start": 30.72,
+  "end": 30.92
+ },
+ {
+  "word": "Earth",
+  "start": 30.92,
+  "end": 31.14
+ },
+ {
+  "word": "knows",
+  "start": 31.14,
+  "end": 31.4
+ },
+ {
+  "word": "the",
+  "start": 31.4,
+  "end": 31.56
+ },
+ {
+  "word": "whole",
+  "start": 31.56,
+  "end": 31.68
+ },
+ {
+  "word": "password,",
+  "start": 31.68,
+  "end": 32.08
+ },
+ {
+  "word": "and",
+  "start": 32.08,
+  "end": 32.4
+ },
+ {
+  "word": "all",
+  "start": 32.4,
+  "end": 32.6
+ },
+ {
+  "word": "10",
+  "start": 32.6,
+  "end": 32.78
+ },
+ {
+  "word": "have",
+  "start": 32.78,
+  "end": 32.98
+ },
+ {
+  "word": "to",
+  "start": 32.98,
+  "end": 33.1
+ },
+ {
+  "word": "enter",
+  "start": 33.1,
+  "end": 33.28
+ },
+ {
+  "word": "their",
+  "start": 33.28,
+  "end": 33.44
+ },
+ {
+  "word": "piece",
+  "start": 33.44,
+  "end": 33.64
+ },
+ {
+  "word": "separately.",
+  "start": 33.64,
+  "end": 33.96
+ },
+ {
+  "word": "Wait.",
+  "start": 34.38,
+  "end": 34.566
+ },
+ {
+  "word": "What",
+  "start": 34.866,
+  "end": 35.046
+ },
+ {
+  "word": "if",
+  "start": 35.046,
+  "end": 35.126
+ },
+ {
+  "word": "she",
+  "start": 35.126,
+  "end": 35.266
+ },
+ {
+  "word": "cuts",
+  "start": 35.266,
+  "end": 35.406
+ },
+ {
+  "word": "the",
+  "start": 35.406,
+  "end": 35.606
+ },
+ {
+  "word": "city",
+  "start": 35.606,
+  "end": 35.726
+ },
+ {
+  "word": "power",
+  "start": 35.726,
+  "end": 36.006
+ },
+ {
+  "word": "and",
+  "start": 36.006,
+  "end": 36.186
+ },
+ {
+  "word": "water",
+  "start": 36.186,
+  "end": 36.426
+ },
+ {
+  "word": "to",
+  "start": 36.426,
+  "end": 36.606
+ },
+ {
+  "word": "shut",
+  "start": 36.606,
+  "end": 36.746
+ },
+ {
+  "word": "down",
+  "start": 36.746,
+  "end": 36.946
+ },
+ {
+  "word": "your",
+  "start": 36.946,
+  "end": 37.046
+ },
+ {
+  "word": "alarms?",
+  "start": 37.046,
+  "end": 37.366
+ },
+ {
+  "word": "So",
+  "start": 37.853,
+  "end": 37.986
+ },
+ {
+  "word": "you",
+  "start": 37.986,
+  "end": 38.106
+ },
+ {
+  "word": "build",
+  "start": 38.106,
+  "end": 38.246
+ },
+ {
+  "word": "your",
+  "start": 38.246,
+  "end": 38.406
+ },
+ {
+  "word": "own",
+  "start": 38.406,
+  "end": 38.566
+ },
+ {
+  "word": "emergency",
+  "start": 38.566,
+  "end": 38.946
+ },
+ {
+  "word": "power",
+  "start": 38.946,
+  "end": 39.206
+ },
+ {
+  "word": "plant",
+  "start": 39.206,
+  "end": 39.466
+ },
+ {
+  "word": "and",
+  "start": 39.466,
+  "end": 39.686
+ },
+ {
+  "word": "private",
+  "start": 39.686,
+  "end": 39.986
+ },
+ {
+  "word": "water",
+  "start": 39.986,
+  "end": 40.146
+ },
+ {
+  "word": "supply",
+  "start": 40.146,
+  "end": 40.466
+ },
+ {
+  "word": "right",
+  "start": 40.466,
+  "end": 40.726
+ },
+ {
+  "word": "inside",
+  "start": 40.726,
+  "end": 40.946
+ },
+ {
+  "word": "the",
+  "start": 40.946,
+  "end": 41.126
+ },
+ {
+  "word": "bunker.",
+  "start": 41.126,
+  "end": 41.326
+ },
+ {
+  "word": "Still",
+  "start": 41.761,
+  "end": 41.906
+ },
+ {
+  "word": "not",
+  "start": 41.906,
+  "end": 42.046
+ },
+ {
+  "word": "paranoid",
+  "start": 42.046,
+  "end": 42.306
+ },
+ {
+  "word": "enough?",
+  "start": 42.306,
+  "end": 42.606
+ },
+ {
+  "word": "So",
+  "start": 43.037,
+  "end": 43.166
+ },
+ {
+  "word": "you",
+  "start": 43.166,
+  "end": 43.246
+ },
+ {
+  "word": "place",
+  "start": 43.246,
+  "end": 43.406
+ },
+ {
+  "word": "the",
+  "start": 43.406,
+  "end": 43.546
+ },
+ {
+  "word": "entire",
+  "start": 43.546,
+  "end": 43.866
+ },
+ {
+  "word": "vault",
+  "start": 43.866,
+  "end": 44.086
+ },
+ {
+  "word": "right",
+  "start": 44.086,
+  "end": 44.306
+ },
+ {
+  "word": "next",
+  "start": 44.306,
+  "end": 44.486
+ },
+ {
+  "word": "door",
+  "start": 44.486,
+  "end": 44.726
+ },
+ {
+  "word": "to",
+  "start": 44.726,
+  "end": 44.886
+ },
+ {
+  "word": "an",
+  "start": 44.886,
+  "end": 44.966
+ },
+ {
+  "word": "active",
+  "start": 44.966,
+  "end": 45.226
+ },
+ {
+  "word": "army",
+  "start": 45.226,
+  "end": 45.486
+ },
+ {
+  "word": "base,",
+  "start": 45.486,
+  "end": 45.826
+ },
+ {
+  "word": "surrounded",
+  "start": 45.826,
+  "end": 46.166
+ },
+ {
+  "word": "by",
+  "start": 46.166,
+  "end": 46.446
+ },
+ {
+  "word": "motion",
+  "start": 46.446,
+  "end": 46.686
+ },
+ {
+  "word": "sensors,",
+  "start": 46.686,
+  "end": 46.986
+ },
+ {
+  "word": "radar,",
+  "start": 47.306,
+  "end": 47.526
+ },
+ {
+  "word": "and",
+  "start": 47.866,
+  "end": 48.046
+ },
+ {
+  "word": "federal",
+  "start": 48.046,
+  "end": 48.266
+ },
+ {
+  "word": "police.",
+  "start": 48.266,
+  "end": 48.706
+ },
+ {
+  "word": "To",
+  "start": 49.186,
+  "end": 49.266
+ },
+ {
+  "word": "really",
+  "start": 49.266,
+  "end": 49.446
+ },
+ {
+  "word": "flex,",
+  "start": 49.446,
+  "end": 49.666
+ },
+ {
+  "word": "you",
+  "start": 49.906,
+  "end": 49.986
+ },
+ {
+  "word": "stack",
+  "start": 49.986,
+  "end": 50.166
+ },
+ {
+  "word": "4,500",
+  "start": 50.166,
+  "end": 50.686
+ },
+ {
+  "word": "tons",
+  "start": 50.686,
+  "end": 51.006
+ },
+ {
+  "word": "of",
+  "start": 51.006,
+  "end": 51.226
+ },
+ {
+  "word": "solid",
+  "start": 51.226,
+  "end": 51.446
+ },
+ {
+  "word": "gold",
+  "start": 51.446,
+  "end": 51.626
+ },
+ {
+  "word": "bars",
+  "start": 51.626,
+  "end": 51.906
+ },
+ {
+  "word": "right",
+  "start": 51.906,
+  "end": 52.166
+ },
+ {
+  "word": "next",
+  "start": 52.166,
+  "end": 52.386
+ },
+ {
+  "word": "to",
+  "start": 52.386,
+  "end": 52.486
+ },
+ {
+  "word": "your",
+  "start": 52.486,
+  "end": 52.566
+ },
+ {
+  "word": "pocket",
+  "start": 52.566,
+  "end": 52.806
+ },
+ {
+  "word": "puh,",
+  "start": 52.806,
+  "end": 53.139
+ },
+ {
+  "word": "worth",
+  "start": 53.387,
+  "end": 53.506
+ },
+ {
+  "word": "hundreds",
+  "start": 53.506,
+  "end": 53.786
+ },
+ {
+  "word": "of",
+  "start": 53.786,
+  "end": 53.986
+ },
+ {
+  "word": "billions",
+  "start": 53.986,
+  "end": 54.246
+ },
+ {
+  "word": "of",
+  "start": 54.246,
+  "end": 54.446
+ },
+ {
+  "word": "dollars.",
+  "start": 54.446,
+  "end": 54.706
+ },
+ {
+  "word": "Just",
+  "start": 55.181,
+  "end": 55.306
+ },
+ {
+  "word": "one",
+  "start": 55.306,
+  "end": 55.626
+ },
+ {
+  "word": "tiny",
+  "start": 55.626,
+  "end": 55.926
+ },
+ {
+  "word": "flaw.",
+  "start": 55.926,
+  "end": 56.206
+ },
+ {
+  "word": "You",
+  "start": 56.67,
+  "end": 56.746
+ },
+ {
+  "word": "forgot",
+  "start": 56.746,
+  "end": 56.926
+ },
+ {
+  "word": "who",
+  "start": 56.926,
+  "end": 57.166
+ },
+ {
+  "word": "has",
+  "start": 57.166,
+  "end": 57.306
+ },
+ {
+  "word": "code",
+  "start": 57.306,
+  "end": 57.466
+ },
+ {
+  "word": "number",
+  "start": 57.466,
+  "end": 57.666
+ },
+ {
+  "word": "10,",
+  "start": 57.666,
+  "end": 57.966
+ },
+ {
+  "word": "so",
+  "start": 58.066,
+  "end": 58.226
+ },
+ {
+  "word": "now",
+  "start": 58.226,
+  "end": 58.366
+ },
+ {
+  "word": "even",
+  "start": 58.366,
+  "end": 58.586
+ },
+ {
+  "word": "you",
+  "start": 58.586,
+  "end": 58.786
+ },
+ {
+  "word": "can't",
+  "start": 58.786,
+  "end": 59.046
+ },
+ {
+  "word": "open",
+  "start": 59.046,
+  "end": 59.206
+ },
+ {
+  "word": "the",
+  "start": 59.206,
+  "end": 59.306
+ },
+ {
+  "word": "door.",
+  "start": 59.306,
+  "end": 59.506
+ },
+ {
+  "word": "Congratulations.",
+  "start": 59.937,
+  "end": 60.286
+ },
+ {
+  "word": "You've",
+  "start": 60.746,
+  "end": 60.886
+ },
+ {
+  "word": "locked",
+  "start": 60.886,
+  "end": 61.066
+ },
+ {
+  "word": "yourself",
+  "start": 61.066,
+  "end": 61.306
+ },
+ {
+  "word": "out",
+  "start": 61.306,
+  "end": 61.506
+ },
+ {
+  "word": "of",
+  "start": 61.506,
+  "end": 61.586
+ },
+ {
+  "word": "the",
+  "start": 61.586,
+  "end": 61.646
+ },
+ {
+  "word": "world's",
+  "start": 61.646,
+  "end": 61.906
+ },
+ {
+  "word": "ultimate",
+  "start": 61.906,
+  "end": 62.146
+ },
+ {
+  "word": "fortress,",
+  "start": 62.146,
+  "end": 62.546
+ },
+ {
+  "word": "just",
+  "start": 62.546,
+  "end": 62.826
+ },
+ {
+  "word": "to",
+  "start": 62.826,
+  "end": 62.946
+ },
+ {
+  "word": "hide",
+  "start": 62.946,
+  "end": 63.066
+ },
+ {
+  "word": "your",
+  "start": 63.066,
+  "end": 63.186
+ },
+ {
+  "word": "pocket",
+  "start": 63.186,
+  "end": 63.386
+ },
+ {
+  "word": "puh.",
+  "start": 63.386,
+  "end": 63.666
+ },
+ {
+  "word": "You",
+  "start": 64.226,
+  "end": 64.306
+ },
+ {
+  "word": "call",
+  "start": 64.306,
+  "end": 64.506
+ },
+ {
+  "word": "it,",
+  "start": 64.506,
+  "end": 64.646
+ },
+ {
+  "word": "Fort",
+  "start": 64.646,
+  "end": 64.826
+ },
+ {
+  "word": "Knox.",
+  "start": 64.826,
+  "end": 65.086
+ },
+ {
+  "word": "Follow,",
+  "start": 65.567,
+  "end": 65.766
+ },
+ {
+  "word": "and",
+  "start": 66.046,
+  "end": 66.106
+ },
+ {
+  "word": "next",
+  "start": 66.106,
+  "end": 66.306
+ },
+ {
+  "word": "time,",
+  "start": 66.306,
+  "end": 66.566
+ },
+ {
+  "word": "I'll",
+  "start": 66.566,
+  "end": 66.866
+ },
+ {
+  "word": "save",
+  "start": 66.866,
+  "end": 66.966
+ },
+ {
+  "word": "your",
+  "start": 66.966,
+  "end": 67.086
+ },
+ {
+  "word": "pocket",
+  "start": 67.086,
+  "end": 67.306
+ },
+ {
+  "word": "puh.",
+  "start": 67.306,
+  "end": 67.57
+ },
+ {
+  "word": "Because...",
+  "start": 67.99,
+  "end": 68.39
+ }
+]

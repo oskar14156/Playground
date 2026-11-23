@@ -26,6 +26,9 @@ import { BillLab, BILL_LAB_DURATION } from "./videos/_lab/BillLab";
 import { CasinoLab, CASINO_LAB_DURATION } from "./videos/_lab/CasinoLab";
 import { UnsinkableLab, UNSINKABLE_LAB_DURATION } from "./videos/_lab/UnsinkableLab";
 import { SkyscraperLab, SKYSCRAPER_LAB_DURATION } from "./videos/_lab/SkyscraperLab";
+import { VaultLab, VAULT_LAB_DURATION } from "./videos/_lab/VaultLab";
+import { CarrierLab, CARRIER_LAB_DURATION } from "./videos/_lab/CarrierLab";
+import { DamLab, DAM_LAB_DURATION } from "./videos/_lab/DamLab";
 import { PocketLab, POCKET_LAB_DURATION } from "./videos/_lab/PocketLab";
 import { FursuitLab, FURSUIT_LAB_DURATION } from "./videos/_lab/FursuitLab";
 import { RocketLab, ROCKET_LAB_DURATION } from "./videos/_lab/RocketLab";
@@ -47,6 +50,9 @@ import { DollarBillReel, DURATION as DB_DURATION } from "./videos/dollar-bill/Do
 import { CasinoReel, DURATION as CASINO_DURATION } from "./videos/casino/CasinoReel";
 import { UnsinkableReel, DURATION as UNSINKABLE_DURATION } from "./videos/unsinkable/UnsinkableReel";
 import { SkyscraperReel, DURATION as SKYSCRAPER_DURATION } from "./videos/skyscraper/SkyscraperReel";
+import { VaultReel, DURATION as VAULT_DURATION } from "./videos/vault/VaultReel";
+import { CarrierReel, DURATION as CARRIER_DURATION } from "./videos/carrier/CarrierReel";
+import { DamReel, DURATION as DAM_DURATION } from "./videos/dam/DamReel";
 import { WhiteHouseReel, DURATION as WHR_DURATION } from "./videos/white-house/WhiteHouseReel";
 import { Submarine, DURATION as SU_DURATION } from "./videos/submarine/Submarine";
 
@@ -89,6 +95,9 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="casino" component={CasinoReel} durationInFrames={CASINO_DURATION} {...VIDEO} />
     <Composition id="unsinkable" component={UnsinkableReel} durationInFrames={UNSINKABLE_DURATION} {...VIDEO} />
     <Composition id="skyscraper" component={SkyscraperReel} durationInFrames={SKYSCRAPER_DURATION} {...VIDEO} />
+    <Composition id="vault" component={VaultReel} durationInFrames={VAULT_DURATION} {...VIDEO} />
+    <Composition id="carrier" component={CarrierReel} durationInFrames={CARRIER_DURATION} {...VIDEO} />
+    <Composition id="dam" component={DamReel} durationInFrames={DAM_DURATION} {...VIDEO} />
     <Composition id="claw-machine" component={ClawMachineReel} durationInFrames={CLAW_DURATION} {...VIDEO} />
     <Composition id="prison-break" component={PrisonBreakReel} durationInFrames={PB_DURATION} {...VIDEO} />
     <Composition id="claw-lab" component={ClawLab} durationInFrames={CLAW_LAB_DURATION} {...VIDEO} />
@@ -101,5 +110,8 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="casino-lab" component={CasinoLab} durationInFrames={CASINO_LAB_DURATION} {...VIDEO} />
     <Composition id="unsinkable-lab" component={UnsinkableLab} durationInFrames={UNSINKABLE_LAB_DURATION} {...VIDEO} />
     <Composition id="skyscraper-lab" component={SkyscraperLab} durationInFrames={SKYSCRAPER_LAB_DURATION} {...VIDEO} />
+    <Composition id="vault-lab" component={VaultLab} durationInFrames={VAULT_LAB_DURATION} {...VIDEO} />
+    <Composition id="carrier-lab" component={CarrierLab} durationInFrames={CARRIER_LAB_DURATION} {...VIDEO} />
+    <Composition id="dam-lab" component={DamLab} durationInFrames={DAM_LAB_DURATION} {...VIDEO} />
   </>
 );

@@ -1,0 +1,1227 @@
+[
+ {
+  "word": "Every",
+  "start": 0.0,
+  "end": 0.24
+ },
+ {
+  "word": "airport",
+  "start": 0.24,
+  "end": 0.64
+ },
+ {
+  "word": "on",
+  "start": 0.64,
+  "end": 0.86
+ },
+ {
+  "word": "Earth",
+  "start": 0.86,
+  "end": 1.1
+ },
+ {
+  "word": "banned",
+  "start": 1.1,
+  "end": 1.46
+ },
+ {
+  "word": "you",
+  "start": 1.46,
+  "end": 1.74
+ },
+ {
+  "word": "and",
+  "start": 1.74,
+  "end": 1.94
+ },
+ {
+  "word": "your",
+  "start": 1.94,
+  "end": 2.06
+ },
+ {
+  "word": "giant",
+  "start": 2.06,
+  "end": 2.32
+ },
+ {
+  "word": "pocket",
+  "start": 2.32,
+  "end": 2.66
+ },
+ {
+  "word": "puh",
+  "start": 2.66,
+  "end": 3.04
+ },
+ {
+  "word": "after",
+  "start": 3.04,
+  "end": 3.28
+ },
+ {
+  "word": "the",
+  "start": 3.28,
+  "end": 3.44
+ },
+ {
+  "word": "skyscraper",
+  "start": 3.44,
+  "end": 3.88
+ },
+ {
+  "word": "incident.",
+  "start": 3.88,
+  "end": 4.26
+ },
+ {
+  "word": "So",
+  "start": 4.56,
+  "end": 4.66
+ },
+ {
+  "word": "you",
+  "start": 4.66,
+  "end": 4.8
+ },
+ {
+  "word": "build",
+  "start": 4.8,
+  "end": 5.02
+ },
+ {
+  "word": "a",
+  "start": 5.02,
+  "end": 5.16
+ },
+ {
+  "word": "floating",
+  "start": 5.16,
+  "end": 5.38
+ },
+ {
+  "word": "steel",
+  "start": 5.38,
+  "end": 5.66
+ },
+ {
+  "word": "airport",
+  "start": 5.66,
+  "end": 6.08
+ },
+ {
+  "word": "in",
+  "start": 6.08,
+  "end": 6.28
+ },
+ {
+  "word": "the",
+  "start": 6.28,
+  "end": 6.38
+ },
+ {
+  "word": "middle",
+  "start": 6.38,
+  "end": 6.54
+ },
+ {
+  "word": "of",
+  "start": 6.54,
+  "end": 6.66
+ },
+ {
+  "word": "the",
+  "start": 6.66,
+  "end": 6.74
+ },
+ {
+  "word": "ocean.",
+  "start": 6.74,
+  "end": 6.98
+ },
+ {
+  "word": "You",
+  "start": 7.4,
+  "end": 7.519
+ },
+ {
+  "word": "weld",
+  "start": 7.519,
+  "end": 7.739
+ },
+ {
+  "word": "100,000",
+  "start": 7.739,
+  "end": 8.559
+ },
+ {
+  "word": "tons",
+  "start": 8.559,
+  "end": 8.679
+ },
+ {
+  "word": "of",
+  "start": 8.679,
+  "end": 8.839
+ },
+ {
+  "word": "steel",
+  "start": 8.839,
+  "end": 9.059
+ },
+ {
+  "word": "into",
+  "start": 9.059,
+  "end": 9.319
+ },
+ {
+  "word": "a",
+  "start": 9.319,
+  "end": 9.459
+ },
+ {
+  "word": "ship",
+  "start": 9.459,
+  "end": 9.659
+ },
+ {
+  "word": "333",
+  "start": 9.859,
+  "end": 10.299
+ },
+ {
+  "word": "meters",
+  "start": 10.299,
+  "end": 10.659
+ },
+ {
+  "word": "long,",
+  "start": 10.659,
+  "end": 11.039
+ },
+ {
+  "word": "packing",
+  "start": 11.219,
+  "end": 11.439
+ },
+ {
+  "word": "75",
+  "start": 11.439,
+  "end": 11.879
+ },
+ {
+  "word": "fighter",
+  "start": 11.879,
+  "end": 12.239
+ },
+ {
+  "word": "jets",
+  "start": 12.239,
+  "end": 12.479
+ },
+ {
+  "word": "and",
+  "start": 12.479,
+  "end": 12.759
+ },
+ {
+  "word": "4,500",
+  "start": 12.759,
+  "end": 13.499
+ },
+ {
+  "word": "crew.",
+  "start": 13.499,
+  "end": 13.938
+ },
+ {
+  "word": "Big",
+  "start": 14.293,
+  "end": 14.399
+ },
+ {
+  "word": "problem.",
+  "start": 14.399,
+  "end": 14.739
+ },
+ {
+  "word": "Normal",
+  "start": 15.274,
+  "end": 15.439
+ },
+ {
+  "word": "jets",
+  "start": 15.439,
+  "end": 15.699
+ },
+ {
+  "word": "need",
+  "start": 15.699,
+  "end": 15.879
+ },
+ {
+  "word": "two",
+  "start": 15.879,
+  "end": 16.079
+ },
+ {
+  "word": "kilometers",
+  "start": 16.079,
+  "end": 16.339
+ },
+ {
+  "word": "of",
+  "start": 16.339,
+  "end": 16.619
+ },
+ {
+  "word": "runway",
+  "start": 16.619,
+  "end": 16.779
+ },
+ {
+  "word": "to",
+  "start": 16.779,
+  "end": 16.959
+ },
+ {
+  "word": "take",
+  "start": 16.959,
+  "end": 17.119
+ },
+ {
+  "word": "off,",
+  "start": 17.119,
+  "end": 17.339
+ },
+ {
+  "word": "and",
+  "start": 17.499,
+  "end": 17.579
+ },
+ {
+  "word": "your",
+  "start": 17.579,
+  "end": 17.699
+ },
+ {
+  "word": "whole",
+  "start": 17.699,
+  "end": 17.839
+ },
+ {
+  "word": "ship",
+  "start": 17.839,
+  "end": 18.059
+ },
+ {
+  "word": "is",
+  "start": 18.059,
+  "end": 18.219
+ },
+ {
+  "word": "barely",
+  "start": 18.219,
+  "end": 18.459
+ },
+ {
+  "word": "a",
+  "start": 18.459,
+  "end": 18.659
+ },
+ {
+  "word": "third",
+  "start": 18.659,
+  "end": 18.739
+ },
+ {
+  "word": "of",
+  "start": 18.739,
+  "end": 18.839
+ },
+ {
+  "word": "a",
+  "start": 18.839,
+  "end": 18.919
+ },
+ {
+  "word": "kilometer.",
+  "start": 18.919,
+  "end": 19.239
+ },
+ {
+  "word": "So",
+  "start": 19.519,
+  "end": 19.639
+ },
+ {
+  "word": "you",
+  "start": 19.639,
+  "end": 19.779
+ },
+ {
+  "word": "bury",
+  "start": 19.779,
+  "end": 19.919
+ },
+ {
+  "word": "giant",
+  "start": 19.919,
+  "end": 20.259
+ },
+ {
+  "word": "electromagnetic",
+  "start": 20.259,
+  "end": 20.639
+ },
+ {
+  "word": "catapults",
+  "start": 20.639,
+  "end": 21.299
+ },
+ {
+  "word": "right",
+  "start": 21.299,
+  "end": 21.539
+ },
+ {
+  "word": "under",
+  "start": 21.539,
+  "end": 21.779
+ },
+ {
+  "word": "the",
+  "start": 21.779,
+  "end": 21.879
+ },
+ {
+  "word": "deck.",
+  "start": 21.879,
+  "end": 22.119
+ },
+ {
+  "word": "They",
+  "start": 22.239,
+  "end": 22.339
+ },
+ {
+  "word": "blast",
+  "start": 22.339,
+  "end": 22.559
+ },
+ {
+  "word": "a",
+  "start": 22.559,
+  "end": 22.759
+ },
+ {
+  "word": "loaded",
+  "start": 22.759,
+  "end": 22.899
+ },
+ {
+  "word": "fighter",
+  "start": 22.899,
+  "end": 23.119
+ },
+ {
+  "word": "jet",
+  "start": 23.119,
+  "end": 23.399
+ },
+ {
+  "word": "from",
+  "start": 23.399,
+  "end": 23.559
+ },
+ {
+  "word": "zero",
+  "start": 23.559,
+  "end": 23.779
+ },
+ {
+  "word": "to",
+  "start": 23.779,
+  "end": 23.939
+ },
+ {
+  "word": "240",
+  "start": 23.939,
+  "end": 24.359
+ },
+ {
+  "word": "kilometers",
+  "start": 24.359,
+  "end": 24.779
+ },
+ {
+  "word": "per",
+  "start": 24.779,
+  "end": 25.119
+ },
+ {
+  "word": "hour",
+  "start": 25.119,
+  "end": 25.339
+ },
+ {
+  "word": "in",
+  "start": 25.339,
+  "end": 25.539
+ },
+ {
+  "word": "just",
+  "start": 25.539,
+  "end": 25.679
+ },
+ {
+  "word": "two",
+  "start": 25.679,
+  "end": 25.879
+ },
+ {
+  "word": "seconds.",
+  "start": 25.879,
+  "end": 26.139
+ },
+ {
+  "word": "Awesome.",
+  "start": 26.625,
+  "end": 26.819
+ },
+ {
+  "word": "Now",
+  "start": 27.368,
+  "end": 27.479
+ },
+ {
+  "word": "how",
+  "start": 27.479,
+  "end": 27.579
+ },
+ {
+  "word": "do",
+  "start": 27.579,
+  "end": 27.679
+ },
+ {
+  "word": "they",
+  "start": 27.679,
+  "end": 27.779
+ },
+ {
+  "word": "land",
+  "start": 27.779,
+  "end": 28.039
+ },
+ {
+  "word": "without",
+  "start": 28.039,
+  "end": 28.199
+ },
+ {
+  "word": "flying",
+  "start": 28.199,
+  "end": 28.439
+ },
+ {
+  "word": "straight",
+  "start": 28.439,
+  "end": 28.659
+ },
+ {
+  "word": "into",
+  "start": 28.659,
+  "end": 28.839
+ },
+ {
+  "word": "the",
+  "start": 28.839,
+  "end": 28.959
+ },
+ {
+  "word": "ocean?",
+  "start": 28.959,
+  "end": 29.199
+ },
+ {
+  "word": "Brakes",
+  "start": 29.725,
+  "end": 29.905
+ },
+ {
+  "word": "aren't",
+  "start": 29.939,
+  "end": 30.139
+ },
+ {
+  "word": "nearly",
+  "start": 30.139,
+  "end": 30.319
+ },
+ {
+  "word": "fast",
+  "start": 30.319,
+  "end": 30.579
+ },
+ {
+  "word": "enough.",
+  "start": 30.579,
+  "end": 30.819
+ },
+ {
+  "word": "So",
+  "start": 31.189,
+  "end": 31.299
+ },
+ {
+  "word": "you",
+  "start": 31.299,
+  "end": 31.399
+ },
+ {
+  "word": "stretch",
+  "start": 31.399,
+  "end": 31.619
+ },
+ {
+  "word": "three",
+  "start": 31.619,
+  "end": 31.899
+ },
+ {
+  "word": "thick",
+  "start": 31.899,
+  "end": 32.159
+ },
+ {
+  "word": "steel",
+  "start": 32.159,
+  "end": 32.399
+ },
+ {
+  "word": "cables",
+  "start": 32.399,
+  "end": 32.739
+ },
+ {
+  "word": "across",
+  "start": 32.739,
+  "end": 32.959
+ },
+ {
+  "word": "the",
+  "start": 32.959,
+  "end": 33.179
+ },
+ {
+  "word": "deck,",
+  "start": 33.179,
+  "end": 33.399
+ },
+ {
+  "word": "connected",
+  "start": 33.639,
+  "end": 33.859
+ },
+ {
+  "word": "to",
+  "start": 33.859,
+  "end": 34.039
+ },
+ {
+  "word": "massive",
+  "start": 34.039,
+  "end": 34.299
+ },
+ {
+  "word": "water",
+  "start": 34.299,
+  "end": 34.559
+ },
+ {
+  "word": "turbines",
+  "start": 34.559,
+  "end": 34.919
+ },
+ {
+  "word": "below.",
+  "start": 34.919,
+  "end": 35.239
+ },
+ {
+  "word": "When",
+  "start": 35.717,
+  "end": 35.779
+ },
+ {
+  "word": "the",
+  "start": 35.779,
+  "end": 35.879
+ },
+ {
+  "word": "jet",
+  "start": 35.879,
+  "end": 36.039
+ },
+ {
+  "word": "slams",
+  "start": 36.039,
+  "end": 36.319
+ },
+ {
+  "word": "down,",
+  "start": 36.319,
+  "end": 36.599
+ },
+ {
+  "word": "its",
+  "start": 36.739,
+  "end": 36.839
+ },
+ {
+  "word": "tailhook",
+  "start": 36.839,
+  "end": 37.219
+ },
+ {
+  "word": "catches",
+  "start": 37.219,
+  "end": 37.459
+ },
+ {
+  "word": "a",
+  "start": 37.459,
+  "end": 37.619
+ },
+ {
+  "word": "cable",
+  "start": 37.619,
+  "end": 37.839
+ },
+ {
+  "word": "and",
+  "start": 37.839,
+  "end": 38.039
+ },
+ {
+  "word": "yanks",
+  "start": 38.039,
+  "end": 38.219
+ },
+ {
+  "word": "it",
+  "start": 38.219,
+  "end": 38.339
+ },
+ {
+  "word": "to",
+  "start": 38.339,
+  "end": 38.439
+ },
+ {
+  "word": "a",
+  "start": 38.439,
+  "end": 38.539
+ },
+ {
+  "word": "dead",
+  "start": 38.539,
+  "end": 38.679
+ },
+ {
+  "word": "stop",
+  "start": 38.679,
+  "end": 38.919
+ },
+ {
+  "word": "in",
+  "start": 38.919,
+  "end": 39.119
+ },
+ {
+  "word": "90",
+  "start": 39.119,
+  "end": 39.379
+ },
+ {
+  "word": "meters.",
+  "start": 39.379,
+  "end": 39.719
+ },
+ {
+  "word": "Plot",
+  "start": 40.139,
+  "end": 40.338
+ },
+ {
+  "word": "twist.",
+  "start": 40.338,
+  "end": 40.518
+ },
+ {
+  "word": "Pilots",
+  "start": 41.03,
+  "end": 41.298
+ },
+ {
+  "word": "actually",
+  "start": 41.298,
+  "end": 41.618
+ },
+ {
+  "word": "hit",
+  "start": 41.618,
+  "end": 41.778
+ },
+ {
+  "word": "full",
+  "start": 41.778,
+  "end": 41.998
+ },
+ {
+  "word": "throttle",
+  "start": 41.998,
+  "end": 42.238
+ },
+ {
+  "word": "the",
+  "start": 42.238,
+  "end": 42.438
+ },
+ {
+  "word": "second",
+  "start": 42.438,
+  "end": 42.618
+ },
+ {
+  "word": "their",
+  "start": 42.618,
+  "end": 42.778
+ },
+ {
+  "word": "wheels",
+  "start": 42.778,
+  "end": 42.978
+ },
+ {
+  "word": "touch",
+  "start": 42.978,
+  "end": 43.178
+ },
+ {
+  "word": "down.",
+  "start": 43.178,
+  "end": 43.458
+ },
+ {
+  "word": "That",
+  "start": 43.778,
+  "end": 43.958
+ },
+ {
+  "word": "way,",
+  "start": 43.958,
+  "end": 44.138
+ },
+ {
+  "word": "if",
+  "start": 44.198,
+  "end": 44.298
+ },
+ {
+  "word": "they",
+  "start": 44.298,
+  "end": 44.378
+ },
+ {
+  "word": "miss",
+  "start": 44.378,
+  "end": 44.558
+ },
+ {
+  "word": "all",
+  "start": 44.558,
+  "end": 44.738
+ },
+ {
+  "word": "three",
+  "start": 44.738,
+  "end": 44.898
+ },
+ {
+  "word": "cables,",
+  "start": 44.898,
+  "end": 45.258
+ },
+ {
+  "word": "they",
+  "start": 45.538,
+  "end": 45.618
+ },
+ {
+  "word": "blast",
+  "start": 45.618,
+  "end": 45.818
+ },
+ {
+  "word": "straight",
+  "start": 45.818,
+  "end": 46.138
+ },
+ {
+  "word": "back",
+  "start": 46.138,
+  "end": 46.358
+ },
+ {
+  "word": "into",
+  "start": 46.358,
+  "end": 46.578
+ },
+ {
+  "word": "the",
+  "start": 46.578,
+  "end": 46.718
+ },
+ {
+  "word": "sky.",
+  "start": 46.718,
+  "end": 46.938
+ },
+ {
+  "word": "One",
+  "start": 47.41,
+  "end": 47.538
+ },
+ {
+  "word": "last",
+  "start": 47.538,
+  "end": 47.738
+ },
+ {
+  "word": "problem.",
+  "start": 47.738,
+  "end": 48.078
+ },
+ {
+  "word": "Pushing",
+  "start": 48.507,
+  "end": 48.698
+ },
+ {
+  "word": "a",
+  "start": 48.698,
+  "end": 48.818
+ },
+ {
+  "word": "floating",
+  "start": 48.818,
+  "end": 48.978
+ },
+ {
+  "word": "city",
+  "start": 48.978,
+  "end": 49.238
+ },
+ {
+  "word": "across",
+  "start": 49.238,
+  "end": 49.458
+ },
+ {
+  "word": "the",
+  "start": 49.458,
+  "end": 49.658
+ },
+ {
+  "word": "ocean",
+  "start": 49.658,
+  "end": 49.898
+ },
+ {
+  "word": "burns",
+  "start": 49.898,
+  "end": 50.218
+ },
+ {
+  "word": "insane",
+  "start": 50.218,
+  "end": 50.638
+ },
+ {
+  "word": "amounts",
+  "start": 50.638,
+  "end": 50.838
+ },
+ {
+  "word": "of",
+  "start": 50.838,
+  "end": 50.998
+ },
+ {
+  "word": "fuel.",
+  "start": 50.998,
+  "end": 51.218
+ },
+ {
+  "word": "So",
+  "start": 51.56,
+  "end": 51.698
+ },
+ {
+  "word": "you",
+  "start": 51.698,
+  "end": 51.798
+ },
+ {
+  "word": "drop",
+  "start": 51.798,
+  "end": 51.998
+ },
+ {
+  "word": "two",
+  "start": 51.998,
+  "end": 52.198
+ },
+ {
+  "word": "nuclear",
+  "start": 52.198,
+  "end": 52.478
+ },
+ {
+  "word": "reactors",
+  "start": 52.478,
+  "end": 52.938
+ },
+ {
+  "word": "into",
+  "start": 52.938,
+  "end": 53.198
+ },
+ {
+  "word": "the",
+  "start": 53.198,
+  "end": 53.318
+ },
+ {
+  "word": "hull.",
+  "start": 53.318,
+  "end": 53.518
+ },
+ {
+  "word": "Now",
+  "start": 53.798,
+  "end": 53.958
+ },
+ {
+  "word": "your",
+  "start": 53.958,
+  "end": 54.078
+ },
+ {
+  "word": "airport",
+  "start": 54.078,
+  "end": 54.358
+ },
+ {
+  "word": "sails",
+  "start": 54.358,
+  "end": 54.658
+ },
+ {
+  "word": "nonstop",
+  "start": 54.658,
+  "end": 55.098
+ },
+ {
+  "word": "for",
+  "start": 55.098,
+  "end": 55.258
+ },
+ {
+  "word": "25",
+  "start": 55.258,
+  "end": 55.518
+ },
+ {
+  "word": "years",
+  "start": 55.518,
+  "end": 55.838
+ },
+ {
+  "word": "without",
+  "start": 55.838,
+  "end": 56.078
+ },
+ {
+  "word": "refueling",
+  "start": 56.078,
+  "end": 56.578
+ },
+ {
+  "word": "once.",
+  "start": 56.578,
+  "end": 56.798
+ },
+ {
+  "word": "Congratulations.",
+  "start": 56.798,
+  "end": 57.038
+ },
+ {
+  "word": "You've",
+  "start": 57.458,
+  "end": 57.738
+ },
+ {
+  "word": "built",
+  "start": 57.738,
+  "end": 57.918
+ },
+ {
+  "word": "a",
+  "start": 57.918,
+  "end": 58.098
+ },
+ {
+  "word": "nuclear",
+  "start": 58.098,
+  "end": 58.318
+ },
+ {
+  "word": "powered",
+  "start": 58.318,
+  "end": 58.798
+ },
+ {
+  "word": "floating",
+  "start": 58.798,
+  "end": 59.098
+ },
+ {
+  "word": "city,",
+  "start": 59.098,
+  "end": 59.478
+ },
+ {
+  "word": "just",
+  "start": 59.478,
+  "end": 59.938
+ },
+ {
+  "word": "to",
+  "start": 59.938,
+  "end": 60.098
+ },
+ {
+  "word": "fly",
+  "start": 60.098,
+  "end": 60.238
+ },
+ {
+  "word": "your",
+  "start": 60.238,
+  "end": 60.398
+ },
+ {
+  "word": "pocket",
+  "start": 60.398,
+  "end": 60.678
+ },
+ {
+  "word": "puh",
+  "start": 60.678,
+  "end": 60.958
+ },
+ {
+  "word": "on",
+  "start": 60.958,
+  "end": 61.118
+ },
+ {
+  "word": "vacation.",
+  "start": 61.118,
+  "end": 61.298
+ },
+ {
+  "word": "You",
+  "start": 61.718,
+  "end": 61.858
+ },
+ {
+  "word": "call",
+  "start": 61.858,
+  "end": 62.058
+ },
+ {
+  "word": "it,",
+  "start": 62.058,
+  "end": 62.236
+ },
+ {
+  "word": "an",
+  "start": 62.455,
+  "end": 62.538
+ },
+ {
+  "word": "aircraft",
+  "start": 62.538,
+  "end": 62.798
+ },
+ {
+  "word": "carrier.",
+  "start": 62.798,
+  "end": 63.238
+ },
+ {
+  "word": "Follow,",
+  "start": 63.754,
+  "end": 63.958
+ },
+ {
+  "word": "and",
+  "start": 63.958,
+  "end": 64.238
+ },
+ {
+  "word": "next",
+  "start": 64.238,
+  "end": 64.438
+ },
+ {
+  "word": "time,",
+  "start": 64.438,
+  "end": 64.738
+ },
+ {
+  "word": "I'll",
+  "start": 64.738,
+  "end": 64.978
+ },
+ {
+  "word": "save",
+  "start": 64.978,
+  "end": 65.158
+ },
+ {
+  "word": "your",
+  "start": 65.158,
+  "end": 65.278
+ },
+ {
+  "word": "pocket",
+  "start": 65.278,
+  "end": 65.558
+ },
+ {
+  "word": "puh.",
+  "start": 65.558,
+  "end": 65.838
+ },
+ {
+  "word": "Because...",
+  "start": 66.036,
+  "end": 66.758
+ }
+]
