@@ -100,7 +100,13 @@ const Yard: React.FC<{ f: number; t: number; burst: number }> = ({ f, t, burst }
           })
         : null}
       <Puddle p={[-218, RIM + 0.05, YZ]} r={1.9 + 16 * spread} o={Math.min(1, 0.4 + spread)} t={t} />
-      {spread > 0.2 ? <Waterfall p={[edgeX + 0.5, RIM + 0.3, YZ]} w={18 * spread} h={RIM - 6} t={t} ry={Math.PI / 2} o={ramp(spread, 0.2, 0.5)} color="rgba(190,225,240,1)" lean={0.18} /> : null}
+      {spread > 0.15 ? (
+        <mesh position={[(-205 + edgeX) / 2, RIM + 1.7, YZ]} rotation={[-Math.PI / 2, 0, 0]}>
+          <planeGeometry args={[Math.abs(edgeX + 205) + 4, 16 * Math.min(1, spread * 1.5)]} />
+          <meshStandardMaterial color="#8fd0ea" roughness={0.05} metalness={0.2} transparent opacity={0.85} />
+        </mesh>
+      ) : null}
+      {spread > 0.2 ? <Waterfall p={[edgeX + 4, RIM + 0.5, YZ]} w={40 * spread} h={RIM - 4} t={t} ry={Math.PI / 2} o={ramp(spread, 0.2, 0.4)} color="rgba(220,240,250,1)" lean={0.46} /> : null}
     </group>
   );
 };
@@ -115,6 +121,8 @@ export const SetHook: React.FC<SetProps> = ({ f }) => {
       [0, [-213.8, RIM + 1.9, YZ + 6.4]],
       [c.accidentally, [-215.2, RIM + 1.7, YZ + 5.0]],
       [c.flooded + 6, [-212, RIM + 4.5, YZ + 10]],
+      [c.entire - 1, [-211, RIM + 5.5, YZ + 11]],
+      [c.entire, [edgeX - 40, RIM + 70, YZ + 80]],
       [c.entire + 14, [-120, RIM + 190, YZ + 260]],
       [c.soBuild, [40, 270, 400]],
       [c.first, [50, 300, 360]],
@@ -123,6 +131,8 @@ export const SetHook: React.FC<SetProps> = ({ f }) => {
       [0, [YX - 1, RIM + 0.7, YZ - 0.4]],
       [c.accidentally, [YX - 1.5, RIM + 0.6, YZ - 0.5]],
       [c.flooded + 6, [YX + 1, RIM + 0.4, YZ]],
+      [c.entire - 1, [YX + 2, RIM + 0.4, YZ]],
+      [c.entire, [edgeX + 40, RIM - 110, YZ - 10]],
       [c.entire + 14, [-40, 60, 520]],
       [c.soBuild, [0, 160, 40]],
       [c.first, [0, 170, 30]],
@@ -888,6 +898,7 @@ export const SetFinale: React.FC<SetProps> = ({ f }) => {
           [c.justTo, [CX + 7, H + 3.2, CZ + 6]],
           [c.callIt, [CX + 9, H + 4.5, CZ + 9]],
           [c.hooverDam + 8, [CX + 70, H + 40, CZ + 120]],
+          [c.follow - 1, [CX + 72, H + 42, CZ + 124]],
           [c.follow, [CX + 4.5, H + 2.2, CZ + 8.5]],
           [c.end, [CX + 4.2, H + 2.0, CZ + 7.5]],
         ]),
