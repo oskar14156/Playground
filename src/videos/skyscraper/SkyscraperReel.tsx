@@ -7,7 +7,16 @@ import { MusicBed, Sfx } from "../../lib/Sound";
 import { GlitchCut } from "../../lib/ViewMode";
 import { palettes } from "../../lib/theme";
 import { c, words } from "./cues";
-import { SetElevator, SetFoundation, SetHook, SetNightIce, SetPayoff, SetSway, SetWashers, SetWind } from "./sets";
+import {
+  SetElevator,
+  SetFoundation,
+  SetHook,
+  SetNightIce,
+  SetPayoff,
+  SetSway,
+  SetWashers,
+  SetWind,
+} from "./sets";
 
 export { DURATION } from "./cues";
 const P = palettes.night;
@@ -18,7 +27,7 @@ const SETS: { from: number; C: React.FC<{ f: number }> }[] = [
   { from: c.deg50, C: SetNightIce },
   { from: c.m828, C: SetWind },
   { from: c.tipSways, C: SetSway },
-  { from: c.elevators, C: SetElevator },
+  { from: c.stairs, C: SetElevator },
   { from: c.glass24k, C: SetWashers },
   { from: c.congrats, C: SetPayoff },
 ];
@@ -43,31 +52,37 @@ export const Sound: React.FC = () => (
     />
     {/* 1. Hook */}
     <Sfx at={c.hook + 2} name="whoosh_fast" volume={0.4} />
+    <Sfx at={c.titanic} name="pop" volume={0.35} />
+    <Sfx at={c.taller} name="rumble" volume={0.38} />
     <Sfx at={c.peek} name="chime" volume={0.42} />
     {/* 2. Foundation */}
-    <Sfx at={c.floors163} name="rumble" volume={0.42} />
+    <Sfx at={c.floors163} name="whoosh" volume={0.4} />
+    <Sfx at={c.oneProblem} name="stamp" volume={0.46} />
     <Sfx at={c.noBedrock} name="glitch" volume={0.46} />
     <Sfx at={c.piles192} name="impact" volume={0.46} />
-    <Sfx at={c.friction} name="stamp" volume={0.46} />
+    <Sfx at={c.hangs} name="whoosh_fast" volume={0.4} />
+    <Sfx at={c.friction} name="stamp" volume={0.48} />
     {/* 3. Night Ice Concrete */}
     <Sfx at={c.deg50} name="clang" volume={0.4} />
     <Sfx at={c.banDay} name="glitch" volume={0.46} />
     <Sfx at={c.crushedIce} name="splash" volume={0.44} />
-    <Sfx at={c.crushedIce + 4} name="stamp" volume={0.45} />
+    <Sfx at={c.crushedIce + 8} name="stamp" volume={0.45} />
     {/* 4. Wind Vortex Shedding */}
     <Sfx at={c.m828} name="rumble" volume={0.42} />
     <Sfx at={c.guitar} name="scratch" volume={0.42} />
+    <Sfx at={c.snaps} name="boom" volume={0.48} />
     <Sfx at={c.gaslight} name="glitch" volume={0.48} />
-    <Sfx at={c.giantY} name="whoosh" volume={0.44} />
-    <Sfx at={c.giantY + 4} name="stamp" volume={0.46} />
+    <Sfx at={c.giantY} name="stamp" volume={0.46} />
+    <Sfx at={c.everyFew} name="whoosh" volume={0.44} />
     {/* 5. Spire Sway */}
     <Sfx at={c.tipSways} name="creak" volume={0.4} />
-    <Sfx at={c.tipSways + 18} name="boom" volume={0.42} />
+    <Sfx at={c.tipSways + 18} name="ding" volume={0.4} />
     {/* 6. Elevators & Windows */}
     <Sfx at={c.elevators} name="whoosh_fast" volume={0.46} />
     <Sfx at={c.speed36} name="ding" volume={0.44} />
     <Sfx at={c.glass24k} name="typing" volume={0.36} />
     <Sfx at={c.topDirty} name="glitch" volume={0.44} />
+    <Sfx at={c.startOver} name="stamp" volume={0.44} />
     {/* 7. Payoff */}
     <Sfx at={c.congrats} name="swell" volume={0.48} />
     <Sfx at={c.burjKhalifa} name="boom" volume={0.52} />
@@ -104,6 +119,7 @@ export const SkyscraperReel: React.FC = () => (
         "night.",
         "828",
         "guitar",
+        "snaps.",
         "gaslight",
         "27",
         "2",
