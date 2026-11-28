@@ -67,12 +67,28 @@ tap_id() {
 import re, sys, xml.etree.ElementTree as ET
 target, xml_path = sys.argv[1], sys.argv[2]
 root = ET.parse(xml_path).getroot()
+DOCK_IDS = {
+    'onboarding_next_button',
+    'detail_export_button',
+    'export_start_button',
+    'paywall_purchase_button',
+}
 max_y = 0
+dock_top = None
 for node in root.iter('node'):
+    rid = node.attrib.get('resource-id', '')
     m = re.match(r'\[(\d+),(\d+)\]\[(\d+),(\d+)\]', node.attrib.get('bounds', ''))
-    if m:
-        max_y = max(max_y, int(m.group(4)))
-dock_cutoff = int(max_y * 0.82) if max_y > 0 else 1900
+    if not m:
+        continue
+    max_y = max(max_y, int(m.group(4)))
+    if any(rid == d or rid.endswith(':' + d) or rid.endswith('/' + d) for d in DOCK_IDS):
+        y1 = int(m.group(2))
+        dock_top = y1 if dock_top is None else min(dock_top, y1)
+
+nav_cutoff = (max_y - 80) if max_y > 0 else 2280
+is_dock_target = target in DOCK_IDS
+fold_cutoff = nav_cutoff if (is_dock_target or dock_top is None) else min(nav_cutoff, dock_top - 10)
+
 for node in root.iter('node'):
     rid = node.attrib.get('resource-id', '')
     if rid == target or rid.endswith(':' + target) or rid.endswith('/' + target) or target in rid:
@@ -80,7 +96,7 @@ for node in root.iter('node'):
         if m:
             x1, y1, x2, y2 = map(int, m.groups())
             cy = (y1 + y2) // 2
-            if cy > dock_cutoff:
+            if cy > fold_cutoff:
                 print('BELOW_FOLD')
                 sys.exit(2)
             print((x1 + x2) // 2, cy)
