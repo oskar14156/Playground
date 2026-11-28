@@ -1,0 +1,170 @@
+# Builds ActionMerge's Play bundle (unsigned) or a test APK from the private repository oskar14156/actionmerge.
+#
+# Source of truth: tools/ci/actionmerge-android-bundle.yml in oskar14156/actionmerge; mirrored to
+# oskar14156/Playground/.github/workflows/actionmerge-android-bundle.yml so heavy Gradle builds run off the Mac.
+# scripts/ci-bundle.sh dispatches it, decrypts the artifact, signs the .aab locally with the upload key,
+# and uploads JS source maps to Sentry EU from the Mac. No secrets are stored in this workflow.
+name: ActionMerge Android bundle
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Commit SHA or branch of oskar14156/actionmerge
+        required: true
+        default: main
+      public_key:
+        description: Base64-encoded PEM RSA public key used to encrypt the output artifact
+        required: true
+      variant:
+        description: bundle (unsigned Play .aab + JS sourcemaps) or test (debug-signed arm64 release-runtime APK)
+        required: false
+        default: bundle
+
+permissions:
+  contents: read
+
+concurrency:
+  group: actionmerge-android-bundle
+  cancel-in-progress: false
+
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Check out ActionMerge repository
+        uses: actions/checkout@v4
+        with:
+          repository: oskar14156/actionmerge
+          ref: ${{ inputs.ref }}
+          token: ${{ secrets.CI_BRIDGE_READ_TOKEN }}
+          path: app
+          persist-credentials: false
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Install Android SDK 36 & NDK 27
+        run: |
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "ndk;27.1.12297006" "platforms;android-36" "build-tools;36.0.0" > /dev/null
+
+      - name: Install JS dependencies & run static quality gate
+        working-directory: app
+        run: |
+          npm ci --no-audit --no-fund
+          npm run quality
+
+      - name: Generate Android native project
+        working-directory: app
+        env:
+          NODE_ENV: production
+          EXPO_PUBLIC_REVENUECAT_RELEASE_BUILD: 'true'
+          EXPO_PUBLIC_REVENUECAT_USE_TEST_STORE: 'false'
+        run: npx expo prebuild --platform android --no-install
+
+      - name: Run Kotlin unit tests
+        working-directory: app/android
+        run: ./gradlew :action-merge-engine:testDebugUnitTest --no-daemon
+
+      - name: Build Android artifact & verify 16-KB ELF alignment
+        working-directory: app/android
+        env:
+          NODE_ENV: production
+          SENTRY_DISABLE_AUTO_UPLOAD: 'true'
+          EXPO_PUBLIC_REVENUECAT_RELEASE_BUILD: 'true'
+          EXPO_PUBLIC_REVENUECAT_USE_TEST_STORE: 'false'
+          VARIANT: ${{ inputs.variant }}
+        run: |
+          set -euo pipefail
+          OUT="$GITHUB_WORKSPACE/output"
+          mkdir -p "$OUT"
+          if [ "$VARIANT" = test ]; then
+            ./gradlew assembleRelease \
+              -PreactNativeArchitectures=arm64-v8a \
+              -PACTIONMERGE_UPLOAD_STORE_FILE=debug.keystore \
+              -PACTIONMERGE_UPLOAD_STORE_PASSWORD=android \
+              -PACTIONMERGE_UPLOAD_KEY_ALIAS=androiddebugkey \
+              -PACTIONMERGE_UPLOAD_KEY_PASSWORD=android \
+              --no-daemon
+            ARTIFACT_FILE="app/build/outputs/apk/release/app-release.apk"
+            cp "$ARTIFACT_FILE" "$OUT/app-release.apk"
+          else
+            ./gradlew bundleRelease \
+              -PreactNativeArchitectures=armeabi-v7a,arm64-v8a \
+              -PACTIONMERGE_UNSIGNED=true \
+              --no-daemon
+            ARTIFACT_FILE="app/build/outputs/bundle/release/app-release.aab"
+            cp "$ARTIFACT_FILE" "$OUT/app-release.aab"
+
+            mkdir -p "$OUT/generated/assets/react/release"
+            mkdir -p "$OUT/generated/sourcemaps/react/release"
+            mkdir -p "$OUT/intermediates/sourcemaps/react/release"
+            cp app/build/generated/assets/react/release/index.android.bundle "$OUT/generated/assets/react/release/"
+            cp app/build/generated/sourcemaps/react/release/index.android.bundle.map "$OUT/generated/sourcemaps/react/release/"
+            cp app/build/intermediates/sourcemaps/react/release/index.android.bundle.packager.map "$OUT/intermediates/sourcemaps/react/release/"
+          fi
+
+          python3 - "$ARTIFACT_FILE" <<'PY'
+          import struct, sys, zipfile
+          path = sys.argv[1]
+          bad = []
+          checked = 0
+          with zipfile.ZipFile(path, 'r') as zf:
+              for info in zf.infolist():
+                  if not info.filename.endswith('.so') or 'arm64-v8a' not in info.filename:
+                      continue
+                  checked += 1
+                  data = zf.read(info.filename)
+                  if len(data) < 64 or data[:4] != b'\x7fELF' or data[4] != 2:
+                      bad.append(f'{info.filename}: not ELF64')
+                      continue
+                  e_phoff = struct.unpack_from('<Q', data, 32)[0]
+                  e_phentsize, e_phnum = struct.unpack_from('<HH', data, 54)
+                  for i in range(e_phnum):
+                      off = e_phoff + i * e_phentsize
+                      p_type, _p_flags, _p_off, _p_vaddr, _p_paddr, _p_filesz, _p_memsz, p_align = struct.unpack_from('<IIQQQQQQ', data, off)
+                      if p_type == 1 and p_align < 16384:
+                          bad.append(f'{info.filename}: PT_LOAD p_align={p_align} < 16384')
+                          break
+          if bad:
+              sys.stderr.write('16 KB ELF alignment check failed:\n  ' + '\n  '.join(bad) + '\n')
+              sys.exit(1)
+          print(f'16 KB ELF PT_LOAD alignment: ok ({checked} arm64 libraries verified)')
+          PY
+
+      - name: Encrypt artifact payload
+        env:
+          PUBLIC_KEY_B64: ${{ inputs.public_key }}
+        run: |
+          set -euo pipefail
+          printf '%s' "$PUBLIC_KEY_B64" | base64 -d > public.pem
+          tar -czf payload.tgz -C output .
+          openssl rand -out session.key 32
+          openssl enc -aes-256-cbc -pbkdf2 -salt -in payload.tgz -out payload.enc -pass file:session.key
+          openssl pkeyutl -encrypt -pubin -inkey public.pem -pkeyopt rsa_padding_mode:oaep -in session.key -out session.key.enc
+          rm -f session.key payload.tgz public.pem
+          ls -la payload.enc session.key.enc
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: actionmerge-bundle
+          path: |
+            payload.enc
+            session.key.enc
+          retention-days: 2
+
+      - name: Clean up private checkout and scratch files
+        if: always()
+        run: rm -rf app output public.pem session.key payload.tgz
