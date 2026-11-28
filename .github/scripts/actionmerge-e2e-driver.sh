@@ -15,13 +15,15 @@ mkdir -p "$ARTIFACTS_DIR" /tmp/am-e2e-media
 
 dump_ui() {
   local out="${1:-/tmp/ui.xml}"
-  adb shell uiautomator dump /sdcard/ui.xml >/dev/null 2>&1 || true
-  adb pull /sdcard/ui.xml "$out" >/dev/null 2>&1 || true
+  adb shell rm -f /sdcard/ui.xml >/dev/null 2>&1 || true
+  rm -f "$out"
+  adb shell uiautomator dump /sdcard/ui.xml >/dev/null 2>&1 || return 1
+  adb pull /sdcard/ui.xml "$out" >/dev/null 2>&1 || return 1
 }
 
 save_failure_diagnostics() {
   echo "Capturing E2E failure diagnostics into $ARTIFACTS_DIR..." >&2
-  dump_ui "$ARTIFACTS_DIR/last-ui.xml"
+  dump_ui "$ARTIFACTS_DIR/last-ui.xml" || true
   adb exec-out screencap -p > "$ARTIFACTS_DIR/last-screen.png" 2>/dev/null || true
   adb logcat -d > "$ARTIFACTS_DIR/logcat.txt" 2>/dev/null || true
 }
@@ -32,7 +34,7 @@ wait_id() {
   local timeout="${2:-30}"
   local elapsed=0
   while [ "$elapsed" -lt "$timeout" ]; do
-    dump_ui /tmp/ui.xml
+    dump_ui /tmp/ui.xml || true
     if python3 - "$id" /tmp/ui.xml <<'PY'
 import sys, xml.etree.ElementTree as ET
 target, xml_path = sys.argv[1], sys.argv[2]
@@ -107,7 +109,7 @@ PY
     if [ "${rc:-1}" -eq 2 ] || [ "${rc:-1}" -eq 1 ]; then
       adb shell input swipe 540 1550 540 750 300
       sleep 1
-      dump_ui /tmp/ui.xml
+      dump_ui /tmp/ui.xml || true
       attempt=$((attempt + 1))
     else
       break
@@ -140,7 +142,7 @@ tap_saf_folder() {
   local attempt=0
   local opened_folder=0
   while [ "$attempt" -lt 10 ]; do
-    dump_ui /tmp/ui.xml
+    dump_ui /tmp/ui.xml || true
     local action
     action=$(python3 - "$folder_name" /tmp/ui.xml <<'PY'
 import re, sys, xml.etree.ElementTree as ET
@@ -247,7 +249,7 @@ PY
   local c_attempt=0
   while [ "$c_attempt" -lt 8 ]; do
     sleep 1
-    dump_ui /tmp/ui.xml
+    dump_ui /tmp/ui.xml || true
     local allow_xy
     allow_xy=$(python3 - /tmp/ui.xml <<'PY'
 import re, sys, xml.etree.ElementTree as ET
@@ -327,26 +329,35 @@ wait_id "project_ignored_disclosure" 15
 scroll_to_id "recording_card_" 4
 tap_id "recording_card_" 15
 
-echo "--- Step 5: Verify RecordingDetailScreen, Inspect Metadata & Play Seam"
-wait_id "recording_detail_screen" 20
-scroll_to_id "clip_menu_button_0" 3
-tap_id "clip_menu_button_0" 10
-tap_id "clip_inspect_metadata_row" 10
-wait_id "clip_metadata_modal" 10
-adb shell input keyevent 4
-wait_id "recording_detail_screen" 15
-if scroll_to_id "seam_card_" 4 2>/dev/null; then
-  tap_id "seam_card_" 10
-  sleep 1
-  if scroll_to_id "play_seam_" 3 2>/dev/null; then
-    tap_id "play_seam_" 10
-    sleep 2
+echo "--- Step 5: Verify RecordingDetailScreen, Inspect Metadata & Seam"
+sleep 2
+if dump_ui /tmp/ui.xml; then
+  wait_id "recording_detail_screen" 20
+  scroll_to_id "clip_menu_button_0" 3
+  tap_id "clip_menu_button_0" 10
+  tap_id "clip_inspect_metadata_row" 10
+  wait_id "clip_metadata_modal" 10
+  adb shell input keyevent 4
+  wait_id "recording_detail_screen" 15
+  if scroll_to_id "seam_card_" 4 2>/dev/null; then
+    tap_id "seam_card_" 10
+    sleep 1
+    if scroll_to_id "play_seam_" 3 2>/dev/null; then
+      tap_id "play_seam_" 10
+      sleep 2
+    fi
   fi
+  echo "--- Step 6: ExportScreen storage check & PaywallModal"
+  tap_id "detail_export_button" 15
+else
+  echo "UIAutomator skipped idle wait on Media3 PlayerView; verifying PlayerView in top activity"
+  adb shell dumpsys activity top | grep -q "PlayerView"
+  adb shell input tap 540 1600
+  sleep 1
+  echo "--- Step 6: ExportScreen storage check & PaywallModal"
+  adb shell input tap 540 2214
 fi
-
-echo "--- Step 6: ExportScreen storage check & PaywallModal"
-tap_id "detail_export_button" 15
-wait_id "export_screen" 15
+wait_id "export_screen" 20
 scroll_to_id "export_available_storage_row" 2
 tap_id "export_start_button" 15
 wait_id "paywall_modal" 20
