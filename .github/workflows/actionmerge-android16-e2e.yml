@@ -66,16 +66,19 @@ jobs:
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
 
-      - name: Install dependencies, run quality checks & prebuild
+      - name: Install dependencies & run quality checks
+        working-directory: app
+        run: |
+          npm ci --include=dev --no-audit --no-fund
+          npm run quality
+
+      - name: Generate Android native project
         working-directory: app
         env:
           NODE_ENV: production
           EXPO_PUBLIC_REVENUECAT_RELEASE_BUILD: 'true'
           EXPO_PUBLIC_REVENUECAT_USE_TEST_STORE: 'false'
-        run: |
-          npm ci --no-audit --no-fund
-          npm run quality
-          npx expo prebuild --platform android --no-install
+        run: npx expo prebuild --platform android --no-install
 
       - name: Run Kotlin unit tests & build x86_64 release-runtime APK
         working-directory: app/android
