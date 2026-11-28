@@ -9,7 +9,7 @@ set -euo pipefail
 APK_PATH=${1:?usage: $0 <path-to-x86_64-apk>}
 PKG="com.oskarpolster.actionmerge"
 PUBLIC_MEDIA_DIR="/sdcard/Movies/ActionMergeTest"
-APP_MEDIA_DIR="/sdcard/Android/data/$PKG/files/ActionMergeTest"
+DOWNLOAD_MEDIA_DIR="/sdcard/Download/ActionMergeTest"
 ARTIFACTS_DIR="e2e-artifacts"
 mkdir -p "$ARTIFACTS_DIR" /tmp/am-e2e-media
 
@@ -135,6 +135,143 @@ scroll_to_id() {
   wait_id "$id" 10
 }
 
+tap_saf_folder() {
+  local folder_name="$1"
+  local attempt=0
+  local opened_folder=0
+  while [ "$attempt" -lt 10 ]; do
+    dump_ui /tmp/ui.xml
+    local action
+    action=$(python3 - "$folder_name" /tmp/ui.xml <<'PY'
+import re, sys, xml.etree.ElementTree as ET
+target, xml_path = sys.argv[1], sys.argv[2]
+try:
+    root = ET.parse(xml_path).getroot()
+except Exception:
+    print("WAIT")
+    sys.exit(0)
+
+def center(node):
+    m = re.match(r'\[(\d+),(\d+)\]\[(\d+),(\d+)\]', node.attrib.get('bounds', ''))
+    if not m:
+        return None
+    x1, y1, x2, y2 = map(int, m.groups())
+    return (x1 + x2) // 2, (y1 + y2) // 2
+
+in_docs = any('documentsui' in n.attrib.get('package', '') for n in root.iter('node'))
+if not in_docs:
+    print("WAIT")
+    sys.exit(0)
+
+# Already inside target folder? (Target folder name appears in toolbar header y1 < 450)
+in_target_header = False
+for x in root.iter('node'):
+    if (x.attrib.get('text', '') or '').strip() == target:
+        xm = re.match(r'\[(\d+),(\d+)\]\[(\d+),(\d+)\]', x.attrib.get('bounds', ''))
+        if xm and int(xm.group(2)) < 450:
+            in_target_header = True
+            break
+
+if in_target_header:
+    for n in root.iter('node'):
+        txt = (n.attrib.get('text', '') or '').strip()
+        rid = n.attrib.get('resource-id', '')
+        if txt.lower() == 'use this folder' or (rid == 'com.google.android.documentsui:id/container_save' and txt):
+            c = center(n)
+            if c:
+                print(f"TAP_USE {c[0]} {c[1]}")
+                sys.exit(0)
+
+# Folder item visible in list?
+for n in root.iter('node'):
+    txt = (n.attrib.get('text', '') or '').strip()
+    rid = n.attrib.get('resource-id', '')
+    if txt == target and rid != 'android:id/title':
+        c = center(n)
+        if c:
+            print(f"TAP_XY {c[0]} {c[1]}")
+            sys.exit(0)
+
+# Download / Downloads root or folder visible?
+for cand in ('Download', 'Downloads'):
+    for n in root.iter('node'):
+        txt = (n.attrib.get('text', '') or '').strip()
+        if txt == cand:
+            c = center(n)
+            if c:
+                print(f"TAP_XY {c[0]} {c[1]}")
+                sys.exit(0)
+
+# Open navigation drawer ("Show roots") if present
+for n in root.iter('node'):
+    desc = (n.attrib.get('content-desc', '') or '').lower()
+    if 'show roots' in desc or 'roots' in desc or 'navigate up' in desc:
+        c = center(n)
+        if c:
+            print(f"TAP_XY {c[0]} {c[1]}")
+            sys.exit(0)
+
+print("SCROLL")
+PY
+    )
+    case "$action" in
+      TAP_USE*)
+        set -- $action
+        adb shell input tap "$2" "$3"
+        opened_folder=1
+        break
+        ;;
+      TAP_XY*)
+        set -- $action
+        adb shell input tap "$2" "$3"
+        sleep 1
+        ;;
+      SCROLL)
+        adb shell input swipe 540 1550 540 750 300
+        sleep 1
+        ;;
+      WAIT)
+        sleep 1
+        ;;
+    esac
+    attempt=$((attempt + 1))
+  done
+
+  if [ "$opened_folder" -ne 1 ]; then
+    echo "Timed out selecting SAF folder $folder_name in DocumentsUI" >&2
+    return 1
+  fi
+
+  # Confirm "Allow ActionMerge to access files in ..." dialog
+  local c_attempt=0
+  while [ "$c_attempt" -lt 8 ]; do
+    sleep 1
+    dump_ui /tmp/ui.xml
+    local allow_xy
+    allow_xy=$(python3 - /tmp/ui.xml <<'PY'
+import re, sys, xml.etree.ElementTree as ET
+root = ET.parse(sys.argv[1]).getroot()
+for n in root.iter('node'):
+    txt = (n.attrib.get('text', '') or '').strip().lower()
+    rid = n.attrib.get('resource-id', '')
+    if txt == 'allow' or (rid == 'android:id/button1' and txt in ('allow', 'ok')):
+        m = re.match(r'\[(\d+),(\d+)\]\[(\d+),(\d+)\]', n.attrib.get('bounds', ''))
+        if m:
+            x1, y1, x2, y2 = map(int, m.groups())
+            print((x1 + x2) // 2, (y1 + y2) // 2)
+            sys.exit(0)
+sys.exit(1)
+PY
+    ) || true
+    if [ -n "$allow_xy" ]; then
+      adb shell input tap $allow_xy
+      return 0
+    fi
+    c_attempt=$((c_attempt + 1))
+  done
+  return 0
+}
+
 echo "--- Generating synthetic GoPro + Dashcam media fixtures via ffmpeg"
 ffmpeg -y -f lavfi -i testsrc=size=640x360:rate=30 -f lavfi -i sine=frequency=440:sample_rate=48000 \
   -t 2 -c:v libx264 -pix_fmt yuv420p -g 15 -c:a aac /tmp/am-e2e-media/GX010042.MP4 2>/tmp/ffmpeg.log || { cat /tmp/ffmpeg.log >&2; exit 1; }
@@ -150,10 +287,10 @@ ffmpeg -y -f lavfi -i smptebars=size=640x360:rate=30 -f lavfi -i sine=frequency=
 echo "--- Installing ActionMerge APK and pushing media fixtures"
 adb logcat -c
 adb install -r "$APK_PATH"
-adb shell "mkdir -p $PUBLIC_MEDIA_DIR $APP_MEDIA_DIR"
+adb shell "mkdir -p $PUBLIC_MEDIA_DIR $DOWNLOAD_MEDIA_DIR"
 for f in /tmp/am-e2e-media/*; do
   base=$(basename "$f")
-  adb push "$f" "$APP_MEDIA_DIR/$base" >/dev/null
+  adb push "$f" "$DOWNLOAD_MEDIA_DIR/$base" >/dev/null
   adb push "$f" "$PUBLIC_MEDIA_DIR/$base" >/dev/null
   adb shell am broadcast -a android.intent.action.MEDIA_SCANNER_SCAN_FILE -d "file://$PUBLIC_MEDIA_DIR/$base" >/dev/null
 done
@@ -178,16 +315,10 @@ tap_id "theme_option_dark" 10
 tap_id "settings_close_button" 10
 wait_id "home_screen" 15
 
-echo "--- Step 3: Trigger cold-start multi-clip import intent with GoPro MP4s + LRV"
-IMPORT_URI=$(python3 - "$APP_MEDIA_DIR" <<'PY'
-import sys, urllib.parse
-d = sys.argv[1]
-files = [f"file://{d}/GX010042.MP4", f"file://{d}/GX020042.MP4", f"file://{d}/GX010042.LRV"]
-print("actionmerge://import?" + "&".join("uri=" + urllib.parse.quote(u, safe="") for u in files))
-PY
-)
-adb shell am force-stop "$PKG"
-adb shell am start -W -a android.intent.action.VIEW -d "$IMPORT_URI" -p "$PKG" >/dev/null
+echo "--- Step 3: Trigger real Android 16 SAF Folder Picker (Download/ActionMergeTest)"
+scroll_to_id "import_folder_card" 2
+tap_id "import_folder_card" 15
+tap_saf_folder "ActionMergeTest"
 
 echo "--- Step 4: Verify native reconstruction reaches ProjectScreen & separates LRV"
 wait_id "project_screen" 60
