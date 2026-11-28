@@ -182,15 +182,16 @@ if in_target_header:
                 print(f"TAP_USE {c[0]} {c[1]}")
                 sys.exit(0)
 
-# Folder item visible in list?
+# Folder item visible in list? (y1 >= 450 excludes toolbar/breadcrumb titles)
 for n in root.iter('node'):
     txt = (n.attrib.get('text', '') or '').strip()
-    rid = n.attrib.get('resource-id', '')
-    if txt == target and rid != 'android:id/title':
-        c = center(n)
-        if c:
-            print(f"TAP_XY {c[0]} {c[1]}")
-            sys.exit(0)
+    if txt == target:
+        xm = re.match(r'\[(\d+),(\d+)\]\[(\d+),(\d+)\]', n.attrib.get('bounds', ''))
+        if xm and int(xm.group(2)) >= 450:
+            c = center(n)
+            if c:
+                print(f"TAP_XY {c[0]} {c[1]}")
+                sys.exit(0)
 
 # Download / Downloads root or folder visible?
 for cand in ('Download', 'Downloads'):
@@ -346,7 +347,7 @@ fi
 echo "--- Step 6: ExportScreen storage check & PaywallModal"
 tap_id "detail_export_button" 15
 wait_id "export_screen" 15
-wait_id "export_available_storage_row" 10
+scroll_to_id "export_available_storage_row" 2
 tap_id "export_start_button" 15
 wait_id "paywall_modal" 20
 tap_id "paywall_close_button" 15
