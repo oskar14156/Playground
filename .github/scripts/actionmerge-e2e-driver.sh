@@ -121,15 +121,15 @@ scroll_to_id() {
 
 echo "--- Generating synthetic GoPro + Dashcam media fixtures via ffmpeg"
 ffmpeg -y -f lavfi -i testsrc=size=640x360:rate=30 -f lavfi -i sine=frequency=440:sample_rate=48000 \
-  -t 2 -c:v libx264 -pix_fmt yuv420p -g 15 -c:a aac /tmp/am-e2e-media/GX010042.MP4 >/dev/null 2>&1
+  -t 2 -c:v libx264 -pix_fmt yuv420p -g 15 -c:a aac /tmp/am-e2e-media/GX010042.MP4 2>/tmp/ffmpeg.log || { cat /tmp/ffmpeg.log >&2; exit 1; }
 ffmpeg -y -f lavfi -i testsrc=size=640x360:rate=30 -f lavfi -i sine=frequency=440:sample_rate=48000 \
-  -ss 2 -t 2 -c:v libx264 -pix_fmt yuv420p -g 15 -c:a aac /tmp/am-e2e-media/GX020042.MP4 >/dev/null 2>&1
-ffmpeg -y -f lavfi -i testsrc=size=320x180:rate=30 -t 2 -c:v libx264 -pix_fmt yuv420p -an /tmp/am-e2e-media/GX010042.LRV >/dev/null 2>&1
+  -ss 2 -t 2 -c:v libx264 -pix_fmt yuv420p -g 15 -c:a aac /tmp/am-e2e-media/GX020042.MP4 2>/tmp/ffmpeg.log || { cat /tmp/ffmpeg.log >&2; exit 1; }
+ffmpeg -y -f lavfi -i testsrc=size=320x180:rate=30 -t 2 -c:v libx264 -pix_fmt yuv420p -an -f mp4 /tmp/am-e2e-media/GX010042.LRV 2>/tmp/ffmpeg.log || { cat /tmp/ffmpeg.log >&2; exit 1; }
 
 ffmpeg -y -f lavfi -i smptebars=size=640x360:rate=30 -f lavfi -i sine=frequency=660:sample_rate=48000 \
-  -t 3 -c:v libx264 -pix_fmt yuv420p -g 15 -c:a aac /tmp/am-e2e-media/DASH_0001_F.MP4 >/dev/null 2>&1
+  -t 3 -c:v libx264 -pix_fmt yuv420p -g 15 -c:a aac /tmp/am-e2e-media/DASH_0001_F.MP4 2>/tmp/ffmpeg.log || { cat /tmp/ffmpeg.log >&2; exit 1; }
 ffmpeg -y -f lavfi -i smptebars=size=640x360:rate=30 -f lavfi -i sine=frequency=660:sample_rate=48000 \
-  -ss 1 -t 3 -c:v libx264 -pix_fmt yuv420p -g 15 -c:a aac /tmp/am-e2e-media/DASH_0002_F.MP4 >/dev/null 2>&1
+  -ss 1 -t 3 -c:v libx264 -pix_fmt yuv420p -g 15 -c:a aac /tmp/am-e2e-media/DASH_0002_F.MP4 2>/tmp/ffmpeg.log || { cat /tmp/ffmpeg.log >&2; exit 1; }
 
 echo "--- Installing ActionMerge APK and pushing media fixtures"
 adb logcat -c
@@ -179,18 +179,22 @@ wait_id "project_ignored_disclosure" 15
 scroll_to_id "recording_card_" 4
 tap_id "recording_card_" 15
 
-echo "--- Step 5: Verify RecordingDetailScreen, Play Seam & Inspect Metadata"
+echo "--- Step 5: Verify RecordingDetailScreen, Inspect Metadata & Play Seam"
 wait_id "recording_detail_screen" 20
-if scroll_to_id "play_seam_" 3 2>/dev/null; then
-  tap_id "play_seam_" 10
-  sleep 2
-fi
 scroll_to_id "clip_menu_button_0" 3
 tap_id "clip_menu_button_0" 10
 tap_id "clip_inspect_metadata_row" 10
 wait_id "clip_metadata_modal" 10
 adb shell input keyevent 4
 wait_id "recording_detail_screen" 15
+if scroll_to_id "seam_card_" 4 2>/dev/null; then
+  tap_id "seam_card_" 10
+  sleep 1
+  if scroll_to_id "play_seam_" 3 2>/dev/null; then
+    tap_id "play_seam_" 10
+    sleep 2
+  fi
+fi
 
 echo "--- Step 6: ExportScreen storage check & PaywallModal"
 tap_id "detail_export_button" 15
